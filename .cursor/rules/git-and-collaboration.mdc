@@ -1,0 +1,13 @@
+---
+description: Git branching, commits, PRs, and collaboration on this repo
+alwaysApply: true
+---
+
+# Git and collaboration
+
+- Default branch: `main` (production-ready).
+- Branch names: `feature/`, `fix/`, `chore/`, `docs/` + short kebab-case slug.
+- Commits: Conventional Commits (`feat:`, `fix:`, `docs:`, `chore:`, `refactor:`, `test:`); one logical change per commit.
+- Never force-push `main`, skip hooks without approval, or commit `.env` / secrets.
+- PRs: small diffs, summary, test plan; use `gh` when the user asks for GitHub actions.
+- Sync from `main` before new feature work; run lint/test/build when they exist before suggesting merge.

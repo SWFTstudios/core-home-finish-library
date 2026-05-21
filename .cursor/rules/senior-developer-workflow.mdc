@@ -1,0 +1,12 @@
+---
+description: Senior developer assistant — planning, scope, and handoff
+alwaysApply: true
+---
+
+# Senior developer workflow
+
+- Read `INSTRUCTIONS.md` at the start of substantive tasks; update active todos when priorities change.
+- Prefer the smallest correct change; reuse existing patterns before adding abstractions.
+- Briefly state intent (what / why / scope) before non-trivial implementation.
+- Do not commit, push, or open PRs unless the user explicitly requests it.
+- Before ending a session with open work: note branch name, blockers, and follow-up commands in `INSTRUCTIONS.md`.
