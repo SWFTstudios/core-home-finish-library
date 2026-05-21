@@ -22,6 +22,7 @@ let camera = null;
 let controls = null;
 let cube = null;
 let floor = null;
+let platform = null;
 let grid = null;
 let keyLight = null;
 let hemiLight = null;
@@ -96,7 +97,7 @@ function buildMaterialParams(materialSlug, finish) {
 
 /** Match `--lumina-background` in lumina-finish.css */
 function themeBackground(theme) {
-  return theme === "dark" ? 0x051424 : 0xe8edf2;
+  return theme === "dark" ? 0x051424 : 0xf9f9ff;
 }
 
 function applySceneTheme(theme) {
@@ -121,7 +122,11 @@ function applySceneTheme(theme) {
   }
 
   if (floor?.material) {
-    floor.material.color.setHex(isDark ? 0x081c2e : 0xd8e2eb);
+    floor.material.color.setHex(isDark ? 0x081c2e : 0xf4f6fa);
+  }
+
+  if (platform?.material) {
+    platform.material.color.setHex(isDark ? 0x1c2b3c : 0xffffff);
   }
 
   if (scene && grid) {
@@ -133,37 +138,48 @@ function applySceneTheme(theme) {
 }
 
 function addGrid(sceneRef, isDark) {
-  const center = isDark ? 0x3d6a8a : 0x7a9ab8;
-  const lines = isDark ? 0x1e3348 : 0xa8b8c8;
-  grid = new THREE.GridHelper(28, 56, center, lines);
-  grid.position.y = -0.499;
+  const center = isDark ? 0x3d6a8a : 0xd0d8e4;
+  const lines = isDark ? 0x1e3348 : 0xe2e8f0;
+  grid = new THREE.GridHelper(20, 40, center, lines);
+  grid.position.y = -0.455;
   const mat = grid.material;
   if (Array.isArray(mat)) {
     for (const m of mat) {
       m.transparent = true;
-      m.opacity = isDark ? 0.28 : 0.42;
+      m.opacity = isDark ? 0.22 : 0.18;
       m.depthWrite = false;
     }
   } else if (mat) {
     mat.transparent = true;
-    mat.opacity = isDark ? 0.28 : 0.42;
+    mat.opacity = isDark ? 0.22 : 0.18;
     mat.depthWrite = false;
   }
   sceneRef.add(grid);
 }
 
 function buildEnvironment(sceneRef) {
-  const floorGeo = new THREE.PlaneGeometry(28, 28);
+  const floorGeo = new THREE.PlaneGeometry(32, 32);
   const floorMat = new THREE.MeshStandardMaterial({
-    color: 0xd8e2eb,
-    roughness: 0.88,
-    metalness: 0.06,
+    color: 0xf4f6fa,
+    roughness: 0.94,
+    metalness: 0.02,
   });
   floor = new THREE.Mesh(floorGeo, floorMat);
   floor.rotation.x = -Math.PI / 2;
   floor.position.y = -0.5;
   floor.receiveShadow = true;
   sceneRef.add(floor);
+
+  const platformMat = new THREE.MeshStandardMaterial({
+    color: 0xffffff,
+    roughness: 0.82,
+    metalness: 0.04,
+  });
+  platform = new THREE.Mesh(new THREE.CylinderGeometry(1.65, 1.72, 0.1, 72), platformMat);
+  platform.position.y = -0.44;
+  platform.receiveShadow = true;
+  platform.castShadow = true;
+  sceneRef.add(platform);
 
   addGrid(sceneRef, false);
 }
@@ -234,7 +250,7 @@ export function initPreview3d(container, { onReady, onError } = {}) {
 
   const aspect = Math.max(container.clientWidth / Math.max(container.clientHeight, 1), 0.5);
   camera = new THREE.PerspectiveCamera(42, aspect, 0.1, 80);
-  camera.position.set(2.6, 1.35, 2.8);
+  camera.position.set(2.35, 1.15, 2.55);
 
   hemiLight = new THREE.HemisphereLight(0xf0f6fc, 0x9aa8b8, 0.65);
   scene.add(hemiLight);
@@ -243,7 +259,7 @@ export function initPreview3d(container, { onReady, onError } = {}) {
   scene.add(ambient);
 
   keyLight = new THREE.DirectionalLight(0xffffff, 1.05);
-  keyLight.position.set(5, 8, 4);
+  keyLight.position.set(4, 9, 5);
   keyLight.castShadow = true;
   keyLight.shadow.mapSize.set(1024, 1024);
   keyLight.shadow.bias = -0.00015;
@@ -276,6 +292,7 @@ export function initPreview3d(container, { onReady, onError } = {}) {
   cube = new THREE.Mesh(geometry, material);
   cube.castShadow = true;
   cube.receiveShadow = true;
+  cube.position.y = 0.08;
   scene.add(cube);
 
   controls = new OrbitControls(camera, renderer.domElement);
@@ -351,6 +368,9 @@ export function disposePreview3d() {
   floor?.geometry?.dispose();
   floor?.material?.dispose();
   floor = null;
+  platform?.geometry?.dispose();
+  platform?.material?.dispose();
+  platform = null;
   if (grid) {
     grid.geometry?.dispose();
     const gridMat = grid.material;

@@ -1,0 +1,2049 @@
+{
+  "templateId": "finish_library_ak",
+  "material": "stainless_steel",
+  "materials": [
+    {
+      "id": "mat-ceramic",
+      "slug": "ceramic",
+      "label": "Ceramic",
+      "enabled": 0,
+      "sortOrder": 1
+    },
+    {
+      "id": "mat-glass",
+      "slug": "glass",
+      "label": "Glass",
+      "enabled": 0,
+      "sortOrder": 2
+    },
+    {
+      "id": "mat-stainless_steel",
+      "slug": "stainless_steel",
+      "label": "S. Steel",
+      "enabled": 1,
+      "sortOrder": 3
+    },
+    {
+      "id": "mat-plastic",
+      "slug": "plastic",
+      "label": "Plastic",
+      "enabled": 0,
+      "sortOrder": 4
+    }
+  ],
+  "graphicApplicationTypes": [
+    {
+      "id": "gfx-001",
+      "templateKey": "graphic.waterDecal",
+      "label": "Water Decal",
+      "uiLabel": "Water Decal",
+      "sortOrder": 1
+    },
+    {
+      "id": "gfx-002",
+      "templateKey": "graphic.partial3dPrint",
+      "label": "Partial 3D Print",
+      "uiLabel": "Gloss 3D Print",
+      "sortOrder": 2
+    },
+    {
+      "id": "gfx-003",
+      "templateKey": "graphic.silkScreen",
+      "label": "Silk Screen",
+      "uiLabel": "Silkscreen",
+      "sortOrder": 3
+    },
+    {
+      "id": "gfx-004",
+      "templateKey": "graphic.heatTransfer",
+      "label": "Heat Transfer",
+      "uiLabel": "Heat Transfer",
+      "sortOrder": 4
+    },
+    {
+      "id": "gfx-005",
+      "templateKey": "graphic.laserEngraved",
+      "label": "Laser Engraved",
+      "uiLabel": "Laser Etch",
+      "sortOrder": 5
+    }
+  ],
+  "finishes": [
+    {
+      "id": "fin-2-color-diagonal-glossy-ombr",
+      "slug": "2-color-diagonal-glossy-ombr",
+      "name": "2-Color Diagonal Glossy Ombré",
+      "category": "Paint",
+      "durabilityScore": 3,
+      "durabilityNotes": "/",
+      "priceBand": "$$$",
+      "costTier": 3,
+      "finishProcess": "Paint",
+      "processSteps": 2,
+      "description": "/",
+      "hexColor": "hsl(101 35% 55%)",
+      "compatibleGraphics": [
+        "gfx-001",
+        "gfx-002",
+        "gfx-003",
+        "gfx-004",
+        "gfx-005"
+      ]
+    },
+    {
+      "id": "fin-2-color-diagonal-semi-matte-metallic-ombr",
+      "slug": "2-color-diagonal-semi-matte-metallic-ombr",
+      "name": "2-Color Diagonal Semi-Matte Metallic Ombré",
+      "category": "Paint",
+      "durabilityScore": 3,
+      "durabilityNotes": "/",
+      "priceBand": "$$$",
+      "costTier": 3,
+      "finishProcess": "Paint",
+      "processSteps": 2,
+      "description": "/",
+      "hexColor": "hsl(133 35% 55%)",
+      "compatibleGraphics": [
+        "gfx-001",
+        "gfx-002",
+        "gfx-003",
+        "gfx-004",
+        "gfx-005"
+      ]
+    },
+    {
+      "id": "fin-2-tone-glitter",
+      "slug": "2-tone-glitter",
+      "name": "2-Tone Glitter",
+      "category": "Paint",
+      "durabilityScore": 2,
+      "durabilityNotes": "Rough surface, relatively poor durability",
+      "priceBand": "$$$$",
+      "costTier": 4,
+      "finishProcess": "Paint",
+      "processSteps": 2,
+      "description": "Rough surface, relatively poor durability",
+      "hexColor": "hsl(318 35% 55%)",
+      "compatibleGraphics": [
+        "gfx-005"
+      ]
+    },
+    {
+      "id": "fin-2-tone-gloss",
+      "slug": "2-tone-gloss",
+      "name": "2-Tone Gloss",
+      "category": "Paint",
+      "durabilityScore": 3,
+      "durabilityNotes": "/",
+      "priceBand": "$$$",
+      "costTier": 3,
+      "finishProcess": "Paint",
+      "processSteps": 2,
+      "description": "/",
+      "hexColor": "hsl(223 35% 55%)",
+      "compatibleGraphics": [
+        "gfx-001",
+        "gfx-002",
+        "gfx-003",
+        "gfx-004",
+        "gfx-005"
+      ]
+    },
+    {
+      "id": "fin-2-tone-metallic-semi-matte",
+      "slug": "2-tone-metallic-semi-matte",
+      "name": "2-Tone Metallic/Semi-Matte",
+      "category": "Paint",
+      "durabilityScore": 3,
+      "durabilityNotes": "/",
+      "priceBand": "$$",
+      "costTier": 2,
+      "finishProcess": "Paint",
+      "processSteps": 2,
+      "description": "/",
+      "hexColor": "hsl(183 35% 55%)",
+      "compatibleGraphics": [
+        "gfx-001",
+        "gfx-002",
+        "gfx-003",
+        "gfx-004",
+        "gfx-005"
+      ]
+    },
+    {
+      "id": "fin-2-tone-powder-ombr-metallic",
+      "slug": "2-tone-powder-ombr-metallic",
+      "name": "2-Tone Powder Ombré-Metallic",
+      "category": "Not Applicable",
+      "durabilityScore": 3,
+      "durabilityNotes": "Powder coated portion is more durable than single coat paint portion",
+      "priceBand": "$$",
+      "costTier": 2,
+      "finishProcess": "Not Applicable",
+      "processSteps": 2,
+      "description": "Powder coated portion is more durable than single coat paint portion",
+      "hexColor": "hsl(238 35% 55%)",
+      "compatibleGraphics": [
+        "gfx-001",
+        "gfx-002",
+        "gfx-003",
+        "gfx-004",
+        "gfx-005"
+      ]
+    },
+    {
+      "id": "fin-2-tone-powder-metallic",
+      "slug": "2-tone-powder-metallic",
+      "name": "2-Tone Powder-Metallic",
+      "category": "Not Applicable",
+      "durabilityScore": 3,
+      "durabilityNotes": "/",
+      "priceBand": "$$$",
+      "costTier": 3,
+      "finishProcess": "Not Applicable",
+      "processSteps": 2,
+      "description": "/",
+      "hexColor": "hsl(312 35% 55%)",
+      "compatibleGraphics": [
+        "gfx-001",
+        "gfx-002",
+        "gfx-003",
+        "gfx-004",
+        "gfx-005"
+      ]
+    },
+    {
+      "id": "fin-2-tone-semi-matte-glossy",
+      "slug": "2-tone-semi-matte-glossy",
+      "name": "2-Tone Semi-Matte/Glossy",
+      "category": "Paint",
+      "durabilityScore": 3,
+      "durabilityNotes": "/",
+      "priceBand": "$$",
+      "costTier": 2,
+      "finishProcess": "Paint",
+      "processSteps": 2,
+      "description": "/",
+      "hexColor": "hsl(345 35% 55%)",
+      "compatibleGraphics": [
+        "gfx-001",
+        "gfx-002",
+        "gfx-003",
+        "gfx-004",
+        "gfx-005"
+      ]
+    },
+    {
+      "id": "fin-3d-print-machine-glossy",
+      "slug": "3d-print-machine-glossy",
+      "name": "3D Print –   Machine Glossy",
+      "category": "Paint",
+      "durabilityScore": null,
+      "durabilityNotes": "3D Printed ink with glossy sealant",
+      "priceBand": null,
+      "costTier": null,
+      "finishProcess": "Paint",
+      "processSteps": 2,
+      "description": "3D Printed ink with glossy sealant",
+      "hexColor": "hsl(92 35% 55%)",
+      "compatibleGraphics": [
+        "gfx-005"
+      ]
+    },
+    {
+      "id": "fin-3d-print-textured-finish-semi-matte",
+      "slug": "3d-print-textured-finish-semi-matte",
+      "name": "3D Print –  Textured Finish Semi-Matte",
+      "category": "Paint & Powder",
+      "durabilityScore": 3,
+      "durabilityNotes": "Powder-coated before printing to achieve texture. 3D Printed ink with semi-matte sealant",
+      "priceBand": "$$$",
+      "costTier": 3,
+      "finishProcess": "Paint & Powder",
+      "processSteps": 3,
+      "description": "Powder-coated before printing to achieve texture. 3D Printed ink with semi-matte sealant",
+      "hexColor": "hsl(29 35% 55%)",
+      "compatibleGraphics": [
+        "gfx-005"
+      ]
+    },
+    {
+      "id": "fin-3d-print-3d-ombr",
+      "slug": "3d-print-3d-ombr",
+      "name": "3D Print – 3D  Ombré",
+      "category": "Paint",
+      "durabilityScore": null,
+      "durabilityNotes": "Ombré achieved with 3D printing",
+      "priceBand": null,
+      "costTier": null,
+      "finishProcess": "Paint",
+      "processSteps": 2,
+      "description": "Ombré achieved with 3D printing",
+      "hexColor": "hsl(325 35% 55%)",
+      "compatibleGraphics": [
+        "gfx-005"
+      ]
+    },
+    {
+      "id": "fin-3d-print-3d-textured-ombr",
+      "slug": "3d-print-3d-textured-ombr",
+      "name": "3D Print – 3D Textured Ombré",
+      "category": "Paint & Powder",
+      "durabilityScore": 3,
+      "durabilityNotes": "Powder-coated before printing to achieve texture. Ombré achieved with 3D printing",
+      "priceBand": "$$$$",
+      "costTier": 4,
+      "finishProcess": "Paint & Powder",
+      "processSteps": 3,
+      "description": "Powder-coated before printing to achieve texture. Ombré achieved with 3D printing",
+      "hexColor": "hsl(4 35% 55%)",
+      "compatibleGraphics": [
+        "gfx-005"
+      ]
+    },
+    {
+      "id": "fin-3d-print-machine-matte",
+      "slug": "3d-print-machine-matte",
+      "name": "3D Print – Machine  Matte",
+      "category": "Paint",
+      "durabilityScore": 3,
+      "durabilityNotes": "Surface sprayed with matte paint creating a relatively thick durable coating",
+      "priceBand": "$$$",
+      "costTier": 3,
+      "finishProcess": "Paint",
+      "processSteps": 3,
+      "description": "Surface sprayed with matte paint creating a relatively thick durable coating Can we have 3D print textured finish matte (i.e.: powder coated, 3d printed w/ matte paint",
+      "hexColor": "hsl(340 35% 55%)",
+      "compatibleGraphics": [
+        "gfx-005"
+      ]
+    },
+    {
+      "id": "fin-3d-print-machine-semi-matte",
+      "slug": "3d-print-machine-semi-matte",
+      "name": "3D Print – Machine Semi-Matte",
+      "category": "Paint",
+      "durabilityScore": null,
+      "durabilityNotes": "3D Printed ink with semi-matte sealant",
+      "priceBand": null,
+      "costTier": null,
+      "finishProcess": "Paint",
+      "processSteps": 2,
+      "description": "3D Printed ink with semi-matte sealant",
+      "hexColor": "hsl(218 35% 55%)",
+      "compatibleGraphics": [
+        "gfx-005"
+      ]
+    },
+    {
+      "id": "fin-air-transfer-glossy-opaque",
+      "slug": "air-transfer-glossy-opaque",
+      "name": "Air Transfer Glossy (Opaque)",
+      "category": "Paint",
+      "durabilityScore": 2,
+      "durabilityNotes": "/",
+      "priceBand": "$$$",
+      "costTier": 3,
+      "finishProcess": "Paint",
+      "processSteps": 3,
+      "description": "/",
+      "hexColor": "hsl(219 35% 55%)",
+      "compatibleGraphics": [
+        "gfx-005"
+      ]
+    },
+    {
+      "id": "fin-air-transfer-metallic",
+      "slug": "air-transfer-metallic",
+      "name": "Air Transfer Metallic",
+      "category": "Paint",
+      "durabilityScore": 2,
+      "durabilityNotes": "/",
+      "priceBand": "$$$",
+      "costTier": 3,
+      "finishProcess": "Paint",
+      "processSteps": 3,
+      "description": "/",
+      "hexColor": "hsl(285 35% 55%)",
+      "compatibleGraphics": [
+        "gfx-005"
+      ]
+    },
+    {
+      "id": "fin-air-transfer-semi-matte",
+      "slug": "air-transfer-semi-matte",
+      "name": "Air Transfer Semi-Matte",
+      "category": "Paint",
+      "durabilityScore": 2,
+      "durabilityNotes": "/",
+      "priceBand": "$$$",
+      "costTier": 3,
+      "finishProcess": "Paint",
+      "processSteps": 3,
+      "description": "/",
+      "hexColor": "hsl(344 35% 55%)",
+      "compatibleGraphics": [
+        "gfx-005"
+      ]
+    },
+    {
+      "id": "fin-air-transfer-semi-matte-metallic",
+      "slug": "air-transfer-semi-matte-metallic",
+      "name": "Air Transfer Semi-Matte Metallic",
+      "category": "Paint",
+      "durabilityScore": 2,
+      "durabilityNotes": "/",
+      "priceBand": "$$$",
+      "costTier": 3,
+      "finishProcess": "Paint",
+      "processSteps": 3,
+      "description": "/",
+      "hexColor": "hsl(127 35% 55%)",
+      "compatibleGraphics": [
+        "gfx-005"
+      ]
+    },
+    {
+      "id": "fin-black-iridescent",
+      "slug": "black-iridescent",
+      "name": "Black Iridescent",
+      "category": "Paint",
+      "durabilityScore": 3,
+      "durabilityNotes": "Surface has fine granular texture lowering durability",
+      "priceBand": "$$$$$",
+      "costTier": 5,
+      "finishProcess": "Paint",
+      "processSteps": 2,
+      "description": "Surface has fine granular texture lowering durability",
+      "hexColor": "hsl(323 35% 55%)",
+      "compatibleGraphics": [
+        "gfx-001",
+        "gfx-002",
+        "gfx-003",
+        "gfx-004",
+        "gfx-005"
+      ]
+    },
+    {
+      "id": "fin-black-uv",
+      "slug": "black-uv",
+      "name": "Black UV",
+      "category": "Paint",
+      "durabilityScore": 1,
+      "durabilityNotes": "Paint and ink hybrid",
+      "priceBand": "$$",
+      "costTier": 2,
+      "finishProcess": "Paint",
+      "processSteps": 2,
+      "description": "Paint and ink hybrid",
+      "hexColor": "hsl(10 35% 55%)",
+      "compatibleGraphics": [
+        "gfx-005"
+      ]
+    },
+    {
+      "id": "fin-ceramic-lining",
+      "slug": "ceramic-lining",
+      "name": "Ceramic Lining",
+      "category": "Paint",
+      "durabilityScore": 4,
+      "durabilityNotes": "Sprayed on inner body, increasing hardness; higher durability",
+      "priceBand": "$$$",
+      "costTier": 3,
+      "finishProcess": "Paint",
+      "processSteps": 1,
+      "description": "Sprayed on inner body, increasing hardness; higher durability",
+      "hexColor": "hsl(211 35% 55%)",
+      "compatibleGraphics": []
+    },
+    {
+      "id": "fin-chameleon",
+      "slug": "chameleon",
+      "name": "Chameleon",
+      "category": "Paint",
+      "durabilityScore": 3,
+      "durabilityNotes": "/",
+      "priceBand": null,
+      "costTier": null,
+      "finishProcess": "Paint",
+      "processSteps": 2,
+      "description": "/",
+      "hexColor": "hsl(132 35% 55%)",
+      "compatibleGraphics": [
+        "gfx-005"
+      ]
+    },
+    {
+      "id": "fin-color-changing-glitter",
+      "slug": "color-changing-glitter",
+      "name": "Color Changing Glitter",
+      "category": "Paint",
+      "durabilityScore": 2,
+      "durabilityNotes": "Surface has fine granular texture lowering durability",
+      "priceBand": "$$$$",
+      "costTier": 4,
+      "finishProcess": "Paint",
+      "processSteps": 2,
+      "description": "Surface has fine granular texture lowering durability",
+      "hexColor": "hsl(179 35% 55%)",
+      "compatibleGraphics": [
+        "gfx-005"
+      ]
+    },
+    {
+      "id": "fin-color-changing-glitter-2",
+      "slug": "color-changing-glitter-2",
+      "name": "Color Changing Glitter",
+      "category": "Paint",
+      "durabilityScore": 2,
+      "durabilityNotes": "Surface has fine granular texture lowering durability",
+      "priceBand": "$$$$",
+      "costTier": 4,
+      "finishProcess": "Paint",
+      "processSteps": 2,
+      "description": "Surface has fine granular texture lowering durability",
+      "hexColor": "hsl(179 35% 55%)",
+      "compatibleGraphics": [
+        "gfx-005"
+      ]
+    },
+    {
+      "id": "fin-color-speckle",
+      "slug": "color-speckle",
+      "name": "Color Speckle",
+      "category": "Paint",
+      "durabilityScore": 3,
+      "durabilityNotes": "/",
+      "priceBand": "$$",
+      "costTier": 2,
+      "finishProcess": "Paint",
+      "processSteps": 2,
+      "description": "/",
+      "hexColor": "hsl(316 35% 55%)",
+      "compatibleGraphics": [
+        "gfx-005"
+      ]
+    },
+    {
+      "id": "fin-color-uv",
+      "slug": "color-uv",
+      "name": "Color UV",
+      "category": "Paint",
+      "durabilityScore": 1,
+      "durabilityNotes": "Paint and ink hybrid",
+      "priceBand": "$$",
+      "costTier": 2,
+      "finishProcess": "Paint",
+      "processSteps": 2,
+      "description": "Paint and ink hybrid",
+      "hexColor": "hsl(22 35% 55%)",
+      "compatibleGraphics": [
+        "gfx-005"
+      ]
+    },
+    {
+      "id": "fin-color-uv-metallic",
+      "slug": "color-uv-metallic",
+      "name": "Color UV - Metallic",
+      "category": "Paint",
+      "durabilityScore": 1,
+      "durabilityNotes": "Paint and ink hybrid",
+      "priceBand": "$$",
+      "costTier": 2,
+      "finishProcess": "Paint",
+      "processSteps": 2,
+      "description": "Paint and ink hybrid",
+      "hexColor": "hsl(356 35% 55%)",
+      "compatibleGraphics": [
+        "gfx-005"
+      ]
+    },
+    {
+      "id": "fin-drip-paint",
+      "slug": "drip-paint",
+      "name": "Drip Paint",
+      "category": "Paint",
+      "durabilityScore": 3,
+      "durabilityNotes": "/",
+      "priceBand": "$$$$$",
+      "costTier": 5,
+      "finishProcess": "Paint",
+      "processSteps": 2,
+      "description": "/",
+      "hexColor": "hsl(91 35% 55%)",
+      "compatibleGraphics": [
+        "gfx-005"
+      ]
+    },
+    {
+      "id": "fin-drip-paint-2",
+      "slug": "drip-paint-2",
+      "name": "Drip Paint",
+      "category": "Paint",
+      "durabilityScore": 2,
+      "durabilityNotes": "/",
+      "priceBand": "$$$$$",
+      "costTier": 5,
+      "finishProcess": "Paint",
+      "processSteps": 2,
+      "description": "/",
+      "hexColor": "hsl(91 35% 55%)",
+      "compatibleGraphics": [
+        "gfx-005"
+      ]
+    },
+    {
+      "id": "fin-electroplating",
+      "slug": "electroplating",
+      "name": "Electroplating",
+      "category": "Electroplating",
+      "durabilityScore": 3,
+      "durabilityNotes": "Thin coating, durability lowered",
+      "priceBand": "$$$$",
+      "costTier": 4,
+      "finishProcess": "Electroplating",
+      "processSteps": 1,
+      "description": "Thin coating, durability lowered Outsourced",
+      "hexColor": "hsl(255 35% 55%)",
+      "compatibleGraphics": [
+        "gfx-005"
+      ]
+    },
+    {
+      "id": "fin-embossed-foil-decal",
+      "slug": "embossed-foil-decal",
+      "name": "Embossed Foil Decal",
+      "category": "Paint",
+      "durabilityScore": 2,
+      "durabilityNotes": "Water decal is mainly ink-based. Vivid colors have lower durability",
+      "priceBand": "$$$$",
+      "costTier": 4,
+      "finishProcess": "Paint",
+      "processSteps": 2,
+      "description": "Water decal is mainly ink-based. Vivid colors have lower durability Maximum embossing thickness is 1mm.",
+      "hexColor": "hsl(285 35% 55%)",
+      "compatibleGraphics": [
+        "gfx-005"
+      ]
+    },
+    {
+      "id": "fin-foil-decal",
+      "slug": "foil-decal",
+      "name": "Foil Decal",
+      "category": "Paint",
+      "durabilityScore": 2,
+      "durabilityNotes": "Water decal is mainly ink-based. Vivid colors have lower durability",
+      "priceBand": "$$$",
+      "costTier": 3,
+      "finishProcess": "Paint",
+      "processSteps": 2,
+      "description": "Water decal is mainly ink-based. Vivid colors have lower durability",
+      "hexColor": "hsl(65 35% 55%)",
+      "compatibleGraphics": [
+        "gfx-005"
+      ]
+    },
+    {
+      "id": "fin-frosted",
+      "slug": "frosted",
+      "name": "Frosted",
+      "category": "Paint",
+      "durabilityScore": 2,
+      "durabilityNotes": "Unsmooth surface leading to lower durability",
+      "priceBand": "$$$",
+      "costTier": 3,
+      "finishProcess": "Paint",
+      "processSteps": 2,
+      "description": "Unsmooth surface leading to lower durability",
+      "hexColor": "hsl(307 35% 55%)",
+      "compatibleGraphics": [
+        "gfx-005"
+      ]
+    },
+    {
+      "id": "fin-frosted-ombr",
+      "slug": "frosted-ombr",
+      "name": "Frosted Ombré",
+      "category": "Paint",
+      "durabilityScore": 3,
+      "durabilityNotes": "Unsmooth surface leading to lower durability",
+      "priceBand": "$$$",
+      "costTier": 3,
+      "finishProcess": "Paint",
+      "processSteps": 3,
+      "description": "Unsmooth surface leading to lower durability",
+      "hexColor": "hsl(294 35% 55%)",
+      "compatibleGraphics": [
+        "gfx-005"
+      ]
+    },
+    {
+      "id": "fin-geo-electroplating",
+      "slug": "geo-electroplating",
+      "name": "Geo Electroplating",
+      "category": "Electroplating",
+      "durabilityScore": 3,
+      "durabilityNotes": "/",
+      "priceBand": "$$$$$",
+      "costTier": 5,
+      "finishProcess": "Electroplating",
+      "processSteps": 5,
+      "description": "/ Process includes applying treatment agent, spraying base coat, electroplating, spraying paint, and applying top coat. (Outsourced)",
+      "hexColor": "hsl(46 35% 55%)",
+      "compatibleGraphics": [
+        "gfx-005"
+      ]
+    },
+    {
+      "id": "fin-gilded",
+      "slug": "gilded",
+      "name": "Gilded",
+      "category": "Powder",
+      "durabilityScore": 4,
+      "durabilityNotes": "Rough surface",
+      "priceBand": "$$$$",
+      "costTier": 4,
+      "finishProcess": "Powder",
+      "processSteps": 1,
+      "description": "Rough surface",
+      "hexColor": "hsl(105 35% 55%)",
+      "compatibleGraphics": [
+        "gfx-005"
+      ]
+    },
+    {
+      "id": "fin-glitter",
+      "slug": "glitter",
+      "name": "Glitter",
+      "category": "Paint",
+      "durabilityScore": 2,
+      "durabilityNotes": "Rough surface lowering durability",
+      "priceBand": "$$$",
+      "costTier": 3,
+      "finishProcess": "Paint",
+      "processSteps": 1,
+      "description": "Rough surface lowering durability",
+      "hexColor": "hsl(41 35% 55%)",
+      "compatibleGraphics": [
+        "gfx-005"
+      ]
+    },
+    {
+      "id": "fin-glitter-coated",
+      "slug": "glitter-coated",
+      "name": "Glitter Coated",
+      "category": "Paint",
+      "durabilityScore": 2,
+      "durabilityNotes": "/",
+      "priceBand": "$$$",
+      "costTier": 3,
+      "finishProcess": "Paint",
+      "processSteps": 2,
+      "description": "/",
+      "hexColor": "hsl(277 35% 55%)",
+      "compatibleGraphics": [
+        "gfx-001",
+        "gfx-002",
+        "gfx-003",
+        "gfx-004",
+        "gfx-005"
+      ]
+    },
+    {
+      "id": "fin-glitter-foil-decal",
+      "slug": "glitter-foil-decal",
+      "name": "Glitter Foil Decal",
+      "category": "Paint",
+      "durabilityScore": 1,
+      "durabilityNotes": "Rough water decal leading to poor durability",
+      "priceBand": "$$$$",
+      "costTier": 4,
+      "finishProcess": "Paint",
+      "processSteps": 2,
+      "description": "Rough water decal leading to poor durability",
+      "hexColor": "hsl(88 35% 55%)",
+      "compatibleGraphics": [
+        "gfx-005"
+      ]
+    },
+    {
+      "id": "fin-glitter-ombr",
+      "slug": "glitter-ombr",
+      "name": "Glitter Ombré",
+      "category": "Paint",
+      "durabilityScore": 2,
+      "durabilityNotes": "Rough surface lowering durability",
+      "priceBand": "$$$$",
+      "costTier": 4,
+      "finishProcess": "Paint",
+      "processSteps": 2,
+      "description": "Rough surface lowering durability",
+      "hexColor": "hsl(276 35% 55%)",
+      "compatibleGraphics": [
+        "gfx-005"
+      ]
+    },
+    {
+      "id": "fin-glossy-opaque",
+      "slug": "glossy-opaque",
+      "name": "Glossy (Opaque)",
+      "category": "Paint",
+      "durabilityScore": 3,
+      "durabilityNotes": "/",
+      "priceBand": "$$",
+      "costTier": 2,
+      "finishProcess": "Paint",
+      "processSteps": 1,
+      "description": "/",
+      "hexColor": "hsl(151 35% 55%)",
+      "compatibleGraphics": [
+        "gfx-001",
+        "gfx-002",
+        "gfx-003",
+        "gfx-004",
+        "gfx-005"
+      ]
+    },
+    {
+      "id": "fin-glossy-opaque-ombr",
+      "slug": "glossy-opaque-ombr",
+      "name": "Glossy (Opaque) Ombré",
+      "category": "Paint",
+      "durabilityScore": 3,
+      "durabilityNotes": "/",
+      "priceBand": "$$",
+      "costTier": 2,
+      "finishProcess": "Paint",
+      "processSteps": 2,
+      "description": "/",
+      "hexColor": "hsl(260 35% 55%)",
+      "compatibleGraphics": [
+        "gfx-001",
+        "gfx-002",
+        "gfx-003",
+        "gfx-004",
+        "gfx-005"
+      ]
+    },
+    {
+      "id": "fin-glow-in-the-dark",
+      "slug": "glow-in-the-dark",
+      "name": "Glow in the dark",
+      "category": "Paint",
+      "durabilityScore": 3,
+      "durabilityNotes": "Ink contains glow-in-the-dark powder",
+      "priceBand": "$$$",
+      "costTier": 3,
+      "finishProcess": "Paint",
+      "processSteps": 2,
+      "description": "Ink contains glow-in-the-dark powder",
+      "hexColor": "hsl(173 35% 55%)",
+      "compatibleGraphics": [
+        "gfx-005"
+      ]
+    },
+    {
+      "id": "fin-gold-sparkle-ombr",
+      "slug": "gold-sparkle-ombr",
+      "name": "Gold Sparkle Ombré",
+      "category": "Paint",
+      "durabilityScore": 3,
+      "durabilityNotes": "/",
+      "priceBand": "$$$",
+      "costTier": 3,
+      "finishProcess": "Paint",
+      "processSteps": 2,
+      "description": "/",
+      "hexColor": "hsl(129 35% 55%)",
+      "compatibleGraphics": [
+        "gfx-001",
+        "gfx-002",
+        "gfx-003",
+        "gfx-004",
+        "gfx-005"
+      ]
+    },
+    {
+      "id": "fin-half-air-transfer",
+      "slug": "half-air-transfer",
+      "name": "Half Air Transfer",
+      "category": "Paint",
+      "durabilityScore": 2,
+      "durabilityNotes": "/",
+      "priceBand": "$$$",
+      "costTier": 3,
+      "finishProcess": "Paint",
+      "processSteps": 4,
+      "description": "/",
+      "hexColor": "hsl(38 35% 55%)",
+      "compatibleGraphics": []
+    },
+    {
+      "id": "fin-half-rubberized",
+      "slug": "half-rubberized",
+      "name": "Half Rubberized",
+      "category": "Paint",
+      "durabilityScore": 1,
+      "durabilityNotes": "Rubberized paint has poor durability",
+      "priceBand": "$$$",
+      "costTier": 3,
+      "finishProcess": "Paint",
+      "processSteps": 2,
+      "description": "Rubberized paint has poor durability",
+      "hexColor": "hsl(29 35% 55%)",
+      "compatibleGraphics": [
+        "gfx-001",
+        "gfx-002",
+        "gfx-003",
+        "gfx-004",
+        "gfx-005"
+      ]
+    },
+    {
+      "id": "fin-heat-transfer",
+      "slug": "heat-transfer",
+      "name": "Heat Transfer",
+      "category": "Paint",
+      "durabilityScore": 3,
+      "durabilityNotes": "Ink printed on vessel",
+      "priceBand": "$$",
+      "costTier": 2,
+      "finishProcess": "Paint",
+      "processSteps": 2,
+      "description": "Ink printed on vessel",
+      "hexColor": "hsl(187 35% 55%)",
+      "compatibleGraphics": [
+        "gfx-005"
+      ]
+    },
+    {
+      "id": "fin-heat-transfer-2",
+      "slug": "heat-transfer-2",
+      "name": "Heat Transfer",
+      "category": "Paint",
+      "durabilityScore": 3,
+      "durabilityNotes": "Ink printed on vessel",
+      "priceBand": "$$",
+      "costTier": 2,
+      "finishProcess": "Paint",
+      "processSteps": 2,
+      "description": "Ink printed on vessel",
+      "hexColor": "hsl(187 35% 55%)",
+      "compatibleGraphics": [
+        "gfx-005"
+      ]
+    },
+    {
+      "id": "fin-high-gloss",
+      "slug": "high-gloss",
+      "name": "High Gloss",
+      "category": "Buff",
+      "durabilityScore": 1,
+      "durabilityNotes": "Smooth surface is prone to scratches and fingerprints",
+      "priceBand": "$$$",
+      "costTier": 3,
+      "finishProcess": "Buff",
+      "processSteps": 1,
+      "description": "Smooth surface is prone to scratches and fingerprints",
+      "hexColor": "hsl(20 35% 55%)",
+      "compatibleGraphics": [
+        "gfx-005"
+      ]
+    },
+    {
+      "id": "fin-hydroform",
+      "slug": "hydroform",
+      "name": "Hydroform",
+      "category": "Not Applicable",
+      "durabilityScore": null,
+      "durabilityNotes": "/",
+      "priceBand": null,
+      "costTier": null,
+      "finishProcess": "Not Applicable",
+      "processSteps": 1,
+      "description": "/ Outsourced",
+      "hexColor": "hsl(260 35% 55%)",
+      "compatibleGraphics": [
+        "gfx-005"
+      ]
+    },
+    {
+      "id": "fin-ionplating",
+      "slug": "ionplating",
+      "name": "Ionplating",
+      "category": "Not Applicable",
+      "durabilityScore": 1,
+      "durabilityNotes": "Thin coating, durability poor",
+      "priceBand": "$$$$",
+      "costTier": 4,
+      "finishProcess": "Not Applicable",
+      "processSteps": 1,
+      "description": "Thin coating, durability poor Outsourced",
+      "hexColor": "hsl(235 35% 55%)",
+      "compatibleGraphics": [
+        "gfx-005"
+      ]
+    },
+    {
+      "id": "fin-iridescent-sparkle",
+      "slug": "iridescent-sparkle",
+      "name": "Iridescent Sparkle",
+      "category": "Paint",
+      "durabilityScore": 3,
+      "durabilityNotes": "Surface has fine granular texture",
+      "priceBand": "$$$$",
+      "costTier": 4,
+      "finishProcess": "Paint",
+      "processSteps": 2,
+      "description": "Surface has fine granular texture",
+      "hexColor": "hsl(96 35% 55%)",
+      "compatibleGraphics": [
+        "gfx-001",
+        "gfx-002",
+        "gfx-003",
+        "gfx-004",
+        "gfx-005"
+      ]
+    },
+    {
+      "id": "fin-laser-engraved",
+      "slug": "laser-engraved",
+      "name": "Laser Engraved",
+      "category": "Not Applicable",
+      "durabilityScore": 4,
+      "durabilityNotes": "/",
+      "priceBand": "$$",
+      "costTier": 2,
+      "finishProcess": "Not Applicable",
+      "processSteps": 1,
+      "description": "/",
+      "hexColor": "hsl(301 35% 55%)",
+      "compatibleGraphics": []
+    },
+    {
+      "id": "fin-laser-engraved-full-body",
+      "slug": "laser-engraved-full-body",
+      "name": "Laser Engraved Full Body",
+      "category": "Not Applicable",
+      "durabilityScore": 4,
+      "durabilityNotes": "/",
+      "priceBand": "$$",
+      "costTier": 2,
+      "finishProcess": "Not Applicable",
+      "processSteps": 1,
+      "description": "/",
+      "hexColor": "hsl(0 35% 55%)",
+      "compatibleGraphics": []
+    },
+    {
+      "id": "fin-leafed-foil",
+      "slug": "leafed-foil",
+      "name": "Leafed Foil",
+      "category": "Paint",
+      "durabilityScore": 1,
+      "durabilityNotes": "Rough surface, poor durability",
+      "priceBand": "$$$",
+      "costTier": 3,
+      "finishProcess": "Paint",
+      "processSteps": 2,
+      "description": "Rough surface, poor durability",
+      "hexColor": "hsl(127 35% 55%)",
+      "compatibleGraphics": [
+        "gfx-005"
+      ]
+    },
+    {
+      "id": "fin-leather-finish",
+      "slug": "leather-finish",
+      "name": "Leather Finish",
+      "category": "Powder",
+      "durabilityScore": 3,
+      "durabilityNotes": "Powder coating process increases durability",
+      "priceBand": "$$",
+      "costTier": 2,
+      "finishProcess": "Powder",
+      "processSteps": 1,
+      "description": "Powder coating process increases durability",
+      "hexColor": "hsl(306 35% 55%)",
+      "compatibleGraphics": [
+        "gfx-005"
+      ]
+    },
+    {
+      "id": "fin-metallic",
+      "slug": "metallic",
+      "name": "Metallic",
+      "category": "Paint",
+      "durabilityScore": 3,
+      "durabilityNotes": "/",
+      "priceBand": "$$",
+      "costTier": 2,
+      "finishProcess": "Paint",
+      "processSteps": 1,
+      "description": "/",
+      "hexColor": "hsl(207 35% 55%)",
+      "compatibleGraphics": [
+        "gfx-001",
+        "gfx-002",
+        "gfx-003",
+        "gfx-004",
+        "gfx-005"
+      ]
+    },
+    {
+      "id": "fin-metallic-ombr",
+      "slug": "metallic-ombr",
+      "name": "Metallic Ombré",
+      "category": "Paint",
+      "durabilityScore": 3,
+      "durabilityNotes": "/",
+      "priceBand": "$$",
+      "costTier": 2,
+      "finishProcess": "Paint",
+      "processSteps": 2,
+      "description": "/",
+      "hexColor": "hsl(330 35% 55%)",
+      "compatibleGraphics": [
+        "gfx-001",
+        "gfx-002",
+        "gfx-003",
+        "gfx-004",
+        "gfx-005"
+      ]
+    },
+    {
+      "id": "fin-metallic-powder-coating",
+      "slug": "metallic-powder-coating",
+      "name": "Metallic Powder Coating",
+      "category": "Powder",
+      "durabilityScore": 3.5,
+      "durabilityNotes": "Powder coating process increases durability",
+      "priceBand": "$$",
+      "costTier": 2,
+      "finishProcess": "Powder",
+      "processSteps": 1,
+      "description": "Powder coating process increases durability",
+      "hexColor": "hsl(229 35% 55%)",
+      "compatibleGraphics": [
+        "gfx-001",
+        "gfx-002",
+        "gfx-003",
+        "gfx-005"
+      ]
+    },
+    {
+      "id": "fin-metallic-rubberized",
+      "slug": "metallic-rubberized",
+      "name": "Metallic Rubberized",
+      "category": "Paint",
+      "durabilityScore": 1,
+      "durabilityNotes": "Rubberized paint has poor durability",
+      "priceBand": "$$$",
+      "costTier": 3,
+      "finishProcess": "Paint",
+      "processSteps": 2,
+      "description": "Rubberized paint has poor durability",
+      "hexColor": "hsl(217 35% 55%)",
+      "compatibleGraphics": [
+        "gfx-003",
+        "gfx-004",
+        "gfx-005"
+      ]
+    },
+    {
+      "id": "fin-metallic-speckle",
+      "slug": "metallic-speckle",
+      "name": "Metallic Speckle",
+      "category": "Paint",
+      "durabilityScore": 3,
+      "durabilityNotes": "/",
+      "priceBand": "$$",
+      "costTier": 2,
+      "finishProcess": "Paint",
+      "processSteps": 2,
+      "description": "/",
+      "hexColor": "hsl(152 35% 55%)",
+      "compatibleGraphics": [
+        "gfx-003",
+        "gfx-004",
+        "gfx-005"
+      ]
+    },
+    {
+      "id": "fin-metallic-splatter",
+      "slug": "metallic-splatter",
+      "name": "Metallic Splatter",
+      "category": "Paint",
+      "durabilityScore": 1,
+      "durabilityNotes": "Rough surface, poor durability",
+      "priceBand": "$$$$",
+      "costTier": 4,
+      "finishProcess": "Paint",
+      "processSteps": 2,
+      "description": "Rough surface, poor durability",
+      "hexColor": "hsl(152 35% 55%)",
+      "compatibleGraphics": [
+        "gfx-003",
+        "gfx-004",
+        "gfx-005"
+      ]
+    },
+    {
+      "id": "fin-mirror",
+      "slug": "mirror",
+      "name": "Mirror",
+      "category": "Buff",
+      "durabilityScore": 1,
+      "durabilityNotes": "Smooth surface is prone to scratches and fingerprints",
+      "priceBand": "$$$$",
+      "costTier": 4,
+      "finishProcess": "Buff",
+      "processSteps": 1,
+      "description": "Smooth surface is prone to scratches and fingerprints",
+      "hexColor": "hsl(215 35% 55%)",
+      "compatibleGraphics": [
+        "gfx-005"
+      ]
+    },
+    {
+      "id": "fin-ombr-freeform",
+      "slug": "ombr-freeform",
+      "name": "Ombré Freeform",
+      "category": "Paint",
+      "durabilityScore": 3,
+      "durabilityNotes": "Standard paint",
+      "priceBand": "$$$$",
+      "costTier": 4,
+      "finishProcess": "Paint",
+      "processSteps": null,
+      "description": "Standard paint Design Dependent",
+      "hexColor": "hsl(317 35% 55%)",
+      "compatibleGraphics": [
+        "gfx-001",
+        "gfx-002",
+        "gfx-003",
+        "gfx-004",
+        "gfx-005"
+      ]
+    },
+    {
+      "id": "fin-ombr-iridescent-sparkle",
+      "slug": "ombr-iridescent-sparkle",
+      "name": "Ombré Iridescent Sparkle",
+      "category": "Paint",
+      "durabilityScore": 3,
+      "durabilityNotes": "Surface has fine granular texture",
+      "priceBand": "$$$$",
+      "costTier": 4,
+      "finishProcess": "Paint",
+      "processSteps": 3,
+      "description": "Surface has fine granular texture",
+      "hexColor": "hsl(45 35% 55%)",
+      "compatibleGraphics": [
+        "gfx-001",
+        "gfx-002",
+        "gfx-003",
+        "gfx-004",
+        "gfx-005"
+      ]
+    },
+    {
+      "id": "fin-ombr-iridescent-sparkle-rainwater",
+      "slug": "ombr-iridescent-sparkle-rainwater",
+      "name": "Ombré Iridescent Sparkle Rainwater",
+      "category": "Paint",
+      "durabilityScore": 3,
+      "durabilityNotes": "Surface has fine granular texture",
+      "priceBand": "$$$$",
+      "costTier": 4,
+      "finishProcess": "Paint",
+      "processSteps": 3,
+      "description": "Surface has fine granular texture",
+      "hexColor": "hsl(80 35% 55%)",
+      "compatibleGraphics": [
+        "gfx-001",
+        "gfx-002",
+        "gfx-003",
+        "gfx-004",
+        "gfx-005"
+      ]
+    },
+    {
+      "id": "fin-pearlized",
+      "slug": "pearlized",
+      "name": "Pearlized",
+      "category": "Powder",
+      "durabilityScore": 3,
+      "durabilityNotes": "/",
+      "priceBand": "$$",
+      "costTier": 2,
+      "finishProcess": "Powder",
+      "processSteps": 2,
+      "description": "/",
+      "hexColor": "hsl(214 35% 55%)",
+      "compatibleGraphics": [
+        "gfx-001",
+        "gfx-002",
+        "gfx-003",
+        "gfx-004",
+        "gfx-005"
+      ]
+    },
+    {
+      "id": "fin-powder-coating",
+      "slug": "powder-coating",
+      "name": "Powder Coating",
+      "category": "Powder",
+      "durabilityScore": 4,
+      "durabilityNotes": "Powder coating process increases durability",
+      "priceBand": "$$",
+      "costTier": 2,
+      "finishProcess": "Powder",
+      "processSteps": 1,
+      "description": "Powder coating process increases durability",
+      "hexColor": "hsl(132 35% 55%)",
+      "compatibleGraphics": [
+        "gfx-001",
+        "gfx-002",
+        "gfx-003",
+        "gfx-005"
+      ]
+    },
+    {
+      "id": "fin-powder-coating-white-speckle",
+      "slug": "powder-coating-white-speckle",
+      "name": "Powder Coating & White Speckle",
+      "category": "Powder",
+      "durabilityScore": 4,
+      "durabilityNotes": "Powder coating process increases durability. Speckle paint has average durability",
+      "priceBand": "$$$",
+      "costTier": 3,
+      "finishProcess": "Powder",
+      "processSteps": 2,
+      "description": "Powder coating process increases durability. Speckle paint has average durability",
+      "hexColor": "hsl(172 35% 55%)",
+      "compatibleGraphics": [
+        "gfx-005"
+      ]
+    },
+    {
+      "id": "fin-powder-coating-ombr",
+      "slug": "powder-coating-ombr",
+      "name": "Powder Coating Ombré",
+      "category": "Powder",
+      "durabilityScore": 4,
+      "durabilityNotes": "Powder coating process increases durability",
+      "priceBand": "$$$",
+      "costTier": 3,
+      "finishProcess": "Powder",
+      "processSteps": 2,
+      "description": "Powder coating process increases durability",
+      "hexColor": "hsl(343 35% 55%)",
+      "compatibleGraphics": [
+        "gfx-001",
+        "gfx-002",
+        "gfx-003",
+        "gfx-005"
+      ]
+    },
+    {
+      "id": "fin-powder-coating-ombr-color-speckle",
+      "slug": "powder-coating-ombr-color-speckle",
+      "name": "Powder Coating Ombré & Color Speckle",
+      "category": "Powder",
+      "durabilityScore": 4,
+      "durabilityNotes": "Powder coating process increases durability. Speckle paint has average durability",
+      "priceBand": "$$$",
+      "costTier": 3,
+      "finishProcess": "Powder",
+      "processSteps": 2,
+      "description": "Powder coating process increases durability. Speckle paint has average durability",
+      "hexColor": "hsl(305 35% 55%)",
+      "compatibleGraphics": [
+        "gfx-005"
+      ]
+    },
+    {
+      "id": "fin-pvd",
+      "slug": "pvd",
+      "name": "PVD",
+      "category": "Not Applicable",
+      "durabilityScore": 4,
+      "durabilityNotes": "/",
+      "priceBand": "$$$$",
+      "costTier": 4,
+      "finishProcess": "Not Applicable",
+      "processSteps": 1,
+      "description": "/ Outsourced",
+      "hexColor": "hsl(54 35% 55%)",
+      "compatibleGraphics": [
+        "gfx-005"
+      ]
+    },
+    {
+      "id": "fin-rainbow-glitter",
+      "slug": "rainbow-glitter",
+      "name": "Rainbow Glitter",
+      "category": "Paint",
+      "durabilityScore": 2,
+      "durabilityNotes": "Rough surface, poor durability",
+      "priceBand": "$$$$$",
+      "costTier": 5,
+      "finishProcess": "Paint",
+      "processSteps": 1,
+      "description": "Rough surface, poor durability",
+      "hexColor": "hsl(145 35% 55%)",
+      "compatibleGraphics": [
+        "gfx-005"
+      ]
+    },
+    {
+      "id": "fin-rainbow-uv",
+      "slug": "rainbow-uv",
+      "name": "Rainbow UV",
+      "category": "Not Applicable",
+      "durabilityScore": 1,
+      "durabilityNotes": "Thin coating, durability poor",
+      "priceBand": "$$$$",
+      "costTier": 4,
+      "finishProcess": "Not Applicable",
+      "processSteps": 2,
+      "description": "Thin coating, durability poor Outsourced",
+      "hexColor": "hsl(99 35% 55%)",
+      "compatibleGraphics": [
+        "gfx-005"
+      ]
+    },
+    {
+      "id": "fin-raindrop",
+      "slug": "raindrop",
+      "name": "Raindrop",
+      "category": "Paint",
+      "durabilityScore": 2,
+      "durabilityNotes": "Rough surface lowering durability",
+      "priceBand": "$$$$",
+      "costTier": 4,
+      "finishProcess": "Paint",
+      "processSteps": 2,
+      "description": "Rough surface lowering durability Must be applied on specific base coat.",
+      "hexColor": "hsl(195 35% 55%)",
+      "compatibleGraphics": [
+        "gfx-005"
+      ]
+    },
+    {
+      "id": "fin-reflective",
+      "slug": "reflective",
+      "name": "Reflective",
+      "category": "Paint",
+      "durabilityScore": 3,
+      "durabilityNotes": "/",
+      "priceBand": "$$$$",
+      "costTier": 4,
+      "finishProcess": "Paint",
+      "processSteps": 2,
+      "description": "/",
+      "hexColor": "hsl(107 35% 55%)",
+      "compatibleGraphics": [
+        "gfx-005"
+      ]
+    },
+    {
+      "id": "fin-rubberized",
+      "slug": "rubberized",
+      "name": "Rubberized",
+      "category": "Paint",
+      "durabilityScore": 1,
+      "durabilityNotes": "Rubberized paint has poor durability",
+      "priceBand": "$$$",
+      "costTier": 3,
+      "finishProcess": "Paint",
+      "processSteps": 2,
+      "description": "Rubberized paint has poor durability",
+      "hexColor": "hsl(8 35% 55%)",
+      "compatibleGraphics": [
+        "gfx-003",
+        "gfx-005"
+      ]
+    },
+    {
+      "id": "fin-rubberized-air-transfer",
+      "slug": "rubberized-air-transfer",
+      "name": "Rubberized Air Transfer",
+      "category": "Paint",
+      "durabilityScore": 1,
+      "durabilityNotes": "Rubberized paint has poor durability",
+      "priceBand": "$$$$",
+      "costTier": 4,
+      "finishProcess": "Paint",
+      "processSteps": 3,
+      "description": "Rubberized paint has poor durability",
+      "hexColor": "hsl(113 35% 55%)",
+      "compatibleGraphics": [
+        "gfx-005"
+      ]
+    },
+    {
+      "id": "fin-rustic-powder-coating",
+      "slug": "rustic-powder-coating",
+      "name": "Rustic Powder Coating",
+      "category": "Powder",
+      "durabilityScore": 4,
+      "durabilityNotes": "Rough surface",
+      "priceBand": "$$",
+      "costTier": 2,
+      "finishProcess": "Powder",
+      "processSteps": 1,
+      "description": "Rough surface",
+      "hexColor": "hsl(174 35% 55%)",
+      "compatibleGraphics": [
+        "gfx-005"
+      ]
+    },
+    {
+      "id": "fin-scented-laquer",
+      "slug": "scented-laquer",
+      "name": "Scented Laquer",
+      "category": "Paint",
+      "durabilityScore": 1,
+      "durabilityNotes": null,
+      "priceBand": "$$$",
+      "costTier": 3,
+      "finishProcess": "Paint",
+      "processSteps": 2,
+      "description": null,
+      "hexColor": "hsl(308 35% 55%)",
+      "compatibleGraphics": [
+        "gfx-001",
+        "gfx-002",
+        "gfx-003",
+        "gfx-004",
+        "gfx-005"
+      ]
+    },
+    {
+      "id": "fin-semi-matte",
+      "slug": "semi-matte",
+      "name": "Semi-Matte",
+      "category": "Paint",
+      "durabilityScore": 3,
+      "durabilityNotes": "/",
+      "priceBand": "$$",
+      "costTier": 2,
+      "finishProcess": "Paint",
+      "processSteps": 1,
+      "description": "/",
+      "hexColor": "hsl(170 35% 55%)",
+      "compatibleGraphics": [
+        "gfx-001",
+        "gfx-002",
+        "gfx-003",
+        "gfx-005"
+      ]
+    },
+    {
+      "id": "fin-semi-matte-metallic",
+      "slug": "semi-matte-metallic",
+      "name": "Semi-Matte Metallic",
+      "category": "Paint",
+      "durabilityScore": 3,
+      "durabilityNotes": "/",
+      "priceBand": "$$",
+      "costTier": 2,
+      "finishProcess": "Paint",
+      "processSteps": 1,
+      "description": "/",
+      "hexColor": "hsl(85 35% 55%)",
+      "compatibleGraphics": [
+        "gfx-001",
+        "gfx-002",
+        "gfx-003",
+        "gfx-005"
+      ]
+    },
+    {
+      "id": "fin-semi-matte-ombr",
+      "slug": "semi-matte-ombr",
+      "name": "Semi-Matte Ombré",
+      "category": "Paint",
+      "durabilityScore": 3,
+      "durabilityNotes": "/",
+      "priceBand": "$$",
+      "costTier": 2,
+      "finishProcess": "Paint",
+      "processSteps": 2,
+      "description": "/",
+      "hexColor": "hsl(69 35% 55%)",
+      "compatibleGraphics": [
+        "gfx-001",
+        "gfx-002",
+        "gfx-003",
+        "gfx-005"
+      ]
+    },
+    {
+      "id": "fin-shimmer",
+      "slug": "shimmer",
+      "name": "Shimmer",
+      "category": "Paint",
+      "durabilityScore": 4,
+      "durabilityNotes": "/",
+      "priceBand": "$$$",
+      "costTier": 3,
+      "finishProcess": "Paint",
+      "processSteps": 1,
+      "description": "/",
+      "hexColor": "hsl(33 35% 55%)",
+      "compatibleGraphics": [
+        "gfx-001",
+        "gfx-002",
+        "gfx-003",
+        "gfx-005"
+      ]
+    },
+    {
+      "id": "fin-silk-screen-glossy",
+      "slug": "silk-screen-glossy",
+      "name": "Silk Screen Glossy",
+      "category": "Paint",
+      "durabilityScore": 3,
+      "durabilityNotes": "Paint and ink hybrid",
+      "priceBand": "$$",
+      "costTier": 2,
+      "finishProcess": "Paint",
+      "processSteps": 2,
+      "description": "Paint and ink hybrid",
+      "hexColor": "hsl(59 35% 55%)",
+      "compatibleGraphics": [
+        "gfx-005"
+      ]
+    },
+    {
+      "id": "fin-silk-screen-matte",
+      "slug": "silk-screen-matte",
+      "name": "Silk Screen Matte",
+      "category": "Paint",
+      "durabilityScore": 3,
+      "durabilityNotes": "Paint and ink hybrid",
+      "priceBand": "$$",
+      "costTier": 2,
+      "finishProcess": "Paint",
+      "processSteps": 2,
+      "description": "Paint and ink hybrid",
+      "hexColor": "hsl(245 35% 55%)",
+      "compatibleGraphics": [
+        "gfx-005"
+      ]
+    },
+    {
+      "id": "fin-silk-screen-matte-metallic",
+      "slug": "silk-screen-matte-metallic",
+      "name": "Silk Screen Matte Metallic",
+      "category": "Paint",
+      "durabilityScore": 3,
+      "durabilityNotes": "Paint and ink hybrid",
+      "priceBand": "$$",
+      "costTier": 2,
+      "finishProcess": "Paint",
+      "processSteps": 2,
+      "description": "Paint and ink hybrid",
+      "hexColor": "hsl(266 35% 55%)",
+      "compatibleGraphics": [
+        "gfx-005"
+      ]
+    },
+    {
+      "id": "fin-silk-screen-semi-matte",
+      "slug": "silk-screen-semi-matte",
+      "name": "Silk Screen Semi-Matte",
+      "category": "Paint",
+      "durabilityScore": 3,
+      "durabilityNotes": "Paint and ink hybrid",
+      "priceBand": "$$",
+      "costTier": 2,
+      "finishProcess": "Paint",
+      "processSteps": 2,
+      "description": "Paint and ink hybrid",
+      "hexColor": "hsl(318 35% 55%)",
+      "compatibleGraphics": [
+        "gfx-005"
+      ]
+    },
+    {
+      "id": "fin-silk-screen-shimmer",
+      "slug": "silk-screen-shimmer",
+      "name": "Silk Screen Shimmer",
+      "category": "Paint",
+      "durabilityScore": 3,
+      "durabilityNotes": "Paint and ink hybrid",
+      "priceBand": "$$",
+      "costTier": 2,
+      "finishProcess": "Paint",
+      "processSteps": 2,
+      "description": "Paint and ink hybrid",
+      "hexColor": "hsl(293 35% 55%)",
+      "compatibleGraphics": [
+        "gfx-005"
+      ]
+    },
+    {
+      "id": "fin-smoky-ombr",
+      "slug": "smoky-ombr",
+      "name": "Smoky Ombré",
+      "category": "Powder",
+      "durabilityScore": 3,
+      "durabilityNotes": "Powder coating process increases durability",
+      "priceBand": "$$",
+      "costTier": 2,
+      "finishProcess": "Powder",
+      "processSteps": 2,
+      "description": "Powder coating process increases durability",
+      "hexColor": "hsl(94 35% 55%)",
+      "compatibleGraphics": [
+        "gfx-001",
+        "gfx-002",
+        "gfx-003",
+        "gfx-005"
+      ]
+    },
+    {
+      "id": "fin-sparkle",
+      "slug": "sparkle",
+      "name": "Sparkle",
+      "category": "Paint",
+      "durabilityScore": 3,
+      "durabilityNotes": "/",
+      "priceBand": "$$",
+      "costTier": 2,
+      "finishProcess": "Paint",
+      "processSteps": 2,
+      "description": "/",
+      "hexColor": "hsl(270 35% 55%)",
+      "compatibleGraphics": [
+        "gfx-001",
+        "gfx-002",
+        "gfx-003",
+        "gfx-004",
+        "gfx-005"
+      ]
+    },
+    {
+      "id": "fin-sparkle-electroplating",
+      "slug": "sparkle-electroplating",
+      "name": "Sparkle Electroplating",
+      "category": "Electroplating",
+      "durabilityScore": 3,
+      "durabilityNotes": "/",
+      "priceBand": "$$$$$",
+      "costTier": 5,
+      "finishProcess": "Electroplating",
+      "processSteps": 4,
+      "description": "/ Process includes applying treatment agent, spraying paint, electroplating, and applying the top coat. (Outsourced)",
+      "hexColor": "hsl(73 35% 55%)",
+      "compatibleGraphics": [
+        "gfx-005"
+      ]
+    },
+    {
+      "id": "fin-sparkle-ombre",
+      "slug": "sparkle-ombre",
+      "name": "Sparkle Ombre",
+      "category": "Paint",
+      "durabilityScore": 3,
+      "durabilityNotes": "/",
+      "priceBand": "$$$",
+      "costTier": 3,
+      "finishProcess": "Paint",
+      "processSteps": 2,
+      "description": "/",
+      "hexColor": "hsl(261 35% 55%)",
+      "compatibleGraphics": [
+        "gfx-001",
+        "gfx-002",
+        "gfx-003",
+        "gfx-004",
+        "gfx-005"
+      ]
+    },
+    {
+      "id": "fin-splatter",
+      "slug": "splatter",
+      "name": "Splatter",
+      "category": "Paint",
+      "durabilityScore": 1,
+      "durabilityNotes": "Rough surface lowering durability",
+      "priceBand": "$$$$",
+      "costTier": 4,
+      "finishProcess": "Paint",
+      "processSteps": 2,
+      "description": "Rough surface lowering durability",
+      "hexColor": "hsl(247 35% 55%)",
+      "compatibleGraphics": [
+        "gfx-005"
+      ]
+    },
+    {
+      "id": "fin-triple-glitter-ombr",
+      "slug": "triple-glitter-ombr",
+      "name": "Triple Glitter Ombré",
+      "category": "Paint",
+      "durabilityScore": 2,
+      "durabilityNotes": "Rough surface lowering durability",
+      "priceBand": "$$$$",
+      "costTier": 4,
+      "finishProcess": "Paint",
+      "processSteps": 3,
+      "description": "Rough surface lowering durability",
+      "hexColor": "hsl(170 35% 55%)",
+      "compatibleGraphics": [
+        "gfx-005"
+      ]
+    },
+    {
+      "id": "fin-triple-powder-coating-ombr",
+      "slug": "triple-powder-coating-ombr",
+      "name": "Triple Powder Coating Ombré",
+      "category": "Powder",
+      "durabilityScore": 4,
+      "durabilityNotes": "Powder coating process increases durability",
+      "priceBand": "$$$",
+      "costTier": 3,
+      "finishProcess": "Powder",
+      "processSteps": 3,
+      "description": "Powder coating process increases durability",
+      "hexColor": "hsl(81 35% 55%)",
+      "compatibleGraphics": [
+        "gfx-001",
+        "gfx-002",
+        "gfx-003",
+        "gfx-005"
+      ]
+    },
+    {
+      "id": "fin-triple-swirl-glossy-opaque",
+      "slug": "triple-swirl-glossy-opaque",
+      "name": "Triple Swirl – Glossy (Opaque)",
+      "category": "Paint",
+      "durabilityScore": 3,
+      "durabilityNotes": "/",
+      "priceBand": "$$$$",
+      "costTier": 4,
+      "finishProcess": "Paint",
+      "processSteps": 2,
+      "description": "/",
+      "hexColor": "hsl(92 35% 55%)",
+      "compatibleGraphics": [
+        "gfx-001",
+        "gfx-002",
+        "gfx-003",
+        "gfx-004",
+        "gfx-005"
+      ]
+    },
+    {
+      "id": "fin-triple-swirl-semi-matte",
+      "slug": "triple-swirl-semi-matte",
+      "name": "Triple Swirl – Semi-Matte",
+      "category": "Paint",
+      "durabilityScore": 3,
+      "durabilityNotes": "/",
+      "priceBand": "$$$$",
+      "costTier": 4,
+      "finishProcess": "Paint",
+      "processSteps": 2,
+      "description": "/",
+      "hexColor": "hsl(231 35% 55%)",
+      "compatibleGraphics": [
+        "gfx-001",
+        "gfx-002",
+        "gfx-003",
+        "gfx-004",
+        "gfx-005"
+      ]
+    },
+    {
+      "id": "fin-triple-swirl-semi-matte-metallic",
+      "slug": "triple-swirl-semi-matte-metallic",
+      "name": "Triple Swirl – Semi-Matte Metallic",
+      "category": "Paint",
+      "durabilityScore": 3,
+      "durabilityNotes": "/",
+      "priceBand": "$$$$",
+      "costTier": 4,
+      "finishProcess": "Paint",
+      "processSteps": 2,
+      "description": "/",
+      "hexColor": "hsl(80 35% 55%)",
+      "compatibleGraphics": [
+        "gfx-001",
+        "gfx-002",
+        "gfx-003",
+        "gfx-004",
+        "gfx-005"
+      ]
+    },
+    {
+      "id": "fin-uv-ombr",
+      "slug": "uv-ombr",
+      "name": "UV Ombré",
+      "category": "UV",
+      "durabilityScore": 1,
+      "durabilityNotes": "Thin coating, durability poor",
+      "priceBand": "$$$$",
+      "costTier": 4,
+      "finishProcess": "UV",
+      "processSteps": 1,
+      "description": "Thin coating, durability poor Outsourced",
+      "hexColor": "hsl(4 35% 55%)",
+      "compatibleGraphics": [
+        "gfx-005"
+      ]
+    },
+    {
+      "id": "fin-uv-paint",
+      "slug": "uv-paint",
+      "name": "UV Paint",
+      "category": "UV",
+      "durabilityScore": 1,
+      "durabilityNotes": "Thin coating, durability poor",
+      "priceBand": "$$$$",
+      "costTier": 4,
+      "finishProcess": "UV",
+      "processSteps": 1,
+      "description": "Thin coating, durability poor Outsourced",
+      "hexColor": "hsl(119 35% 55%)",
+      "compatibleGraphics": [
+        "gfx-005"
+      ]
+    },
+    {
+      "id": "fin-verical-metallic-ombr",
+      "slug": "verical-metallic-ombr",
+      "name": "Verical Metallic Ombré",
+      "category": "Paint",
+      "durabilityScore": 3,
+      "durabilityNotes": "/",
+      "priceBand": "$$$",
+      "costTier": 3,
+      "finishProcess": "Paint",
+      "processSteps": null,
+      "description": "/ Design Dependent",
+      "hexColor": "hsl(354 35% 55%)",
+      "compatibleGraphics": [
+        "gfx-001",
+        "gfx-002",
+        "gfx-003",
+        "gfx-004",
+        "gfx-005"
+      ]
+    },
+    {
+      "id": "fin-vertical-semi-matte-ombr",
+      "slug": "vertical-semi-matte-ombr",
+      "name": "Vertical Semi-Matte Ombré",
+      "category": "Paint",
+      "durabilityScore": 3,
+      "durabilityNotes": "/",
+      "priceBand": "$$$",
+      "costTier": 3,
+      "finishProcess": "Paint",
+      "processSteps": null,
+      "description": "/ Design Dependent",
+      "hexColor": "hsl(319 35% 55%)",
+      "compatibleGraphics": [
+        "gfx-001",
+        "gfx-002",
+        "gfx-003",
+        "gfx-004",
+        "gfx-005"
+      ]
+    },
+    {
+      "id": "fin-vintage-powder-coating",
+      "slug": "vintage-powder-coating",
+      "name": "Vintage Powder Coating",
+      "category": "Powder",
+      "durabilityScore": 4,
+      "durabilityNotes": "Rough surface",
+      "priceBand": "$$",
+      "costTier": 2,
+      "finishProcess": "Powder",
+      "processSteps": 1,
+      "description": "Rough surface",
+      "hexColor": "hsl(118 35% 55%)",
+      "compatibleGraphics": [
+        "gfx-005"
+      ]
+    },
+    {
+      "id": "fin-water-decal",
+      "slug": "water-decal",
+      "name": "Water Decal",
+      "category": "Paint",
+      "durabilityScore": 2,
+      "durabilityNotes": "Water decal is mainly ink-based. Vivid colors have lower durability",
+      "priceBand": "$$$$",
+      "costTier": 4,
+      "finishProcess": "Paint",
+      "processSteps": 2,
+      "description": "Water decal is mainly ink-based. Vivid colors have lower durability",
+      "hexColor": "hsl(68 35% 55%)",
+      "compatibleGraphics": [
+        "gfx-005"
+      ]
+    },
+    {
+      "id": "fin-water-decal-2",
+      "slug": "water-decal-2",
+      "name": "Water Decal",
+      "category": "Paint",
+      "durabilityScore": 2,
+      "durabilityNotes": "Water decal is mainly ink-based. Vivid colors have lower durability",
+      "priceBand": "$$$$",
+      "costTier": 4,
+      "finishProcess": "Paint",
+      "processSteps": 2,
+      "description": "Water decal is mainly ink-based. Vivid colors have lower durability",
+      "hexColor": "hsl(68 35% 55%)",
+      "compatibleGraphics": [
+        "gfx-005"
+      ]
+    },
+    {
+      "id": "fin-water-transfer",
+      "slug": "water-transfer",
+      "name": "Water Transfer",
+      "category": "Paint",
+      "durabilityScore": 2,
+      "durabilityNotes": "/",
+      "priceBand": "$$$$",
+      "costTier": 4,
+      "finishProcess": "Paint",
+      "processSteps": 3,
+      "description": "/",
+      "hexColor": "hsl(20 35% 55%)",
+      "compatibleGraphics": [
+        "gfx-005"
+      ]
+    },
+    {
+      "id": "fin-white-speckle",
+      "slug": "white-speckle",
+      "name": "White Speckle",
+      "category": "Paint",
+      "durabilityScore": 3,
+      "durabilityNotes": "/",
+      "priceBand": "$$",
+      "costTier": 2,
+      "finishProcess": "Paint",
+      "processSteps": 2,
+      "description": "/",
+      "hexColor": "hsl(314 35% 55%)",
+      "compatibleGraphics": [
+        "gfx-003",
+        "gfx-004",
+        "gfx-005"
+      ]
+    }
+  ]
+}

@@ -87,7 +87,7 @@
         </aside>
 
         <aside class="hud-panel hud-panel--right finish-panel" data-hud-panel-id="finish" aria-label="Finish selector">
-          <div class="finish-dial-card hud-card">
+          <div class="finish-dial-card">
             <span class="finish-dial-label">Finish Selector</span>
             <div class="finish-dial">
               <div class="wheel-controls" aria-hidden="false">
@@ -101,7 +101,7 @@
               <div id="wheel-viewport" class="finish-wheel-viewport" tabindex="0" aria-label="Scroll to choose a finish">
                 <svg class="finish-dial-arc" viewBox="0 0 48 320" preserveAspectRatio="none" aria-hidden="true">
                   <path
-                    d="M 8 0 Q 40 160 8 320"
+                    d="M 40 0 Q 8 160 40 320"
                     fill="none"
                     stroke="currentColor"
                     stroke-width="1.5"
@@ -111,7 +111,7 @@
                 <ul id="wheel-list" class="finish-wheel-list" role="listbox" aria-label="Finishes"></ul>
               </div>
             </div>
-            <div class="finish-dial-footer">
+            <div class="finish-dial-footer hud-card">
               <div class="finish-dial-footer-row">
                 <span class="specs-label">Ombré Detail</span>
                 <button

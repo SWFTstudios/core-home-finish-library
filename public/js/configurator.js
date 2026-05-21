@@ -16,7 +16,7 @@ const MATERIAL_ICONS = {
 };
 
 const WHEEL_ITEM_STEP = 68;
-const WHEEL_ARC_X = 16;
+const WHEEL_ARC_X = -16;
 const WHEEL_FADE_SPREAD = 3.25;
 
 const GRAPHIC_ICONS = {

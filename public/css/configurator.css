@@ -3,7 +3,8 @@
   --hud-footer-h: 2.75rem;
   --hud-bottom-h: 11.75rem;
   --hud-left-w: 220px;
-  --hud-right-w: 228px;
+  --hud-right-w: 22%;
+  --hud-finish-wheel-w: 100%;
   --hud-inset: 24px;
   --hud-specs-card-h: 248px;
   --hud-dial-footer-h: 5.25rem;
@@ -523,7 +524,15 @@
   color: var(--lumina-primary);
 }
 
-/* —— Finish dial (fixed right rail) —— */
+/* —— Finish dial (transparent right rail — does not block 3D) —— */
+.hud-panel--right.finish-panel {
+  pointer-events: none;
+}
+
+.hud-panel--right.finish-panel > * {
+  pointer-events: none;
+}
+
 .finish-dial-card {
   display: flex;
   flex-direction: column;
@@ -531,22 +540,28 @@
   flex: 1;
   min-height: 0;
   height: 100%;
-  padding: 14px 12px;
-  border-radius: var(--lumina-radius-2xl);
-  box-sizing: border-box;
+  width: 100%;
+  padding: 0;
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
   overflow: hidden;
 }
 
 .finish-dial-label {
   font-family: var(--lumina-font-label);
-  font-size: 12px;
+  font-size: 11px;
   font-weight: 600;
   letter-spacing: 0.05em;
   text-transform: uppercase;
   color: var(--lumina-secondary);
-  margin: 0 0 8px;
+  margin: 0 0 6px;
+  padding: 0 4px;
   flex-shrink: 0;
-  text-align: center;
+  text-align: right;
+  pointer-events: none;
 }
 
 .finish-dial {
@@ -554,21 +569,29 @@
   flex: 1 1 auto;
   width: 100%;
   min-height: 0;
+  height: 0;
   display: flex;
   flex-direction: row;
   align-items: stretch;
-  gap: 4px;
+  justify-content: flex-start;
+  padding: 0 0 0 40px;
   overflow: hidden;
+  background: transparent;
+  pointer-events: none;
 }
 
 .wheel-controls {
-  flex: 0 0 36px;
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 5;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   gap: 10px;
-  padding: 4px 0;
+  pointer-events: auto;
 }
 
 .wheel-nav-btn {
@@ -603,66 +626,51 @@
 
 .finish-wheel-viewport {
   position: relative;
-  flex: 1 1 auto;
-  min-width: 0;
-  min-height: 120px;
-  max-height: 100%;
+  flex: 0 1 auto;
+  width: var(--hud-finish-wheel-w);
+  max-width: 100%;
+  height: 100%;
+  min-height: 0;
+  padding: 0.27rem;
+  box-sizing: border-box;
   overflow: hidden;
   outline: none;
   cursor: ns-resize;
+  pointer-events: auto;
+  contain: layout paint;
+  isolation: isolate;
   -webkit-mask-image: linear-gradient(
     to bottom,
     transparent 0%,
-    rgba(0, 0, 0, 0.25) 6%,
-    #000 16%,
-    #000 84%,
-    rgba(0, 0, 0, 0.25) 94%,
+    #000 14%,
+    #000 86%,
     transparent 100%
   );
   mask-image: linear-gradient(
     to bottom,
     transparent 0%,
-    rgba(0, 0, 0, 0.25) 6%,
-    #000 16%,
-    #000 84%,
-    rgba(0, 0, 0, 0.25) 94%,
+    #000 14%,
+    #000 86%,
     transparent 100%
   );
 }
 
-.finish-wheel-viewport::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: 4;
-  pointer-events: none;
-  background: linear-gradient(
-    to bottom,
-    var(--lumina-surface-container-low) 0%,
-    transparent 12%,
-    transparent 88%,
-    var(--lumina-surface-container-low) 100%
-  );
-}
-
 .finish-dial-arc {
-  position: absolute;
-  top: 4%;
-  bottom: 4%;
-  left: 6px;
-  width: 28px;
-  z-index: 0;
-  color: color-mix(in srgb, var(--lumina-outline-variant) 55%, transparent);
-  pointer-events: none;
+  display: none;
 }
 
 .finish-wheel-list {
   list-style: none;
   margin: 0;
-  padding: 0;
-  position: relative;
+  padding-left: 0.27rem;
+  padding-right: 0.27rem;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
   z-index: 1;
   width: 100%;
+  box-sizing: border-box;
   will-change: transform;
   transition: transform 0.28s cubic-bezier(0.22, 0.9, 0.28, 1);
 }
@@ -696,10 +704,11 @@
 .wheel-item-inner {
   display: flex;
   align-items: center;
-  gap: 8px;
+  justify-content: flex-start;
+  gap: 10px;
   min-width: 0;
-  width: 100%;
-  padding-left: 2px;
+  max-width: 100%;
+  padding-left: 28px;
 }
 
 .finish-swatch-btn {
@@ -709,6 +718,7 @@
   background: none;
   cursor: pointer;
   border-radius: 50%;
+  pointer-events: auto;
   transition: transform 0.2s;
 }
 
@@ -750,10 +760,12 @@
 .wheel-item-label {
   flex: 1 1 auto;
   min-width: 0;
+  max-width: calc(100% - 58px);
   font-family: var(--lumina-font-body);
   font-size: 11px;
   font-weight: 400;
   line-height: 1.25;
+  text-align: left;
   color: color-mix(in srgb, var(--lumina-on-surface-variant) 65%, transparent);
   white-space: nowrap;
   overflow: hidden;
@@ -773,10 +785,11 @@
   min-height: var(--hud-dial-footer-h);
   max-height: var(--hud-dial-footer-h);
   margin-top: auto;
-  padding-top: 10px;
-  border-top: 1px solid var(--lumina-outline-variant);
+  padding: 10px 12px;
+  border-radius: var(--lumina-radius-xl);
   box-sizing: border-box;
   overflow: hidden;
+  pointer-events: auto;
 }
 
 .finish-dial-footer-row {
@@ -934,7 +947,7 @@
 @media (max-width: 1023px) {
   .configurator-body {
     --hud-left-w: min(240px, 46vw);
-    --hud-right-w: 88px;
+    --hud-right-w: 22%;
     --hud-bottom-h: 7.5rem;
     --hud-footer-h: 2.25rem;
     --hud-inset: 12px;
@@ -1095,10 +1108,6 @@
     z-index: 67;
   }
 
-  .hud-panel--right.is-mobile-open {
-    width: min(300px, 84vw);
-  }
-
   .finish-wheel-viewport {
     height: min(40vh, 300px);
   }
@@ -1129,7 +1138,7 @@
 
 @media (max-width: 767px) {
   .configurator-body {
-    --hud-right-w: 76px;
+    --hud-right-w: 22%;
     --hud-bottom-h: 6.5rem;
   }
 
