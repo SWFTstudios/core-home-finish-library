@@ -8,7 +8,7 @@ This repository is the source of truth for home finish assets, specifications, t
 
 ## Before you change code
 
-1. Read `INSTRUCTIONS.md` for active priorities and constraints.
+1. Read `docs/README.md` (project book) and `docs/01-purpose.md` for context; read `INSTRUCTIONS.md` for active priorities.
 2. Scan existing patterns in the touched area; match naming, structure, and tooling already in the repo.
 3. State intent briefly (what / why / scope) when starting non-trivial work.
 4. Do not commit, push, or open PRs unless the user explicitly asks.
@@ -26,7 +26,7 @@ This repository is the source of truth for home finish assets, specifications, t
 1. Sync with `main` before starting feature work (`git fetch` / rebase or merge as team prefers).
 2. Implement on a feature branch; keep scope minimal.
 3. Run relevant checks (lint, test, build) before suggesting a PR.
-4. Document breaking changes in `INSTRUCTIONS.md` or `README.md` when they affect consumers.
+4. Document breaking changes in the relevant `docs/` chapter, `INSTRUCTIONS.md`, or `README.md` when they affect consumers.
 
 ## Code standards
 

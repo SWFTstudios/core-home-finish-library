@@ -1,18 +1,10 @@
 # Core Home — Render Portal / Finish Library
 
-Internal web tool for Core Home (NYC housewares) that replaces Excel/PPT render specs with a visual Finish Library and shared PD ↔ ID dashboard.
+Internal tool for Core Home (NYC housewares) that replaces Excel and PowerPoint render specs with a **visual Finish Library** and a shared **PD ↔ ID** dashboard.
 
-**Full spec:** see [PROJECT.md](./PROJECT.md)
+**Read the project book →** [docs/README.md](docs/README.md)
 
-## Stack
-
-| Layer | Tech |
-|-------|------|
-| Frontend | HTML, CSS, vanilla JS (`public/`) |
-| API | Cloudflare Workers (`src/index.ts`) |
-| Database | Cloudflare D1 (SQLite) |
-| Files | Cloudflare R2 |
-| Auth | Cloudflare Access (Zero Trust) |
+---
 
 ## Quick start
 
@@ -20,52 +12,32 @@ Internal web tool for Core Home (NYC housewares) that replaces Excel/PPT render 
 git clone https://github.com/SWFTstudios/core-home-finish-library.git
 cd core-home-finish-library
 npm install
-npm run db:migrate:local
-npm run db:seed:local
+npm run db:migrate:local && npm run db:seed:local
 npm run dev
 ```
 
 Open the URL Wrangler prints (usually `http://localhost:8787`).
 
-- **Dashboard** — `/`
-- **Finish Library** — `/library.html`
-- **New request** — `/request.html`
+---
 
-Local API uses `dev_email` fallback (`pd@corehome.internal`) when Cloudflare Access headers are absent.
+## Documentation
 
-## Cloudflare setup (production)
+| Resource | Description |
+|----------|-------------|
+| [Project book](docs/README.md) | Full documentation — purpose, workflow, setup, API |
+| [INSTRUCTIONS.md](INSTRUCTIONS.md) | Active todos for contributors and AI assistants |
+| [Figma design](https://www.figma.com/design/XY8ZVNYLrbK6OMVWNNqSBt/InteractiveFinishLibrary_COPY) | UI reference (Maria T) |
 
-1. `npm run db:create` — paste returned `database_id` into `wrangler.jsonc`
-2. `npm run db:migrate` — apply `schema.sql` to remote D1
-3. Create R2 bucket `render-portal-files` in the dashboard
-4. Configure Cloudflare Access policies for internal emails
-5. Seed `profiles` for team members (`PD`, `ID`, `GD`, `Admin`)
-6. `npm run deploy`
+**Chapters:** [Purpose](docs/01-purpose.md) · [How it works](docs/02-how-it-works.md) · [Local setup](docs/06-local-setup.md) · [Deployment](docs/07-deployment.md) · [Roadmap](docs/10-roadmap-and-status.md)
 
-## Figma MCP
+---
 
-```bash
-cp .cursor/mcp.json.example .cursor/mcp.json
-# Add your Figma API key (never commit mcp.json with real keys)
-```
+## Stack
 
-## API routes
+Cloudflare Workers · D1 · R2 · Access · vanilla HTML/CSS/JS
 
-| Method | Path | Description |
-|--------|------|-------------|
-| GET | `/api/health` | Health check |
-| GET | `/api/me` | Current profile (Access email → D1) |
-| GET | `/api/finishes` | List finishes (`?category`, `?q`) |
-| GET | `/api/requests` | List render requests |
-| POST | `/api/requests` | Create request (PD / Admin) |
-| POST | `/api/renders/upload` | Upload deliverable (ID / Admin) |
-
-## Contributing
-
-Branch from `main`, use [Conventional Commits](https://www.conventionalcommits.org/). See `INSTRUCTIONS.md` and `.cursorrules`.
+---
 
 ## Team
 
-- **WD** — Elombe Kisala
-- **GD** — Maria T (Figma Finish Library)
-- **PD / ID** — request and fulfillment workflows
+**WD** — Elombe Kisala · **GD** — Maria T · **PD / ID** — Core Home product and design teams

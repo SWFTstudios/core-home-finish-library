@@ -5,7 +5,7 @@ alwaysApply: true
 
 # Senior developer workflow
 
-- Read `INSTRUCTIONS.md` at the start of substantive tasks; update active todos when priorities change.
+- Read `docs/README.md` and `docs/01-purpose.md` at the start of substantive tasks; read `INSTRUCTIONS.md` for active todos; update todos when priorities change.
 - Prefer the smallest correct change; reuse existing patterns before adding abstractions.
 - Briefly state intent (what / why / scope) before non-trivial implementation.
 - Do not commit, push, or open PRs unless the user explicitly requests it.
