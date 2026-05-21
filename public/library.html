@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Finish Library — Core Home</title>
+    <link rel="stylesheet" href="/css/styles.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="brand">
+        <strong>Core Home Render Portal</strong>
+        <span>Visual finish catalog</span>
+      </div>
+      <nav class="nav" aria-label="Main">
+        <a href="/">Dashboard</a>
+        <a href="/library.html" class="is-active">Finish Library</a>
+        <a href="/request.html">New Request</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero">
+        <h1>Finish Library</h1>
+        <p>
+          Browse materials, colors, textures, and coatings — visual cards, not
+          dropdowns. Synced from Maria&rsquo;s Figma system over time.
+        </p>
+      </section>
+
+      <div id="page-banner" class="status-banner" hidden></div>
+
+      <div class="toolbar">
+        <input id="search" type="search" placeholder="Search finishes…" aria-label="Search finishes" />
+        <select id="category-filter" aria-label="Filter by category">
+          <option value="">All categories</option>
+          <option value="color">Color</option>
+          <option value="material">Material</option>
+          <option value="texture">Texture</option>
+          <option value="coating">Coating</option>
+        </select>
+        <a class="btn" href="/request.html">Start render request</a>
+      </div>
+
+      <div id="finish-grid" class="finish-grid" aria-live="polite"></div>
+    </main>
+
+    <script src="/js/app.js" type="module"></script>
+  </body>
+</html>

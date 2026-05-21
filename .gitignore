@@ -1,5 +1,8 @@
 # Dependencies
 node_modules/
+
+# Cursor MCP (may contain API keys)
+.cursor/mcp.json
 .pnp
 .pnp.js
 

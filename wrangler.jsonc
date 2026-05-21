@@ -1,0 +1,25 @@
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "render-portal",
+  "main": "src/index.ts",
+  "compatibility_date": "2025-03-07",
+  "compatibility_flags": ["nodejs_compat"],
+  "observability": { "enabled": true },
+  "assets": {
+    "directory": "./public",
+    "binding": "ASSETS"
+  },
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "render-portal-db",
+      "database_id": "PASTE_YOUR_D1_ID_HERE"
+    }
+  ],
+  "r2_buckets": [
+    {
+      "binding": "RENDERS",
+      "bucket_name": "render-portal-files"
+    }
+  ]
+}

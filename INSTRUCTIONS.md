@@ -1,45 +1,41 @@
-# Core Home Finish Library — Instructions
+# Core Home Render Portal — Instructions
 
-Living document for humans and AI assistants. Update this file when priorities, architecture, or workflow change.
+Living document for humans and AI assistants. See [PROJECT.md](./PROJECT.md) for full product context.
 
 ## Active to-do items
 
-- [ ] Define library scope (finishes, materials, swatches, metadata schema)
-- [ ] Choose stack and folder layout (e.g. `packages/`, `data/`, `docs/`)
-- [ ] Add `.env.example` when external services are introduced
-- [ ] Set up CI (lint / test / build) once code exists
-- [ ] Publish initial consumer documentation in `README.md`
+- [x] Project scaffold (Worker, D1 schema, static UI)
+- [ ] Create remote D1: `npm run db:create` → update `database_id` in `wrangler.jsonc`
+- [ ] Apply remote schema: `npm run db:migrate`
+- [ ] Create R2 bucket `render-portal-files` in Cloudflare
+- [ ] Configure Cloudflare Access + seed `profiles` for real team emails
+- [ ] Connect Figma MCP (`.cursor/mcp.json`) and sync finishes from Maria's library
+- [ ] Production deploy: `npm run deploy`
+- [ ] CI (lint / `wrangler check`) when pipeline is needed
 
 ## Repository workflow
 
 | Step | Action |
 |------|--------|
-| Start work | Read this file + `.cursorrules`; branch from `main` |
+| Start work | Read this file + `PROJECT.md` + `.cursorrules`; branch from `main` |
 | During work | Small commits; conventional commit messages |
-| Finish work | Run checks; open PR (when user requests); update todos here |
-| Release | Merge to `main` only when stable; tag releases if versioning applies |
-
-## Branch strategy
-
-- `main` — deployable / canonical
-- `feature/*` — new capability
-- `fix/*` — bug fixes
-- `chore/*` — tooling, deps, housekeeping
-- `docs/*` — documentation only
+| Finish work | Run `npm run check`; open PR when user requests |
+| Release | Merge to `main` when stable |
 
 ## Definition of done
 
-- [ ] Change matches existing project conventions
-- [ ] No secrets or local paths committed
-- [ ] Lint / test / build pass (when configured)
-- [ ] `INSTRUCTIONS.md` todos updated if scope shifted
-- [ ] README or inline docs updated if public API or usage changed
+- [ ] Matches visual-first UX (cards, not dropdowns for finishes)
+- [ ] D1 uses SQLite syntax only; UUIDs via `crypto.randomUUID()` in Worker
+- [ ] No secrets committed (`.env`, `mcp.json` with keys)
+- [ ] `INSTRUCTIONS.md` / `PROJECT.md` status updated if scope changed
 
 ## Project notes
 
-_Add decisions here (schema format, naming conventions, export targets, design tool integrations, etc.) as the library grows._
+- **Chipotle analogy:** PD builds a spec by selecting finishes; ID executes from the same record.
+- **Versioning:** `renders.version` increments per request; show history in UI (future).
+- **Design merge:** Maria's Figma tokens/components → CSS + `finishes.figma_node_id` in D1.
 
 ## Links
 
-- Remote: `https://github.com/SWFTstudios/core-home-finish-library` (after first push)
-- Primary maintainer: configure in GitHub repository settings
+- Remote: https://github.com/SWFTstudios/core-home-finish-library
+- Product spec: [PROJECT.md](./PROJECT.md)

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>New Render Request — Core Home</title>
+    <link rel="stylesheet" href="/css/styles.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="brand">
+        <strong>Core Home Render Portal</strong>
+        <span>Build your spec — Chipotle-style</span>
+      </div>
+      <nav class="nav" aria-label="Main">
+        <a href="/">Dashboard</a>
+        <a href="/library.html">Finish Library</a>
+        <a href="/request.html" class="is-active">New Request</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero">
+        <h1>New render request</h1>
+        <p>
+          Select finishes visually, then submit a structured spec — no notes
+          crammed into spreadsheet cells.
+        </p>
+      </section>
+
+      <div id="form-banner" class="status-banner" hidden></div>
+
+      <div class="request-layout">
+        <section>
+          <h2>Pick finishes</h2>
+          <div id="picker-grid" class="finish-grid"></div>
+        </section>
+
+        <aside class="selection-panel">
+          <h2>Your bowl</h2>
+          <ul id="selection-list" class="selection-list"></ul>
+
+          <form id="request-form" class="form-panel" style="margin-top: 1rem; padding: 0; border: none; background: transparent">
+            <div class="form-field">
+              <label for="title">Request title</label>
+              <input id="title" name="title" required placeholder="e.g. 24oz water bottle — Spring 2026" />
+            </div>
+            <div class="form-field">
+              <label for="product_type">Product type</label>
+              <input id="product_type" name="product_type" placeholder="Water bottle, tumbler, etc." />
+            </div>
+            <div class="form-field">
+              <label for="deadline">Target deadline</label>
+              <input id="deadline" name="deadline" type="date" />
+            </div>
+            <div class="form-field">
+              <label for="notes">Notes for ID</label>
+              <textarea id="notes" name="notes" placeholder="Optional context — angles, references, constraints"></textarea>
+            </div>
+            <button class="btn" type="submit">Submit request</button>
+          </form>
+        </aside>
+      </div>
+    </main>
+
+    <script src="/js/app.js" type="module"></script>
+  </body>
+</html>
