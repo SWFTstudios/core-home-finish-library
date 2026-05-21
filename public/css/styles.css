@@ -1,92 +1,12 @@
-:root {
-  --bg: #0f1410;
-  --surface: #1a221c;
-  --surface-2: #232d26;
-  --border: #2e3d34;
-  --text: #e8efe9;
-  --muted: #9aab9f;
-  --accent: #3dd68c;
-  --accent-dim: #2a9d63;
-  --warning: #e8b84a;
-  --radius: 12px;
-  --shadow: 0 8px 32px rgba(0, 0, 0, 0.35);
-  font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
-}
+/* Portal content styles — uses Lumina tokens (light/dark via CoreHomeNavbar) */
 
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-}
-
-body {
-  margin: 0;
-  min-height: 100vh;
-  background: var(--bg);
-  color: var(--text);
-  line-height: 1.5;
-}
-
-a {
-  color: var(--accent);
+.portal-body a {
+  color: var(--lumina-primary);
   text-decoration: none;
 }
 
-a:hover {
+.portal-body a:hover {
   text-decoration: underline;
-}
-
-.site-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1rem;
-  padding: 1rem 1.5rem;
-  border-bottom: 1px solid var(--border);
-  background: var(--surface);
-}
-
-.brand {
-  display: flex;
-  flex-direction: column;
-  gap: 0.15rem;
-}
-
-.brand strong {
-  font-size: 1.1rem;
-  letter-spacing: 0.02em;
-}
-
-.brand span {
-  color: var(--muted);
-  font-size: 0.85rem;
-}
-
-.nav {
-  display: flex;
-  gap: 0.75rem;
-  flex-wrap: wrap;
-}
-
-.nav a {
-  padding: 0.45rem 0.85rem;
-  border-radius: 999px;
-  background: var(--surface-2);
-  color: var(--text);
-  text-decoration: none;
-  font-size: 0.9rem;
-}
-
-.nav a.is-active,
-.nav a:hover {
-  background: var(--accent-dim);
-  color: #04140a;
-}
-
-main {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 1.5rem;
 }
 
 .hero {
@@ -95,12 +15,15 @@ main {
 
 .hero h1 {
   margin: 0 0 0.5rem;
+  font-family: var(--lumina-font-title);
   font-size: clamp(1.5rem, 3vw, 2rem);
+  font-weight: 600;
+  color: var(--lumina-on-surface);
 }
 
 .hero p {
   margin: 0;
-  color: var(--muted);
+  color: var(--lumina-on-surface-variant);
   max-width: 52ch;
 }
 
@@ -125,21 +48,24 @@ main {
 .form-field input,
 .form-field select,
 .form-field textarea {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  color: var(--text);
-  border-radius: var(--radius);
+  background: var(--lumina-surface-container-lowest);
+  border: 1px solid var(--lumina-outline-variant);
+  color: var(--lumina-on-surface);
+  border-radius: var(--lumina-radius-lg);
   padding: 0.6rem 0.85rem;
 }
 
 .toolbar button,
 .btn {
   border: none;
-  border-radius: var(--radius);
+  border-radius: var(--lumina-radius-lg);
   padding: 0.65rem 1.1rem;
-  background: var(--accent);
-  color: #04140a;
+  background: var(--lumina-primary);
+  color: var(--lumina-on-primary);
+  font-family: var(--lumina-font-label);
+  font-size: 12px;
   font-weight: 600;
+  letter-spacing: 0.05em;
   cursor: pointer;
 }
 
@@ -149,8 +75,8 @@ main {
 }
 
 .btn-secondary {
-  background: var(--surface-2);
-  color: var(--text);
+  background: var(--lumina-surface-container-high);
+  color: var(--lumina-on-surface);
 }
 
 .finish-grid {
@@ -160,29 +86,29 @@ main {
 }
 
 .finish-card {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
+  background: var(--lumina-surface-container-lowest);
+  border: 1px solid var(--lumina-outline-variant);
+  border-radius: var(--lumina-radius-xl);
   overflow: hidden;
-  box-shadow: var(--shadow);
+  box-shadow: var(--lumina-shadow-card);
   cursor: pointer;
   transition: border-color 0.15s, transform 0.15s;
 }
 
 .finish-card:hover {
-  border-color: var(--accent);
+  border-color: var(--lumina-primary);
   transform: translateY(-2px);
 }
 
 .finish-card.is-selected {
-  border-color: var(--accent);
-  outline: 2px solid var(--accent);
+  border-color: var(--lumina-primary);
+  outline: 2px solid var(--lumina-primary);
   outline-offset: 2px;
 }
 
 .swatch {
   height: 120px;
-  background: var(--surface-2);
+  background: var(--lumina-surface-container-low);
 }
 
 .swatch img {
@@ -199,6 +125,7 @@ main {
 .card-body h3 {
   margin: 0 0 0.25rem;
   font-size: 1rem;
+  color: var(--lumina-on-surface);
 }
 
 .badge {
@@ -208,13 +135,13 @@ main {
   letter-spacing: 0.06em;
   padding: 0.2rem 0.5rem;
   border-radius: 999px;
-  background: var(--surface-2);
-  color: var(--muted);
+  background: var(--lumina-surface-container);
+  color: var(--lumina-secondary);
 }
 
 .card-body p {
   margin: 0.5rem 0 0;
-  color: var(--muted);
+  color: var(--lumina-on-surface-variant);
   font-size: 0.85rem;
 }
 
@@ -231,10 +158,21 @@ main {
 
 .form-panel,
 .selection-panel {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
+  background: var(--lumina-surface-container-lowest);
+  border: 1px solid var(--lumina-outline-variant);
+  border-radius: var(--lumina-radius-xl);
   padding: 1.25rem;
+  box-shadow: var(--lumina-shadow-card);
+}
+
+.form-panel h2,
+.selection-panel h2,
+.request-layout section h2 {
+  font-family: var(--lumina-font-title);
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--lumina-on-surface);
+  margin: 0 0 1rem;
 }
 
 .form-field {
@@ -246,7 +184,7 @@ main {
 
 .form-field label {
   font-size: 0.85rem;
-  color: var(--muted);
+  color: var(--lumina-secondary);
 }
 
 .form-field textarea {
@@ -268,46 +206,62 @@ main {
   justify-content: space-between;
   gap: 0.5rem;
   padding: 0.5rem 0.65rem;
-  background: var(--surface-2);
-  border-radius: 8px;
+  background: var(--lumina-surface-container-low);
+  border-radius: var(--lumina-radius-md);
   font-size: 0.9rem;
+  color: var(--lumina-on-surface);
 }
 
 .status-banner {
   padding: 0.75rem 1rem;
-  border-radius: var(--radius);
-  background: var(--surface-2);
-  border: 1px solid var(--border);
-  color: var(--muted);
+  border-radius: var(--lumina-radius-lg);
+  background: var(--lumina-surface-container);
+  border: 1px solid var(--lumina-outline-variant);
+  color: var(--lumina-on-surface-variant);
   margin-bottom: 1rem;
 }
 
 .status-banner.error {
   border-color: #8b3a3a;
-  color: #f5b4b4;
+  background: #ffdad6;
+  color: #690005;
+}
+
+[data-lumina-theme="dark"] .status-banner.error {
+  background: color-mix(in srgb, #690005 40%, var(--lumina-surface-container));
+  color: #ffdad6;
 }
 
 .status-banner.success {
-  border-color: var(--accent-dim);
-  color: var(--accent);
+  border-color: var(--lumina-primary-container);
+  color: var(--lumina-primary);
 }
 
 .request-table {
   width: 100%;
   border-collapse: collapse;
   font-size: 0.9rem;
+  background: var(--lumina-surface-container-lowest);
+  border-radius: var(--lumina-radius-xl);
+  overflow: hidden;
+  box-shadow: var(--lumina-shadow-card);
 }
 
 .request-table th,
 .request-table td {
   text-align: left;
-  padding: 0.65rem 0.5rem;
-  border-bottom: 1px solid var(--border);
+  padding: 0.65rem 0.75rem;
+  border-bottom: 1px solid var(--lumina-outline-variant);
+  color: var(--lumina-on-surface);
 }
 
 .request-table th {
-  color: var(--muted);
-  font-weight: 500;
+  color: var(--lumina-secondary);
+  font-weight: 600;
+  font-size: 12px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  background: var(--lumina-surface-container-low);
 }
 
 .status-pill {
@@ -315,19 +269,20 @@ main {
   padding: 0.2rem 0.55rem;
   border-radius: 999px;
   font-size: 0.75rem;
-  background: var(--surface-2);
+  background: var(--lumina-surface-container);
+  color: var(--lumina-on-surface-variant);
 }
 
 .status-pill.submitted {
-  color: var(--accent);
+  color: var(--lumina-primary);
 }
 
 .status-pill.in-progress {
-  color: var(--warning);
+  color: var(--lumina-warning, #e8b84a);
 }
 
 .empty-state {
   text-align: center;
   padding: 2rem;
-  color: var(--muted);
+  color: var(--lumina-on-surface-variant);
 }

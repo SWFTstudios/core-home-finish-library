@@ -12,7 +12,22 @@ Complete local verification first — [06 — Local setup](06-local-setup.md).
 
 ---
 
-## Deployment checklist
+## Cloudflare Pages (Finish Library — Phase 1)
+
+| Item | Value |
+|------|--------|
+| URL | [https://core-home-finish-library.pages.dev/](https://core-home-finish-library.pages.dev/) |
+| Trigger | Push to `main` → [`.github/workflows/deploy-pages.yml`](../.github/workflows/deploy-pages.yml) |
+| Output | `public/` (static UI; `/` rewrites to configurator via `_redirects`) |
+| Manual | `npm run pages:deploy` |
+
+**Phased plan:** [phased-deployment.md](phased-deployment.md)
+
+Phase 1 shows the **Finish Library configurator** UI on Pages. **Live catalog data** (`/api/catalog`) requires Phase 2 Worker deploy (`npm run deploy`) with D1 seeded; until then the configurator may show an API error on Pages-only hosting.
+
+---
+
+## Worker deployment checklist
 
 ### 1. Create D1 database
 
@@ -54,7 +69,8 @@ npm run deploy
 
 - `GET /api/health` → `{ "ok": true }`  
 - `GET /api/me` (authenticated) → profile JSON  
-- Load `/` and confirm static assets
+- Load `/` and `/configurator.html`
+- `GET /api/catalog?material=stainless_steel` returns 109 finishes (after `npm run import:finishes` + remote seed)
 
 ---
 
@@ -86,7 +102,7 @@ After changing bindings, run `npm run types` to refresh TypeScript definitions.
 | Task | Approach |
 |------|----------|
 | Schema change | Update `schema.sql`, run `db:migrate`, deploy Worker |
-| Finish catalog | Insert/update `finishes` (future: Figma sync job) |
+| Finish catalog | `npm run import:finishes` → `db:seed` — see [finish-catalog-import.md](finish-catalog-import.md) |
 | Logs | `wrangler tail` |
 | Rollback | Redeploy previous Worker version from Git |
 

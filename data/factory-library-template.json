@@ -1,0 +1,100 @@
+{
+  "templateId": "finish_library_ak",
+  "sheetName": "Library",
+  "headerRow": 2,
+  "dataStartRow": 3,
+  "columns": {
+    "swatchImage": {
+      "headers": ["Finish Swatch Image"],
+      "type": "embedded_image"
+    },
+    "finishName": {
+      "headers": ["Finish Name", "Finish\nName"],
+      "type": "string",
+      "required": true
+    },
+    "durabilityScore": {
+      "headers": ["Durability Score", "Durability\nScore"],
+      "type": "number"
+    },
+    "durabilityNotes": {
+      "headers": ["Durability / Finish Notes", "Durability / \nFinish Notes"],
+      "type": "text"
+    },
+    "price": {
+      "headers": ["Price"],
+      "type": "price_band"
+    },
+    "graphic.waterDecal": {
+      "headers": ["Water Decal", "Water\nDecal"],
+      "type": "boolean"
+    },
+    "graphic.partial3dPrint": {
+      "headers": ["Partial 3D Print", "Partial\n3D Print"],
+      "type": "boolean"
+    },
+    "graphic.silkScreen": {
+      "headers": ["Silk Screen", "Silk\nScreen"],
+      "type": "boolean"
+    },
+    "graphic.heatTransfer": {
+      "headers": ["Heat Transfer"],
+      "type": "boolean"
+    },
+    "graphic.laserEngraved": {
+      "headers": ["Laser Engraved"],
+      "type": "boolean"
+    },
+    "processSteps": {
+      "headers": ["# of Steps"],
+      "type": "number"
+    },
+    "finishProcess": {
+      "headers": ["Finish Process"],
+      "type": "string"
+    },
+    "notes": {
+      "headers": ["Notes"],
+      "type": "text"
+    }
+  },
+  "graphicApplicationTypes": [
+    {
+      "templateKey": "graphic.waterDecal",
+      "label": "Water Decal",
+      "uiLabel": "Water Decal",
+      "sortOrder": 1
+    },
+    {
+      "templateKey": "graphic.partial3dPrint",
+      "label": "Partial 3D Print",
+      "uiLabel": "Gloss 3D Print",
+      "sortOrder": 2
+    },
+    {
+      "templateKey": "graphic.silkScreen",
+      "label": "Silk Screen",
+      "uiLabel": "Silkscreen",
+      "sortOrder": 3
+    },
+    {
+      "templateKey": "graphic.heatTransfer",
+      "label": "Heat Transfer",
+      "uiLabel": "Heat Transfer",
+      "sortOrder": 4
+    },
+    {
+      "templateKey": "graphic.laserEngraved",
+      "label": "Laser Engraved",
+      "uiLabel": "Laser Etch",
+      "sortOrder": 5
+    }
+  ],
+  "materialTypes": [
+    { "slug": "ceramic", "label": "Ceramic", "enabled": false, "sortOrder": 1 },
+    { "slug": "glass", "label": "Glass", "enabled": false, "sortOrder": 2 },
+    { "slug": "stainless_steel", "label": "S. Steel", "enabled": true, "sortOrder": 3 },
+    { "slug": "plastic", "label": "Plastic", "enabled": false, "sortOrder": 4 }
+  ],
+  "reservedColumns": ["material", "customPattern"]
+}

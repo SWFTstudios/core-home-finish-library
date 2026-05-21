@@ -58,6 +58,16 @@ async function uploadRender(
   return key;
 }
 
+/** Trailing-slash paths → index.html (Pages does this automatically; Worker assets do not). */
+function assetRequestForPath(request: Request, pathname: string): Request {
+  if (!pathname.endsWith("/")) {
+    return request;
+  }
+  const url = new URL(request.url);
+  url.pathname = `${pathname}index.html`;
+  return new Request(url.toString(), request);
+}
+
 export default {
   async fetch(request: Request, env: Env): Promise<Response> {
     const url = new URL(request.url);
@@ -66,7 +76,17 @@ export default {
       return handleApi(request, env, url);
     }
 
-    return env.ASSETS.fetch(request);
+    if (request.method === "GET") {
+      if (url.pathname === "/" || url.pathname === "") {
+        return Response.redirect(`${url.origin}/configurator/`, 302);
+      }
+
+      if (url.pathname === "/configurator") {
+        return Response.redirect(`${url.origin}/configurator/`, 302);
+      }
+    }
+
+    return env.ASSETS.fetch(assetRequestForPath(request, url.pathname));
   },
 };
 
@@ -96,6 +116,58 @@ async function handleApi(
 
   if (request.method === "GET" && url.pathname === "/api/me") {
     return Response.json({ profile }, { headers: JSON_HEADERS });
+  }
+
+  if (request.method === "GET" && url.pathname === "/api/catalog") {
+    const material = url.searchParams.get("material") ?? "stainless_steel";
+
+    const materials = await env.DB.prepare(
+      "SELECT id, slug, label, enabled, sort_order AS sortOrder FROM material_types ORDER BY sort_order ASC",
+    ).all();
+
+    const graphicApplicationTypes = await env.DB.prepare(
+      `SELECT id, template_key AS templateKey, label, ui_label AS uiLabel, sort_order AS sortOrder
+       FROM graphic_application_types ORDER BY sort_order ASC`,
+    ).all();
+
+    const finishesResult = await env.DB.prepare(
+      `SELECT id, slug, name, category, durability_score AS durabilityScore, durability_notes AS durabilityNotes,
+              price_band AS priceBand, cost_tier AS costTier, finish_process AS finishProcess,
+              process_steps AS processSteps, description, hex_color AS hexColor
+       FROM finishes WHERE template_id = 'finish_library_ak' ORDER BY name ASC`,
+    ).all();
+
+    const compatResult = await env.DB.prepare(
+      `SELECT finish_id, graphic_id FROM finish_graphic_compat WHERE compatible = 1`,
+    ).all();
+
+    const compatByFinish = new Map<string, string[]>();
+    for (const row of compatResult.results ?? []) {
+      const r = row as { finish_id: string; graphic_id: string };
+      const list = compatByFinish.get(r.finish_id) ?? [];
+      list.push(r.graphic_id);
+      compatByFinish.set(r.finish_id, list);
+    }
+
+    const finishes = (finishesResult.results ?? []).map((row) => {
+      const f = row as Record<string, unknown>;
+      const id = String(f.id);
+      return {
+        ...f,
+        compatibleGraphics: compatByFinish.get(id) ?? [],
+      };
+    });
+
+    return Response.json(
+      {
+        templateId: "finish_library_ak",
+        material,
+        materials: materials.results ?? [],
+        graphicApplicationTypes: graphicApplicationTypes.results ?? [],
+        finishes,
+      },
+      { headers: JSON_HEADERS },
+    );
   }
 
   if (request.method === "GET" && url.pathname === "/api/finishes") {

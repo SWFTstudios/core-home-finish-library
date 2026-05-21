@@ -7,10 +7,10 @@
 ## D1 conventions
 
 - **SQLite syntax only** — no PostgreSQL `gen_random_uuid()`, `SERIAL`, or array types.
-- **IDs** — generated in the Worker with `crypto.randomUUID()`, stored as `TEXT`.
+- **IDs** — stable text IDs for factory imports (`fin-{slug}`, `gfx-001`); UUIDs for requests/renders.
 - **Foreign keys** — enabled per request: `PRAGMA foreign_keys = ON` in [`src/index.ts`](../src/index.ts).
 
-Canonical schema: [`schema.sql`](../schema.sql). Apply with `npm run db:migrate` (remote) or `npm run db:migrate:local`.
+Canonical schema: [`schema.sql`](../schema.sql). Factory import: [finish-catalog-import.md](finish-catalog-import.md).
 
 ---
 
@@ -22,109 +22,88 @@ erDiagram
   profiles ||--o{ renders : uploads
   render_requests ||--o{ request_finishes : selections
   finishes ||--o{ request_finishes : selected
+  finishes ||--o{ finish_graphic_compat : supports
+  graphic_application_types ||--o{ finish_graphic_compat : defines
   render_requests ||--o{ renders : deliverables
 
-  profiles {
+  material_types {
     text id PK
-    text email UK
-    text team
+    text slug UK
+    int enabled
+  }
+  graphic_application_types {
+    text id PK
+    text template_key UK
+    text ui_label
   }
   finishes {
     text id PK
-    text name
-    text category
-    text figma_node_id
+    text slug UK
+    int durability_score
+    text price_band
   }
-  render_requests {
-    text id PK
-    text title
-    text status
-  }
-  request_finishes {
-    text id PK
-    text zone
-  }
-  renders {
-    text id PK
-    int version
-    text file_url
+  finish_graphic_compat {
+    text finish_id FK
+    text graphic_id FK
+    int compatible
   }
 ```
 
 ---
 
-## Tables
+## Factory capability tables
 
-### `profiles`
+### `material_types`
 
-Team membership tied to Cloudflare Access email.
+UI material chips (Figma zone 1). `enabled = 1` only for stainless steel in v1.
 
-| Column | Description |
-|--------|-------------|
-| `id` | UUID primary key |
-| `email` | Unique; matches Access header |
-| `full_name` | Display name |
-| `team` | `PD`, `ID`, `GD`, or `Admin` |
+### `graphic_application_types`
+
+One row per spreadsheet boolean column (Water Decal, Laser Engraved, etc.). `template_key` matches [`factory-library-template.json`](../data/factory-library-template.json).
 
 ### `finishes`
 
-The Finish Library catalog.
+Factory capability rows — one per spreadsheet line on sheet `Library`.
 
-| Column | Description |
-|--------|-------------|
-| `id` | UUID primary key |
-| `name` | Display name (e.g. “Matte Pink”) |
-| `category` | e.g. `color`, `material`, `texture`, `coating` |
-| `description` | Optional detail |
-| `hex_color` | Swatch color when no image |
-| `image_url` | R2 or CDN URL for swatch/product |
-| `figma_node_id` | Link back to Figma component for sync |
+| Column | Source column |
+|--------|----------------|
+| `slug` | Derived from finish name |
+| `name` | Finish Name |
+| `durability_score` | Durability Score |
+| `durability_notes` | Durability / Finish Notes |
+| `price_band` | Price (`$` … `$$$$$`) |
+| `cost_tier` | Derived from price band length |
+| `finish_process` | Finish Process |
+| `process_steps` | # of Steps (numeric when possible) |
+| `description` | Combined notes |
+| `hex_color` | Generated swatch placeholder |
+| `template_id` | `finish_library_ak` |
 
-### `render_requests`
+### `finish_graphic_compat`
 
-A PD-submitted (or draft) render job.
+Junction: which graphic applications each finish supports (`compatible = 1`).
 
-| Column | Description |
-|--------|-------------|
-| `id` | UUID primary key |
-| `title` | Request title |
-| `product_type` | e.g. water bottle, tumbler |
-| `requested_by` | FK → `profiles.id` |
-| `status` | `Draft`, `Submitted`, `In Progress`, `Delivered`, `Revision Requested` |
-| `notes` | Freeform context for ID |
-| `deadline` | ISO date string |
-| `created_at`, `updated_at` | Timestamps |
+---
 
-### `request_finishes`
+## Workflow tables
 
-Junction: which finishes apply to which zones on a request.
+### `profiles`
 
-| Column | Description |
-|--------|-------------|
-| `request_id` | FK → `render_requests.id` |
-| `finish_id` | FK → `finishes.id` |
-| `zone` | e.g. `body`, `logo`, `lid`, `handle` |
-| `notes` | Per-zone notes |
+Team membership tied to Cloudflare Access email (`PD`, `ID`, `GD`, `Admin`).
 
-### `renders`
+### `render_requests` / `request_finishes` / `renders`
 
-ID deliverables (versioned).
-
-| Column | Description |
-|--------|-------------|
-| `request_id` | FK → `render_requests.id` |
-| `uploaded_by` | FK → `profiles.id` |
-| `file_url` | R2 object key or public URL |
-| `version` | Integer; increments per request |
-| `notes` | Optional delivery notes |
+Unchanged — PD specs and ID deliverables. See prior chapters in git history for column detail.
 
 ---
 
 ## Seed data
 
-[`seed.sql`](../seed.sql) adds demo profiles and finishes for local development:
+[`seed.sql`](../seed.sql) is **generated** by `npm run import:finishes` from the factory xlsx:
 
 ```bash
+npm run import:finishes
+npm run db:migrate:local
 npm run db:seed:local
 ```
 
@@ -132,9 +111,9 @@ npm run db:seed:local
 
 ## Implementation notes
 
-- Finish **search** in the API uses `LIKE` on `name` and `description`; **category** filter is exact match.
-- New render **version** = `MAX(version) + 1` for the same `request_id`.
-- R2 keys follow `renders/{requestId}/{uuid}-{filename}` — see [08 — API reference](08-api-reference.md).
+- Configurator boot: **`GET /api/catalog`** returns materials, graphic types, and finishes with `compatibleGraphics`.
+- Finish **search**: `GET /api/finishes?q=` or client filter on catalog payload.
+- Re-import when the factory sends an updated spreadsheet (same template structure).
 
 ---
 

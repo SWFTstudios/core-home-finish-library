@@ -1,0 +1,328 @@
+<!DOCTYPE html><html class="dark" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Finish Library | Core Home</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;family=Geist:wght@400;600;700;800&amp;family=JetBrains+Mono:wght@500&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-primary-fixed-variant": "#003ea8",
+                        "on-surface-variant": "#c3c6d7",
+                        "on-secondary-fixed-variant": "#004883",
+                        "error": "#ffb4ab",
+                        "error-container": "#93000a",
+                        "surface-container-lowest": "#010f1f",
+                        "surface-tint": "#b4c5ff",
+                        "tertiary-fixed-dim": "#89ceff",
+                        "inverse-surface": "#d4e4fa",
+                        "secondary-fixed": "#d4e3ff",
+                        "background": "#051424",
+                        "on-background": "#d4e4fa",
+                        "secondary-container": "#0267b8",
+                        "surface-bright": "#2c3a4c",
+                        "surface-container": "#122131",
+                        "on-primary": "#002a78",
+                        "tertiary": "#89ceff",
+                        "on-tertiary-fixed": "#001e2f",
+                        "tertiary-container": "#0074a6",
+                        "on-tertiary": "#00344d",
+                        "surface": "#051424",
+                        "surface-container-highest": "#273647",
+                        "on-error": "#690005",
+                        "inverse-primary": "#0053db",
+                        "secondary-fixed-dim": "#a4c9ff",
+                        "on-surface": "#d4e4fa",
+                        "primary-fixed": "#dbe1ff",
+                        "surface-variant": "#273647",
+                        "on-primary-fixed": "#00174b",
+                        "tertiary-fixed": "#c9e6ff",
+                        "surface-container-high": "#1c2b3c",
+                        "primary-fixed-dim": "#b4c5ff",
+                        "outline-variant": "#434655",
+                        "inverse-on-surface": "#233143",
+                        "on-tertiary-fixed-variant": "#004c6e",
+                        "on-error-container": "#ffdad6",
+                        "secondary": "#a4c9ff",
+                        "on-secondary-container": "#d6e5ff",
+                        "on-tertiary-container": "#e4f2ff",
+                        "on-secondary-fixed": "#001c39",
+                        "primary": "#b4c5ff",
+                        "outline": "#8d90a0",
+                        "on-secondary": "#00315d",
+                        "surface-dim": "#051424",
+                        "on-primary-container": "#eeefff",
+                        "primary-container": "#2563eb",
+                        "surface-container-low": "#0d1c2d"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "gutter": "24px",
+                        "margin-mobile": "16px",
+                        "base": "8px",
+                        "margin-desktop": "64px",
+                        "container-max": "1440px",
+                        "md": "24px",
+                        "sm": "12px",
+                        "margin": "40px",
+                        "xl": "80px",
+                        "xs": "4px",
+                        "lg": "48px"
+                    },
+                    "fontFamily": {
+                        "body-md": ["Inter"],
+                        "headline-lg": ["Geist"],
+                        "label-sm": ["JetBrains Mono"],
+                        "headline-lg-mobile": ["Geist"],
+                        "display-lg": ["Geist"],
+                        "title-md": ["Geist"]
+                    },
+                    "fontSize": {
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                        "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                        "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                        "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                        "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "title-md": ["18px", {"lineHeight": "24px", "fontWeight": "600"}],
+                        "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .active-ring {
+            box-shadow: 0 0 0 2px #051424, 0 0 0 4px #2563eb;
+        }
+        .scrollbar-hide::-webkit-scrollbar {
+            display: none;
+        }
+        .scrollbar-hide {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-md min-h-screen flex flex-col">
+<!-- TopAppBar -->
+<header class="bg-surface-container border-b border-outline-variant/30 docked full-width top-0 z-50">
+<div class="flex justify-between items-center w-full px-margin h-16 max-w-[1440px] mx-auto">
+<div class="flex items-center gap-base">
+<span class="font-title-md text-title-md font-bold text-on-surface">Core Home</span>
+</div>
+<div class="hidden md:flex items-center gap-lg">
+<nav class="flex gap-md">
+<a class="font-label-md text-label-md text-primary border-b-2 border-primary py-xs" href="#">Library</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-on-surface py-xs transition-colors duration-200" href="#">Projects</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-on-surface py-xs transition-colors duration-200" href="#">Standards</a>
+</nav>
+</div>
+<div class="flex items-center gap-sm">
+<button class="p-base hover:bg-surface-container-high transition-colors duration-200 rounded-full scale-95 active:scale-90 transition-transform">
+<span class="material-symbols-outlined text-primary" data-icon="home">home</span>
+</button>
+<button class="p-base hover:bg-surface-container-high transition-colors duration-200 rounded-full scale-95 active:scale-90 transition-transform">
+<span class="material-symbols-outlined text-primary" data-icon="folder">folder</span>
+</button>
+<button class="p-base hover:bg-surface-container-high transition-colors duration-200 rounded-full scale-95 active:scale-90 transition-transform">
+<span class="material-symbols-outlined text-primary" data-icon="account_circle">account_circle</span>
+</button>
+</div>
+</div>
+</header>
+<main class="flex-grow max-w-[1440px] w-full mx-auto p-margin grid grid-cols-12 gap-gutter relative">
+<!-- Left Sidebar: Material Details -->
+<aside class="col-span-12 lg:col-span-2 flex flex-col gap-md">
+<div class="bg-surface-container p-md rounded-xl shadow-sm">
+<h2 class="font-title-md text-title-md mb-sm text-primary">Ceramic</h2>
+<div class="flex flex-col gap-sm"><div class="flex justify-between items-center">
+    <span class="font-label-sm text-label-sm text-on-surface-variant uppercase">Durability</span>
+    <span class="font-label-md text-primary font-bold">4/5</span>
+</div>
+<div class="flex justify-between items-center">
+    <span class="font-label-sm text-label-sm text-on-surface-variant uppercase">Cost</span>
+    <span class="font-label-md text-primary font-bold">2/5</span>
+</div></div>
+<div class="mt-md border-t border-outline-variant/30 pt-sm"><span class="font-label-sm text-label-sm text-on-surface-variant uppercase">Property Notes</span>
+<ul class="mt-xs space-y-1">
+    <li class="flex items-start gap-xs text-body-sm text-on-surface">
+        <span class="material-symbols-outlined text-[14px] mt-0.5 text-primary">check_circle</span>
+        High thermal retention
+    </li>
+    <li class="flex items-start gap-xs text-body-sm text-on-surface">
+        <span class="material-symbols-outlined text-[14px] mt-0.5 text-primary">check_circle</span>
+        Superior glaze quality
+    </li>
+    <li class="flex items-start gap-xs text-body-sm text-on-surface">
+        <span class="material-symbols-outlined text-[14px] mt-0.5 text-primary">check_circle</span>
+        Smooth tactile feedback
+    </li>
+</ul></div>
+</div>
+<button class="bg-primary-container text-on-primary-container rounded-full py-sm px-md font-label-md flex items-center justify-center gap-xs shadow-md transition-transform active:scale-95">
+<span class="material-symbols-outlined text-[18px]" data-icon="add">add</span>
+                Add to Folder
+            </button>
+</aside>
+<!-- Center Viewport -->
+<section class="col-span-12 lg:col-span-8 flex flex-col gap-md">
+<!-- Section 1: Material Tabs -->
+<div class="flex gap-sm overflow-x-auto scrollbar-hide pb-xs">
+<div class="flex-shrink-0 flex items-center gap-xs px-md py-sm bg-primary-container text-on-primary-container rounded-lg border-2 border-primary shadow-sm cursor-pointer">
+<span class="material-symbols-outlined" data-icon="ceramic">database</span>
+<span class="font-label-md">Ceramic</span>
+</div>
+<div class="flex-shrink-0 flex items-center gap-xs px-md py-sm bg-surface-container rounded-lg border border-outline-variant hover:border-primary transition-all cursor-pointer">
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="glass">window</span>
+<span class="font-label-md text-on-surface-variant">Glass</span>
+</div>
+<div class="flex-shrink-0 flex items-center gap-xs px-md py-sm bg-surface-container rounded-lg border border-outline-variant hover:border-primary transition-all cursor-pointer">
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="s_steel">rebase</span>
+<span class="font-label-md text-on-surface-variant">S. Steel</span>
+</div>
+<div class="flex-shrink-0 flex items-center gap-xs px-md py-sm bg-surface-container rounded-lg border border-outline-variant hover:border-primary transition-all cursor-pointer">
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="plastic">vitals</span>
+<span class="font-label-md text-on-surface-variant">Plastic</span>
+</div>
+</div>
+<!-- Preview Canvas -->
+<div class="relative bg-surface-container-lowest rounded-xl shadow-2xl aspect-[16/9] flex items-center justify-center overflow-hidden border border-outline-variant/20">
+<div class="grid grid-cols-2 gap-xl w-full h-full p-lg">
+<div class="flex flex-col items-center justify-center gap-md">
+<img alt="Ceramic Mug Front" class="w-full h-full object-contain" data-alt="A high-end 3D product render of a minimalist ceramic mug seen from the front, showcasing a smooth matte powder-coated finish in a crisp industrial white. The lighting is soft and diffused, highlighting the subtle curves and the elegant ombré transition towards the base. The background is a clean, neutral studio setting consistent with a professional designer's material library workspace." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCb5GqnLrVjXhR7itGwSdEmVh7ScP8g5Lp9QF4txOlVSzqXVoZDRR5RSGV-Kolxx5bvrjllJMPMt_HjJ4TRMX7pYFycxGTO_R42qePMHkmNoO3czyhUlFO0l6hrsXw7jHVxQDFWqcGyK8LJJ-EiVMaxCILEOnwx1ENH3RWZqeMVCV2MzBf9NyWdfNVI9ErGZj1-IAP07LQKNQsAO4cyPQxj0VYbV1YweCkCUUglW5L29w1TD4iwAQClNUgYg2nO2MzQF3aaqiO0dTsG">
+<span class="font-label-sm text-on-surface-variant tracking-widest uppercase">Front View</span>
+</div>
+<div class="flex flex-col items-center justify-center gap-md">
+<img alt="Ceramic Mug Back" class="w-full h-full object-contain" data-alt="A professional 3D render of the same minimalist ceramic mug from a rear three-quarter angle, revealing the ergonomic handle and the seamless integration of the graphic application. The finish is a clinical powder coating with a soft matte texture under bright, balanced studio lighting. The aesthetic is clean and modern, focusing on industrial precision and material quality within a sophisticated UI context." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA7owLtX7SeFcYFafcKFDRct5oWvvKLqB3UGmanbTufZ3EF0tu7VnwG9GtnAOP2XKOXIBi_crqvWDen3uC_ojmVwP3AZYubaVodpYeF5o8r_E1cXH6NR-u31me5qADOenT-NgVGQ-SN_Gtug31uPjj9RBQYmG3XOAiZyW_ZoeMMuDSr9mIaVD5QWXF7mkL_UiuP4Gb6Rb3KgkiHOFkGrP5XPAMqPm7H4kh20JpTDTk6DoHCpFb1bOcXPg_fGi2nDe9gwgT7-f4Ozicm">
+<span class="font-label-sm text-on-surface-variant tracking-widest uppercase">Back View</span>
+</div>
+</div>
+<!-- Floating Zoom Controls -->
+<div class="absolute bottom-md right-md flex flex-col gap-xs bg-surface-bright/80 backdrop-blur-md rounded-full p-xs border border-outline-variant">
+<button class="p-xs hover:bg-surface-container rounded-full"><span class="material-symbols-outlined text-primary">zoom_in</span></button>
+<button class="p-xs hover:bg-surface-container rounded-full"><span class="material-symbols-outlined text-primary">zoom_out</span></button>
+<button class="p-xs hover:bg-surface-container rounded-full"><span class="material-symbols-outlined text-primary">360</span></button>
+</div>
+</div>
+<!-- Section 3: Graphic Application -->
+<div class="bg-surface-container p-md rounded-xl overflow-hidden">
+<h3 class="font-label-sm text-on-surface-variant uppercase mb-sm">Graphic Application</h3>
+<div class="flex gap-md overflow-x-auto scrollbar-hide">
+<div class="flex-shrink-0 flex flex-col gap-xs items-center group cursor-pointer">
+<div class="w-24 h-16 bg-surface-container-highest rounded-lg border-2 border-primary overflow-hidden">
+<div class="w-full h-full bg-gradient-to-br from-white/10 to-white/5 flex items-center justify-center">
+<span class="material-symbols-outlined text-on-surface">texture</span>
+</div>
+</div>
+<span class="font-label-md text-primary text-center">Embossed + Decal</span>
+</div>
+<div class="flex-shrink-0 flex flex-col gap-xs items-center group cursor-pointer opacity-60 hover:opacity-100 transition-opacity">
+<div class="w-24 h-16 bg-surface-container-low rounded-lg border border-outline-variant overflow-hidden">
+<div class="w-full h-full bg-gradient-to-tr from-primary-container/20 to-transparent flex items-center justify-center">
+<span class="material-symbols-outlined text-on-surface-variant">print</span>
+</div>
+</div>
+<span class="font-label-md text-on-surface-variant text-center">Silk Print</span>
+</div>
+<div class="flex-shrink-0 flex flex-col gap-xs items-center group cursor-pointer opacity-60 hover:opacity-100 transition-opacity">
+<div class="w-24 h-16 bg-surface-container-low rounded-lg border border-outline-variant overflow-hidden">
+<div class="w-full h-full bg-white/5 flex items-center justify-center">
+<span class="material-symbols-outlined text-on-surface-variant">flare</span>
+</div>
+</div>
+<span class="font-label-md text-on-surface-variant text-center">Laser Decal</span>
+</div>
+<div class="flex-shrink-0 flex flex-col gap-xs items-center group cursor-pointer opacity-60 hover:opacity-100 transition-opacity">
+<div class="w-24 h-16 bg-surface-container-low rounded-lg border border-outline-variant overflow-hidden">
+<div class="w-full h-full bg-white/5 flex items-center justify-center">
+<span class="material-symbols-outlined text-on-surface-variant">waves</span>
+</div>
+</div>
+<span class="font-label-md text-on-surface-variant text-center">Wax Resist</span>
+</div>
+<div class="flex-shrink-0 flex flex-col gap-xs items-center group cursor-pointer opacity-60 hover:opacity-100 transition-opacity">
+<div class="w-24 h-16 bg-surface-container-low rounded-lg border border-outline-variant overflow-hidden">
+<div class="w-full h-full bg-white/5 flex items-center justify-center">
+<span class="material-symbols-outlined text-on-surface-variant">check_box_outline_blank</span>
+</div>
+</div>
+<span class="font-label-md text-on-surface-variant text-center">Debossed</span>
+</div>
+<div class="flex-shrink-0 flex flex-col gap-xs items-center group cursor-pointer opacity-60 hover:opacity-100 transition-opacity">
+<div class="w-24 h-16 bg-surface-container-low rounded-lg border border-outline-variant overflow-hidden">
+<div class="w-full h-full bg-white/5 flex items-center justify-center">
+<span class="material-symbols-outlined text-on-surface-variant">layers</span>
+</div>
+</div>
+<span class="font-label-md text-on-surface-variant text-center">Embossed</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Right Sidebar: Finish Dial -->
+<aside class="col-span-12 lg:col-span-2 flex flex-col gap-md">
+<div class="flex flex-col items-center bg-surface-container/60 backdrop-blur-xl p-md rounded-2xl border border-white/5 h-full">
+<span class="font-label-sm text-on-surface-variant uppercase mb-lg">Finish Selector</span>
+<div class="flex flex-col gap-lg items-center relative py-xl">
+<!-- Selection Rail Visual -->
+<div class="absolute inset-y-0 left-1/2 -translate-x-1/2 w-0.5 bg-outline-variant/20"></div>
+<!-- Swatches -->
+<div class="relative z-10 flex flex-col gap-md items-center">
+<div class="w-10 h-10 rounded-full bg-neutral-700 border border-white/20 shadow-sm cursor-pointer hover:scale-110 transition-transform"></div>
+<div class="w-10 h-10 rounded-full bg-slate-600 border border-white/20 shadow-sm cursor-pointer hover:scale-110 transition-transform"></div>
+<!-- Active Item -->
+<div class="relative flex items-center group">
+<div class="w-16 h-16 rounded-full bg-primary border-4 border-surface shadow-lg active-ring flex items-center justify-center cursor-pointer scale-110 transition-all">
+<div class="w-full h-full rounded-full bg-gradient-to-b from-primary to-primary-container"></div>
+</div>
+<div class="absolute left-full ml-md bg-primary-container text-on-primary-container px-sm py-xs rounded-lg whitespace-nowrap shadow-md">
+<span class="font-label-md">Powder coating</span>
+</div>
+</div>
+<div class="w-10 h-10 rounded-full bg-indigo-900 border border-white/20 shadow-sm cursor-pointer hover:scale-110 transition-transform"></div>
+<div class="w-10 h-10 rounded-full bg-emerald-900 border border-white/20 shadow-sm cursor-pointer hover:scale-110 transition-transform"></div>
+<div class="w-10 h-10 rounded-full bg-stone-800 border border-white/20 shadow-sm cursor-pointer hover:scale-110 transition-transform"></div>
+</div>
+</div>
+<div class="mt-auto w-full pt-md border-t border-outline-variant/30">
+<div class="flex items-center justify-between mb-xs">
+<span class="font-label-sm text-on-surface-variant">Ombré Detail</span>
+<div class="w-10 h-5 bg-primary-container rounded-full relative p-0.5 cursor-pointer">
+<div class="w-4 h-4 bg-on-primary-container rounded-full absolute right-0.5"></div>
+</div>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant opacity-70">Smooth vertical gradient effect enabled.</p>
+</div>
+</div>
+</aside>
+</main>
+<!-- Footer -->
+<footer class="bg-surface-container-lowest border-t border-outline-variant/30 mt-auto">
+<div class="flex flex-col md:flex-row justify-between items-center px-margin py-base w-full max-w-[1440px] mx-auto">
+<div class="flex items-center gap-md mb-base md:mb-0">
+<span class="font-title-md text-title-md text-on-surface font-bold">Core Home</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">© 2026 Product Library. Industrial Precision.</span>
+</div>
+<div class="flex gap-md">
+<a class="font-body-sm text-body-sm text-on-surface-variant hover:text-on-surface hover:underline transition-opacity duration-200" href="#">Terms of Service</a>
+<a class="font-body-sm text-body-sm text-on-surface-variant hover:text-on-surface hover:underline transition-opacity duration-200" href="#">Privacy Policy</a>
+<a class="font-body-sm text-body-sm text-on-surface-variant hover:text-on-surface hover:underline transition-opacity duration-200" href="#">Material Standards</a>
+</div>
+</div>
+</footer>
+
+
+</body></html>

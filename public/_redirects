@@ -1,0 +1,3 @@
+# Cloudflare Pages — route to directory indexes (avoids .html redirect loops)
+/ /configurator/ 302
+/configurator /configurator/ 302

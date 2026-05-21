@@ -18,6 +18,10 @@ npm run dev
 
 Open the URL Wrangler prints (usually `http://localhost:8787`).
 
+**Finish Library configurator (SS):** [http://localhost:8787/configurator.html](http://localhost:8787/configurator.html) — requires `npm run import:finishes` and `db:seed:local`.
+
+**Finish Library (Pages):** [https://core-home-finish-library.pages.dev/](https://core-home-finish-library.pages.dev/) — `/` opens the configurator; deploy with `npm run pages:deploy` or push to `main` (see [phased deployment](docs/phased-deployment.md)).
+
 ---
 
 ## Documentation
@@ -25,10 +29,11 @@ Open the URL Wrangler prints (usually `http://localhost:8787`).
 | Resource | Description |
 |----------|-------------|
 | [Project book](docs/README.md) | Full documentation — purpose, workflow, setup, API |
+| [Ch. 9 — Development workflow](docs/09-development-workflow.md) | **Version-control bible** — Git, PRs, design + engineering handoff |
 | [INSTRUCTIONS.md](INSTRUCTIONS.md) | Active todos for contributors and AI assistants |
 | [Figma design](https://www.figma.com/design/XY8ZVNYLrbK6OMVWNNqSBt/InteractiveFinishLibrary_COPY) | UI reference (GD: Maria T, Jacinta Correia) |
 
-**Chapters:** [Purpose](docs/01-purpose.md) · [How it works](docs/02-how-it-works.md) · [Local setup](docs/06-local-setup.md) · [Deployment](docs/07-deployment.md) · [Roadmap](docs/10-roadmap-and-status.md)
+**Chapters:** [Purpose](docs/01-purpose.md) · [How it works](docs/02-how-it-works.md) · [Development workflow](docs/09-development-workflow.md) · [Local setup](docs/06-local-setup.md) · [Deployment](docs/07-deployment.md) · [Roadmap](docs/10-roadmap-and-status.md)
 
 ---
 

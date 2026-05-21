@@ -1,50 +1,82 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-lumina-theme="light">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Finish Library — Core Home</title>
-    <link rel="stylesheet" href="/css/styles.css" />
+    <title>Standards — Core Home Finish Library</title>
+    <link rel="stylesheet" href="/css/lumina-finish.css" />
+    <link rel="stylesheet" href="/css/core-home-navbar.css" />
+    <link rel="stylesheet" href="/css/library.css" />
   </head>
-  <body>
-    <header class="site-header">
-      <div class="brand">
-        <strong>Core Home Render Portal</strong>
-        <span>Visual finish catalog</span>
-      </div>
-      <nav class="nav" aria-label="Main">
-        <a href="/">Dashboard</a>
-        <a href="/library.html" class="is-active">Finish Library</a>
-        <a href="/request.html">New Request</a>
-      </nav>
-    </header>
+  <body class="portal-body library-body">
+    <div id="core-home-navbar-mount" data-active="standards"></div>
 
-    <main>
-      <section class="hero">
-        <h1>Finish Library</h1>
-        <p>
-          Browse materials, colors, textures, and coatings — visual cards, not
-          dropdowns. Synced from the GD team&rsquo;s Figma system over time.
-        </p>
+    <main class="library-main">
+      <header class="library-hero">
+        <h1>Finish standards</h1>
+        <p class="library-hero-lead">Pick a <strong>material</strong>, then a <strong>type</strong>, then tap a <strong>finish</strong>.</p>
+      </header>
+
+      <div id="page-banner" class="status-banner library-banner" hidden></div>
+
+      <div class="library-toolbar">
+        <label class="library-search-wrap">
+          <span class="material-symbols-outlined" aria-hidden="true">search</span>
+          <input
+            id="library-search"
+            type="search"
+            placeholder="Search finishes…"
+            aria-label="Search finishes"
+            autocomplete="off"
+          />
+        </label>
+        <a class="library-cta-btn" href="/request.html">Start render request</a>
+      </div>
+
+      <section class="library-materials" aria-labelledby="materials-heading">
+        <h2 id="materials-heading" class="library-section-label">1. Choose a material</h2>
+        <div id="material-row" class="library-material-row" role="list"></div>
       </section>
 
-      <div id="page-banner" class="status-banner" hidden></div>
+      <nav id="library-breadcrumb" class="library-breadcrumb" aria-label="You are here"></nav>
 
-      <div class="toolbar">
-        <input id="search" type="search" placeholder="Search finishes…" aria-label="Search finishes" />
-        <select id="category-filter" aria-label="Filter by category">
-          <option value="">All categories</option>
-          <option value="color">Color</option>
-          <option value="material">Material</option>
-          <option value="texture">Texture</option>
-          <option value="coating">Coating</option>
-        </select>
-        <a class="btn" href="/request.html">Start render request</a>
+      <div class="library-layout">
+        <aside class="library-process-nav" aria-labelledby="process-heading">
+          <h2 id="process-heading" class="library-section-label">2. Choose a type</h2>
+          <div id="process-nav" class="library-process-list" role="tablist" aria-orientation="vertical"></div>
+        </aside>
+
+        <div class="library-content">
+          <div id="library-sections" class="library-sections" aria-live="polite"></div>
+        </div>
       </div>
-
-      <div id="finish-grid" class="finish-grid" aria-live="polite"></div>
     </main>
 
-    <script src="/js/app.js" type="module"></script>
+    <div id="finish-detail-backdrop" class="library-detail-backdrop" hidden></div>
+    <aside
+      id="finish-detail"
+      class="library-detail"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="detail-title"
+      aria-hidden="true"
+      hidden
+    >
+      <header class="library-detail-header">
+        <h2 id="detail-title" class="library-detail-title"></h2>
+        <button type="button" class="library-detail-close" aria-label="Close details">
+          <span class="material-symbols-outlined">close</span>
+        </button>
+      </header>
+      <div id="detail-body" class="library-detail-body"></div>
+      <footer class="library-detail-footer">
+        <a id="detail-configurator-link" class="library-cta-btn library-cta-btn--full" href="/configurator/"
+          >Try on tumbler</a
+        >
+      </footer>
+    </aside>
+
+    <script type="module" src="/js/portal.js"></script>
+    <script type="module" src="/js/library.js"></script>
   </body>
 </html>

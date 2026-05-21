@@ -20,17 +20,21 @@ Internal documentation for the **Render Portal / Finish Library**: why it exists
 | [06](06-local-setup.md) | Local setup | WD — *run on your machine* |
 | [07](07-deployment.md) | Deployment | WD — *Cloudflare production* |
 | [08](08-api-reference.md) | API reference | WD — *Worker routes and auth* |
-| [09](09-development-workflow.md) | Development workflow | Contributors — *Git, PRs, standards* |
+| [09](09-development-workflow.md) | Development workflow | Everyone — *version-control bible: Git, teams, design handoff, replay guide* |
 | [10](10-roadmap-and-status.md) | Roadmap and status | Everyone — *what’s done and what’s next* |
+| [phased-deployment](phased-deployment.md) | Phased deployment | WD — *Pages → Worker → production* |
 
 ---
 
 ## Quick links
 
 - **Figma prototype:** [InteractiveFinishLibrary_COPY](https://www.figma.com/design/XY8ZVNYLrbK6OMVWNNqSBt/InteractiveFinishLibrary_COPY)
+- **UI inspiration (viewport HUD):** [`inspiration/`](../inspiration/)
 - **Schema:** [`schema.sql`](../schema.sql)
 - **Worker API:** [`src/index.ts`](../src/index.ts)
 - **Active todos:** [`INSTRUCTIONS.md`](../INSTRUCTIONS.md)
+- **Pages site:** [core-home-finish-library.pages.dev](https://core-home-finish-library.pages.dev/)
+- **Factory import:** [finish-catalog-import.md](finish-catalog-import.md)
 
 ---
 

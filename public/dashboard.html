@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" data-lumina-theme="light">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Projects — Core Home</title>
+    <link rel="stylesheet" href="/css/lumina-finish.css" />
+    <link rel="stylesheet" href="/css/core-home-navbar.css" />
+    <link rel="stylesheet" href="/css/styles.css" />
+  </head>
+  <body class="portal-body">
+    <div id="core-home-navbar-mount" data-active="projects"></div>
+
+    <main>
+      <section class="hero">
+        <h1>Render requests</h1>
+        <p>
+          Shared source of truth for PD &amp; ID — replace spreadsheet chaos with
+          visual finish selection and versioned render deliverables.
+        </p>
+      </section>
+
+      <div id="page-banner" class="status-banner" hidden></div>
+
+      <section aria-labelledby="requests-heading">
+        <h2 id="requests-heading" class="visually-hidden">Request list</h2>
+        <table class="request-table">
+          <thead>
+            <tr>
+              <th>Title</th>
+              <th>Product</th>
+              <th>Status</th>
+              <th>Deadline</th>
+              <th>Updated</th>
+            </tr>
+          </thead>
+          <tbody id="requests-body"></tbody>
+        </table>
+      </section>
+    </main>
+
+    <script type="module" src="/js/portal.js"></script>
+    <script src="/js/app.js" type="module"></script>
+  </body>
+</html>

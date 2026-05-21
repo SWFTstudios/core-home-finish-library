@@ -1,23 +1,15 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-lumina-theme="light">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>New Render Request — Core Home</title>
+    <title>New Request — Core Home</title>
+    <link rel="stylesheet" href="/css/lumina-finish.css" />
+    <link rel="stylesheet" href="/css/core-home-navbar.css" />
     <link rel="stylesheet" href="/css/styles.css" />
   </head>
-  <body>
-    <header class="site-header">
-      <div class="brand">
-        <strong>Core Home Render Portal</strong>
-        <span>Build your spec — Chipotle-style</span>
-      </div>
-      <nav class="nav" aria-label="Main">
-        <a href="/">Dashboard</a>
-        <a href="/library.html">Finish Library</a>
-        <a href="/request.html" class="is-active">New Request</a>
-      </nav>
-    </header>
+  <body class="portal-body">
+    <div id="core-home-navbar-mount" data-active="projects"></div>
 
     <main>
       <section class="hero">
@@ -40,7 +32,7 @@
           <h2>Your bowl</h2>
           <ul id="selection-list" class="selection-list"></ul>
 
-          <form id="request-form" class="form-panel" style="margin-top: 1rem; padding: 0; border: none; background: transparent">
+          <form id="request-form" class="form-panel" style="margin-top: 1rem; padding: 0; border: none; background: transparent; box-shadow: none">
             <div class="form-field">
               <label for="title">Request title</label>
               <input id="title" name="title" required placeholder="e.g. 24oz water bottle — Spring 2026" />
@@ -63,6 +55,7 @@
       </div>
     </main>
 
+    <script type="module" src="/js/portal.js"></script>
     <script src="/js/app.js" type="module"></script>
   </body>
 </html>

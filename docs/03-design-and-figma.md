@@ -12,6 +12,12 @@
 
 This file is the **UI and interaction reference** for the Finish Library and configurator. Code in `public/` should converge toward these screens, not the other way around.
 
+**How design changes land in `main`:** [09 — Development workflow](09-development-workflow.md) (Figma link + PR screenshots + preview URL → merge).
+
+**3D viewport:** The configurator uses a **Three.js cube** as a temporary stand-in for the tumbler mesh ([04 — Architecture](04-architecture.md)). Layout and HUD panels still follow `study_SS`; only the center preview is real-time WebGL, not a static hero image.
+
+**Viewport HUD references** (fixed panels over full-screen 3D stage): [`inspiration/`](../inspiration/) — grouped by context (`floating-panels`, `viewport-hud`). Implemented in `public/css/configurator.css` on `/configurator.html`.
+
 ---
 
 ## Prototype note
@@ -31,6 +37,8 @@ The file includes copy that **any material can be opened to preview the layout**
 | `study_SS` / `SS` | **Full SS customization** (primary build target) |
 | `study_Ceramic` / `Ceramic` | Ceramic path (+ finish variants) |
 | `study_Finish Option - Buckets` | Finish bucket exploration |
+
+**Standards library (`/library.html`)** maps the bucket model to a three-level browse: **Material → Process (finish type) → Style family**, then finish cards. Process labels align with catalog `category` / `finish_process` (Paint, Powder, etc.); style families are grouped client-side in `public/js/library-grouping.js`.
 
 ---
 

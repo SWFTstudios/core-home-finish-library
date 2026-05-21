@@ -50,6 +50,36 @@ No auth required.
 
 ---
 
+### `GET /api/catalog`
+
+**Auth:** required profile.
+
+Boot payload for [`/configurator.html`](../public/configurator.html). All UI options (materials, finishes, graphic types) come from this response.
+
+**Query parameters:**
+
+| Param | Description |
+|-------|-------------|
+| `material` | Material slug (default `stainless_steel`) |
+
+**Response:**
+
+```json
+{
+  "templateId": "finish_library_ak",
+  "material": "stainless_steel",
+  "materials": [{ "id", "slug", "label", "enabled", "sortOrder" }],
+  "graphicApplicationTypes": [{ "id", "templateKey", "label", "uiLabel", "sortOrder" }],
+  "finishes": [{
+    "id", "slug", "name", "durabilityScore", "durabilityNotes",
+    "priceBand", "costTier", "finishProcess", "hexColor",
+    "compatibleGraphics": ["gfx-005", "..."]
+  }]
+}
+```
+
+---
+
 ### `GET /api/finishes`
 
 **Auth:** required profile.
@@ -61,7 +91,7 @@ No auth required.
 | `category` | Exact match on `finishes.category` |
 | `q` | Search `name` and `description` (LIKE) |
 
-**Response:** `{ "finishes": [ ... ] }`
+**Response:** `{ "finishes": [ ... ] }` (full row including factory columns)
 
 ---
 

@@ -97,23 +97,6 @@ async function loadRequests(tableBody) {
   }
 }
 
-function bindLibraryPage() {
-  const grid = document.getElementById("finish-grid");
-  const search = document.getElementById("search");
-  const category = document.getElementById("category-filter");
-  if (!grid) return;
-
-  const refresh = () =>
-    loadFinishes({
-      gridEl: grid,
-      filters: { q: search?.value || "", category: category?.value || "" },
-    });
-
-  search?.addEventListener("input", debounce(refresh, 250));
-  category?.addEventListener("change", refresh);
-  refresh().catch(showError);
-}
-
 function bindRequestPage() {
   const grid = document.getElementById("picker-grid");
   const list = document.getElementById("selection-list");
@@ -212,7 +195,6 @@ function debounce(fn, ms) {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-  bindLibraryPage();
   bindRequestPage();
   bindDashboardPage();
 });

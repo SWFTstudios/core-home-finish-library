@@ -1,0 +1,110 @@
+@import url("https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Hanken+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500&family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&display=swap");
+
+/* Lumina tokens — synced from Stitch MCP export (Finish Library Dashboard) */
+
+[data-lumina-theme="light"] {
+  --lumina-background: #f9f9ff;
+  --lumina-on-background: #111c2d;
+  --lumina-surface: #f9f9ff;
+  --lumina-surface-dim: #cfdaf2;
+  --lumina-surface-bright: #f9f9ff;
+  --lumina-surface-container-lowest: #ffffff;
+  --lumina-surface-container-low: #f0f3ff;
+  --lumina-surface-container: #e7eeff;
+  --lumina-surface-container-high: #dee8ff;
+  --lumina-surface-container-highest: #d8e3fb;
+  --lumina-surface-variant: #d8e3fb;
+  --lumina-on-surface: #111c2d;
+  --lumina-on-surface-variant: #434655;
+  --lumina-outline: #737686;
+  --lumina-outline-variant: #c3c6d7;
+  --lumina-primary: #004ac6;
+  --lumina-on-primary: #ffffff;
+  --lumina-primary-container: #2563eb;
+  --lumina-on-primary-container: #eeefff;
+  --lumina-primary-fixed-dim: #b4c5ff;
+  --lumina-secondary: #505f76;
+  --lumina-on-secondary: #ffffff;
+  --lumina-secondary-container: #d0e1fb;
+  --lumina-on-secondary-container: #54647a;
+  --lumina-secondary-fixed-dim: #b7c8e1;
+  --lumina-inverse-on-surface: #ecf1ff;
+  --lumina-inverse-surface: #263143;
+  --lumina-font-display: "Hanken Grotesk", system-ui, sans-serif;
+  --lumina-font-title: "Hanken Grotesk", system-ui, sans-serif;
+  --lumina-font-body: Inter, system-ui, sans-serif;
+  --lumina-font-label: Inter, system-ui, sans-serif;
+  --lumina-shadow-header: 0 4px 20px rgba(0, 0, 0, 0.05);
+  --lumina-shadow-card: 0 4px 20px rgba(0, 0, 0, 0.05);
+  --lumina-active-ring: 0 0 0 2px #ffffff, 0 0 0 4px #004ac6;
+  --lumina-hero-bg: #ffffff;
+  --lumina-margin: 40px;
+  --lumina-gutter: 24px;
+  --lumina-max-width: 1440px;
+  --lumina-radius-sm: 0.25rem;
+  --lumina-radius-md: 0.5rem;
+  --lumina-radius-lg: 0.75rem;
+  --lumina-radius-xl: 0.75rem;
+  --lumina-radius-2xl: 1rem;
+}
+
+[data-lumina-theme="dark"] {
+  --lumina-background: #051424;
+  --lumina-on-background: #d4e4fa;
+  --lumina-surface: #051424;
+  --lumina-surface-dim: #051424;
+  --lumina-surface-bright: #2c3a4c;
+  --lumina-surface-container-lowest: #010f1f;
+  --lumina-surface-container-low: #0d1c2d;
+  --lumina-surface-container: #122131;
+  --lumina-surface-container-high: #1c2b3c;
+  --lumina-surface-container-highest: #273647;
+  --lumina-surface-variant: #273647;
+  --lumina-on-surface: #d4e4fa;
+  --lumina-on-surface-variant: #c3c6d7;
+  --lumina-outline: #8d90a0;
+  --lumina-outline-variant: #434655;
+  --lumina-primary: #b4c5ff;
+  --lumina-on-primary: #002a78;
+  --lumina-primary-container: #2563eb;
+  --lumina-on-primary-container: #eeefff;
+  --lumina-primary-fixed-dim: #b4c5ff;
+  --lumina-secondary: #a4c9ff;
+  --lumina-on-secondary: #00315d;
+  --lumina-secondary-container: #0267b8;
+  --lumina-on-secondary-container: #d6e5ff;
+  --lumina-secondary-fixed-dim: #a4c9ff;
+  --lumina-inverse-on-surface: #233143;
+  --lumina-inverse-surface: #d4e4fa;
+  --lumina-font-display: Geist, system-ui, sans-serif;
+  --lumina-font-title: Geist, system-ui, sans-serif;
+  --lumina-font-body: Inter, system-ui, sans-serif;
+  --lumina-font-label: "JetBrains Mono", ui-monospace, monospace;
+  --lumina-shadow-header: none;
+  --lumina-shadow-card: none;
+  --lumina-active-ring: 0 0 0 2px #051424, 0 0 0 4px #2563eb;
+  --lumina-hero-bg: #122131;
+  --lumina-margin: 40px;
+  --lumina-gutter: 24px;
+  --lumina-max-width: 1440px;
+  --lumina-radius-sm: 0.125rem;
+  --lumina-radius-md: 0.25rem;
+  --lumina-radius-lg: 0.5rem;
+  --lumina-radius-xl: 0.5rem;
+  --lumina-radius-2xl: 1rem;
+}
+
+.material-symbols-outlined {
+  font-family: "Material Symbols Outlined";
+  font-weight: normal;
+  font-style: normal;
+  font-size: 24px;
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-block;
+  white-space: nowrap;
+  word-wrap: normal;
+  direction: ltr;
+  font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24;
+}

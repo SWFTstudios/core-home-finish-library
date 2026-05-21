@@ -51,15 +51,27 @@ Wrangler prints a URL (typically **http://localhost:8787**). The Worker serves b
 
 ---
 
-## Pages (current scaffold)
+## Static routes (`public/`)
 
 | URL | File | Purpose |
 |-----|------|---------|
-| `/` | `public/index.html` | Request dashboard |
-| `/library.html` | `public/library.html` | Finish Library browse |
+| `/` | → `/configurator/` | **Finish Library (SS)** — primary entry |
+| `/configurator/` | `public/configurator/index.html` | Configurator with Three.js cube preview |
+| `/dashboard.html` | `public/dashboard.html` | Render request dashboard |
+| `/library.html` | `public/library.html` | Finish browse (API grid) |
 | `/request.html` | `public/request.html` | New render request |
 
-These will evolve toward the Figma configurator described in [03 — Design and Figma](03-design-and-figma.md).
+Production Pages uses `public/_redirects` so `/` serves the configurator without a visible redirect. See [phased-deployment.md](phased-deployment.md).
+
+Import factory data before the configurator:
+
+```bash
+npm run import:finishes
+npm run db:migrate:local
+npm run db:seed:local
+```
+
+Open **http://localhost:8787/configurator/** — the center viewport loads **Three.js** via an [import map](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/script/type/importmap) (pinned `three@0.180.0` on jsDelivr). Network access is required on first load for the CDN modules; WebGL must be enabled in the browser.
 
 ---
 
@@ -91,6 +103,8 @@ cp .cursor/mcp.json.example .cursor/mcp.json
 ```
 
 `.env` and `.cursor/mcp.json` are gitignored.
+
+**Stitch MCP:** add a `stitch` block with your API key (see `.cursor/mcp.json.example`). Reload MCP in Cursor after editing. Details: [stitch-reference.md](stitch-reference.md#stitch-mcp-cursor).
 
 ---
 

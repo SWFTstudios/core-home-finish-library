@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en" data-lumina-theme="light">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Finish Library | Core Home</title>
+    <link rel="stylesheet" href="/css/lumina-finish.css" />
+    <link rel="stylesheet" href="/css/core-home-navbar.css" />
+    <link rel="stylesheet" href="/css/configurator.css" />
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "https://cdn.jsdelivr.net/npm/three@0.180.0/build/three.module.js",
+          "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.180.0/examples/jsm/"
+        }
+      }
+    </script>
+  </head>
+  <body class="configurator-body">
+    <div class="viewport-root">
+      <div class="viewport-stage" aria-label="Product preview">
+        <div class="viewport-grid" aria-hidden="true"></div>
+        <div class="preview-stage">
+          <div id="preview-3d" class="preview-3d" role="img" aria-label="Finish preview cube"></div>
+        </div>
+      </div>
+
+      <div class="viewport-hud">
+        <div id="core-home-navbar-mount" data-active="library" data-variant="hud"></div>
+
+        <div id="page-banner" class="status-banner status-banner--hud" hidden></div>
+
+        <div id="material-row" class="material-tabs material-tabs--stage" role="tablist" aria-label="Material"></div>
+
+        <div class="preview-zoom" aria-label="Preview camera controls">
+          <button type="button" id="preview-zoom-in" class="icon-btn icon-btn--sm" aria-label="Zoom in">
+            <span class="material-symbols-outlined">zoom_in</span>
+          </button>
+          <button type="button" id="preview-zoom-out" class="icon-btn icon-btn--sm" aria-label="Zoom out">
+            <span class="material-symbols-outlined">zoom_out</span>
+          </button>
+          <button
+            type="button"
+            id="preview-zoom-360"
+            class="icon-btn icon-btn--sm"
+            aria-label="Auto-rotate preview"
+            aria-pressed="false"
+          >
+            <span class="material-symbols-outlined">360</span>
+          </button>
+        </div>
+
+        <div class="hud-mobile-dock" role="toolbar" aria-label="Panel shortcuts">
+          <button type="button" class="hud-mobile-dock-btn" data-hud-panel="specs" aria-expanded="false">
+            Details
+          </button>
+          <button type="button" class="hud-mobile-dock-btn" data-hud-panel="finish" aria-expanded="true">
+            Finish
+          </button>
+          <button type="button" class="hud-mobile-dock-btn" data-hud-panel="graphics" aria-expanded="false">
+            Graphics
+          </button>
+        </div>
+
+        <aside class="hud-panel hud-panel--left" data-hud-panel-id="specs" aria-label="Finish details">
+          <div class="specs-card hud-card">
+            <h2 class="specs-material-title" id="specs-name">Select a finish</h2>
+            <div class="specs-ratings">
+              <div class="specs-rating-row">
+                <span class="specs-label">Durability</span>
+                <span class="specs-value" id="durability-value">—</span>
+              </div>
+              <div class="specs-rating-row">
+                <span class="specs-label">Cost</span>
+                <span class="specs-value" id="cost-value">—</span>
+              </div>
+            </div>
+            <div class="specs-notes-block">
+              <span class="specs-label">Property Notes</span>
+              <p class="specs-notes" id="specs-notes"></p>
+            </div>
+          </div>
+          <button type="button" class="btn-add-folder" disabled title="Coming soon">
+            <span class="material-symbols-outlined" aria-hidden="true">add</span>
+            Add to Folder
+          </button>
+        </aside>
+
+        <aside class="hud-panel hud-panel--right finish-panel" data-hud-panel-id="finish" aria-label="Finish selector">
+          <div class="finish-dial-card hud-card">
+            <span class="finish-dial-label">Finish Selector</span>
+            <div class="finish-dial">
+              <div class="wheel-controls" aria-hidden="false">
+                <button type="button" id="wheel-up" class="wheel-nav-btn" aria-label="Previous finish">
+                  <span class="material-symbols-outlined" aria-hidden="true">expand_less</span>
+                </button>
+                <button type="button" id="wheel-down" class="wheel-nav-btn" aria-label="Next finish">
+                  <span class="material-symbols-outlined" aria-hidden="true">expand_more</span>
+                </button>
+              </div>
+              <div id="wheel-viewport" class="finish-wheel-viewport" tabindex="0" aria-label="Scroll to choose a finish">
+                <svg class="finish-dial-arc" viewBox="0 0 48 320" preserveAspectRatio="none" aria-hidden="true">
+                  <path
+                    d="M 8 0 Q 40 160 8 320"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="1.5"
+                    vector-effect="non-scaling-stroke"
+                  />
+                </svg>
+                <ul id="wheel-list" class="finish-wheel-list" role="listbox" aria-label="Finishes"></ul>
+              </div>
+            </div>
+            <div class="finish-dial-footer">
+              <div class="finish-dial-footer-row">
+                <span class="specs-label">Ombré Detail</span>
+                <button
+                  type="button"
+                  class="toggle-pill"
+                  id="ombre-toggle"
+                  role="switch"
+                  aria-checked="false"
+                  disabled
+                  title="Coming soon"
+                >
+                  <span class="toggle-pill-knob"></span>
+                </button>
+              </div>
+              <p class="finish-dial-hint" id="ombre-hint">Smooth vertical gradient effect disabled.</p>
+            </div>
+          </div>
+        </aside>
+
+        <div class="hud-panel hud-panel--bottom" data-hud-panel-id="graphics" aria-label="Graphic applications">
+          <div class="graphic-shelf hud-card">
+            <h3 class="graphic-shelf-title">Graphic Application</h3>
+            <div id="carousel-track" class="graphic-track" role="listbox" aria-label="Graphic applications"></div>
+          </div>
+        </div>
+
+        <footer class="app-footer app-footer--hud">
+          <div class="app-footer-inner">
+            <div class="app-footer-brand">
+              <span class="app-brand-title">Core Home</span>
+              <span class="app-footer-copy">© 2026 Product Library. Industrial Precision.</span>
+            </div>
+            <div class="app-footer-links">
+              <a href="#">Terms of Service</a>
+              <a href="#">Privacy Policy</a>
+              <a href="#">Material Standards</a>
+            </div>
+          </div>
+        </footer>
+      </div>
+    </div>
+
+    <script type="module" src="/js/portal.js"></script>
+    <script src="/js/configurator.js" type="module"></script>
+  </body>
+</html>

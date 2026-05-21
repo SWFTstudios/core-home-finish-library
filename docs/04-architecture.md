@@ -59,6 +59,26 @@ Before D1 queries, the Worker runs `PRAGMA foreign_keys = ON`.
 
 ---
 
+## Configurator 3D preview (Three.js / WebGL)
+
+The Finish Library configurator viewport (`/configurator/`, [`public/configurator/index.html`](../public/configurator/index.html)) renders a **live WebGL preview** instead of static hero PNGs.
+
+| Piece | Location |
+|-------|----------|
+| Scene module | [`public/js/configurator-preview-3d.js`](../public/js/configurator-preview-3d.js) |
+| UI wiring | [`public/js/configurator.js`](../public/js/configurator.js) → `syncPreview()` |
+| Three.js (ESM) | Import map in configurator HTML — `three@0.180.0` on jsDelivr |
+
+[Three.js](https://threejs.org/) uses the browser [WebGL API](https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API) to draw each frame. v1 shows a **PBR cube** (camera + lights + `OrbitControls`) whose color and surface come from:
+
+- **Material tab** → base metalness/roughness preset (`stainless_steel`, `glass`, etc.)
+- **Finish wheel** → `hexColor` + name/process heuristics (gloss, metallic, UV, powder, …)
+- **Theme toggle** → scene background (light/dark)
+
+The cube is a **stand-in** until a product GLTF replaces it (planned v3). Graphic carousel selection is wired for future texture/decals (v2).
+
+---
+
 ## Authentication flow
 
 | Environment | Identity source |

@@ -6,16 +6,20 @@
   "scripts": {
     "dev": "wrangler dev",
     "deploy": "wrangler deploy",
+    "pages:deploy": "wrangler pages deploy public --project-name=core-home-finish-library",
     "check": "wrangler check",
     "types": "wrangler types",
     "db:create": "wrangler d1 create render-portal-db",
     "db:migrate": "wrangler d1 execute render-portal-db --file=./schema.sql",
     "db:migrate:local": "wrangler d1 execute render-portal-db --local --file=./schema.sql",
-    "db:seed:local": "wrangler d1 execute render-portal-db --local --file=./seed.sql"
+    "db:seed:local": "wrangler d1 execute render-portal-db --local --file=./seed.sql",
+    "import:finishes": "node scripts/import-finish-library.mjs",
+    "fetch:stitch-specs": "node scripts/fetch-stitch-specs.mjs"
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20250317.0",
     "typescript": "^5.8.2",
-    "wrangler": "^4.14.0"
+    "wrangler": "^4.14.0",
+    "xlsx": "^0.18.5"
   }
 }
