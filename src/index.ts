@@ -1,7 +1,7 @@
 export interface Env {
   DB: D1Database;
   RENDERS: R2Bucket;
-  ASSETS: Fetcher;
+  STATIC_ASSETS: Fetcher;
 }
 
 type Team = "PD" | "ID" | "GD" | "Admin";
@@ -86,7 +86,7 @@ export default {
       }
     }
 
-    return env.ASSETS.fetch(assetRequestForPath(request, url.pathname));
+    return env.STATIC_ASSETS.fetch(assetRequestForPath(request, url.pathname));
   },
 };
 
@@ -283,14 +283,21 @@ async function handleApi(
     const file = form.get("file");
     const requestId = form.get("request_id");
 
-    if (!(file instanceof File) || typeof requestId !== "string") {
+    if (
+      typeof requestId !== "string" ||
+      typeof file !== "object" ||
+      file === null ||
+      !("stream" in file) ||
+      !("name" in file) ||
+      !("type" in file)
+    ) {
       return Response.json(
         { error: "file and request_id are required" },
         { status: 400, headers: JSON_HEADERS },
       );
     }
 
-    const key = await uploadRender(env, file, requestId);
+    const key = await uploadRender(env, file as File, requestId);
     const renderId = crypto.randomUUID();
 
     const versionRow = await env.DB.prepare(
