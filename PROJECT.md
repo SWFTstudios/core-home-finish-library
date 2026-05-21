@@ -19,4 +19,4 @@
 
 ---
 
-**Company:** Core Home · **WD:** Elombe Kisala · **GD:** Maria T · **Updated:** May 2026
+**Company:** Core Home · **WD:** Elombe Kisala · **GD:** Maria T, Jacinta Correia · **Updated:** May 2026

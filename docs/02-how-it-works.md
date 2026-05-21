@@ -49,7 +49,7 @@ sequenceDiagram
 
 - Browse materials, finishes, colors, textures
 - **Visual selection** — cards and swatches, not dropdown-only forms
-- Synced over time with Maria’s Figma design system
+- Synced over time with the GD team’s Figma design system (Maria T, Jacinta Correia)
 - Search and filter by category
 
 ### Render request builder

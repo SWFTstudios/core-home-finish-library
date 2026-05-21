@@ -31,7 +31,7 @@ The Worker, D1 schema, seed data, and a three-page static UI exist. Production C
 - [ ] R2 bucket `render-portal-files` in Cloudflare  
 - [ ] Cloudflare Access policies and real `profiles` seed  
 - [ ] Production deploy (`npm run deploy`)  
-- [ ] Finish Library data synced from Figma (Maria’s components → `finishes`)  
+- [ ] Finish Library data synced from Figma (GD team components → `finishes`)  
 - [ ] UI rebuilt to match Figma configurator (SS screen first)  
 - [ ] CI: `wrangler check` / lint in pipeline  
 
@@ -93,7 +93,7 @@ flowchart LR
 | Area | Owner |
 |------|--------|
 | Web / API / deploy | Elombe Kisala (WD) |
-| Figma / visual design | Maria T (GD) |
+| Figma / visual design | Maria T, Jacinta Correia (GD) |
 | PD workflow input | Product Development |
 | ID fulfillment input | Industrial Design |
 

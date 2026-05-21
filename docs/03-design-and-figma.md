@@ -8,7 +8,7 @@
 
 **File:** [InteractiveFinishLibrary_COPY](https://www.figma.com/design/XY8ZVNYLrbK6OMVWNNqSBt/InteractiveFinishLibrary_COPY)  
 **File key:** `XY8ZVNYLrbK6OMVWNNqSBt`  
-**Collaborator:** Maria T (Graphic Design)
+**Graphic Design team:** Maria T, Jacinta Correia
 
 This file is the **UI and interaction reference** for the Finish Library and configurator. Code in `public/` should converge toward these screens, not the other way around.
 

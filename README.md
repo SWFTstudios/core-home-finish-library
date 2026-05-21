@@ -26,7 +26,7 @@ Open the URL Wrangler prints (usually `http://localhost:8787`).
 |----------|-------------|
 | [Project book](docs/README.md) | Full documentation — purpose, workflow, setup, API |
 | [INSTRUCTIONS.md](INSTRUCTIONS.md) | Active todos for contributors and AI assistants |
-| [Figma design](https://www.figma.com/design/XY8ZVNYLrbK6OMVWNNqSBt/InteractiveFinishLibrary_COPY) | UI reference (Maria T) |
+| [Figma design](https://www.figma.com/design/XY8ZVNYLrbK6OMVWNNqSBt/InteractiveFinishLibrary_COPY) | UI reference (GD: Maria T, Jacinta Correia) |
 
 **Chapters:** [Purpose](docs/01-purpose.md) · [How it works](docs/02-how-it-works.md) · [Local setup](docs/06-local-setup.md) · [Deployment](docs/07-deployment.md) · [Roadmap](docs/10-roadmap-and-status.md)
 
@@ -40,4 +40,4 @@ Cloudflare Workers · D1 · R2 · Access · vanilla HTML/CSS/JS
 
 ## Team
 
-**WD** — Elombe Kisala · **GD** — Maria T · **PD / ID** — Core Home product and design teams
+**WD** — Elombe Kisala · **GD** — Maria T, Jacinta Correia · **PD / ID** — Core Home product and design teams

@@ -32,7 +32,7 @@ Think of it like ordering a **Chipotle bowl**: PD picks exactly what they want (
 |------|--------------|-------------------|
 | Product Development | PD | Places render requests — the “customer” |
 | Industrial Design | ID | Fulfills requests — the “kitchen” |
-| Graphic Design | GD | Owns the Figma Finish Library (Maria T) |
+| Graphic Design | GD | Owns the Figma Finish Library (Maria T, Jacinta Correia) |
 | Web Development | WD | Builds and deploys the portal (Elombe K) |
 
 ---
@@ -41,7 +41,7 @@ Think of it like ordering a **Chipotle bowl**: PD picks exactly what they want (
 
 This repository unifies two efforts:
 
-**Maria T (GD / Figma)**
+**Graphic Design — Maria T & Jacinta Correia (Figma)**
 
 - Visual Finish Library prototype in Figma
 - Swatches, materials, textures, and request-flow mockups
@@ -52,7 +52,7 @@ This repository unifies two efforts:
 - Render Portal web app on Cloudflare (Worker, D1, R2, Access)
 - Cursor-assisted development and GitHub for version control
 
-**Goal:** Maria’s design system (synced via Figma MCP) becomes the UI layer; Elombe’s stack becomes data, API, auth, and deployment.
+**Goal:** The GD team’s design system (synced via Figma MCP) becomes the UI layer; Elombe’s stack becomes data, API, auth, and deployment.
 
 ---
 

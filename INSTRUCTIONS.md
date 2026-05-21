@@ -13,7 +13,7 @@
 - [ ] Apply remote schema: `npm run db:migrate`
 - [ ] Create R2 bucket `render-portal-files` in Cloudflare
 - [ ] Configure Cloudflare Access + seed `profiles` for real team emails
-- [ ] Connect Figma MCP (`.cursor/mcp.json`) and sync finishes from Maria's library
+- [ ] Connect Figma MCP (`.cursor/mcp.json`) and sync finishes from the GD team's Figma library
 - [ ] Rebuild UI to match Figma `SS` screen (see [03 — Design and Figma](docs/03-design-and-figma.md))
 - [ ] Production deploy: `npm run deploy`
 - [ ] CI (lint / `wrangler check`) when pipeline is needed
