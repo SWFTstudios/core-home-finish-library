@@ -1,6 +1,6 @@
 export interface Env {
   DB: D1Database;
-  RENDERS: R2Bucket;
+  RENDERS?: R2Bucket;
   STATIC_ASSETS: Fetcher;
 }
 
@@ -51,6 +51,9 @@ async function uploadRender(
   file: File,
   requestId: string,
 ): Promise<string> {
+  if (!env.RENDERS) {
+    throw new Error("R2 storage is not configured");
+  }
   const key = `renders/${requestId}/${crypto.randomUUID()}-${file.name}`;
   await env.RENDERS.put(key, file.stream(), {
     httpMetadata: { contentType: file.type },
@@ -272,6 +275,13 @@ async function handleApi(
   }
 
   if (request.method === "POST" && url.pathname === "/api/renders/upload") {
+    if (!env.RENDERS) {
+      return Response.json(
+        { error: "R2 storage is not configured for this environment" },
+        { status: 503, headers: JSON_HEADERS },
+      );
+    }
+
     if (profile?.team !== "ID" && profile?.team !== "Admin") {
       return Response.json(
         { error: "Only ID or Admin can upload renders" },

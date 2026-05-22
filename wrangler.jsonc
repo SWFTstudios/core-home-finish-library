@@ -14,13 +14,9 @@
     {
       "binding": "DB",
       "database_name": "render-portal-db",
-      "database_id": "PASTE_YOUR_D1_ID_HERE"
-    }
-  ],
-  "r2_buckets": [
-    {
-      "binding": "RENDERS",
-      "bucket_name": "render-portal-files"
+      "database_id": "1c016d41-eea8-4208-8585-5f7de2b82235"
     }
   ]
+  // R2: enable in Cloudflare Dashboard, create bucket render-portal-files, then restore:
+  // "r2_buckets": [{ "binding": "RENDERS", "bucket_name": "render-portal-files" }]
 }
