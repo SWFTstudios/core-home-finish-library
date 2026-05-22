@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "wrangler dev",
     "deploy": "wrangler deploy",
-    "pages:deploy": "wrangler pages deploy public --project-name=core-home-finish-library",
+    "pages:deploy": "wrangler pages deploy public --project-name=core-home-finish-library --branch=main --commit-dirty=true",
     "check": "wrangler check",
     "types": "wrangler types",
     "db:create": "wrangler d1 create render-portal-db",

@@ -25,6 +25,9 @@ Internal documentation for the **Render Portal / Finish Library**: why it exists
 | [08](08-api-reference.md) | API reference | WD, IT — *routes, auth, catalog response* |
 | [09](09-development-workflow.md) | Development workflow | Everyone — *Git bible, design handoff, sprint narrative* |
 | [10](10-roadmap-and-status.md) | Roadmap and status | Everyone — *what's done, what's next, who owns it* |
+| [11](11-3d-materials-primer.md) | 3D and materials primer | Everyone — *meshes, zones, PBR, glossary* |
+| [12](12-database-multi-material.md) | Database and multi-material catalog | WD, IT, PD — *xlsx tabs, D1 phases, schema* |
+| [13](13-3d-preview-pipeline.md) | 3D preview and model upload | WD, ID — *GLTF stages, zone map, R2* |
 | [phased-deployment](phased-deployment.md) | Phased deployment | WD, IT — *Pages → Worker → production* |
 
 **Supplementary guides**
@@ -32,6 +35,7 @@ Internal documentation for the **Render Portal / Finish Library**: why it exists
 | Doc | For |
 |-----|-----|
 | [finish-catalog-import.md](finish-catalog-import.md) | WD — factory spreadsheet → D1 |
+| [11](11-3d-materials-primer.md) · [12](12-database-multi-material.md) · [13](13-3d-preview-pipeline.md) | Catalog + 3D deep dives |
 | [stitch-reference.md](stitch-reference.md) | WD — Stitch MCP in Cursor |
 
 ---
@@ -53,10 +57,10 @@ Internal documentation for the **Render Portal / Finish Library**: why it exists
 | Role | Start here | Then |
 |------|------------|------|
 | **C-Suite / leadership** | [01 — Purpose](01-purpose.md) | [10 — Roadmap](10-roadmap-and-status.md) |
-| **Product Development / Industrial Design** | [01 — Purpose](01-purpose.md) → [02 — How it works](02-how-it-works.md) | Try the [live configurator](https://core-home-finish-library.pages.dev/) |
-| **Graphic Design** | [02 — How it works](02-how-it-works.md) → [03 — Design and Figma](03-design-and-figma.md) | Compare live UI to `study_SS` in Figma |
+| **Product Development / Industrial Design** | [01 — Purpose](01-purpose.md) → [02 — How it works](02-how-it-works.md) | [11 — 3D primer](11-3d-materials-primer.md) → [13 — 3D pipeline](13-3d-preview-pipeline.md) (mesh naming) |
+| **Graphic Design** | [02 — How it works](02-how-it-works.md) → [03 — Design and Figma](03-design-and-figma.md) | [11 — 3D primer](11-3d-materials-primer.md) → [12 — Multi-material](12-database-multi-material.md) (xlsx tabs) |
 | **Sales / customer-facing** | [01 — Purpose](01-purpose.md) → [02 — How it works](02-how-it-works.md) | Finish names and filters in the configurator |
-| **Web Development** | [04 — Architecture](04-architecture.md) → [06 — Local setup](06-local-setup.md) | [09 — Workflow](09-development-workflow.md) before merging |
+| **Web Development** | [05 — Data model](05-data-model.md) → [12 — Multi-material](12-database-multi-material.md) → [13 — 3D pipeline](13-3d-preview-pipeline.md) | [06 — Local setup](06-local-setup.md) → [07 — Deployment](07-deployment.md) |
 | **IT / DevOps** | [07 — Deployment](07-deployment.md) → [phased-deployment](phased-deployment.md) | [INSTRUCTIONS.md](../INSTRUCTIONS.md) for open infra todos |
 
 **Default path for new teammates:** **01 → 02 → 06**. Shipping to production? **06 → 07 → 08**. Implementing UI from design? **03** then **06**.

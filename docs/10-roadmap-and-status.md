@@ -1,6 +1,6 @@
 # Chapter 10 — Roadmap and status
 
-[← 09 — Development workflow](09-development-workflow.md) · [Project book](README.md) · [Back to start →](01-purpose.md)
+[← 09 — Development workflow](09-development-workflow.md) · [Project book](README.md) · **Next:** [11 — 3D and materials primer →](11-3d-materials-primer.md)
 
 **Plain language summary:** The Finish Library configurator is live on the web; the render-request dashboard and company login are the next infrastructure steps.
 
@@ -63,8 +63,10 @@ Track day-to-day tasks in [`INSTRUCTIONS.md`](../INSTRUCTIONS.md).
 | Replace static catalog with live D1 API | WD | Remove or sync `public/api/catalog` after Worker live |
 | CI pipeline (`wrangler check`, lint) | WD | Add workflow when team scales |
 | Figma MCP finish sync | GD + WD | `.cursor/mcp.json`, map components → `finishes` |
-| Product GLTF (replace cube) | ID + WD | Asset handoff → `configurator-preview-3d.js` |
-| Ceramic / Glass / Plastic full paths | GD + WD | After SS parity signed off |
+| Product GLTF (replace cube) | ID + WD | [13 — 3D pipeline](13-3d-preview-pipeline.md) Stage 2 |
+| Multi-material D1 + xlsx tabs | WD + PD | [12 — Database](12-database-multi-material.md) Phase 1 |
+| Zone-aware 3D preview | ID + WD | [13](13-3d-preview-pipeline.md) Stage 3 + schema |
+| Ceramic / Glass / Plastic full paths | GD + WD | After M2b + SS parity signed off |
 | Render request dashboard in production | WD | Wire `/dashboard.html` to live D1 |
 
 ---
@@ -108,6 +110,19 @@ flowchart LR
 | M4 — Production infra | D1, R2, Access, Worker deploy | Not started |
 | M5 — Rollout | PD/ID using portal instead of Excel/PPT | Blocked on M4 |
 
+### Catalog and 3D track (M2a–M6)
+
+Detailed specs: [11 — 3D primer](11-3d-materials-primer.md) · [12 — Database](12-database-multi-material.md) · [13 — 3D pipeline](13-3d-preview-pipeline.md).
+
+| Milestone | Outcome | Depends on | Status |
+|-----------|---------|------------|--------|
+| **M2a** | Live D1 + `GET /api/catalog` filters by `material` | Secrets, Worker deploy, schema migration | Not started |
+| **M2b** | Multi-tab xlsx import; enable Ceramic/Glass/Plastic | Template + factory tab names | Not started |
+| **M3** | Bundled GLTF tumbler in preview (replace cube) | ID asset | Not started |
+| **M4** | Zone map + multi-zone finishes in preview | `product_model_zones` + mesh naming | Not started |
+| **M5** (3D) | R2 model upload + admin mesh→zone UI | Access, R2 CORS | Not started |
+| **M6** | Decals / graphics on logo mesh (textures) | GD assets + shader work | Not started |
+
 ---
 
 ## Design and product notes
@@ -131,4 +146,4 @@ flowchart LR
 
 ---
 
-[← 09 — Development workflow](09-development-workflow.md) · [Project book](README.md) · [01 — Purpose →](01-purpose.md)
+[← 09 — Development workflow](09-development-workflow.md) · **Next:** [11 — 3D and materials primer →](11-3d-materials-primer.md)

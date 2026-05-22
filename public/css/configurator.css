@@ -1037,6 +1037,8 @@
     --hud-bottom-h: 7.5rem;
     --hud-footer-h: 2.25rem;
     --hud-inset: 12px;
+    --hud-mobile-dock-h: 52px;
+    --hud-mobile-shelf-max-h: min(28vh, 200px);
     --hud-shelf-top: calc(100dvh - var(--hud-footer-h) - var(--hud-gap) - var(--hud-bottom-h));
     overflow: hidden;
     height: 100dvh;
@@ -1207,11 +1209,14 @@
     flex: 0 0 auto;
   }
 
+  /* Left of screen, stacked above the graphic shelf (same band as mobile dock offset) */
   .preview-zoom {
-    left: auto;
-    right: var(--hud-inset);
-    bottom: calc(var(--hud-footer-h) + var(--hud-bottom-h) + 8px);
-    z-index: 67;
+    left: var(--hud-inset);
+    right: auto;
+    bottom: calc(
+      var(--hud-footer-h) + var(--hud-mobile-dock-h) + var(--hud-mobile-shelf-max-h) + var(--hud-gap)
+    );
+    z-index: 68;
   }
 
   .finish-wheel-viewport {

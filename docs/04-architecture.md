@@ -125,7 +125,7 @@ In [`wrangler.jsonc`](../wrangler.jsonc), the assets binding is named **`STATIC_
 | Page shell | `public/configurator/index.html` | HUD markup, import map for Three.js |
 | Layout / theme | `public/css/configurator.css` | Viewport HUD, wheel, shelf, search card |
 | App logic | `public/js/configurator.js` | Wheel, browse filters, theme, API fetch |
-| 3D scene | `public/js/configurator-preview-3d.js` | WebGL preview, theme background |
+| 3D scene | `public/js/configurator-preview-3d.js` | WebGL preview (cube today → GLTF + zones) — [11](11-3d-materials-primer.md), [13](13-3d-preview-pipeline.md) |
 | Filters | `public/js/finish-wheel-filters.js` | Sort, color group, style, process |
 | Grouping | `public/js/library-grouping.js` | Style families for filters and library |
 | Navbar | `public/js/components/core-home-navbar.js` | Nav, theme toggle, `lumina-theme-change` |
@@ -155,9 +155,11 @@ If email is missing → `401`. If no matching `profiles` row → `403`.
 | `assets.directory` | `./public` |
 | `assets.binding` | `STATIC_ASSETS` |
 | D1 | `DB` → `render-portal-db` |
-| R2 | `RENDERS` → `render-portal-files` |
+| R2 | `RENDERS` → `render-portal-files` (render uploads today; product GLB under `models/…` planned) |
 
 Replace `PASTE_YOUR_D1_ID_HERE` after `npm run db:create`.
+
+**3D asset path (planned):** browser loads GLB from R2 (or bundled `public/models/`) after `GET /api/models/:slug` returns zone map — see [13 — 3D preview pipeline](13-3d-preview-pipeline.md).
 
 ---
 

@@ -19,6 +19,8 @@ The static file is generated from the same seed data (~108 finishes for stainles
 
 When IT completes Phase 2, replace or remove the static file so D1 becomes the single source of truth.
 
+**Planned expansion:** multi-material finishes (`material_slug` per row), optional PBR metadata, and `product_models` / `product_model_zones` for GLB assets — see [12 — Database and multi-material](12-database-multi-material.md).
+
 ---
 
 ## D1 conventions
@@ -80,7 +82,7 @@ One row per spreadsheet boolean column (Water Decal, Laser Engraved, etc.). `tem
 
 ### `finishes`
 
-Factory capability rows — one per spreadsheet line on sheet `Library`.
+Factory capability rows — one per spreadsheet line on sheet `Library` (stainless steel today). Future: one tab per material with `material_slug` on each row — [12 — Database and multi-material](12-database-multi-material.md).
 
 | Column | Source column |
 |--------|----------------|
@@ -110,7 +112,11 @@ Team membership tied to Cloudflare Access email (`PD`, `ID`, `GD`, `Admin`).
 
 ### `render_requests` / `request_finishes` / `renders`
 
-Unchanged — PD specs and ID deliverables. See prior chapters in git history for column detail.
+PD specs and ID deliverables. `request_finishes.zone` (e.g. `body`, `logo`) will align with `product_model_zones.zone_key` when 3D zone preview ships — [13 — 3D preview pipeline](13-3d-preview-pipeline.md).
+
+### `product_models` / `product_model_zones` (planned)
+
+Not in [`schema.sql`](../schema.sql) yet. Will store GLB keys in R2 and mesh-name → zone mappings. Spec in [12 — Database and multi-material](12-database-multi-material.md).
 
 ---
 

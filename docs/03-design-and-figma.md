@@ -67,7 +67,9 @@ Implemented in [`public/css/configurator.css`](../public/css/configurator.css) o
 | Zoom pill | `.preview-zoom` | Left of shelf; zoom + 360° rotate |
 | Wheel arrows | `.wheel-controls` | Track vertical focus line of active finish |
 
-**3D viewport:** [`public/js/configurator-preview-3d.js`](../public/js/configurator-preview-3d.js) — cube stand-in until product GLTF. Theme sync via `lumina-theme-change` from the navbar.
+**3D viewport:** [`public/js/configurator-preview-3d.js`](../public/js/configurator-preview-3d.js) — cube stand-in until product GLTF. Theme sync via `lumina-theme-change` from the navbar. Concepts and stages: [11 — 3D and materials primer](11-3d-materials-primer.md), [13 — 3D preview pipeline](13-3d-preview-pipeline.md).
+
+**Multi-material frames:** `study_Ceramic`, `study_Glass`, `study_Plastic` mirror separate factory xlsx tabs and future `material_types.enabled` flags — [12 — Database and multi-material](12-database-multi-material.md).
 
 ---
 
@@ -113,6 +115,7 @@ The file includes copy that **any material can be opened to preview the layout**
 | Material choice | `material_types` + UI state |
 | Graphic application card | `graphic_application_types` + `finish_graphic_compat` |
 | Delivered render file | `renders` + R2 `file_url` (Phase 2) |
+| Product mesh (future) | `product_models` + GLB in R2 — not Figma layers; see [11](11-3d-materials-primer.md) |
 
 ---
 

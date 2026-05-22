@@ -54,6 +54,15 @@ The workflow [`.github/workflows/deploy-pages.yml`](../.github/workflows/deploy-
 
 Add them in GitHub: **Repository → Settings → Secrets and variables → Actions → New repository secret**.
 
+Or from a machine with `gh` logged in (account ID only — token must be created in the dashboard first):
+
+```bash
+gh secret set CLOUDFLARE_ACCOUNT_ID -R SWFTstudios/core-home-finish-library --body "YOUR_ACCOUNT_ID"
+gh secret set CLOUDFLARE_API_TOKEN -R SWFTstudios/core-home-finish-library   # prompts; paste token from dashboard
+```
+
+**Create API token (dashboard):** [Account API tokens](https://dash.cloudflare.com/profile/api-tokens) → **Create Token** → custom token with **Account → Cloudflare Pages → Edit** (and **Account → Workers Scripts → Edit** if you will run `npm run deploy` later). Scope to **Elombe@swftstudios.com's Account** only.
+
 **Manual deploy** (if CI secrets are not set yet):
 
 ```bash

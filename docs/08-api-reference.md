@@ -79,6 +79,8 @@ Boot payload for [`/configurator/`](../public/configurator/index.html). All UI o
 |-------|-------------|
 | `material` | Material slug (default `stainless_steel`) |
 
+**Today:** the Worker echoes `material` but returns **all** finishes regardless of param. **Planned (M2a):** filter finishes by `material_slug` after schema migration — [12 — Database and multi-material](12-database-multi-material.md).
+
 **Response:**
 
 ```json
@@ -177,6 +179,18 @@ Ordered by `updated_at` descending.
 Stores file in R2 at `renders/{requestId}/{uuid}-{filename}`, inserts `renders` row with next `version`.
 
 **Response:** `201` — `{ "id", "file_url", "version" }`
+
+---
+
+## Planned routes (catalog + 3D)
+
+**Not implemented yet** — documented for Phase 3+ in [12 — Database and multi-material](12-database-multi-material.md) and [13 — 3D preview pipeline](13-3d-preview-pipeline.md).
+
+| Route | Purpose |
+|-------|---------|
+| `GET /api/models` | List product models (optional `?material=`) |
+| `GET /api/models/:slug` | Model metadata, zone map, signed or public GLB URL |
+| `POST /api/models` | Admin/ID upload — multipart GLB → R2 + D1 |
 
 ---
 
