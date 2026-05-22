@@ -111,22 +111,38 @@
                 <ul id="wheel-list" class="finish-wheel-list" role="listbox" aria-label="Finishes"></ul>
               </div>
             </div>
-            <div class="finish-dial-footer hud-card">
-              <div class="finish-dial-footer-row">
-                <span class="specs-label">Ombré Detail</span>
-                <button
-                  type="button"
-                  class="toggle-pill"
-                  id="ombre-toggle"
-                  role="switch"
-                  aria-checked="false"
-                  disabled
-                  title="Coming soon"
-                >
-                  <span class="toggle-pill-knob"></span>
-                </button>
+            <div class="finish-dial-search hud-card">
+              <label class="visually-hidden" for="finish-search">Search finishes</label>
+              <input
+                type="search"
+                id="finish-search"
+                class="finish-search-input"
+                placeholder="search"
+                autocomplete="off"
+                spellcheck="false"
+                enterkeyhint="search"
+                aria-label="Search finishes"
+                aria-controls="wheel-list"
+              />
+              <div class="finish-browse-controls">
+                <div class="finish-browse-field">
+                  <label class="finish-browse-label" for="finish-sort">Sort</label>
+                  <select id="finish-sort" class="finish-browse-select" aria-label="Sort finishes"></select>
+                </div>
+                <div class="finish-browse-field">
+                  <label class="finish-browse-label" for="finish-filter-color">Color</label>
+                  <select id="finish-filter-color" class="finish-browse-select" aria-label="Filter by color group"></select>
+                </div>
+                <div class="finish-browse-field">
+                  <label class="finish-browse-label" for="finish-filter-style">Style</label>
+                  <select id="finish-filter-style" class="finish-browse-select" aria-label="Filter by style family"></select>
+                </div>
+                <div class="finish-browse-field">
+                  <label class="finish-browse-label" for="finish-filter-process">Process</label>
+                  <select id="finish-filter-process" class="finish-browse-select" aria-label="Filter by finish process"></select>
+                </div>
               </div>
-              <p class="finish-dial-hint" id="ombre-hint">Smooth vertical gradient effect disabled.</p>
+              <p id="finish-search-status" class="finish-search-status" role="status" aria-live="polite" hidden></p>
             </div>
           </div>
         </aside>

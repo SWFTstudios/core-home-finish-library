@@ -7,9 +7,10 @@
   --hud-finish-wheel-w: 100%;
   --hud-inset: 24px;
   --hud-specs-card-h: 248px;
-  --hud-dial-footer-h: 5.25rem;
   --hud-gap: 12px;
   --hud-top: calc(var(--core-home-navbar-height) + var(--hud-gap));
+  --hud-shelf-top: calc(100vh - var(--hud-footer-h) - var(--hud-gap) - var(--hud-bottom-h));
+  --hud-finish-search-est: 9rem;
   --hud-card-blur: 20px;
   --hud-card-bg: color-mix(in srgb, var(--lumina-surface-container-lowest) 72%, transparent);
   --hud-card-border: color-mix(in srgb, var(--lumina-outline-variant) 55%, transparent);
@@ -404,8 +405,8 @@
 
 .preview-zoom {
   position: fixed;
-  right: calc(var(--hud-inset) + var(--hud-right-w) + 12px);
-  bottom: calc(var(--hud-footer-h) + var(--hud-bottom-h) + 28px);
+  left: calc(var(--hud-inset) + var(--hud-left-w) + 16px - 57px);
+  bottom: calc(var(--hud-footer-h) + var(--hud-gap) + 2rem);
   z-index: 68;
   display: flex;
   flex-direction: column;
@@ -542,6 +543,7 @@
   height: 100%;
   width: 100%;
   padding: 0;
+  position: relative;
   background: transparent;
   border: none;
   box-shadow: none;
@@ -583,7 +585,7 @@
 .wheel-controls {
   position: absolute;
   left: 0;
-  top: 50%;
+  top: var(--wheel-focus-line, 50%);
   transform: translateY(-50%);
   z-index: 5;
   display: flex;
@@ -779,68 +781,152 @@
   color: var(--lumina-on-surface);
 }
 
-.finish-dial-footer {
+.finish-dial-search {
   width: 100%;
-  flex: 0 0 var(--hud-dial-footer-h);
-  min-height: var(--hud-dial-footer-h);
-  max-height: var(--hud-dial-footer-h);
+  flex: 0 0 auto;
   margin-top: auto;
-  padding: 10px 12px;
+  padding: 8px 10px 10px;
   border-radius: var(--lumina-radius-xl);
   box-sizing: border-box;
-  overflow: hidden;
   pointer-events: auto;
-}
-
-.finish-dial-footer-row {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 8px;
-  margin-bottom: 4px;
-  flex-shrink: 0;
+  flex-direction: column;
+  gap: 6px;
 }
 
-.finish-dial-footer-row .specs-label {
-  flex: 1;
+/* Desktop: align search card top with graphic shelf top (see inspiration/viewport-hud/align-search-shelf-before.png) */
+@media (min-width: 1024px) {
+  .hud-panel--right.finish-panel {
+    top: var(--hud-top);
+    bottom: calc(var(--hud-footer-h) + var(--hud-gap) + var(--hud-bottom-h));
+    height: auto;
+  }
+
+  .finish-dial-card {
+    padding-bottom: 0;
+    overflow: visible;
+  }
+
+  .finish-dial {
+    flex: 1 1 auto;
+    height: auto;
+    max-height: calc(
+      var(--hud-shelf-top) - var(--hud-top) - 0.5rem
+    );
+  }
+
+  /* Fade bottom grazes the search card — tighter stop than the mobile default */
+  .finish-wheel-viewport {
+    -webkit-mask-image: linear-gradient(
+      to bottom,
+      transparent 0%,
+      #000 12%,
+      #000 80%,
+      transparent 96%
+    );
+    mask-image: linear-gradient(
+      to bottom,
+      transparent 0%,
+      #000 12%,
+      #000 80%,
+      transparent 96%
+    );
+  }
+
+  .finish-dial-search {
+    position: fixed;
+    top: var(--hud-shelf-top);
+    right: var(--hud-inset);
+    width: var(--hud-right-w);
+    margin-top: 0;
+    z-index: 61;
+  }
+}
+
+.finish-browse-controls {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px 8px;
+}
+
+.finish-browse-field {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
   min-width: 0;
-  font-size: 10px;
 }
 
-.toggle-pill {
-  width: 40px;
-  height: 20px;
-  border: none;
-  border-radius: 999px;
-  background: var(--lumina-primary-container);
-  padding: 2px;
-  cursor: not-allowed;
-  opacity: 0.5;
-  position: relative;
+.finish-browse-label {
+  font-family: var(--lumina-font-label);
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--lumina-secondary);
 }
 
-.toggle-pill-knob {
-  display: block;
-  width: 16px;
-  height: 16px;
-  border-radius: 50%;
-  background: #fff;
-  position: absolute;
-  right: 2px;
-  top: 2px;
-}
-
-.finish-dial-hint {
+.finish-browse-select {
+  width: 100%;
+  min-width: 0;
+  border: 1px solid var(--lumina-outline-variant);
+  border-radius: var(--lumina-radius-md);
+  padding: 5px 8px;
+  font-family: var(--lumina-font-body);
   font-size: 11px;
-  line-height: 1.35;
-  color: var(--lumina-on-surface-variant);
-  opacity: 0.75;
+  line-height: 1.2;
+  color: var(--lumina-on-surface);
+  background: color-mix(in srgb, var(--lumina-surface-container-lowest) 92%, transparent);
+  outline: none;
+  cursor: pointer;
+}
+
+.finish-browse-select:focus {
+  border-color: var(--lumina-primary);
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--lumina-primary) 18%, transparent);
+}
+
+.finish-search-input {
+  width: 100%;
+  border: 1px solid var(--lumina-outline-variant);
+  border-radius: 999px;
+  padding: 8px 14px;
+  font-family: var(--lumina-font-body);
+  font-size: 12px;
+  line-height: 1.2;
+  color: var(--lumina-on-surface);
+  background: color-mix(in srgb, var(--lumina-surface-container-lowest) 92%, transparent);
+  outline: none;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.finish-search-input::placeholder {
+  color: color-mix(in srgb, var(--lumina-on-surface-variant) 55%, transparent);
+  text-transform: lowercase;
+}
+
+.finish-search-input:focus {
+  border-color: var(--lumina-primary);
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--lumina-primary) 22%, transparent);
+}
+
+.finish-search-status {
   margin: 0;
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 2;
+  padding: 0 6px;
+  font-size: 10px;
+  line-height: 1.3;
+  color: var(--lumina-on-surface-variant);
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
   overflow: hidden;
-  word-break: break-word;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
 }
 
 /* —— Footer (fixed HUD strip) —— */
@@ -951,8 +1037,27 @@
     --hud-bottom-h: 7.5rem;
     --hud-footer-h: 2.25rem;
     --hud-inset: 12px;
+    --hud-shelf-top: calc(100dvh - var(--hud-footer-h) - var(--hud-gap) - var(--hud-bottom-h));
     overflow: hidden;
     height: 100dvh;
+  }
+
+  .finish-dial-search {
+    position: static;
+    top: auto;
+    right: auto;
+    width: 100%;
+    margin-top: auto;
+    z-index: auto;
+  }
+
+  .finish-dial {
+    max-height: none;
+  }
+
+  .finish-dial-card {
+    padding-bottom: 0;
+    overflow: hidden;
   }
 
   .material-tabs--stage {
@@ -1103,6 +1208,7 @@
   }
 
   .preview-zoom {
+    left: auto;
     right: var(--hud-inset);
     bottom: calc(var(--hud-footer-h) + var(--hud-bottom-h) + 8px);
     z-index: 67;

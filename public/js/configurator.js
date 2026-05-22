@@ -5,6 +5,14 @@ import {
   updatePreview3d,
   zoomPreview,
 } from "./configurator-preview-3d.js";
+import {
+  browseFinishes,
+  COLOR_GROUPS,
+  FINISH_SORT_OPTIONS,
+  focusIndexForBrowse,
+  STYLE_FILTER_FAMILIES,
+  uniqueFinishProcesses,
+} from "./finish-wheel-filters.js";
 
 const API = "/api";
 
@@ -39,6 +47,11 @@ const state = {
   graphicId: null,
   preview3dReady: false,
   previewAutoRotate: false,
+  finishSearchQuery: "",
+  finishSort: "name-az",
+  finishFilterProcess: "",
+  finishFilterStyle: "",
+  finishFilterColor: "",
 };
 
 async function api(path, options = {}) {
@@ -145,6 +158,164 @@ function wheelList() {
   return document.getElementById("wheel-list");
 }
 
+function debounce(fn, ms) {
+  let timer;
+  return (...args) => {
+    clearTimeout(timer);
+    timer = setTimeout(() => fn(...args), ms);
+  };
+}
+
+function finishBrowseOptions() {
+  return {
+    query: state.finishSearchQuery,
+    sort: state.finishSort,
+    process: state.finishFilterProcess,
+    styleFamily: state.finishFilterStyle,
+    colorGroup: state.finishFilterColor,
+  };
+}
+
+function readFinishBrowseControls() {
+  state.finishSearchQuery = document.getElementById("finish-search")?.value ?? "";
+  state.finishSort = document.getElementById("finish-sort")?.value ?? "name-az";
+  state.finishFilterProcess = document.getElementById("finish-filter-process")?.value ?? "";
+  state.finishFilterStyle = document.getElementById("finish-filter-style")?.value ?? "";
+  state.finishFilterColor = document.getElementById("finish-filter-color")?.value ?? "";
+}
+
+function fillSelectOptions(select, options, selected) {
+  if (!select) return;
+  select.innerHTML = "";
+  for (const opt of options) {
+    const el = document.createElement("option");
+    el.value = opt.id;
+    el.textContent = opt.label;
+    if (opt.id === selected) el.selected = true;
+    select.appendChild(el);
+  }
+}
+
+function populateFinishBrowseControls() {
+  fillSelectOptions(
+    document.getElementById("finish-sort"),
+    FINISH_SORT_OPTIONS,
+    state.finishSort,
+  );
+  fillSelectOptions(
+    document.getElementById("finish-filter-color"),
+    COLOR_GROUPS,
+    state.finishFilterColor,
+  );
+  fillSelectOptions(
+    document.getElementById("finish-filter-style"),
+    [{ id: "", label: "All styles" }, ...STYLE_FILTER_FAMILIES.map((f) => ({ id: f.id, label: f.label }))],
+    state.finishFilterStyle,
+  );
+  fillSelectOptions(
+    document.getElementById("finish-filter-process"),
+    [{ id: "", label: "All processes" }, ...uniqueFinishProcesses(state.finishes).map((p) => ({ id: p.slug, label: p.label }))],
+    state.finishFilterProcess,
+  );
+}
+
+function updateFinishSearchStatus() {
+  const status = document.getElementById("finish-search-status");
+  if (!status) return;
+
+  const count = state.filteredFinishes.length;
+  const total = state.finishes.length;
+  const query = state.finishSearchQuery.trim();
+  const hasFilter =
+    query ||
+    state.finishFilterProcess ||
+    state.finishFilterStyle ||
+    state.finishFilterColor ||
+    state.finishSort !== "name-az";
+
+  if (!hasFilter) {
+    status.hidden = true;
+    status.textContent = "";
+    return;
+  }
+
+  status.hidden = false;
+  if (!count) {
+    status.textContent = "No finishes match your search and filters.";
+    return;
+  }
+  const parts = [`Showing ${count} of ${total}`];
+  if (query) parts.push(`for “${query}”`);
+  status.textContent = `${parts.join(" ")}.`;
+}
+
+function applyFinishBrowse({ keepSelection = false } = {}) {
+  readFinishBrowseControls();
+  state.filteredFinishes = browseFinishes(state.finishes, finishBrowseOptions());
+  updateFinishSearchStatus();
+
+  if (!state.filteredFinishes.length) {
+    state.finishIndex = 0;
+    state.finishId = null;
+    state.graphicId = null;
+    renderWheel();
+    updateSpecs();
+    syncPreview();
+    renderCarousel();
+    return;
+  }
+
+  let index = focusIndexForBrowse(state.filteredFinishes, state.finishSearchQuery);
+  if (keepSelection && state.finishId) {
+    const current = state.filteredFinishes.findIndex((f) => f.id === state.finishId);
+    if (current >= 0) index = current;
+  }
+
+  const finish = state.filteredFinishes[index];
+  state.finishIndex = index;
+  state.finishId = finish?.id ?? null;
+  const graphics = compatibleGraphics(finish);
+  state.graphicId = graphics[0]?.id ?? null;
+  renderWheel();
+  updateSpecs();
+  syncPreview();
+  renderCarousel();
+}
+
+function resetFinishBrowse() {
+  state.finishSearchQuery = "";
+  state.finishSort = "name-az";
+  state.finishFilterProcess = "";
+  state.finishFilterStyle = "";
+  state.finishFilterColor = "";
+  const input = document.getElementById("finish-search");
+  if (input) input.value = "";
+  populateFinishBrowseControls();
+  updateFinishSearchStatus();
+}
+
+function bindFinishSearch() {
+  populateFinishBrowseControls();
+
+  const input = document.getElementById("finish-search");
+  const runBrowse = debounce(() => applyFinishBrowse(), 120);
+  input?.addEventListener("input", runBrowse);
+  input?.addEventListener("search", runBrowse);
+
+  input?.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") {
+      e.preventDefault();
+      resetFinishBrowse();
+      applyFinishBrowse();
+      input.blur();
+    }
+  });
+
+  for (const id of ["finish-sort", "finish-filter-color", "finish-filter-style", "finish-filter-process"]) {
+    document.getElementById(id)?.addEventListener("change", () => applyFinishBrowse());
+  }
+}
+
 function applyWheelItemVisuals(items, focusIndex) {
   items.forEach((el, i) => {
     const dist = Math.abs(i - focusIndex);
@@ -174,10 +345,18 @@ function updateWheelLayout() {
   state.finishIndex = index;
 
   const viewH = viewport.clientHeight || 360;
-  const pad = viewH / 2 - WHEEL_ITEM_STEP / 2;
+  const viewportRect = viewport.getBoundingClientRect();
+  const viewportMidpoint = viewH / 2;
+  const pageMidpoint = window.innerHeight / 2 - viewportRect.top;
+  const focusLine = window.matchMedia("(min-width: 1024px)").matches
+    ? Math.min(Math.max(pageMidpoint, WHEEL_ITEM_STEP * 1.75), viewH - WHEEL_ITEM_STEP * 1.25)
+    : viewportMidpoint;
+  const padTop = focusLine - WHEEL_ITEM_STEP / 2;
+  const padBottom = viewH - focusLine - WHEEL_ITEM_STEP / 2;
+  viewport.closest(".finish-dial")?.style.setProperty("--wheel-focus-line", `${focusLine}px`);
   list.style.setProperty("--wheel-item-step", `${WHEEL_ITEM_STEP}px`);
-  list.style.paddingTop = `${pad}px`;
-  list.style.paddingBottom = `${pad}px`;
+  list.style.paddingTop = `${Math.max(padTop, WHEEL_ITEM_STEP)}px`;
+  list.style.paddingBottom = `${Math.max(padBottom, WHEEL_ITEM_STEP)}px`;
   list.style.transform = `translateY(${-index * WHEEL_ITEM_STEP}px)`;
   applyWheelItemVisuals(items, index);
 }
@@ -319,11 +498,13 @@ async function loadFinishesForMaterial() {
   const data = await api(`/catalog?material=${encodeURIComponent(state.material)}`);
   state.catalog = data;
   state.finishes = data.finishes ?? [];
-  state.filteredFinishes = [...state.finishes];
+  resetFinishBrowse();
+  state.filteredFinishes = browseFinishes(state.finishes, finishBrowseOptions());
   state.finishIndex = 0;
   state.finishId = state.finishes[0]?.id ?? null;
   const g0 = compatibleGraphics(state.finishes[0])[0];
   state.graphicId = g0?.id ?? null;
+  populateFinishBrowseControls();
   renderWheel();
   syncPreview();
 }
@@ -470,6 +651,7 @@ function bindControls() {
   bindHudMobileDock();
   bindPreviewZoom();
   bindFinishWheel();
+  bindFinishSearch();
 
   document.addEventListener("keydown", (e) => {
     if (e.target.matches("input, textarea")) return;
@@ -505,7 +687,14 @@ function finishIndexFromSlug(slug) {
 
 function applyFinishDeepLink() {
   const slug = new URLSearchParams(location.search).get("finish");
-  const index = finishIndexFromSlug(slug);
+  if (!slug) return;
+  let index = finishIndexFromSlug(slug);
+  if (index < 0) {
+    resetFinishBrowse();
+    state.filteredFinishes = browseFinishes(state.finishes, finishBrowseOptions());
+    populateFinishBrowseControls();
+    index = finishIndexFromSlug(slug);
+  }
   if (index < 0) return;
   selectFinishIndex(index);
 }
@@ -514,13 +703,15 @@ async function loadCatalog() {
   const data = await api(`/catalog?material=${encodeURIComponent(state.material)}`);
   state.catalog = data;
   state.finishes = data.finishes ?? [];
-  state.filteredFinishes = [...state.finishes];
+  resetFinishBrowse();
+  state.filteredFinishes = browseFinishes(state.finishes, finishBrowseOptions());
   state.finishIndex = 0;
   state.finishId = state.finishes[0]?.id ?? null;
   const g0 = compatibleGraphics(state.finishes[0])[0];
   state.graphicId = g0?.id ?? null;
 
   renderMaterials();
+  populateFinishBrowseControls();
   renderWheel();
   applyFinishDeepLink();
   syncPreview();
