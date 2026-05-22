@@ -2,47 +2,91 @@
 
 [← 03 — Design and Figma](03-design-and-figma.md) · [Project book](README.md) · **Next:** [05 — Data model →](05-data-model.md)
 
+**Plain language summary:** The website is mostly static files on Cloudflare Pages; a Cloudflare Worker adds the database and file storage when Phase 2 is turned on.
+
 ---
 
 ## Stack overview
 
+**For: WD, IT**
+
 | Layer | Technology | Location |
 |-------|------------|----------|
 | Frontend | HTML, CSS, vanilla JavaScript | `public/` |
-| API | Cloudflare Workers (TypeScript, ES modules) | `src/index.ts` |
+| 3D preview | Three.js (ESM via import map) | `public/js/configurator-preview-3d.js` |
+| API | Cloudflare Workers (TypeScript) | `src/index.ts` |
 | Database | Cloudflare D1 (SQLite) | `schema.sql`, binding `DB` |
 | File storage | Cloudflare R2 | binding `RENDERS` |
 | Auth | Cloudflare Access (Zero Trust) | Edge + `profiles` table |
-| Static assets | Worker assets binding | `wrangler.jsonc` → `./public` |
-| Dev tooling | Cursor, Wrangler CLI | `package.json` scripts |
-| Design | Figma + optional MCP | See [03 — Design and Figma](03-design-and-figma.md) |
-| Version control | GitHub | `main` branch |
+| Static hosting | Cloudflare Pages | `public/` + GitHub Actions |
+| Static catalog (Phase 1) | JSON file | `public/api/catalog` |
+| Dev tooling | Cursor, Wrangler CLI | `package.json` |
+| Design | Figma + optional MCP | [03 — Design and Figma](03-design-and-figma.md) |
 
 ---
 
-## Request path
+## Two deployment paths
+
+```mermaid
+flowchart TB
+  subgraph phase1 [Phase 1 Pages LIVE]
+    Browser1[Browser]
+    Pages[Cloudflare Pages]
+    StaticUI[public HTML CSS JS]
+    StaticCatalog[public/api/catalog JSON]
+    Browser1 --> Pages
+    Pages --> StaticUI
+    Pages --> StaticCatalog
+  end
+
+  subgraph phase2 [Phase 2 Worker planned]
+    Browser2[Browser]
+    Worker[src/index.ts]
+    D1[(D1)]
+    R2[(R2)]
+    Access[Access]
+    Browser2 --> Worker
+    Access --> Worker
+    Worker --> D1
+    Worker --> R2
+    Worker --> StaticUI2[public via STATIC_ASSETS]
+  end
+```
+
+| Path | When | `/api/catalog` source |
+|------|------|------------------------|
+| **Pages only** | Today (production) | Static file `public/api/catalog` + `_headers` for JSON content-type |
+| **Worker + D1** | Phase 2 | `GET /api/catalog` handler queries D1 |
+
+The configurator calls `/api/catalog?material=…` on the same origin. On Pages, that file is served as static JSON (108 finishes from seed data). After Worker deploy, the same URL can be served dynamically from D1.
+
+---
+
+## Request path (local dev and Worker)
 
 ```mermaid
 flowchart LR
   subgraph client [Browser]
     UI[public HTML CSS JS]
   end
-  subgraph cloudflare [Cloudflare]
+  subgraph cloudflare [Cloudflare Worker dev or prod]
     Worker[src/index.ts]
     D1[(D1 SQLite)]
     R2[(R2 files)]
+    Assets[STATIC_ASSETS binding]
     Access[Access Zero Trust]
   end
   UI -->|"/api/*"| Worker
   Access -->|Cf-Access email header| Worker
   Worker --> D1
   Worker --> R2
-  UI -->|static pages| Worker
+  UI -->|static pages| Assets
+  Worker --> Assets
 ```
 
-1. Browser loads pages from the Worker **assets** binding (`/`, `/library.html`, etc.).
-2. Client calls **`/api/*`** on the same origin (local: Wrangler dev server).
-3. **Cloudflare Access** adds `Cf-Access-Authenticated-User-Email` in production.
+1. Browser loads pages from **`STATIC_ASSETS`** (or Pages CDN in Phase 1).
+2. Client calls **`/api/*`** on the same origin.
+3. **Cloudflare Access** adds `Cf-Access-Authenticated-User-Email` in production (Phase 2).
 4. Worker resolves **profile** from D1, enforces **role** on mutating routes.
 5. **Reads/writes** go to D1; render **uploads** go to R2.
 
@@ -52,34 +96,43 @@ flowchart LR
 
 [`src/index.ts`](../src/index.ts):
 
-- Paths starting with `/api/` → `handleApi()`
-- All other paths → `env.ASSETS.fetch(request)` (static files)
+- Paths starting with `/api/` → `handleApi()` (when Worker handles the request)
+- All other paths → `env.STATIC_ASSETS.fetch(request)` (static files from `public/`)
 
 Before D1 queries, the Worker runs `PRAGMA foreign_keys = ON`.
 
 ---
 
-## Configurator 3D preview (Three.js / WebGL)
+## `STATIC_ASSETS` binding (not `ASSETS`)
 
-The Finish Library configurator viewport (`/configurator/`, [`public/configurator/index.html`](../public/configurator/index.html)) renders a **live WebGL preview** instead of static hero PNGs.
+**For: WD, IT**
 
-| Piece | Location |
-|-------|----------|
-| Scene module | [`public/js/configurator-preview-3d.js`](../public/js/configurator-preview-3d.js) |
-| UI wiring | [`public/js/configurator.js`](../public/js/configurator.js) → `syncPreview()` |
-| Three.js (ESM) | Import map in configurator HTML — `three@0.180.0` on jsDelivr |
+In [`wrangler.jsonc`](../wrangler.jsonc), the assets binding is named **`STATIC_ASSETS`**.
 
-[Three.js](https://threejs.org/) uses the browser [WebGL API](https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API) to draw each frame. v1 shows a **PBR cube** (camera + lights + `OrbitControls`) whose color and surface come from:
+| Name | Why |
+|------|-----|
+| `STATIC_ASSETS` | Works for Wrangler dev and Pages projects |
+| ~~`ASSETS`~~ | **Reserved** in Cloudflare Pages — `wrangler dev` fails if used |
 
-- **Material tab** → base metalness/roughness preset (`stainless_steel`, `glass`, etc.)
-- **Finish wheel** → `hexColor` + name/process heuristics (gloss, metallic, UV, powder, …)
-- **Theme toggle** → scene background (light/dark)
-
-The cube is a **stand-in** until a product GLTF replaces it (planned v3). Graphic carousel selection is wired for future texture/decals (v2).
+`pages_build_output_dir: "./public"` tells Pages which folder to publish. The same `public/` folder contains UI, `_redirects`, `_headers`, and `api/catalog`.
 
 ---
 
-## Authentication flow
+## Configurator modules
+
+| Piece | File | Role |
+|-------|------|------|
+| Page shell | `public/configurator/index.html` | HUD markup, import map for Three.js |
+| Layout / theme | `public/css/configurator.css` | Viewport HUD, wheel, shelf, search card |
+| App logic | `public/js/configurator.js` | Wheel, browse filters, theme, API fetch |
+| 3D scene | `public/js/configurator-preview-3d.js` | WebGL preview, theme background |
+| Filters | `public/js/finish-wheel-filters.js` | Sort, color group, style, process |
+| Grouping | `public/js/library-grouping.js` | Style families for filters and library |
+| Navbar | `public/js/components/core-home-navbar.js` | Nav, theme toggle, `lumina-theme-change` |
+
+---
+
+## Authentication flow (Phase 2)
 
 | Environment | Identity source |
 |-------------|-----------------|
@@ -88,19 +141,21 @@ The cube is a **stand-in** until a product GLTF replaces it (planned v3). Graphi
 
 If email is missing → `401`. If no matching `profiles` row → `403`.
 
-Team role (`PD`, `ID`, `GD`, `Admin`) drives authorization (e.g. only PD/Admin create requests; only ID/Admin upload renders).
-
 ---
 
 ## Configuration
 
 [`wrangler.jsonc`](../wrangler.jsonc):
 
-- `name`: `render-portal`
-- `main`: `src/index.ts`
-- `assets.directory`: `./public`
-- `d1_databases`: `render-portal-db` → binding `DB`
-- `r2_buckets`: `render-portal-files` → binding `RENDERS`
+| Setting | Value |
+|---------|--------|
+| `name` | `render-portal` |
+| `main` | `src/index.ts` |
+| `pages_build_output_dir` | `./public` |
+| `assets.directory` | `./public` |
+| `assets.binding` | `STATIC_ASSETS` |
+| D1 | `DB` → `render-portal-db` |
+| R2 | `RENDERS` → `render-portal-files` |
 
 Replace `PASTE_YOUR_D1_ID_HERE` after `npm run db:create`.
 
@@ -110,19 +165,20 @@ Replace `PASTE_YOUR_D1_ID_HERE` after `npm run db:create`.
 
 ```text
 core-home-finish-library/
-├── docs/                 # This project book
-├── public/               # Static UI
-│   ├── css/styles.css
-│   ├── js/app.js
-│   ├── index.html
-│   ├── library.html
-│   └── request.html
-├── src/index.ts          # Worker API + asset router
-├── schema.sql            # D1 schema
-├── seed.sql              # Local demo data
+├── docs/                      # Project book
+├── inspiration/viewport-hud/  # Layout QA screenshots
+├── public/
+│   ├── configurator/index.html
+│   ├── api/catalog            # Static JSON (Phase 1)
+│   ├── css/configurator.css
+│   ├── js/configurator.js
+│   ├── _redirects
+│   └── _headers
+├── src/index.ts               # Worker API + asset router
+├── schema.sql
+├── seed.sql
 ├── wrangler.jsonc
-├── package.json
-└── INSTRUCTIONS.md       # Active todos (stub + checklist)
+└── INSTRUCTIONS.md
 ```
 
 ---

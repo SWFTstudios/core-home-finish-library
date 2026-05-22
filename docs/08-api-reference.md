@@ -2,6 +2,8 @@
 
 [← 07 — Deployment](07-deployment.md) · [Project book](README.md) · **Next:** [09 — Development workflow →](09-development-workflow.md)
 
+**Plain language summary:** The configurator loads finish data from `/api/catalog`; on the live website that is a JSON file; after Phase 2 it will come from the database through the Worker.
+
 ---
 
 ## Base URL
@@ -52,9 +54,24 @@ No auth required.
 
 ### `GET /api/catalog`
 
-**Auth:** required profile.
+Boot payload for [`/configurator/`](../public/configurator/index.html). All UI options (materials, finishes, graphic types) come from this response.
 
-Boot payload for [`/configurator.html`](../public/configurator.html). All UI options (materials, finishes, graphic types) come from this response.
+#### Phase 1 (Pages — live today)
+
+| Item | Detail |
+|------|--------|
+| Source | Static file [`public/api/catalog`](../public/api/catalog) |
+| Content-Type | Set by [`public/_headers`](../public/_headers): `application/json; charset=utf-8` |
+| Auth | Not required (public read for internal Pages URL) |
+| Update | Regenerate from seed/import and redeploy Pages |
+
+#### Phase 2 (Worker + D1)
+
+| Item | Detail |
+|------|--------|
+| Source | Worker handler in [`src/index.ts`](../src/index.ts) |
+| Auth | Required profile (see Authentication) |
+| Update | `npm run import:finishes` + `db:seed` on remote D1 |
 
 **Query parameters:**
 

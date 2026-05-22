@@ -38,6 +38,9 @@ yarn-error.log*
 coverage/
 .nyc_output/
 
+# Factory source spreadsheets (import via npm run import:finishes locally)
+docs/*.xlsx
+
 # Misc
 *.local
 .turbo/

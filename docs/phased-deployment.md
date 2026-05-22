@@ -14,20 +14,22 @@ Ship the **Finish Library** (configurator) as the primary experience at [core-ho
 
 | Phase | What ships | URL | Catalog API |
 |-------|------------|-----|-------------|
-| **1** | Static UI (`public/`) via Pages | `*.pages.dev` | Not on Pages alone — UI shell only until Phase 2 |
-| **2** | Worker + D1 + R2 + Access | `*.workers.dev` or custom domain | `GET /api/catalog` live |
+| **1** | Static UI (`public/`) via Pages | `*.pages.dev` | **Done** — `public/api/catalog` + `_headers` (static JSON) |
+| **2** | Worker + D1 + R2 + Access | `*.workers.dev` or custom domain | `GET /api/catalog` from D1 (replaces static file) |
 | **3** | Same-origin API on Pages domain | `*.pages.dev` | Worker route or Pages Functions + bindings |
 | **4** | CI, Access policies, Figma sync | Production | Full PD/ID rollout |
 
 ---
 
-## Phase 1 — Pages (Finish Library visible)
+## Phase 1 — Pages (Finish Library visible) — **complete May 2026**
 
-**Outcome:** Pushing to `main` deploys `public/` so `/` opens the Finish Library configurator.
+**Outcome:** Pushing to `main` deploys `public/` so `/` opens the Finish Library configurator with working finish data.
 
-### Repo setup (done in scaffold)
+### Repo setup
 
-- `public/_redirects` — `/` serves `configurator.html` (200 rewrite)
+- `public/_redirects` — `/` → `/configurator/` (302)
+- `public/api/catalog` — static JSON for configurator boot
+- `public/_headers` — JSON content-type for `/api/catalog`
 - `public/index.html` — fallback redirect for local/dev
 - `.github/workflows/deploy-pages.yml` — `wrangler pages deploy public`
 

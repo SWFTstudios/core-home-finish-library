@@ -2,9 +2,13 @@
 
 [← 05 — Data model](05-data-model.md) · [Project book](README.md) · **Next:** [07 — Deployment →](07-deployment.md)
 
+**Plain language summary:** Install Node, run one command, and open the configurator in your browser — finishes appear without setting up a database.
+
 ---
 
 ## Prerequisites
+
+**For: WD**
 
 - **Node.js** 18+ (LTS recommended)
 - **npm**
@@ -23,9 +27,27 @@ npm install
 
 ---
 
-## Database (local D1)
+## Run the configurator (fastest path)
 
-Apply schema and optional seed data to the **local** D1 instance:
+```bash
+npm run dev
+```
+
+Open **http://localhost:8787/configurator/**
+
+| What you get | Notes |
+|--------------|--------|
+| Finish wheel, search, filters, shelf | Loads from `public/api/catalog` |
+| 3D preview | Requires network for Three.js CDN on first load |
+| Theme toggle | Light/dark via navbar |
+
+**You do not need** `db:migrate:local` or `db:seed:local` to browse finishes in the configurator.
+
+---
+
+## Database (optional — full API)
+
+**For: WD** — use when working on render requests, profiles, or Worker API routes.
 
 ```bash
 npm run db:migrate:local
@@ -39,31 +61,7 @@ npm run db:seed:local
 | Migrate (remote) | `npm run db:migrate` |
 | Create remote DB | `npm run db:create` |
 
----
-
-## Run the dev server
-
-```bash
-npm run dev
-```
-
-Wrangler prints a URL (typically **http://localhost:8787**). The Worker serves both static files and `/api/*` on the same origin.
-
----
-
-## Static routes (`public/`)
-
-| URL | File | Purpose |
-|-----|------|---------|
-| `/` | → `/configurator/` | **Finish Library (SS)** — primary entry |
-| `/configurator/` | `public/configurator/index.html` | Configurator with Three.js cube preview |
-| `/dashboard.html` | `public/dashboard.html` | Render request dashboard |
-| `/library.html` | `public/library.html` | Finish browse (API grid) |
-| `/request.html` | `public/request.html` | New render request |
-
-Production Pages uses `public/_redirects` so `/` serves the configurator without a visible redirect. See [phased-deployment.md](phased-deployment.md).
-
-Import factory data before the configurator:
+Factory spreadsheet import (regenerates seed):
 
 ```bash
 npm run import:finishes
@@ -71,7 +69,30 @@ npm run db:migrate:local
 npm run db:seed:local
 ```
 
-Open **http://localhost:8787/configurator/** — the center viewport loads **Three.js** via an [import map](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/script/type/importmap) (pinned `three@0.180.0` on jsDelivr). Network access is required on first load for the CDN modules; WebGL must be enabled in the browser.
+See [finish-catalog-import.md](finish-catalog-import.md).
+
+---
+
+## Static routes (`public/`)
+
+| URL | Purpose |
+|-----|---------|
+| `/` | Redirects to `/configurator/` |
+| `/configurator/` | **Finish Library (SS)** — primary entry |
+| `/api/catalog` | Catalog JSON (static file in dev and on Pages) |
+| `/dashboard.html` | Render request dashboard |
+| `/library.html` | Finish browse (standards library) |
+| `/request.html` | New render request |
+
+Production Pages uses [`public/_redirects`](../public/_redirects) and [`public/_headers`](../public/_headers). See [07 — Deployment](07-deployment.md).
+
+---
+
+## 3D preview requirements
+
+- [Import map](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/script/type/importmap) loads `three@0.180.0` from jsDelivr
+- **WebGL** must be enabled in the browser
+- Corporate proxies that block CDN scripts may prevent the preview from loading
 
 ---
 
@@ -95,8 +116,6 @@ Seed creates `pd@corehome.internal` and `id@corehome.internal`.
 
 ## Environment files
 
-Copy secrets template (do not commit real keys):
-
 ```bash
 cp .env.example .env
 cp .cursor/mcp.json.example .cursor/mcp.json
@@ -104,7 +123,7 @@ cp .cursor/mcp.json.example .cursor/mcp.json
 
 `.env` and `.cursor/mcp.json` are gitignored.
 
-**Stitch MCP:** add a `stitch` block with your API key (see `.cursor/mcp.json.example`). Reload MCP in Cursor after editing. Details: [stitch-reference.md](stitch-reference.md#stitch-mcp-cursor).
+**Stitch MCP:** [stitch-reference.md](stitch-reference.md#stitch-mcp-cursor).
 
 ---
 
@@ -112,8 +131,9 @@ cp .cursor/mcp.json.example .cursor/mcp.json
 
 | Script | Description |
 |--------|-------------|
-| `npm run dev` | Local Worker + assets |
-| `npm run deploy` | Deploy to Cloudflare |
+| `npm run dev` | Local Worker + static assets |
+| `npm run pages:deploy` | Deploy `public/` to Cloudflare Pages |
+| `npm run deploy` | Deploy Worker (Phase 2) |
 | `npm run check` | Validate Wrangler config |
 | `npm run types` | Generate Worker types after binding changes |
 
@@ -123,9 +143,11 @@ cp .cursor/mcp.json.example .cursor/mcp.json
 
 | Issue | Check |
 |-------|--------|
+| Empty finish list | Confirm `public/api/catalog` exists; check Network tab for `/api/catalog` 200 |
 | `403 No profile found` | Run `db:seed:local` or pass `dev_email` matching a seeded profile |
-| Empty finish list | Run `db:seed:local` |
-| API 404 | Ensure path starts with `/api/` and dev server is running |
+| 3D preview blank | CDN blocked? WebGL disabled? Console errors in `configurator-preview-3d.js` |
+| `wrangler dev` fails on `ASSETS` | Binding must be `STATIC_ASSETS` in `wrangler.jsonc` |
+| API 404 on dashboard routes | Run dev server; paths must start with `/api/` |
 
 ---
 

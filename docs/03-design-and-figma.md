@@ -2,9 +2,13 @@
 
 [← 02 — How it works](02-how-it-works.md) · [Project book](README.md) · **Next:** [04 — Architecture →](04-architecture.md)
 
+**Plain language summary:** Figma is where Graphic Design defines how the Finish Library should look; the live website is catching up to the `study_SS` screen, and this chapter explains what matches today and what is still different.
+
 ---
 
 ## Figma source file
+
+**For: GD, WD**
 
 **File:** [InteractiveFinishLibrary_COPY](https://www.figma.com/design/XY8ZVNYLrbK6OMVWNNqSBt/InteractiveFinishLibrary_COPY)  
 **File key:** `XY8ZVNYLrbK6OMVWNNqSBt`  
@@ -14,9 +18,68 @@ This file is the **UI and interaction reference** for the Finish Library and con
 
 **How design changes land in `main`:** [09 — Development workflow](09-development-workflow.md) (Figma link + PR screenshots + preview URL → merge).
 
-**3D viewport:** The configurator uses a **Three.js cube** as a temporary stand-in for the tumbler mesh ([04 — Architecture](04-architecture.md)). Layout and HUD panels still follow `study_SS`; only the center preview is real-time WebGL, not a static hero image.
+---
 
-**Viewport HUD references** (fixed panels over full-screen 3D stage): [`inspiration/`](../inspiration/) — grouped by context (`floating-panels`, `viewport-hud`). Implemented in `public/css/configurator.css` on `/configurator.html`.
+## What's implemented vs. Figma (May 2026)
+
+| Figma (`study_SS` / `SS`) | Live configurator | Notes |
+|---------------------------|-------------------|--------|
+| Single full-screen layout | Yes | `/configurator/` |
+| Material tabs (top) | Yes | Ceramic, Glass, S. Steel, Plastic |
+| Finish wheel (right) | Yes | Scroll, fade, arc offset, active state |
+| Finish search + filters | Yes | Sort and 2×2 filter grid in search card |
+| Graphic Application shelf | Yes | Bottom center HUD card |
+| Specs / durability panel | Yes | Left `specs-card` |
+| Product hero (photo/render) | Partial | **Three.js cube** stand-in, not final tumbler mesh |
+| SS front/back views | Not yet | Single 3D viewport |
+| Custom Pattern section | Not yet | Shelf only |
+| Circular ring picker (exact Figma geometry) | Partial | Vertical wheel + arc styling |
+
+**Primary frame for QA:** `study_SS` / `SS` at 1920×1080.
+
+---
+
+## HUD layout (live code)
+
+**For: GD, WD**
+
+Implemented in [`public/css/configurator.css`](../public/css/configurator.css) on [`public/configurator/index.html`](../public/configurator/index.html).
+
+```
+┌─────────────────────────────────────────────────────────────────────────────┐
+│  Core Home navbar — Library | Projects | Standards | theme | profile        │
+├─────────────────────────────────────────────────────────────────────────────┤
+│  [Material tabs]              │                              │ Finish Selector│
+│                               │     3D preview (WebGL)       │  (scroll wheel)│
+│  LEFT: specs card             │                              │  + search card │
+│  durability, cost, notes      │                              │                │
+├───────────────────────────────┴──────────────────────────────┴────────────────┤
+│  [zoom pill]   GRAPHIC APPLICATION shelf (carousel cards)                     │
+└─────────────────────────────────────────────────────────────────────────────┘
+```
+
+| Panel | CSS / DOM | Behavior |
+|-------|-----------|----------|
+| Left specs | `.hud-panel--left`, `.specs-card` | Fixed card; does not grow with long finish names |
+| Right wheel | `.finish-panel`, `#wheel-viewport`, `#wheel-list` | Transparent rail (~22% width); does not block 3D |
+| Search card | `.finish-dial-search` | Aligned with top of graphic shelf on desktop |
+| Bottom shelf | `.hud-panel--bottom`, `.graphic-shelf` | Graphic application cards |
+| Zoom pill | `.preview-zoom` | Left of shelf; zoom + 360° rotate |
+| Wheel arrows | `.wheel-controls` | Track vertical focus line of active finish |
+
+**3D viewport:** [`public/js/configurator-preview-3d.js`](../public/js/configurator-preview-3d.js) — cube stand-in until product GLTF. Theme sync via `lumina-theme-change` from the navbar.
+
+---
+
+## Comparing design to the live site (GD checklist)
+
+**For: GD**
+
+1. Open Figma frame **`study_SS`** side by side with [live configurator](https://core-home-finish-library.pages.dev/configurator/).
+2. Check material tabs, wheel position, shelf labels, and typography against Lumina tokens in `public/css/`.
+3. Use reference screenshots in [`inspiration/viewport-hud/`](../inspiration/viewport-hud/) — e.g. search/shelf alignment before/after fixes.
+4. Log gaps in a GitHub issue or PR comment with **frame name + screenshot + expected behavior**.
+5. Do not change production CSS without a PR; link the Figma node in the PR description.
 
 ---
 
@@ -38,62 +101,7 @@ The file includes copy that **any material can be opened to preview the layout**
 | `study_Ceramic` / `Ceramic` | Ceramic path (+ finish variants) |
 | `study_Finish Option - Buckets` | Finish bucket exploration |
 
-**Standards library (`/library.html`)** maps the bucket model to a three-level browse: **Material → Process (finish type) → Style family**, then finish cards. Process labels align with catalog `category` / `finish_process` (Paint, Powder, etc.); style families are grouped client-side in `public/js/library-grouping.js`.
-
----
-
-## Shared layout pattern
-
-Every configurator screen follows the same **single-page “bowl builder”** structure:
-
-```
-┌─────────────────────────────────────────────────────────────────────────────┐
-│  Finish Library                                          [product thumb]   │
-├─────────────────────────────────────────────────────────────────────────────┤
-│  (1) Material          │                              │  (2) Finish         │
-│  [Ceramic][Glass]      │     CENTER: product hero      │  [search____]     │
-│  [SS][Plastic]         │     + finish preview          │  circular swatches│
-├────────────────────────┴──────────────────────────────┴───────────────────┤
-│  (3) Graphic Application    │  (4) Custom Pattern                          │
-│  [search]  ◀ carousel ▶   │                                              │
-│  [144×143 cards: Embossed, Debossed, Wax Resist, Laser Decal, …]         │
-└─────────────────────────────────────────────────────────────────────────────┘
-```
-
-### (1) Material — top left
-
-Component instances (not dropdowns):
-
-- Ceramic, Glass, SS (stainless steel), Plastic  
-- Product silhouettes with labels  
-- Selected material uses a highlight state
-
-### (2) Finish — top right
-
-- Section label and **search** field  
-- **Circular finish picker** — ring of swatches around `#image` / `#imagetwo` preview ellipses on the product
-
-### Center — hero product
-
-- Material-specific large render  
-- **SS screen:** front/back views, `FinishSpecs` panel (finish name, durability indicators)  
-- Finish choices reflected on the product preview
-
-### (3) Graphic Application — bottom band
-
-- Horizontal **144×143** cards: Embossed, Debossed, Wax Resist, Laser Decal, Silk Print, Embossed + Decal  
-- `Wheel_Button` components for carousel navigation  
-- Search under the section header
-
-### (4) Custom Pattern
-
-- Tab/section paired with Graphic Application (pattern options in wider layouts)
-
-### TemplatePage extras
-
-- Explicit flow text: **(1) Material → (2) Finish → (3) Graphic Application**  
-- Vertical controls on the right edge of the product (finish zones)  
-- Pagination / step indicator near finish search
+**Standards library (`/library.html`)** maps the bucket model to **Material → Process → Style family**, then finish cards. Process labels align with catalog `category` / `finish_process`; style families are grouped in [`public/js/library-grouping.js`](../public/js/library-grouping.js).
 
 ---
 
@@ -102,16 +110,15 @@ Component instances (not dropdowns):
 | Figma concept | D1 / API |
 |---------------|----------|
 | Finish swatch | `finishes` row (`hex_color`, `image_url`, `figma_node_id`) |
-| Material choice | `product_type` + request context / UI state |
-| Zone (body, logo, lid) | `request_finishes.zone` |
-| Graphic application card | `finishes` or future `category` / tagging |
-| Delivered render file | `renders` + R2 `file_url` |
+| Material choice | `material_types` + UI state |
+| Graphic application card | `graphic_application_types` + `finish_graphic_compat` |
+| Delivered render file | `renders` + R2 `file_url` (Phase 2) |
 
 ---
 
 ## Figma MCP in Cursor
 
-For design-to-code sync:
+**For: WD**
 
 ```bash
 cp .cursor/mcp.json.example .cursor/mcp.json
@@ -119,12 +126,6 @@ cp .cursor/mcp.json.example .cursor/mcp.json
 ```
 
 Use Figma MCP tools to extract tokens, components, and frame structure. See [09 — Development workflow](09-development-workflow.md).
-
----
-
-## Gap vs current code
-
-The repo scaffold (`public/index.html`, `library.html`, `request.html`) is a **three-page** app (dashboard, card grid, form). The Figma design is a **single full-screen configurator** with a finish wheel and SS-specific panels. Closing that gap is on the [roadmap](10-roadmap-and-status.md).
 
 ---
 

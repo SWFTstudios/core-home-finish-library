@@ -2,6 +2,23 @@
 
 [← 04 — Architecture](04-architecture.md) · [Project book](README.md) · **Next:** [06 — Local setup →](06-local-setup.md)
 
+**Plain language summary:** Finish names, colors, and graphic options are stored in a database design; today the live website reads a snapshot JSON file until the production database is connected.
+
+---
+
+## What powers the live configurator today
+
+**For: Everyone · detail for WD**
+
+| Source | Location | When used |
+|--------|----------|-----------|
+| **Static catalog (live on Pages)** | [`public/api/catalog`](../public/api/catalog) | Production and local dev without D1 seed |
+| **D1 via Worker** | `GET /api/catalog` in [`src/index.ts`](../src/index.ts) | After Phase 2 deploy + remote seed |
+
+The static file is generated from the same seed data (~108 finishes for stainless steel). The configurator does not hardcode finish lists in the browser — it always fetches `/api/catalog?material=…`.
+
+When IT completes Phase 2, replace or remove the static file so D1 becomes the single source of truth.
+
 ---
 
 ## D1 conventions
@@ -112,8 +129,9 @@ npm run db:seed:local
 ## Implementation notes
 
 - Configurator boot: **`GET /api/catalog`** returns materials, graphic types, and finishes with `compatibleGraphics`.
-- Finish **search**: `GET /api/finishes?q=` or client filter on catalog payload.
-- Re-import when the factory sends an updated spreadsheet (same template structure).
+- **Browse UI** filters and sorts on the client via [`public/js/finish-wheel-filters.js`](../public/js/finish-wheel-filters.js) after the catalog loads.
+- Finish **search** (API): `GET /api/finishes?q=` when Worker + D1 are live; configurator uses client-side filter today.
+- Re-import when the factory sends an updated spreadsheet (same template structure) — see [finish-catalog-import.md](finish-catalog-import.md).
 
 ---
 

@@ -44,6 +44,63 @@ Think of GitHub as a **shared notebook with dated pages**. Nobody erases the cla
 5. **Never commit secrets** — no `.env`, no filled `.cursor/mcp.json` with API keys.
 6. **Visual changes need three proofs** — link the **Figma frame**, attach **PR screenshots**, and note the **preview URL** when Pages preview exists.
 
+---
+
+## Configurator sprint — what shipped (May 2026)
+
+**For: Everyone** — narrative of the major UI/deploy work so non-developers understand *what*, *why*, and *how* without reading Git diffs.
+
+### What we built
+
+| Deliverable | Why it matters |
+|-------------|----------------|
+| **Live configurator on Pages** | PD/ID/GD can open a URL and use the Finish Library without installing tools |
+| **HUD layout** (specs, wheel, search, shelf) | Matches the Figma `study_SS` single-screen experience |
+| **Finish scroll wheel** | Visual browsing instead of dropdowns — core adoption driver |
+| **Search, sort, and filters** | Find finishes by name, color family, style, or process |
+| **3D preview + theme sync** | Immediate feedback when changing finish; dark mode matches brand |
+| **Static `/api/catalog`** | Pages can show real finish data before production D1 exists |
+| **Routing and deploy fixes** | `/` opens configurator; Wrangler/Pages config works in dev and CI |
+
+### Why we made key technical choices
+
+| Decision | Reason in plain language |
+|----------|---------------------------|
+| **Static JSON catalog on Pages** | Cloudflare Pages serves files quickly; database setup was blocking demos |
+| **`STATIC_ASSETS` instead of `ASSETS`** | Cloudflare reserves the name `ASSETS` on Pages — dev server was failing |
+| **Three.js cube instead of product mesh** | Ship layout and interaction first; swap GLTF when ID provides asset |
+| **Transparent right rail** | Wheel must not block the 3D viewport — users need to see the product |
+| **Search card aligned to graphic shelf** | One visual band at the bottom — less empty space on large monitors |
+| **Wheel focus at viewport midpoint (desktop)** | Active finish sits where the eye naturally rests on big screens |
+
+### How the work flowed (Git + deploy)
+
+```mermaid
+flowchart LR
+  local[Local dev npm run dev]
+  main[Push to main]
+  pages[Pages deploy]
+  review[Team reviews live URL]
+  local --> main --> pages --> review
+```
+
+1. **Prototype locally** — `npm run dev` → `http://localhost:8787/configurator/`
+2. **Commit in logical chunks** — Conventional Commits (`feat:`, `fix:`, `docs:`)
+3. **Merge to `main`** — keeps production URL current
+4. **Pages auto-deploy** — GitHub Actions or `npm run pages:deploy`
+5. **GD/PD review** — compare [live site](https://core-home-finish-library.pages.dev/) to Figma `study_SS`
+
+### What still needs the same discipline
+
+- Phase 2 Worker + D1 (replace static catalog)
+- Product GLTF in the 3D viewport
+- Figma MCP sync for finish swatches
+- Render request PRs with screenshots and test plans
+
+Details: [10 — Roadmap and status](10-roadmap-and-status.md) and [`INSTRUCTIONS.md`](../INSTRUCTIONS.md).
+
+---
+
 ```mermaid
 flowchart LR
   figma[Figma_SS_frames]
