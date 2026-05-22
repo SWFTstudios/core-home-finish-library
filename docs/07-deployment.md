@@ -43,14 +43,25 @@ Pages hosts HTML/CSS/JS only — no Worker runtime on that hostname. The configu
 
 **Trade-off:** Catalog updates require regenerating/committing `public/api/catalog` until Phase 2 serves D1 dynamically.
 
-### GitHub secrets (Pages CI)
+### GitHub secrets (Pages CI) — required for auto-deploy
 
-| Secret | Purpose |
-|--------|---------|
-| `CLOUDFLARE_API_TOKEN` | Deploy permission |
-| `CLOUDFLARE_ACCOUNT_ID` | Target account |
+The workflow [`.github/workflows/deploy-pages.yml`](../.github/workflows/deploy-pages.yml) runs `npm run pages:deploy` on every push to `main`. **Both secrets must exist** or the job fails immediately with a clear error.
 
-If CI is not configured, run `npm run pages:deploy` locally with Wrangler logged in.
+| Secret | Where to get it |
+|--------|-----------------|
+| `CLOUDFLARE_API_TOKEN` | Cloudflare dashboard → **My Profile** → API Tokens → Create token with **Cloudflare Pages — Edit** (and account read) |
+| `CLOUDFLARE_ACCOUNT_ID` | Cloudflare dashboard → **Workers & Pages** → right sidebar **Account ID** |
+
+Add them in GitHub: **Repository → Settings → Secrets and variables → Actions → New repository secret**.
+
+**Manual deploy** (if CI secrets are not set yet):
+
+```bash
+npm install
+npm run pages:deploy
+```
+
+Requires Wrangler login or `CLOUDFLARE_API_TOKEN` + `CLOUDFLARE_ACCOUNT_ID` in your shell.
 
 ---
 
