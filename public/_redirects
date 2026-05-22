@@ -1,3 +1,4 @@
-# Cloudflare Pages — route to directory indexes (avoids .html redirect loops)
+# Cloudflare Pages — home + API (extensionless catalog file is not served reliably)
 / /configurator/ 302
 /configurator /configurator/ 302
+/api/catalog /api/catalog.json 200
