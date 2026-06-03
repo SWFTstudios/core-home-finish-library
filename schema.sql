@@ -20,16 +20,19 @@ CREATE TABLE IF NOT EXISTS material_types (
 );
 
 CREATE TABLE IF NOT EXISTS graphic_application_types (
-  id           TEXT PRIMARY KEY,
-  template_key TEXT UNIQUE NOT NULL,
-  label        TEXT NOT NULL,
-  ui_label     TEXT NOT NULL,
-  sort_order   INTEGER DEFAULT 0
+  id            TEXT PRIMARY KEY,
+  template_key  TEXT NOT NULL,
+  label         TEXT NOT NULL,
+  ui_label      TEXT NOT NULL,
+  material_slug TEXT,
+  sort_order    INTEGER DEFAULT 0,
+  UNIQUE (material_slug, template_key)
 );
 
 CREATE TABLE IF NOT EXISTS finishes (
   id               TEXT PRIMARY KEY,
-  slug             TEXT UNIQUE,
+  slug             TEXT NOT NULL,
+  material_slug    TEXT NOT NULL DEFAULT 'stainless_steel',
   name             TEXT NOT NULL,
   category         TEXT,
   description      TEXT,
@@ -45,7 +48,8 @@ CREATE TABLE IF NOT EXISTS finishes (
   extensions       TEXT,
   source_file      TEXT,
   template_id      TEXT DEFAULT 'finish_library_ak',
-  created_at       TEXT DEFAULT (datetime('now'))
+  created_at       TEXT DEFAULT (datetime('now')),
+  UNIQUE (material_slug, slug)
 );
 
 CREATE TABLE IF NOT EXISTS finish_graphic_compat (

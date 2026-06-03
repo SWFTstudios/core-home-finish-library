@@ -28,12 +28,26 @@ const WHEEL_ARC_X = -16;
 const WHEEL_FADE_SPREAD = 3.25;
 
 const GRAPHIC_ICONS = {
-  "graphic.embossed_decal": "texture",
-  "graphic.silk_print": "print",
-  "graphic.laser_decal": "flare",
-  "graphic.wax_resist": "waves",
-  "graphic.debossed": "check_box_outline_blank",
-  "graphic.embossed": "layers",
+  "graphic.waterDecal": "water_drop",
+  "graphic.partial3dPrint": "view_in_ar",
+  "graphic.silkScreen": "print",
+  "graphic.heatTransfer": "local_fire_department",
+  "graphic.laserEngraved": "flare",
+  "graphic.laserDecal": "flare",
+  "graphic.padPrinting": "stamp",
+  "graphic.silkPrinting": "print",
+  "graphic.embossDeboss": "layers",
+  "graphic.handPaint": "brush",
+  "graphic.waxResist": "waves",
+  "graphic.decal": "label",
+  "graphic.silkscreen": "print",
+  "graphic.uvDigital": "photo_camera",
+  "graphic.engraving": "draw",
+  "graphic.laserEtched": "flare",
+  "graphic.icon": "star",
+  "graphic.hotStamping": "approval",
+  "graphic.uvInkjet": "print",
+  "graphic.uvJet": "print",
 };
 
 const state = {
@@ -494,10 +508,21 @@ function bindFinishWheel() {
   window.addEventListener("resize", () => updateWheelLayout());
 }
 
+function catalogForMaterial(data, materialSlug) {
+  const material = materialSlug ?? data.material ?? state.material;
+  const finishes = (data.finishes ?? []).filter(
+    (f) => !f.materialSlug || f.materialSlug === material,
+  );
+  const graphicApplicationTypes = (data.graphicApplicationTypes ?? []).filter(
+    (g) => !g.materialSlug || g.materialSlug === material,
+  );
+  return { ...data, material, finishes, graphicApplicationTypes };
+}
+
 async function loadFinishesForMaterial() {
   const data = await api(`/catalog?material=${encodeURIComponent(state.material)}`);
-  state.catalog = data;
-  state.finishes = data.finishes ?? [];
+  state.catalog = catalogForMaterial(data, state.material);
+  state.finishes = state.catalog.finishes ?? [];
   resetFinishBrowse();
   state.filteredFinishes = browseFinishes(state.finishes, finishBrowseOptions());
   state.finishIndex = 0;
@@ -701,8 +726,8 @@ function applyFinishDeepLink() {
 
 async function loadCatalog() {
   const data = await api(`/catalog?material=${encodeURIComponent(state.material)}`);
-  state.catalog = data;
-  state.finishes = data.finishes ?? [];
+  state.catalog = catalogForMaterial(data, state.material);
+  state.finishes = state.catalog.finishes ?? [];
   resetFinishBrowse();
   state.filteredFinishes = browseFinishes(state.finishes, finishBrowseOptions());
   state.finishIndex = 0;

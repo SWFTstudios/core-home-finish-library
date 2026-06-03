@@ -13,7 +13,10 @@
     "db:migrate": "wrangler d1 execute render-portal-db --file=./schema.sql",
     "db:migrate:local": "wrangler d1 execute render-portal-db --local --file=./schema.sql",
     "db:seed:local": "wrangler d1 execute render-portal-db --local --file=./seed.sql",
+    "db:seed": "wrangler d1 execute render-portal-db --remote --file=./seed.sql",
     "import:finishes": "node scripts/import-finish-library.mjs",
+    "db:migrate:material": "wrangler d1 execute render-portal-db --file=./migrations/002_material_slug.sql",
+    "db:migrate:material:local": "wrangler d1 execute render-portal-db --local --file=./migrations/002_material_slug.sql",
     "fetch:stitch-specs": "node scripts/fetch-stitch-specs.mjs"
   },
   "devDependencies": {

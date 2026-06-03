@@ -104,13 +104,16 @@ async function handleApi(
     return Response.json({ ok: true, service: "render-portal" }, { headers: JSON_HEADERS });
   }
 
+  const isPublicCatalog =
+    request.method === "GET" && url.pathname === "/api/catalog";
+
   const email = resolveUserEmail(request, url);
-  if (!email) {
+  if (!email && !isPublicCatalog) {
     return new Response("Unauthorized", { status: 401 });
   }
 
-  const profile = await getProfile(env.DB, email);
-  if (!profile && url.pathname !== "/api/health") {
+  const profile = email ? await getProfile(env.DB, email) : null;
+  if (!profile && !isPublicCatalog && url.pathname !== "/api/health") {
     return Response.json(
       { error: "No profile found for authenticated user" },
       { status: 403, headers: JSON_HEADERS },
@@ -129,16 +132,26 @@ async function handleApi(
     ).all();
 
     const graphicApplicationTypes = await env.DB.prepare(
-      `SELECT id, template_key AS templateKey, label, ui_label AS uiLabel, sort_order AS sortOrder
-       FROM graphic_application_types ORDER BY sort_order ASC`,
-    ).all();
+      `SELECT id, template_key AS templateKey, label, ui_label AS uiLabel,
+              material_slug AS materialSlug, sort_order AS sortOrder
+       FROM graphic_application_types
+       WHERE material_slug = ?
+       ORDER BY sort_order ASC`,
+    )
+      .bind(material)
+      .all();
 
     const finishesResult = await env.DB.prepare(
-      `SELECT id, slug, name, category, durability_score AS durabilityScore, durability_notes AS durabilityNotes,
+      `SELECT id, slug, material_slug AS materialSlug, name, category,
+              durability_score AS durabilityScore, durability_notes AS durabilityNotes,
               price_band AS priceBand, cost_tier AS costTier, finish_process AS finishProcess,
               process_steps AS processSteps, description, hex_color AS hexColor
-       FROM finishes WHERE template_id = 'finish_library_ak' ORDER BY name ASC`,
-    ).all();
+       FROM finishes
+       WHERE template_id = 'finish_library_ak' AND material_slug = ?
+       ORDER BY name ASC`,
+    )
+      .bind(material)
+      .all();
 
     const compatResult = await env.DB.prepare(
       `SELECT finish_id, graphic_id FROM finish_graphic_compat WHERE compatible = 1`,

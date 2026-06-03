@@ -1,100 +1,227 @@
 {
   "templateId": "finish_library_ak",
-  "sheetName": "Library",
   "headerRow": 2,
   "dataStartRow": 3,
-  "columns": {
-    "swatchImage": {
-      "headers": ["Finish Swatch Image"],
-      "type": "embedded_image"
+  "defaultInputSs": "docs/Finish_Library_2025_AK_10.22 1.xlsx",
+  "defaultInputCgp": "docs/Finish_Library_Ceramic_Glass_Plastic_v3.xlsx",
+  "stainlessSteelSheet": {
+    "sheetName": "Library",
+    "materialSlug": "stainless_steel",
+    "columns": {
+      "finishName": {
+        "headers": ["Finish Name", "Finish\nName"],
+        "required": true
+      },
+      "durabilityScore": { "headers": ["Durability Score", "Durability\nScore"] },
+      "durabilityNotes": {
+        "headers": ["Durability / Finish Notes", "Durability / \nFinish Notes"]
+      },
+      "price": { "headers": ["Price"] },
+      "graphic.waterDecal": { "headers": ["Water Decal", "Water\nDecal"] },
+      "graphic.partial3dPrint": { "headers": ["Partial 3D Print", "Partial\n3D Print"] },
+      "graphic.silkScreen": { "headers": ["Silk Screen", "Silk\nScreen"] },
+      "graphic.heatTransfer": { "headers": ["Heat Transfer"] },
+      "graphic.laserEngraved": { "headers": ["Laser Engraved"] },
+      "processSteps": { "headers": ["# of Steps"] },
+      "finishProcess": { "headers": ["Finish Process"] },
+      "notes": { "headers": ["Notes"] }
     },
-    "finishName": {
-      "headers": ["Finish Name", "Finish\nName"],
-      "type": "string",
-      "required": true
-    },
-    "durabilityScore": {
-      "headers": ["Durability Score", "Durability\nScore"],
-      "type": "number"
-    },
-    "durabilityNotes": {
-      "headers": ["Durability / Finish Notes", "Durability / \nFinish Notes"],
-      "type": "text"
-    },
-    "price": {
-      "headers": ["Price"],
-      "type": "price_band"
-    },
-    "graphic.waterDecal": {
-      "headers": ["Water Decal", "Water\nDecal"],
-      "type": "boolean"
-    },
-    "graphic.partial3dPrint": {
-      "headers": ["Partial 3D Print", "Partial\n3D Print"],
-      "type": "boolean"
-    },
-    "graphic.silkScreen": {
-      "headers": ["Silk Screen", "Silk\nScreen"],
-      "type": "boolean"
-    },
-    "graphic.heatTransfer": {
-      "headers": ["Heat Transfer"],
-      "type": "boolean"
-    },
-    "graphic.laserEngraved": {
-      "headers": ["Laser Engraved"],
-      "type": "boolean"
-    },
-    "processSteps": {
-      "headers": ["# of Steps"],
-      "type": "number"
-    },
-    "finishProcess": {
-      "headers": ["Finish Process"],
-      "type": "string"
-    },
-    "notes": {
-      "headers": ["Notes"],
-      "type": "text"
-    }
+    "graphicApplicationTypes": [
+      {
+        "templateKey": "graphic.waterDecal",
+        "label": "Water Decal",
+        "uiLabel": "Water Decal",
+        "sortOrder": 1
+      },
+      {
+        "templateKey": "graphic.partial3dPrint",
+        "label": "Partial 3D Print",
+        "uiLabel": "Gloss 3D Print",
+        "sortOrder": 2
+      },
+      {
+        "templateKey": "graphic.silkScreen",
+        "label": "Silk Screen",
+        "uiLabel": "Silkscreen",
+        "sortOrder": 3
+      },
+      {
+        "templateKey": "graphic.heatTransfer",
+        "label": "Heat Transfer",
+        "uiLabel": "Heat Transfer",
+        "sortOrder": 4
+      },
+      {
+        "templateKey": "graphic.laserEngraved",
+        "label": "Laser Engraved",
+        "uiLabel": "Laser Etch",
+        "sortOrder": 5
+      }
+    ]
   },
-  "graphicApplicationTypes": [
+  "materialSheets": [
     {
-      "templateKey": "graphic.waterDecal",
-      "label": "Water Decal",
-      "uiLabel": "Water Decal",
-      "sortOrder": 1
+      "sheetName": "Ceramic",
+      "materialSlug": "ceramic",
+      "columns": {
+        "finishName": { "headers": ["Finish Name"], "required": true },
+        "durabilityScore": { "headers": ["Durability Score"] },
+        "durabilityNotes": { "headers": ["Durability / Finish Notes"] },
+        "price": { "headers": ["Price"] },
+        "graphic.laserDecal": { "headers": ["Laser Decal"] },
+        "graphic.padPrinting": { "headers": ["Pad Printing"] },
+        "graphic.silkPrinting": { "headers": ["Silk Printing"] },
+        "graphic.embossDeboss": { "headers": ["Emboss / Deboss"] },
+        "graphic.handPaint": { "headers": ["Hand Paint"] },
+        "graphic.waxResist": { "headers": ["Wax Resist"] },
+        "processSteps": { "headers": ["# of Steps"] },
+        "finishProcess": { "headers": ["Finish Process"] },
+        "notes": { "headers": ["Notes"] }
+      },
+      "graphicApplicationTypes": [
+        {
+          "templateKey": "graphic.laserDecal",
+          "label": "Laser Decal",
+          "uiLabel": "Laser Decal",
+          "sortOrder": 1
+        },
+        {
+          "templateKey": "graphic.padPrinting",
+          "label": "Pad Printing",
+          "uiLabel": "Pad Printing",
+          "sortOrder": 2
+        },
+        {
+          "templateKey": "graphic.silkPrinting",
+          "label": "Silk Printing",
+          "uiLabel": "Silk Printing",
+          "sortOrder": 3
+        },
+        {
+          "templateKey": "graphic.embossDeboss",
+          "label": "Emboss / Deboss",
+          "uiLabel": "Emboss / Deboss",
+          "sortOrder": 4
+        },
+        {
+          "templateKey": "graphic.handPaint",
+          "label": "Hand Paint",
+          "uiLabel": "Hand Paint",
+          "sortOrder": 5
+        },
+        {
+          "templateKey": "graphic.waxResist",
+          "label": "Wax Resist",
+          "uiLabel": "Wax Resist",
+          "sortOrder": 6
+        }
+      ]
     },
     {
-      "templateKey": "graphic.partial3dPrint",
-      "label": "Partial 3D Print",
-      "uiLabel": "Gloss 3D Print",
-      "sortOrder": 2
+      "sheetName": "Glass",
+      "materialSlug": "glass",
+      "columns": {
+        "finishName": { "headers": ["Finish Name"], "required": true },
+        "durabilityScore": { "headers": ["Durability Score"] },
+        "durabilityNotes": { "headers": ["Durability / Finish Notes"] },
+        "price": { "headers": ["Price"] },
+        "graphic.decal": { "headers": ["Decal"] },
+        "graphic.silkscreen": { "headers": ["Silk- screen", "Silk Screen"] },
+        "graphic.uvDigital": { "headers": ["UV Digital"] },
+        "graphic.engraving": { "headers": ["Engraving"] },
+        "graphic.laserEtched": { "headers": ["Laser Etched"] },
+        "graphic.icon": { "headers": ["Icon"] },
+        "processSteps": { "headers": ["# of Steps"] },
+        "finishProcess": { "headers": ["Finish Process"] },
+        "notes": { "headers": ["Notes"] }
+      },
+      "graphicApplicationTypes": [
+        {
+          "templateKey": "graphic.decal",
+          "label": "Decal",
+          "uiLabel": "Decal",
+          "sortOrder": 1
+        },
+        {
+          "templateKey": "graphic.silkscreen",
+          "label": "Silk-screen",
+          "uiLabel": "Silkscreen",
+          "sortOrder": 2
+        },
+        {
+          "templateKey": "graphic.uvDigital",
+          "label": "UV Digital",
+          "uiLabel": "UV Digital",
+          "sortOrder": 3
+        },
+        {
+          "templateKey": "graphic.engraving",
+          "label": "Engraving",
+          "uiLabel": "Engraving",
+          "sortOrder": 4
+        },
+        {
+          "templateKey": "graphic.laserEtched",
+          "label": "Laser Etched",
+          "uiLabel": "Laser Etched",
+          "sortOrder": 5
+        },
+        {
+          "templateKey": "graphic.icon",
+          "label": "Icon",
+          "uiLabel": "Icon",
+          "sortOrder": 6
+        }
+      ]
     },
     {
-      "templateKey": "graphic.silkScreen",
-      "label": "Silk Screen",
-      "uiLabel": "Silkscreen",
-      "sortOrder": 3
-    },
-    {
-      "templateKey": "graphic.heatTransfer",
-      "label": "Heat Transfer",
-      "uiLabel": "Heat Transfer",
-      "sortOrder": 4
-    },
-    {
-      "templateKey": "graphic.laserEngraved",
-      "label": "Laser Engraved",
-      "uiLabel": "Laser Etch",
-      "sortOrder": 5
+      "sheetName": "Plastic",
+      "materialSlug": "plastic",
+      "columns": {
+        "finishName": { "headers": ["Finish Name"], "required": true },
+        "durabilityScore": { "headers": ["Durability Score"] },
+        "durabilityNotes": { "headers": ["Durability / Finish Notes"] },
+        "price": { "headers": ["Price"] },
+        "graphic.heatTransfer": { "headers": ["Heat Transfer"] },
+        "graphic.hotStamping": { "headers": ["Hot Stamping"] },
+        "graphic.uvInkjet": { "headers": ["UV Inkjet"] },
+        "graphic.uvJet": { "headers": ["UV Jet"] },
+        "processSteps": { "headers": ["# of Steps"] },
+        "finishProcess": { "headers": ["Finish Process"] },
+        "notes": { "headers": ["Notes"] }
+      },
+      "graphicApplicationTypes": [
+        {
+          "templateKey": "graphic.heatTransfer",
+          "label": "Heat Transfer",
+          "uiLabel": "Heat Transfer",
+          "sortOrder": 1
+        },
+        {
+          "templateKey": "graphic.hotStamping",
+          "label": "Hot Stamping",
+          "uiLabel": "Hot Stamping",
+          "sortOrder": 2
+        },
+        {
+          "templateKey": "graphic.uvInkjet",
+          "label": "UV Inkjet",
+          "uiLabel": "UV Inkjet",
+          "sortOrder": 3
+        },
+        {
+          "templateKey": "graphic.uvJet",
+          "label": "UV Jet",
+          "uiLabel": "UV Jet",
+          "sortOrder": 4
+        }
+      ]
     }
   ],
   "materialTypes": [
-    { "slug": "ceramic", "label": "Ceramic", "enabled": false, "sortOrder": 1 },
-    { "slug": "glass", "label": "Glass", "enabled": false, "sortOrder": 2 },
+    { "slug": "ceramic", "label": "Ceramic", "enabled": true, "sortOrder": 1 },
+    { "slug": "glass", "label": "Glass", "enabled": true, "sortOrder": 2 },
     { "slug": "stainless_steel", "label": "S. Steel", "enabled": true, "sortOrder": 3 },
-    { "slug": "plastic", "label": "Plastic", "enabled": false, "sortOrder": 4 }
-  ],
-  "reservedColumns": ["material", "customPattern"]
+    { "slug": "plastic", "label": "Plastic", "enabled": true, "sortOrder": 4 }
+  ]
 }
