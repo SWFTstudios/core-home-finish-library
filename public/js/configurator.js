@@ -1,10 +1,10 @@
 import { getStoredTheme, setLuminaTheme } from "./components/core-home-navbar.js";
 import {
-  initPreview3d,
+  initPreview2d,
   setPreviewAutoRotate,
-  updatePreview3d,
+  updatePreview2d,
   zoomPreview,
-} from "./configurator-preview-3d.js";
+} from "./configurator-preview-2d.js";
 import {
   browseFinishes,
   COLOR_GROUPS,
@@ -59,8 +59,7 @@ const state = {
   finishIndex: 0,
   finishId: null,
   graphicId: null,
-  preview3dReady: false,
-  previewAutoRotate: false,
+  preview2dReady: false,
   finishSearchQuery: "",
   finishSort: "name-az",
   finishFilterProcess: "",
@@ -98,9 +97,9 @@ function selectedGraphic(finish) {
 }
 
 function syncPreview() {
-  if (!state.preview3dReady) return;
+  if (!state.preview2dReady) return;
   const finish = selectedFinish();
-  updatePreview3d({
+  updatePreview2d({
     materialSlug: state.material,
     finish,
     graphic: selectedGraphic(finish),
@@ -108,17 +107,17 @@ function syncPreview() {
   });
 }
 
-function ensurePreview3d() {
-  const el = document.getElementById("preview-3d");
-  if (!el || state.preview3dReady) return;
-  const ok = initPreview3d(el, {
+function ensurePreview2d() {
+  const el = document.getElementById("preview-2d");
+  if (!el || state.preview2dReady) return;
+  const ok = initPreview2d(el, {
     onReady: () => {
-      state.preview3dReady = true;
+      state.preview2dReady = true;
       syncPreview();
     },
     onError: (msg) => setBanner(msg, "error"),
   });
-  if (ok === false) state.preview3dReady = false;
+  if (ok === false) state.preview2dReady = false;
 }
 
 function selectedFinish() {
@@ -662,17 +661,13 @@ function bindPreviewZoom() {
   document.getElementById("preview-zoom-in")?.addEventListener("click", () => zoomPreview(0.12));
   document.getElementById("preview-zoom-out")?.addEventListener("click", () => zoomPreview(-0.12));
 
-  const btn360 = document.getElementById("preview-zoom-360");
-  btn360?.addEventListener("click", () => {
-    state.previewAutoRotate = !state.previewAutoRotate;
-    setPreviewAutoRotate(state.previewAutoRotate);
-    btn360.setAttribute("aria-pressed", String(state.previewAutoRotate));
-    btn360.classList.toggle("is-active", state.previewAutoRotate);
+  document.getElementById("preview-zoom-reset")?.addEventListener("click", () => {
+    setPreviewAutoRotate(true);
   });
 }
 
 function bindControls() {
-  ensurePreview3d();
+  ensurePreview2d();
   bindHudMobileDock();
   bindPreviewZoom();
   bindFinishWheel();
