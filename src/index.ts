@@ -142,13 +142,22 @@ async function handleApi(
       .all();
 
     const finishesResult = await env.DB.prepare(
-      `SELECT id, slug, material_slug AS materialSlug, name, category,
-              durability_score AS durabilityScore, durability_notes AS durabilityNotes,
-              price_band AS priceBand, cost_tier AS costTier, finish_process AS finishProcess,
-              process_steps AS processSteps, description, hex_color AS hexColor
-       FROM finishes
-       WHERE template_id = 'finish_library_ak' AND material_slug = ?
-       ORDER BY name ASC`,
+      `SELECT f.id, f.slug, f.material_slug AS materialSlug, f.name, f.category,
+              f.durability_score AS durabilityScore, f.durability_notes AS durabilityNotes,
+              f.price_band AS priceBand, f.cost_tier AS costTier, f.finish_process AS finishProcess,
+              f.process_steps AS processSteps, f.description, f.hex_color AS hexColor,
+              faf.public_path AS imageUrl
+       FROM finishes f
+       LEFT JOIN finish_asset_links fal
+         ON fal.finish_id = f.id
+        AND fal.graphic_id = ''
+        AND fal.priority = 0
+       LEFT JOIN finish_asset_files faf
+         ON faf.variant_id = fal.variant_id
+        AND faf.is_active = 1
+        AND faf.role = 'swatch'
+       WHERE f.template_id = 'finish_library_ak' AND f.material_slug = ?
+       ORDER BY f.name ASC`,
     )
       .bind(material)
       .all();
@@ -156,6 +165,35 @@ async function handleApi(
     const compatResult = await env.DB.prepare(
       `SELECT finish_id, graphic_id FROM finish_graphic_compat WHERE compatible = 1`,
     ).all();
+
+    let comboRows: { finish_id: string; graphic_id: string; template_key: string; public_path: string }[] = [];
+    try {
+      const comboResult = await env.DB.prepare(
+        `SELECT fal.finish_id, fal.graphic_id, g.template_key, faf.public_path
+         FROM finish_asset_links fal
+         JOIN finish_asset_files faf
+           ON faf.variant_id = fal.variant_id
+          AND faf.is_active = 1
+          AND faf.role = 'swatch'
+         JOIN graphic_application_types g ON g.id = fal.graphic_id
+         JOIN finishes f ON f.id = fal.finish_id
+         WHERE fal.graphic_id != ''
+           AND f.material_slug = ?`,
+      )
+        .bind(material)
+        .all();
+      comboRows = (comboResult.results ?? []) as typeof comboRows;
+    } catch {
+      /* finish_asset_* tables may not exist until migration 003 */
+    }
+
+    const combosByFinish = new Map<string, Record<string, string>>();
+    for (const row of comboRows) {
+      const list = combosByFinish.get(row.finish_id) ?? {};
+      list[row.graphic_id] = row.public_path;
+      list[row.template_key] = row.public_path;
+      combosByFinish.set(row.finish_id, list);
+    }
 
     const compatByFinish = new Map<string, string[]>();
     for (const row of compatResult.results ?? []) {
@@ -168,9 +206,13 @@ async function handleApi(
     const finishes = (finishesResult.results ?? []).map((row) => {
       const f = row as Record<string, unknown>;
       const id = String(f.id);
+      const comboImageUrls = combosByFinish.get(id);
       return {
         ...f,
         compatibleGraphics: compatByFinish.get(id) ?? [],
+        ...(comboImageUrls && Object.keys(comboImageUrls).length
+          ? { comboImageUrls }
+          : {}),
       };
     });
 

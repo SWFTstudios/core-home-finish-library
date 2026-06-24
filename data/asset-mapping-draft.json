@@ -1,0 +1,558 @@
+{
+  "version": 1,
+  "links": [
+    {
+      "finishSlug": "color-uv",
+      "materialSlug": "stainless_steel",
+      "variantSlug": "uv-paint",
+      "graphicTemplateKey": null,
+      "priority": 0
+    },
+    {
+      "finishSlug": "black-uv",
+      "materialSlug": "stainless_steel",
+      "variantSlug": "uv-paint",
+      "graphicTemplateKey": null,
+      "priority": 0
+    },
+    {
+      "finishSlug": "color-uv-metallic",
+      "materialSlug": "stainless_steel",
+      "variantSlug": "uv-paint",
+      "graphicTemplateKey": null,
+      "priority": 0
+    },
+    {
+      "finishSlug": "rainbow-uv",
+      "materialSlug": "stainless_steel",
+      "variantSlug": "uv-paint",
+      "graphicTemplateKey": null,
+      "priority": 0
+    },
+    {
+      "finishSlug": "2-tone-gloss",
+      "materialSlug": "stainless_steel",
+      "variantSlug": "tripleswirl-triombre-glossy",
+      "graphicTemplateKey": null,
+      "priority": 0
+    },
+    {
+      "finishSlug": "2-tone-semi-matte-glossy",
+      "materialSlug": "stainless_steel",
+      "variantSlug": "tripleswirl-triombre-matte",
+      "graphicTemplateKey": null,
+      "priority": 0
+    },
+    {
+      "finishSlug": "2-tone-metallic-semi-matte",
+      "materialSlug": "stainless_steel",
+      "variantSlug": "tripleswirl-triombre-mattemetallic",
+      "graphicTemplateKey": null,
+      "priority": 0
+    },
+    {
+      "finishSlug": "2-tone-powder-metallic",
+      "materialSlug": "stainless_steel",
+      "variantSlug": "tripleswirl-triombre-mattemetallic",
+      "graphicTemplateKey": null,
+      "priority": 0
+    },
+    {
+      "finishSlug": "2-color-diagonal-semi-matte-metallic-ombr",
+      "materialSlug": "stainless_steel",
+      "variantSlug": "tripleswirl-triombre-semimatte",
+      "graphicTemplateKey": null,
+      "priority": 0
+    },
+    {
+      "finishSlug": "sparkle",
+      "materialSlug": "stainless_steel",
+      "variantSlug": "sparkle",
+      "graphicTemplateKey": null,
+      "priority": 0
+    },
+    {
+      "finishSlug": "sparkle-ombre",
+      "materialSlug": "stainless_steel",
+      "variantSlug": "sparkle-ombre",
+      "graphicTemplateKey": null,
+      "priority": 0
+    },
+    {
+      "finishSlug": "gold-sparkle-ombr",
+      "materialSlug": "stainless_steel",
+      "variantSlug": "sparkle-ombre",
+      "graphicTemplateKey": null,
+      "priority": 0
+    },
+    {
+      "finishSlug": "shimmer",
+      "materialSlug": "stainless_steel",
+      "variantSlug": "shimmer",
+      "graphicTemplateKey": null,
+      "priority": 0
+    },
+    {
+      "finishSlug": "silk-screen-shimmer",
+      "materialSlug": "stainless_steel",
+      "variantSlug": "shimmer",
+      "graphicTemplateKey": null,
+      "priority": 0
+    },
+    {
+      "finishSlug": "rubberized",
+      "materialSlug": "stainless_steel",
+      "variantSlug": "rubberized",
+      "graphicTemplateKey": null,
+      "priority": 0
+    },
+    {
+      "finishSlug": "half-rubberized",
+      "materialSlug": "stainless_steel",
+      "variantSlug": "rubberized",
+      "graphicTemplateKey": null,
+      "priority": 0
+    },
+    {
+      "finishSlug": "metallic-rubberized",
+      "materialSlug": "stainless_steel",
+      "variantSlug": "rubberized",
+      "graphicTemplateKey": null,
+      "priority": 0
+    },
+    {
+      "finishSlug": "rubberized-air-transfer",
+      "materialSlug": "stainless_steel",
+      "variantSlug": "rubberized",
+      "graphicTemplateKey": null,
+      "priority": 0
+    },
+    {
+      "finishSlug": "powder-coating",
+      "materialSlug": "stainless_steel",
+      "variantSlug": "powder-coat",
+      "graphicTemplateKey": null,
+      "priority": 0
+    },
+    {
+      "finishSlug": "powder-coating-ombr",
+      "materialSlug": "stainless_steel",
+      "variantSlug": "powder-coat-ombre",
+      "graphicTemplateKey": null,
+      "priority": 0
+    },
+    {
+      "finishSlug": "powder-coating-ombr-color-speckle",
+      "materialSlug": "stainless_steel",
+      "variantSlug": "powder-coat-ombre-wspeckle",
+      "graphicTemplateKey": null,
+      "priority": 0
+    },
+    {
+      "finishSlug": "powder-coating-white-speckle",
+      "materialSlug": "stainless_steel",
+      "variantSlug": "powder-coat-white-speckle",
+      "graphicTemplateKey": null,
+      "priority": 0
+    },
+    {
+      "finishSlug": "rustic-powder-coating",
+      "materialSlug": "stainless_steel",
+      "variantSlug": "rustic-powdercoat",
+      "graphicTemplateKey": null,
+      "priority": 0
+    },
+    {
+      "finishSlug": "pearlized",
+      "materialSlug": "stainless_steel",
+      "variantSlug": "pearlized",
+      "graphicTemplateKey": null,
+      "priority": 0
+    },
+    {
+      "finishSlug": "pvd",
+      "materialSlug": "stainless_steel",
+      "variantSlug": "pvd",
+      "graphicTemplateKey": null,
+      "priority": 0
+    },
+    {
+      "finishSlug": "semi-matte-metallic",
+      "materialSlug": "stainless_steel",
+      "variantSlug": "matte-metallic",
+      "graphicTemplateKey": null,
+      "priority": 0
+    },
+    {
+      "finishSlug": "silk-screen-matte-metallic",
+      "materialSlug": "stainless_steel",
+      "variantSlug": "matte-metallic",
+      "graphicTemplateKey": null,
+      "priority": 0
+    },
+    {
+      "finishSlug": "air-transfer-semi-matte-metallic",
+      "materialSlug": "stainless_steel",
+      "variantSlug": "matte-metallic",
+      "graphicTemplateKey": null,
+      "priority": 0
+    },
+    {
+      "finishSlug": "iridescent-sparkle",
+      "materialSlug": "stainless_steel",
+      "variantSlug": "iridescent-sparkle",
+      "graphicTemplateKey": null,
+      "priority": 0
+    },
+    {
+      "finishSlug": "black-iridescent",
+      "materialSlug": "stainless_steel",
+      "variantSlug": "iridescent-sparkle",
+      "graphicTemplateKey": null,
+      "priority": 0
+    },
+    {
+      "finishSlug": "ombr-iridescent-sparkle",
+      "materialSlug": "stainless_steel",
+      "variantSlug": "iridescent-sparkle-ombre",
+      "graphicTemplateKey": null,
+      "priority": 0
+    },
+    {
+      "finishSlug": "ombr-iridescent-sparkle-rainwater",
+      "materialSlug": "stainless_steel",
+      "variantSlug": "iridescent-sparkle-ombre",
+      "graphicTemplateKey": null,
+      "priority": 0
+    },
+    {
+      "finishSlug": "powder-coating",
+      "materialSlug": "stainless_steel",
+      "variantSlug": "raised-water-decal-powder-coat",
+      "graphicTemplateKey": "graphic.waterDecal",
+      "priority": 1
+    },
+    {
+      "finishSlug": "powder-coating",
+      "materialSlug": "stainless_steel",
+      "variantSlug": "water-decal-powder-coat",
+      "graphicTemplateKey": "graphic.waterDecal",
+      "priority": 1
+    },
+    {
+      "finishSlug": "powder-coating",
+      "materialSlug": "stainless_steel",
+      "variantSlug": "silkscreen-powder-coat",
+      "graphicTemplateKey": "graphic.silkScreen",
+      "priority": 1
+    },
+    {
+      "finishSlug": "powder-coating",
+      "materialSlug": "stainless_steel",
+      "variantSlug": "silkscreen-powder-coat-ombre",
+      "graphicTemplateKey": "graphic.silkScreen",
+      "priority": 1
+    },
+    {
+      "finishSlug": "powder-coating",
+      "materialSlug": "stainless_steel",
+      "variantSlug": "matte-3dprint-powder-coat-ombre",
+      "graphicTemplateKey": "graphic.partial3dPrint",
+      "priority": 1
+    },
+    {
+      "finishSlug": "powder-coating",
+      "materialSlug": "stainless_steel",
+      "variantSlug": "matte-3dprint-raise-powder-coat-ombre",
+      "graphicTemplateKey": "graphic.partial3dPrint",
+      "priority": 1
+    },
+    {
+      "finishSlug": "powder-coating",
+      "materialSlug": "stainless_steel",
+      "variantSlug": "matte-3dprint-powder-coat",
+      "graphicTemplateKey": "graphic.partial3dPrint",
+      "priority": 1
+    },
+    {
+      "finishSlug": "powder-coating",
+      "materialSlug": "stainless_steel",
+      "variantSlug": "matte-3dprint-raise-powder-coat",
+      "graphicTemplateKey": "graphic.partial3dPrint",
+      "priority": 1
+    },
+    {
+      "finishSlug": "pvd",
+      "materialSlug": "stainless_steel",
+      "variantSlug": "laser-etch-gold-pvd",
+      "graphicTemplateKey": "graphic.laserEngraved",
+      "priority": 1
+    },
+    {
+      "finishSlug": "sparkle",
+      "materialSlug": "stainless_steel",
+      "variantSlug": "laser-etch-iridescent-sparkle",
+      "graphicTemplateKey": "graphic.laserEngraved",
+      "priority": 1
+    },
+    {
+      "finishSlug": "sparkle",
+      "materialSlug": "stainless_steel",
+      "variantSlug": "laser-etch-iridescent-sparkle-ombre",
+      "graphicTemplateKey": "graphic.laserEngraved",
+      "priority": 1
+    },
+    {
+      "finishSlug": "semi-matte-metallic",
+      "materialSlug": "stainless_steel",
+      "variantSlug": "laser-etch-matte-metallic",
+      "graphicTemplateKey": "graphic.laserEngraved",
+      "priority": 1
+    },
+    {
+      "finishSlug": "silk-screen-matte-metallic",
+      "materialSlug": "stainless_steel",
+      "variantSlug": "laser-etch-matte-metallic",
+      "graphicTemplateKey": "graphic.laserEngraved",
+      "priority": 1
+    },
+    {
+      "finishSlug": "air-transfer-semi-matte-metallic",
+      "materialSlug": "stainless_steel",
+      "variantSlug": "laser-etch-matte-metallic",
+      "graphicTemplateKey": "graphic.laserEngraved",
+      "priority": 1
+    },
+    {
+      "finishSlug": "pvd",
+      "materialSlug": "stainless_steel",
+      "variantSlug": "laser-etch-pvd",
+      "graphicTemplateKey": "graphic.laserEngraved",
+      "priority": 1
+    },
+    {
+      "finishSlug": "pearlized",
+      "materialSlug": "stainless_steel",
+      "variantSlug": "laser-etch-pearlized",
+      "graphicTemplateKey": "graphic.laserEngraved",
+      "priority": 1
+    },
+    {
+      "finishSlug": "powder-coating",
+      "materialSlug": "stainless_steel",
+      "variantSlug": "laser-etch-powder-coat",
+      "graphicTemplateKey": "graphic.laserEngraved",
+      "priority": 1
+    },
+    {
+      "finishSlug": "powder-coating",
+      "materialSlug": "stainless_steel",
+      "variantSlug": "laser-etch-powder-coat-ombre",
+      "graphicTemplateKey": "graphic.laserEngraved",
+      "priority": 1
+    },
+    {
+      "finishSlug": "powder-coating",
+      "materialSlug": "stainless_steel",
+      "variantSlug": "laser-etch-powder-coat-ombre-wspeckle",
+      "graphicTemplateKey": "graphic.laserEngraved",
+      "priority": 1
+    },
+    {
+      "finishSlug": "powder-coating",
+      "materialSlug": "stainless_steel",
+      "variantSlug": "laser-etch-powder-coat-white-speckle",
+      "graphicTemplateKey": "graphic.laserEngraved",
+      "priority": 1
+    },
+    {
+      "finishSlug": "rubberized",
+      "materialSlug": "stainless_steel",
+      "variantSlug": "laser-etch-rubberized",
+      "graphicTemplateKey": "graphic.laserEngraved",
+      "priority": 1
+    },
+    {
+      "finishSlug": "half-rubberized",
+      "materialSlug": "stainless_steel",
+      "variantSlug": "laser-etch-rubberized",
+      "graphicTemplateKey": "graphic.laserEngraved",
+      "priority": 1
+    },
+    {
+      "finishSlug": "metallic-rubberized",
+      "materialSlug": "stainless_steel",
+      "variantSlug": "laser-etch-rubberized",
+      "graphicTemplateKey": "graphic.laserEngraved",
+      "priority": 1
+    },
+    {
+      "finishSlug": "rubberized-air-transfer",
+      "materialSlug": "stainless_steel",
+      "variantSlug": "laser-etch-rubberized",
+      "graphicTemplateKey": "graphic.laserEngraved",
+      "priority": 1
+    },
+    {
+      "finishSlug": "powder-coating",
+      "materialSlug": "stainless_steel",
+      "variantSlug": "laser-etch-rustic-powdercoat",
+      "graphicTemplateKey": "graphic.laserEngraved",
+      "priority": 1
+    },
+    {
+      "finishSlug": "shimmer",
+      "materialSlug": "stainless_steel",
+      "variantSlug": "laser-etch-shimmer",
+      "graphicTemplateKey": "graphic.laserEngraved",
+      "priority": 1
+    },
+    {
+      "finishSlug": "silk-screen-shimmer",
+      "materialSlug": "stainless_steel",
+      "variantSlug": "laser-etch-shimmer",
+      "graphicTemplateKey": "graphic.laserEngraved",
+      "priority": 1
+    },
+    {
+      "finishSlug": "sparkle",
+      "materialSlug": "stainless_steel",
+      "variantSlug": "laser-etch-sparkle",
+      "graphicTemplateKey": "graphic.laserEngraved",
+      "priority": 1
+    },
+    {
+      "finishSlug": "sparkle",
+      "materialSlug": "stainless_steel",
+      "variantSlug": "laser-etch-sparkle-ombre",
+      "graphicTemplateKey": "graphic.laserEngraved",
+      "priority": 1
+    },
+    {
+      "finishSlug": "2-tone-gloss",
+      "materialSlug": "stainless_steel",
+      "variantSlug": "laser-etch-tripleswirl-triombre-glossy",
+      "graphicTemplateKey": "graphic.laserEngraved",
+      "priority": 1
+    },
+    {
+      "finishSlug": "2-tone-semi-matte-glossy",
+      "materialSlug": "stainless_steel",
+      "variantSlug": "laser-etch-tripleswirl-triombre-matte",
+      "graphicTemplateKey": "graphic.laserEngraved",
+      "priority": 1
+    },
+    {
+      "finishSlug": "semi-matte-metallic",
+      "materialSlug": "stainless_steel",
+      "variantSlug": "laser-etch-tripleswirl-triombre-mattemetallic",
+      "graphicTemplateKey": "graphic.laserEngraved",
+      "priority": 1
+    },
+    {
+      "finishSlug": "silk-screen-matte-metallic",
+      "materialSlug": "stainless_steel",
+      "variantSlug": "laser-etch-tripleswirl-triombre-mattemetallic",
+      "graphicTemplateKey": "graphic.laserEngraved",
+      "priority": 1
+    },
+    {
+      "finishSlug": "air-transfer-semi-matte-metallic",
+      "materialSlug": "stainless_steel",
+      "variantSlug": "laser-etch-tripleswirl-triombre-mattemetallic",
+      "graphicTemplateKey": "graphic.laserEngraved",
+      "priority": 1
+    },
+    {
+      "finishSlug": "2-color-diagonal-semi-matte-metallic-ombr",
+      "materialSlug": "stainless_steel",
+      "variantSlug": "laser-etch-tripleswirl-triombre-semimatte",
+      "graphicTemplateKey": "graphic.laserEngraved",
+      "priority": 1
+    },
+    {
+      "finishSlug": "color-uv",
+      "materialSlug": "stainless_steel",
+      "variantSlug": "laser-etch-uv-paint",
+      "graphicTemplateKey": "graphic.laserEngraved",
+      "priority": 1
+    },
+    {
+      "finishSlug": "black-uv",
+      "materialSlug": "stainless_steel",
+      "variantSlug": "laser-etch-uv-paint",
+      "graphicTemplateKey": "graphic.laserEngraved",
+      "priority": 1
+    },
+    {
+      "finishSlug": "color-uv-metallic",
+      "materialSlug": "stainless_steel",
+      "variantSlug": "laser-etch-uv-paint",
+      "graphicTemplateKey": "graphic.laserEngraved",
+      "priority": 1
+    },
+    {
+      "finishSlug": "rainbow-uv",
+      "materialSlug": "stainless_steel",
+      "variantSlug": "laser-etch-uv-paint",
+      "graphicTemplateKey": "graphic.laserEngraved",
+      "priority": 1
+    },
+    {
+      "finishSlug": "powder-coating",
+      "materialSlug": "stainless_steel",
+      "variantSlug": "gloss-3dprint-powder-coat-ombre",
+      "graphicTemplateKey": "graphic.partial3dPrint",
+      "priority": 1
+    },
+    {
+      "finishSlug": "powder-coating",
+      "materialSlug": "stainless_steel",
+      "variantSlug": "gloss-3dprint-raise-powder-coat-ombre",
+      "graphicTemplateKey": "graphic.partial3dPrint",
+      "priority": 1
+    },
+    {
+      "finishSlug": "powder-coating",
+      "materialSlug": "stainless_steel",
+      "variantSlug": "gloss-3dprint-powder-coat",
+      "graphicTemplateKey": "graphic.partial3dPrint",
+      "priority": 1
+    },
+    {
+      "finishSlug": "powder-coating",
+      "materialSlug": "stainless_steel",
+      "variantSlug": "gloss-3dprint-raise-powder-coat",
+      "graphicTemplateKey": "graphic.partial3dPrint",
+      "priority": 1
+    },
+    {
+      "finishSlug": "powder-coating",
+      "materialSlug": "stainless_steel",
+      "variantSlug": "foildecal-raise-gold-emboss-powder-coat",
+      "graphicTemplateKey": "graphic.heatTransfer",
+      "priority": 1
+    },
+    {
+      "finishSlug": "powder-coating",
+      "materialSlug": "stainless_steel",
+      "variantSlug": "foildecal-raise-silver-emboss-powder-coat",
+      "graphicTemplateKey": "graphic.heatTransfer",
+      "priority": 1
+    },
+    {
+      "finishSlug": "powder-coating",
+      "materialSlug": "stainless_steel",
+      "variantSlug": "foildecal-silver-emboss-powder-coat",
+      "graphicTemplateKey": "graphic.heatTransfer",
+      "priority": 1
+    },
+    {
+      "finishSlug": "powder-coating",
+      "materialSlug": "stainless_steel",
+      "variantSlug": "foildecal-gold-emboss-powder-coat",
+      "graphicTemplateKey": "graphic.heatTransfer",
+      "priority": 1
+    }
+  ]
+}

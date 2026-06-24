@@ -119,6 +119,20 @@ Options:
 
 Reduces reliance on parsing finish **names** for gloss/powder/metallic.
 
+### Finish PNG assets (shipped)
+
+**For: WD, PD, GD**
+
+PNG swatch renders and finish↔asset mappings are documented in [finish-asset-pipeline.md](finish-asset-pipeline.md):
+
+| Table | Purpose |
+|-------|---------|
+| `finish_asset_variants` | Canonical visual keys (base swatch or graphic combo) |
+| `finish_asset_files` | Pages static path + checksum per variant |
+| `finish_asset_links` | Maps catalog `finishes` rows to variants (optional `graphic_id`) |
+
+`GET /api/catalog` joins active swatch `public_path` as `imageUrl` when a default link exists.
+
 ---
 
 ## Phase 3 — Product models and mesh zones

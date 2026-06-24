@@ -1,0 +1,101 @@
+{
+  "baseName": "Core Home Finish Library (Mirror)",
+  "description": "Read-only mirror of Cloudflare D1. Do not edit production data from Airtable — propose changes via data/asset-mapping-draft.json.",
+  "tables": [
+    {
+      "name": "Materials",
+      "primaryField": "slug",
+      "d1Table": "material_types",
+      "fields": [
+        { "name": "id", "type": "singleLineText" },
+        { "name": "slug", "type": "singleLineText" },
+        { "name": "label", "type": "singleLineText" },
+        { "name": "enabled", "type": "checkbox" },
+        { "name": "sort_order", "type": "number" }
+      ]
+    },
+    {
+      "name": "Finishes",
+      "primaryField": "name",
+      "d1Table": "finishes",
+      "linkFields": [
+        { "name": "material_slug", "linksTo": "Materials", "linkField": "slug" }
+      ],
+      "fields": [
+        { "name": "id", "type": "singleLineText" },
+        { "name": "slug", "type": "singleLineText" },
+        { "name": "material_slug", "type": "singleLineText" },
+        { "name": "name", "type": "singleLineText" },
+        { "name": "category", "type": "singleLineText" },
+        { "name": "hex_color", "type": "singleLineText" },
+        { "name": "image_url", "type": "url" },
+        { "name": "finish_process", "type": "singleLineText" },
+        { "name": "price_band", "type": "singleLineText" }
+      ]
+    },
+    {
+      "name": "Graphic Types",
+      "primaryField": "ui_label",
+      "d1Table": "graphic_application_types",
+      "fields": [
+        { "name": "id", "type": "singleLineText" },
+        { "name": "template_key", "type": "singleLineText" },
+        { "name": "label", "type": "singleLineText" },
+        { "name": "ui_label", "type": "singleLineText" },
+        { "name": "material_slug", "type": "singleLineText" },
+        { "name": "sort_order", "type": "number" }
+      ]
+    },
+    {
+      "name": "Compat",
+      "primaryField": "finish_id",
+      "d1Table": "finish_graphic_compat",
+      "fields": [
+        { "name": "finish_id", "type": "singleLineText" },
+        { "name": "graphic_id", "type": "singleLineText" },
+        { "name": "compatible", "type": "checkbox" }
+      ]
+    },
+    {
+      "name": "Asset Variants",
+      "primaryField": "label",
+      "d1Table": "finish_asset_variants",
+      "fields": [
+        { "name": "id", "type": "singleLineText" },
+        { "name": "material_slug", "type": "singleLineText" },
+        { "name": "variant_slug", "type": "singleLineText" },
+        { "name": "label", "type": "singleLineText" },
+        { "name": "category_folder", "type": "singleLineText" },
+        { "name": "asset_kind", "type": "singleSelect", "options": ["base_finish", "graphic_combo"] },
+        { "name": "source_filename", "type": "singleLineText" }
+      ]
+    },
+    {
+      "name": "Asset Files",
+      "primaryField": "public_path",
+      "d1Table": "finish_asset_files",
+      "fields": [
+        { "name": "id", "type": "singleLineText" },
+        { "name": "variant_id", "type": "singleLineText" },
+        { "name": "role", "type": "singleLineText" },
+        { "name": "public_path", "type": "url" },
+        { "name": "sha256", "type": "singleLineText" },
+        { "name": "width", "type": "number" },
+        { "name": "height", "type": "number" },
+        { "name": "version", "type": "number" },
+        { "name": "is_active", "type": "checkbox" }
+      ]
+    },
+    {
+      "name": "Asset Links",
+      "primaryField": "finish_id",
+      "d1Table": "finish_asset_links",
+      "fields": [
+        { "name": "finish_id", "type": "singleLineText" },
+        { "name": "variant_id", "type": "singleLineText" },
+        { "name": "graphic_id", "type": "singleLineText" },
+        { "name": "priority", "type": "number" }
+      ]
+    }
+  ]
+}

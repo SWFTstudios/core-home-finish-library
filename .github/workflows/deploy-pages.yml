@@ -25,6 +25,9 @@ jobs:
 
       - run: npm ci
 
+      - name: Validate finish assets
+        run: npm run assets:validate
+
       - name: Require Cloudflare secrets
         run: |
           if [ -z "${{ secrets.CLOUDFLARE_API_TOKEN }}" ]; then

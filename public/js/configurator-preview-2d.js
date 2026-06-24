@@ -3,12 +3,17 @@
  * Driven by material tab, finish wheel, and theme (parity with 3D module API).
  */
 import { getStoredTheme } from "./components/core-home-navbar.js";
+import { resolveFinishPreviewUrl, resolveGraphicComboUrl } from "./finish-asset-resolve.js";
 
 const DEFAULT_COLOR = "#c3c6d7";
 const FALLBACK_SRC = "/assets/ss/hero/default-tumbler.svg";
 const MIN_SCALE = 0.65;
 const MAX_SCALE = 1.45;
 const DEFAULT_SCALE = 1;
+/** Product shell PNG aspect (width / height) — shared across material shells today. */
+const SHELL_ASPECT = 165 / 486;
+const RENDER_FIT_MAX = 2.5;
+const RENDER_FIT_EPSILON = 0.01;
 
 const MATERIAL_ASSETS = {
   ceramic: {
@@ -39,6 +44,64 @@ let scale = DEFAULT_SCALE;
 let disposed = false;
 let currentMaterial = "stainless_steel";
 let currentFinishName = "";
+let resizeFitTimer = null;
+
+function containDisplayHeight(boxW, boxH, imgAspect) {
+  const boxAspect = boxW / boxH;
+  if (imgAspect > boxAspect) return boxW / imgAspect;
+  return boxH;
+}
+
+function fitRenderImage(img, stackEl) {
+  if (!img || !stackEl || !img.naturalWidth || !img.naturalHeight) return;
+  const boxW = stackEl.clientWidth;
+  const boxH = stackEl.clientHeight;
+  if (!boxW || !boxH) return;
+  const shellDisplayH = containDisplayHeight(boxW, boxH, SHELL_ASPECT);
+  const renderAspect = img.naturalWidth / img.naturalHeight;
+  const renderDisplayH = containDisplayHeight(boxW, boxH, renderAspect);
+  if (!renderDisplayH) return;
+  const rawScale = shellDisplayH / renderDisplayH;
+  const fitScale =
+    rawScale <= 1 + RENDER_FIT_EPSILON
+      ? 1
+      : Math.min(RENDER_FIT_MAX, rawScale);
+  stackEl.style.setProperty("--render-fit-scale", String(fitScale));
+}
+
+function clearRenderFit() {
+  for (const img of [frontImg, backImg]) {
+    img?.closest(".mug-stack")?.style.removeProperty("--render-fit-scale");
+  }
+}
+
+function syncRenderFit() {
+  if (!containerEl?.classList.contains("preview-2d--has-render")) return;
+  const frontStack = frontImg?.closest(".mug-stack");
+  const backStack = backImg?.closest(".mug-stack");
+  const refImg =
+    frontImg?.naturalWidth > 0
+      ? frontImg
+      : backImg?.naturalWidth > 0
+        ? backImg
+        : null;
+  if (!refImg || !frontStack) return;
+  fitRenderImage(refImg, frontStack);
+  const scale = frontStack.style.getPropertyValue("--render-fit-scale");
+  if (backStack && scale) backStack.style.setProperty("--render-fit-scale", scale);
+}
+
+function scheduleRenderFit() {
+  clearTimeout(resizeFitTimer);
+  resizeFitTimer = setTimeout(syncRenderFit, 100);
+}
+
+function bindRenderFit(img) {
+  if (!img) return;
+  const onLoad = () => syncRenderFit();
+  if (img.complete && img.naturalWidth > 0) onLoad();
+  else img.addEventListener("load", onLoad, { once: true });
+}
 
 /** Finish name/process heuristics → CSS filter on tint layer. */
 export function inferFinishAppearance(finish) {
@@ -201,24 +264,25 @@ export function initPreview2d(container, { onReady, onError } = {}) {
     else img.addEventListener("load", onOneLoad, { once: true });
   }
 
+  window.addEventListener("resize", scheduleRenderFit);
+
   return true;
 }
 
 /**
  * @param {{ materialSlug?: string, finish?: object, graphic?: object, theme?: string }} opts
  */
-export function updatePreview2d({ materialSlug, finish, theme }) {
+export function updatePreview2d({ materialSlug, finish, graphic, theme }) {
   if (!containerEl || disposed) return;
 
   const slug = materialSlug ?? currentMaterial;
-  const urls = assetUrls(slug);
+  const shellUrls = assetUrls(slug);
   const finishName = finish?.name ?? "";
   const materialLabel = slug.replace(/_/g, " ");
+  const renderUrl = resolveFinishPreviewUrl(finish, graphic);
 
   if (slug !== currentMaterial) {
     currentMaterial = slug;
-    setImageSrc(frontImg, urls.front);
-    setImageSrc(backImg, urls.back);
   }
 
   currentFinishName = finishName;
@@ -232,13 +296,31 @@ export function updatePreview2d({ materialSlug, finish, theme }) {
   if (frontImg) frontImg.alt = frontAlt;
   if (backImg) backImg.alt = backAlt;
 
-  containerEl.setAttribute(
-    "aria-label",
-    finishName ? `${finishName} finish preview` : "Product finish preview",
-  );
+  const graphicLabel = graphic?.uiLabel;
+  const comboActive = Boolean(resolveGraphicComboUrl(finish, graphic));
+  const ariaLabel = comboActive && graphicLabel
+    ? `${finishName} with ${graphicLabel} preview`
+    : finishName
+      ? `${finishName} finish preview`
+      : "Product finish preview";
+  containerEl.setAttribute("aria-label", ariaLabel);
 
-  applyTintLayer(frontTint, urls.front, finish);
-  applyTintLayer(backTint, urls.back, finish);
+  if (renderUrl) {
+    containerEl.classList.add("preview-2d--has-render");
+    setImageSrc(frontImg, renderUrl);
+    setImageSrc(backImg, renderUrl);
+    bindRenderFit(frontImg);
+    bindRenderFit(backImg);
+    if (frontTint) frontTint.style.opacity = "0";
+    if (backTint) backTint.style.opacity = "0";
+  } else {
+    containerEl.classList.remove("preview-2d--has-render");
+    clearRenderFit();
+    setImageSrc(frontImg, shellUrls.front);
+    setImageSrc(backImg, shellUrls.back);
+    applyTintLayer(frontTint, shellUrls.front, finish);
+    applyTintLayer(backTint, shellUrls.back, finish);
+  }
 
   if (theme) applySceneTheme(theme);
 }
@@ -256,6 +338,8 @@ export function zoomPreview(delta) {
 
 export function disposePreview2d() {
   disposed = true;
+  clearTimeout(resizeFitTimer);
+  window.removeEventListener("resize", scheduleRenderFit);
   if (containerEl) {
     containerEl.innerHTML = "";
     containerEl.classList.remove("is-error");

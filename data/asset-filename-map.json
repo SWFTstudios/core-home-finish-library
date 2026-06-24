@@ -1,0 +1,57 @@
+{
+  "defaultSourceRoot": "~/Downloads/FinishLibraryMaterialAssets",
+  "suffix": "-Finish-Library.png",
+  "materialFolders": {
+    "StainlessSteel": "stainless_steel",
+    "Ceramic": "ceramic",
+    "Glass": "glass",
+    "Plastic": "plastic"
+  },
+  "assetKindFolders": {
+    "Base-Finish": "base_finish",
+    "Graphic-Application": "graphic_combo"
+  },
+  "graphicSubfolderToTemplateKey": {
+    "Water_Decal": "graphic.waterDecal",
+    "Gloss_3D_Prints": "graphic.partial3dPrint",
+    "Matte_3D_Prints": "graphic.partial3dPrint",
+    "Silkscreen": "graphic.silkScreen",
+    "Laser_Etched": "graphic.laserEngraved",
+    "Foil_Decal": "graphic.heatTransfer"
+  },
+  "variantSlugAliases": {
+    "Powder-Coat-Ombre-WSpeckle": "powder-coat-ombre-wspeckle",
+    "Powder-Coat-White-Speckle": "powder-coat-white-speckle",
+    "Rustic-PowderCoat": "rustic-powdercoat",
+    "TripleSwirl-TriOmbre-Glossy": "tripleswirl-triombre-glossy",
+    "TripleSwirl-TriOmbre-Matte": "tripleswirl-triombre-matte",
+    "TripleSwirl-TriOmbre-MatteMetallic": "tripleswirl-triombre-mattemetallic",
+    "TripleSwirl-TriOmbre-SemiMatte": "tripleswirl-triombre-semimatte",
+    "Iridescent-Sparkle-Ombre": "iridescent-sparkle-ombre",
+    "Matte-Metallic": "matte-metallic",
+    "UV-Paint": "uv-paint",
+    "PVD-Gold": "pvd-gold"
+  },
+  "variantToFinishSlugRules": {
+    "powder-coat": ["powder-coating"],
+    "powder-coat-ombre": ["powder-coating-ombr"],
+    "powder-coat-white-speckle": ["powder-coating-white-speckle"],
+    "powder-coat-ombre-wspeckle": ["powder-coating-ombr-color-speckle"],
+    "rustic-powdercoat": ["rustic-powder-coating"],
+    "metallic-powder-coating": ["metallic-powder-coating"],
+    "pvd": ["pvd"],
+    "pearlized": ["pearlized"],
+    "rubberized": ["rubberized", "half-rubberized", "metallic-rubberized", "rubberized-air-transfer"],
+    "shimmer": ["shimmer", "silk-screen-shimmer"],
+    "sparkle": ["sparkle"],
+    "sparkle-ombre": ["sparkle-ombre", "gold-sparkle-ombr"],
+    "iridescent-sparkle": ["iridescent-sparkle", "black-iridescent"],
+    "iridescent-sparkle-ombre": ["ombr-iridescent-sparkle", "ombr-iridescent-sparkle-rainwater"],
+    "matte-metallic": ["semi-matte-metallic", "silk-screen-matte-metallic", "air-transfer-semi-matte-metallic"],
+    "uv-paint": ["color-uv", "black-uv", "color-uv-metallic", "rainbow-uv"],
+    "tripleswirl-triombre-glossy": ["2-tone-gloss"],
+    "tripleswirl-triombre-matte": ["2-tone-semi-matte-glossy"],
+    "tripleswirl-triombre-mattemetallic": ["2-tone-metallic-semi-matte", "2-tone-powder-metallic"],
+    "tripleswirl-triombre-semimatte": ["2-color-diagonal-semi-matte-metallic-ombr"]
+  }
+}

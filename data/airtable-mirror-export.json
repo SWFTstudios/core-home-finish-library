@@ -1,0 +1,5717 @@
+{
+  "exportedAt": "2026-06-24T15:27:31.732Z",
+  "tables": {
+    "material_types": [
+      {
+        "id": "mat-ceramic",
+        "slug": "ceramic",
+        "label": "Ceramic",
+        "enabled": 1,
+        "sort_order": 1
+      },
+      {
+        "id": "mat-glass",
+        "slug": "glass",
+        "label": "Glass",
+        "enabled": 1,
+        "sort_order": 2
+      },
+      {
+        "id": "mat-stainless_steel",
+        "slug": "stainless_steel",
+        "label": "S. Steel",
+        "enabled": 1,
+        "sort_order": 3
+      },
+      {
+        "id": "mat-plastic",
+        "slug": "plastic",
+        "label": "Plastic",
+        "enabled": 1,
+        "sort_order": 4
+      }
+    ],
+    "finishes": [
+      {
+        "id": "fin-2-color-diagonal-glossy-ombr",
+        "slug": "2-color-diagonal-glossy-ombr",
+        "material_slug": "stainless_steel",
+        "name": "2-Color Diagonal Glossy Ombré",
+        "category": "Paint",
+        "hex_color": "hsl(98 35% 55%)",
+        "image_url": null,
+        "finish_process": "Paint",
+        "price_band": "$$$"
+      },
+      {
+        "id": "fin-2-color-diagonal-semi-matte-metallic-ombr",
+        "slug": "2-color-diagonal-semi-matte-metallic-ombr",
+        "material_slug": "stainless_steel",
+        "name": "2-Color Diagonal Semi-Matte Metallic Ombré",
+        "category": "Paint",
+        "hex_color": "hsl(200 35% 55%)",
+        "image_url": null,
+        "finish_process": "Paint",
+        "price_band": "$$$"
+      },
+      {
+        "id": "fin-2-tone-glitter",
+        "slug": "2-tone-glitter",
+        "material_slug": "stainless_steel",
+        "name": "2-Tone Glitter",
+        "category": "Paint",
+        "hex_color": "hsl(25 35% 55%)",
+        "image_url": null,
+        "finish_process": "Paint",
+        "price_band": "$$$$"
+      },
+      {
+        "id": "fin-2-tone-gloss",
+        "slug": "2-tone-gloss",
+        "material_slug": "stainless_steel",
+        "name": "2-Tone Gloss",
+        "category": "Paint",
+        "hex_color": "hsl(42 35% 55%)",
+        "image_url": null,
+        "finish_process": "Paint",
+        "price_band": "$$$"
+      },
+      {
+        "id": "fin-2-tone-semi-matte-glossy",
+        "slug": "2-tone-semi-matte-glossy",
+        "material_slug": "stainless_steel",
+        "name": "2-Tone Semi-Matte/Glossy",
+        "category": "Paint",
+        "hex_color": "hsl(228 35% 55%)",
+        "image_url": null,
+        "finish_process": "Paint",
+        "price_band": "$$"
+      },
+      {
+        "id": "fin-2-tone-metallic-semi-matte",
+        "slug": "2-tone-metallic-semi-matte",
+        "material_slug": "stainless_steel",
+        "name": "2-Tone Metallic/Semi-Matte",
+        "category": "Paint",
+        "hex_color": "hsl(34 35% 55%)",
+        "image_url": null,
+        "finish_process": "Paint",
+        "price_band": "$$"
+      },
+      {
+        "id": "fin-2-tone-powder-metallic",
+        "slug": "2-tone-powder-metallic",
+        "material_slug": "stainless_steel",
+        "name": "2-Tone Powder-Metallic",
+        "category": "Not Applicable",
+        "hex_color": "hsl(283 35% 55%)",
+        "image_url": null,
+        "finish_process": "Not Applicable",
+        "price_band": "$$$"
+      },
+      {
+        "id": "fin-2-tone-powder-ombr-metallic",
+        "slug": "2-tone-powder-ombr-metallic",
+        "material_slug": "stainless_steel",
+        "name": "2-Tone Powder Ombré-Metallic",
+        "category": "Not Applicable",
+        "hex_color": "hsl(235 35% 55%)",
+        "image_url": null,
+        "finish_process": "Not Applicable",
+        "price_band": "$$"
+      },
+      {
+        "id": "fin-3d-print-machine-matte",
+        "slug": "3d-print-machine-matte",
+        "material_slug": "stainless_steel",
+        "name": "3D Print – Machine  Matte",
+        "category": "Paint",
+        "hex_color": "hsl(87 35% 55%)",
+        "image_url": null,
+        "finish_process": "Paint",
+        "price_band": "$$$"
+      },
+      {
+        "id": "fin-3d-print-machine-glossy",
+        "slug": "3d-print-machine-glossy",
+        "material_slug": "stainless_steel",
+        "name": "3D Print –   Machine Glossy",
+        "category": "Paint",
+        "hex_color": "hsl(127 35% 55%)",
+        "image_url": null,
+        "finish_process": "Paint",
+        "price_band": null
+      },
+      {
+        "id": "fin-3d-print-machine-semi-matte",
+        "slug": "3d-print-machine-semi-matte",
+        "material_slug": "stainless_steel",
+        "name": "3D Print – Machine Semi-Matte",
+        "category": "Paint",
+        "hex_color": "hsl(215 35% 55%)",
+        "image_url": null,
+        "finish_process": "Paint",
+        "price_band": null
+      },
+      {
+        "id": "fin-3d-print-3d-ombr",
+        "slug": "3d-print-3d-ombr",
+        "material_slug": "stainless_steel",
+        "name": "3D Print – 3D  Ombré",
+        "category": "Paint",
+        "hex_color": "hsl(210 35% 55%)",
+        "image_url": null,
+        "finish_process": "Paint",
+        "price_band": null
+      },
+      {
+        "id": "fin-3d-print-textured-finish-glossy",
+        "slug": "3d-print-textured-finish-glossy",
+        "material_slug": "stainless_steel",
+        "name": "3D Print –  Textured Finish Glossy",
+        "category": "Paint & Powder",
+        "hex_color": "hsl(29 35% 55%)",
+        "image_url": null,
+        "finish_process": "Paint & Powder",
+        "price_band": "$$$"
+      },
+      {
+        "id": "fin-3d-print-textured-finish-semi-matte",
+        "slug": "3d-print-textured-finish-semi-matte",
+        "material_slug": "stainless_steel",
+        "name": "3D Print –  Textured Finish Semi-Matte",
+        "category": "Paint & Powder",
+        "hex_color": "hsl(8 35% 55%)",
+        "image_url": null,
+        "finish_process": "Paint & Powder",
+        "price_band": "$$$"
+      },
+      {
+        "id": "fin-3d-print-3d-textured-ombr",
+        "slug": "3d-print-3d-textured-ombr",
+        "material_slug": "stainless_steel",
+        "name": "3D Print – 3D Textured Ombré",
+        "category": "Paint & Powder",
+        "hex_color": "hsl(1 35% 55%)",
+        "image_url": null,
+        "finish_process": "Paint & Powder",
+        "price_band": "$$$$"
+      },
+      {
+        "id": "fin-air-transfer-semi-matte",
+        "slug": "air-transfer-semi-matte",
+        "material_slug": "stainless_steel",
+        "name": "Air Transfer Semi-Matte",
+        "category": "Paint",
+        "hex_color": "hsl(123 35% 55%)",
+        "image_url": null,
+        "finish_process": "Paint",
+        "price_band": "$$$"
+      },
+      {
+        "id": "fin-air-transfer-metallic",
+        "slug": "air-transfer-metallic",
+        "material_slug": "stainless_steel",
+        "name": "Air Transfer Metallic",
+        "category": "Paint",
+        "hex_color": "hsl(256 35% 55%)",
+        "image_url": null,
+        "finish_process": "Paint",
+        "price_band": "$$$"
+      },
+      {
+        "id": "fin-air-transfer-semi-matte-metallic",
+        "slug": "air-transfer-semi-matte-metallic",
+        "material_slug": "stainless_steel",
+        "name": "Air Transfer Semi-Matte Metallic",
+        "category": "Paint",
+        "hex_color": "hsl(316 35% 55%)",
+        "image_url": null,
+        "finish_process": "Paint",
+        "price_band": "$$$"
+      },
+      {
+        "id": "fin-air-transfer-glossy-opaque",
+        "slug": "air-transfer-glossy-opaque",
+        "material_slug": "stainless_steel",
+        "name": "Air Transfer Glossy (Opaque)",
+        "category": "Paint",
+        "hex_color": "hsl(216 35% 55%)",
+        "image_url": null,
+        "finish_process": "Paint",
+        "price_band": "$$$"
+      },
+      {
+        "id": "fin-black-iridescent",
+        "slug": "black-iridescent",
+        "material_slug": "stainless_steel",
+        "name": "Black Iridescent",
+        "category": "Paint",
+        "hex_color": "hsl(78 35% 55%)",
+        "image_url": null,
+        "finish_process": "Paint",
+        "price_band": "$$$$$"
+      },
+      {
+        "id": "fin-black-uv",
+        "slug": "black-uv",
+        "material_slug": "stainless_steel",
+        "name": "Black UV",
+        "category": "Paint",
+        "hex_color": "hsl(13 35% 55%)",
+        "image_url": null,
+        "finish_process": "Paint",
+        "price_band": "$$"
+      },
+      {
+        "id": "fin-ceramic-lining",
+        "slug": "ceramic-lining",
+        "material_slug": "stainless_steel",
+        "name": "Ceramic Lining",
+        "category": "Paint",
+        "hex_color": "hsl(174 35% 55%)",
+        "image_url": null,
+        "finish_process": "Paint",
+        "price_band": "$$$"
+      },
+      {
+        "id": "fin-chameleon",
+        "slug": "chameleon",
+        "material_slug": "stainless_steel",
+        "name": "Chameleon",
+        "category": "Paint",
+        "hex_color": "hsl(25 35% 55%)",
+        "image_url": null,
+        "finish_process": "Paint",
+        "price_band": null
+      },
+      {
+        "id": "fin-color-changing-glitter",
+        "slug": "color-changing-glitter",
+        "material_slug": "stainless_steel",
+        "name": "Color Changing Glitter",
+        "category": "Paint",
+        "hex_color": "hsl(254 35% 55%)",
+        "image_url": null,
+        "finish_process": "Paint",
+        "price_band": "$$$$"
+      },
+      {
+        "id": "fin-color-changing-glitter-2",
+        "slug": "color-changing-glitter-2",
+        "material_slug": "stainless_steel",
+        "name": "Color Changing Glitter",
+        "category": "Paint",
+        "hex_color": "hsl(254 35% 55%)",
+        "image_url": null,
+        "finish_process": "Paint",
+        "price_band": "$$$$"
+      },
+      {
+        "id": "fin-color-speckle",
+        "slug": "color-speckle",
+        "material_slug": "stainless_steel",
+        "name": "Color Speckle",
+        "category": "Paint",
+        "hex_color": "hsl(233 35% 55%)",
+        "image_url": null,
+        "finish_process": "Paint",
+        "price_band": "$$"
+      },
+      {
+        "id": "fin-color-uv",
+        "slug": "color-uv",
+        "material_slug": "stainless_steel",
+        "name": "Color UV",
+        "category": "Paint",
+        "hex_color": "hsl(129 35% 55%)",
+        "image_url": null,
+        "finish_process": "Paint",
+        "price_band": "$$"
+      },
+      {
+        "id": "fin-color-uv-metallic",
+        "slug": "color-uv-metallic",
+        "material_slug": "stainless_steel",
+        "name": "Color UV - Metallic",
+        "category": "Paint",
+        "hex_color": "hsl(321 35% 55%)",
+        "image_url": null,
+        "finish_process": "Paint",
+        "price_band": "$$"
+      },
+      {
+        "id": "fin-drip-paint",
+        "slug": "drip-paint",
+        "material_slug": "stainless_steel",
+        "name": "Drip Paint",
+        "category": "Paint",
+        "hex_color": "hsl(14 35% 55%)",
+        "image_url": null,
+        "finish_process": "Paint",
+        "price_band": "$$$$$"
+      },
+      {
+        "id": "fin-drip-paint-2",
+        "slug": "drip-paint-2",
+        "material_slug": "stainless_steel",
+        "name": "Drip Paint",
+        "category": "Paint",
+        "hex_color": "hsl(14 35% 55%)",
+        "image_url": null,
+        "finish_process": "Paint",
+        "price_band": "$$$$$"
+      },
+      {
+        "id": "fin-electroplating",
+        "slug": "electroplating",
+        "material_slug": "stainless_steel",
+        "name": "Electroplating",
+        "category": "Electroplating",
+        "hex_color": "hsl(322 35% 55%)",
+        "image_url": null,
+        "finish_process": "Electroplating",
+        "price_band": "$$$$"
+      },
+      {
+        "id": "fin-embossed-foil-decal",
+        "slug": "embossed-foil-decal",
+        "material_slug": "stainless_steel",
+        "name": "Embossed Foil Decal",
+        "category": "Paint",
+        "hex_color": "hsl(250 35% 55%)",
+        "image_url": null,
+        "finish_process": "Paint",
+        "price_band": "$$$$"
+      },
+      {
+        "id": "fin-foil-decal",
+        "slug": "foil-decal",
+        "material_slug": "stainless_steel",
+        "name": "Foil Decal",
+        "category": "Paint",
+        "hex_color": "hsl(244 35% 55%)",
+        "image_url": null,
+        "finish_process": "Paint",
+        "price_band": "$$$"
+      },
+      {
+        "id": "fin-frosted",
+        "slug": "frosted",
+        "material_slug": "stainless_steel",
+        "name": "Frosted",
+        "category": "Paint",
+        "hex_color": "hsl(48 35% 55%)",
+        "image_url": null,
+        "finish_process": "Paint",
+        "price_band": "$$$"
+      },
+      {
+        "id": "fin-frosted-ombr",
+        "slug": "frosted-ombr",
+        "material_slug": "stainless_steel",
+        "name": "Frosted Ombré",
+        "category": "Paint",
+        "hex_color": "hsl(211 35% 55%)",
+        "image_url": null,
+        "finish_process": "Paint",
+        "price_band": "$$$"
+      },
+      {
+        "id": "fin-gilded",
+        "slug": "gilded",
+        "material_slug": "stainless_steel",
+        "name": "Gilded",
+        "category": "Powder",
+        "hex_color": "hsl(236 35% 55%)",
+        "image_url": null,
+        "finish_process": "Powder",
+        "price_band": "$$$$"
+      },
+      {
+        "id": "fin-glitter",
+        "slug": "glitter",
+        "material_slug": "stainless_steel",
+        "name": "Glitter",
+        "category": "Paint",
+        "hex_color": "hsl(142 35% 55%)",
+        "image_url": null,
+        "finish_process": "Paint",
+        "price_band": "$$$"
+      },
+      {
+        "id": "fin-glitter-coated",
+        "slug": "glitter-coated",
+        "material_slug": "stainless_steel",
+        "name": "Glitter Coated",
+        "category": "Paint",
+        "hex_color": "hsl(344 35% 55%)",
+        "image_url": null,
+        "finish_process": "Paint",
+        "price_band": "$$$"
+      },
+      {
+        "id": "fin-glitter-foil-decal",
+        "slug": "glitter-foil-decal",
+        "material_slug": "stainless_steel",
+        "name": "Glitter Foil Decal",
+        "category": "Paint",
+        "hex_color": "hsl(331 35% 55%)",
+        "image_url": null,
+        "finish_process": "Paint",
+        "price_band": "$$$$"
+      },
+      {
+        "id": "fin-glitter-ombr",
+        "slug": "glitter-ombr",
+        "material_slug": "stainless_steel",
+        "name": "Glitter Ombré",
+        "category": "Paint",
+        "hex_color": "hsl(193 35% 55%)",
+        "image_url": null,
+        "finish_process": "Paint",
+        "price_band": "$$$$"
+      },
+      {
+        "id": "fin-glossy-opaque",
+        "slug": "glossy-opaque",
+        "material_slug": "stainless_steel",
+        "name": "Glossy (Opaque)",
+        "category": "Paint",
+        "hex_color": "hsl(10 35% 55%)",
+        "image_url": null,
+        "finish_process": "Paint",
+        "price_band": "$$"
+      },
+      {
+        "id": "fin-glossy-opaque-ombr",
+        "slug": "glossy-opaque-ombr",
+        "material_slug": "stainless_steel",
+        "name": "Glossy (Opaque) Ombré",
+        "category": "Paint",
+        "hex_color": "hsl(145 35% 55%)",
+        "image_url": null,
+        "finish_process": "Paint",
+        "price_band": "$$"
+      },
+      {
+        "id": "fin-glow-in-the-dark",
+        "slug": "glow-in-the-dark",
+        "material_slug": "stainless_steel",
+        "name": "Glow in the dark",
+        "category": "Paint",
+        "hex_color": "hsl(288 35% 55%)",
+        "image_url": null,
+        "finish_process": "Paint",
+        "price_band": "$$$"
+      },
+      {
+        "id": "fin-gold-sparkle-ombr",
+        "slug": "gold-sparkle-ombr",
+        "material_slug": "stainless_steel",
+        "name": "Gold Sparkle Ombré",
+        "category": "Paint",
+        "hex_color": "hsl(12 35% 55%)",
+        "image_url": null,
+        "finish_process": "Paint",
+        "price_band": "$$$"
+      },
+      {
+        "id": "fin-half-air-transfer",
+        "slug": "half-air-transfer",
+        "material_slug": "stainless_steel",
+        "name": "Half Air Transfer",
+        "category": "Paint",
+        "hex_color": "hsl(59 35% 55%)",
+        "image_url": null,
+        "finish_process": "Paint",
+        "price_band": "$$$"
+      },
+      {
+        "id": "fin-half-rubberized",
+        "slug": "half-rubberized",
+        "material_slug": "stainless_steel",
+        "name": "Half Rubberized",
+        "category": "Paint",
+        "hex_color": "hsl(42 35% 55%)",
+        "image_url": null,
+        "finish_process": "Paint",
+        "price_band": "$$$"
+      },
+      {
+        "id": "fin-heat-transfer",
+        "slug": "heat-transfer",
+        "material_slug": "stainless_steel",
+        "name": "Heat Transfer",
+        "category": "Paint",
+        "hex_color": "hsl(104 35% 55%)",
+        "image_url": null,
+        "finish_process": "Paint",
+        "price_band": "$$"
+      },
+      {
+        "id": "fin-heat-transfer-2",
+        "slug": "heat-transfer-2",
+        "material_slug": "stainless_steel",
+        "name": "Heat Transfer",
+        "category": "Paint",
+        "hex_color": "hsl(104 35% 55%)",
+        "image_url": null,
+        "finish_process": "Paint",
+        "price_band": "$$"
+      },
+      {
+        "id": "fin-high-gloss",
+        "slug": "high-gloss",
+        "material_slug": "stainless_steel",
+        "name": "High Gloss",
+        "category": "Buff",
+        "hex_color": "hsl(199 35% 55%)",
+        "image_url": null,
+        "finish_process": "Buff",
+        "price_band": "$$$"
+      },
+      {
+        "id": "fin-hydroform",
+        "slug": "hydroform",
+        "material_slug": "stainless_steel",
+        "name": "Hydroform",
+        "category": "Not Applicable",
+        "hex_color": "hsl(153 35% 55%)",
+        "image_url": null,
+        "finish_process": "Not Applicable",
+        "price_band": null
+      },
+      {
+        "id": "fin-ionplating",
+        "slug": "ionplating",
+        "material_slug": "stainless_steel",
+        "name": "Ionplating",
+        "category": "Not Applicable",
+        "hex_color": "hsl(54 35% 55%)",
+        "image_url": null,
+        "finish_process": "Not Applicable",
+        "price_band": "$$$$"
+      },
+      {
+        "id": "fin-iridescent-sparkle",
+        "slug": "iridescent-sparkle",
+        "material_slug": "stainless_steel",
+        "name": "Iridescent Sparkle",
+        "category": "Paint",
+        "hex_color": "hsl(339 35% 55%)",
+        "image_url": null,
+        "finish_process": "Paint",
+        "price_band": "$$$$"
+      },
+      {
+        "id": "fin-laser-engraved",
+        "slug": "laser-engraved",
+        "material_slug": "stainless_steel",
+        "name": "Laser Engraved",
+        "category": "Not Applicable",
+        "hex_color": "hsl(8 35% 55%)",
+        "image_url": null,
+        "finish_process": "Not Applicable",
+        "price_band": "$$"
+      },
+      {
+        "id": "fin-laser-engraved-full-body",
+        "slug": "laser-engraved-full-body",
+        "material_slug": "stainless_steel",
+        "name": "Laser Engraved Full Body",
+        "category": "Not Applicable",
+        "hex_color": "hsl(243 35% 55%)",
+        "image_url": null,
+        "finish_process": "Not Applicable",
+        "price_band": "$$"
+      },
+      {
+        "id": "fin-leafed-foil",
+        "slug": "leafed-foil",
+        "material_slug": "stainless_steel",
+        "name": "Leafed Foil",
+        "category": "Paint",
+        "hex_color": "hsl(292 35% 55%)",
+        "image_url": null,
+        "finish_process": "Paint",
+        "price_band": "$$$"
+      },
+      {
+        "id": "fin-leather-finish",
+        "slug": "leather-finish",
+        "material_slug": "stainless_steel",
+        "name": "Leather Finish",
+        "category": "Powder",
+        "hex_color": "hsl(13 35% 55%)",
+        "image_url": null,
+        "finish_process": "Powder",
+        "price_band": "$$"
+      },
+      {
+        "id": "fin-semi-matte",
+        "slug": "semi-matte",
+        "material_slug": "stainless_steel",
+        "name": "Semi-Matte",
+        "category": "Paint",
+        "hex_color": "hsl(93 35% 55%)",
+        "image_url": null,
+        "finish_process": "Paint",
+        "price_band": "$$"
+      },
+      {
+        "id": "fin-semi-matte-metallic",
+        "slug": "semi-matte-metallic",
+        "material_slug": "stainless_steel",
+        "name": "Semi-Matte Metallic",
+        "category": "Paint",
+        "hex_color": "hsl(50 35% 55%)",
+        "image_url": null,
+        "finish_process": "Paint",
+        "price_band": "$$"
+      },
+      {
+        "id": "fin-semi-matte-ombr",
+        "slug": "semi-matte-ombr",
+        "material_slug": "stainless_steel",
+        "name": "Semi-Matte Ombré",
+        "category": "Paint",
+        "hex_color": "hsl(184 35% 55%)",
+        "image_url": null,
+        "finish_process": "Paint",
+        "price_band": "$$"
+      },
+      {
+        "id": "fin-metallic",
+        "slug": "metallic",
+        "material_slug": "stainless_steel",
+        "name": "Metallic",
+        "category": "Paint",
+        "hex_color": "hsl(314 35% 55%)",
+        "image_url": null,
+        "finish_process": "Paint",
+        "price_band": "$$"
+      },
+      {
+        "id": "fin-metallic-ombr",
+        "slug": "metallic-ombr",
+        "material_slug": "stainless_steel",
+        "name": "Metallic Ombré",
+        "category": "Paint",
+        "hex_color": "hsl(37 35% 55%)",
+        "image_url": null,
+        "finish_process": "Paint",
+        "price_band": "$$"
+      },
+      {
+        "id": "fin-metallic-powder-coating",
+        "slug": "metallic-powder-coating",
+        "material_slug": "stainless_steel",
+        "name": "Metallic Powder Coating",
+        "category": "Powder",
+        "hex_color": "hsl(114 35% 55%)",
+        "image_url": null,
+        "finish_process": "Powder",
+        "price_band": "$$"
+      },
+      {
+        "id": "fin-metallic-rubberized",
+        "slug": "metallic-rubberized",
+        "material_slug": "stainless_steel",
+        "name": "Metallic Rubberized",
+        "category": "Paint",
+        "hex_color": "hsl(182 35% 55%)",
+        "image_url": null,
+        "finish_process": "Paint",
+        "price_band": "$$$"
+      },
+      {
+        "id": "fin-metallic-speckle",
+        "slug": "metallic-speckle",
+        "material_slug": "stainless_steel",
+        "name": "Metallic Speckle",
+        "category": "Paint",
+        "hex_color": "hsl(267 35% 55%)",
+        "image_url": null,
+        "finish_process": "Paint",
+        "price_band": "$$"
+      },
+      {
+        "id": "fin-metallic-splatter",
+        "slug": "metallic-splatter",
+        "material_slug": "stainless_steel",
+        "name": "Metallic Splatter",
+        "category": "Paint",
+        "hex_color": "hsl(173 35% 55%)",
+        "image_url": null,
+        "finish_process": "Paint",
+        "price_band": "$$$$"
+      },
+      {
+        "id": "fin-mirror",
+        "slug": "mirror",
+        "material_slug": "stainless_steel",
+        "name": "Mirror",
+        "category": "Buff",
+        "hex_color": "hsl(346 35% 55%)",
+        "image_url": null,
+        "finish_process": "Buff",
+        "price_band": "$$$$"
+      },
+      {
+        "id": "fin-ombr-freeform",
+        "slug": "ombr-freeform",
+        "material_slug": "stainless_steel",
+        "name": "Ombré Freeform",
+        "category": "Paint",
+        "hex_color": "hsl(280 35% 55%)",
+        "image_url": null,
+        "finish_process": "Paint",
+        "price_band": "$$$$"
+      },
+      {
+        "id": "fin-ombr-iridescent-sparkle",
+        "slug": "ombr-iridescent-sparkle",
+        "material_slug": "stainless_steel",
+        "name": "Ombré Iridescent Sparkle",
+        "category": "Paint",
+        "hex_color": "hsl(288 35% 55%)",
+        "image_url": null,
+        "finish_process": "Paint",
+        "price_band": "$$$$"
+      },
+      {
+        "id": "fin-ombr-iridescent-sparkle-rainwater",
+        "slug": "ombr-iridescent-sparkle-rainwater",
+        "material_slug": "stainless_steel",
+        "name": "Ombré Iridescent Sparkle Rainwater",
+        "category": "Paint",
+        "hex_color": "hsl(99 35% 55%)",
+        "image_url": null,
+        "finish_process": "Paint",
+        "price_band": "$$$$"
+      },
+      {
+        "id": "fin-pearlized",
+        "slug": "pearlized",
+        "material_slug": "stainless_steel",
+        "name": "Pearlized",
+        "category": "Powder",
+        "hex_color": "hsl(107 35% 55%)",
+        "image_url": null,
+        "finish_process": "Powder",
+        "price_band": "$$"
+      },
+      {
+        "id": "fin-powder-coating",
+        "slug": "powder-coating",
+        "material_slug": "stainless_steel",
+        "name": "Powder Coating",
+        "category": "Powder",
+        "hex_color": "hsl(199 35% 55%)",
+        "image_url": null,
+        "finish_process": "Powder",
+        "price_band": "$$"
+      },
+      {
+        "id": "fin-powder-coating-white-speckle",
+        "slug": "powder-coating-white-speckle",
+        "material_slug": "stainless_steel",
+        "name": "Powder Coating & White Speckle",
+        "category": "Powder",
+        "hex_color": "hsl(287 35% 55%)",
+        "image_url": null,
+        "finish_process": "Powder",
+        "price_band": "$$$"
+      },
+      {
+        "id": "fin-powder-coating-ombr",
+        "slug": "powder-coating-ombr",
+        "material_slug": "stainless_steel",
+        "name": "Powder Coating Ombré",
+        "category": "Powder",
+        "hex_color": "hsl(66 35% 55%)",
+        "image_url": null,
+        "finish_process": "Powder",
+        "price_band": "$$$"
+      },
+      {
+        "id": "fin-powder-coating-ombr-color-speckle",
+        "slug": "powder-coating-ombr-color-speckle",
+        "material_slug": "stainless_steel",
+        "name": "Powder Coating Ombré & Color Speckle",
+        "category": "Powder",
+        "hex_color": "hsl(212 35% 55%)",
+        "image_url": null,
+        "finish_process": "Powder",
+        "price_band": "$$$"
+      },
+      {
+        "id": "fin-pvd",
+        "slug": "pvd",
+        "material_slug": "stainless_steel",
+        "name": "PVD",
+        "category": "Not Applicable",
+        "hex_color": "hsl(275 35% 55%)",
+        "image_url": null,
+        "finish_process": "Not Applicable",
+        "price_band": "$$$$"
+      },
+      {
+        "id": "fin-rainbow-glitter",
+        "slug": "rainbow-glitter",
+        "material_slug": "stainless_steel",
+        "name": "Rainbow Glitter",
+        "category": "Paint",
+        "hex_color": "hsl(4 35% 55%)",
+        "image_url": null,
+        "finish_process": "Paint",
+        "price_band": "$$$$$"
+      },
+      {
+        "id": "fin-rainbow-uv",
+        "slug": "rainbow-uv",
+        "material_slug": "stainless_steel",
+        "name": "Rainbow UV",
+        "category": "Not Applicable",
+        "hex_color": "hsl(278 35% 55%)",
+        "image_url": null,
+        "finish_process": "Not Applicable",
+        "price_band": "$$$$"
+      },
+      {
+        "id": "fin-raindrop",
+        "slug": "raindrop",
+        "material_slug": "stainless_steel",
+        "name": "Raindrop",
+        "category": "Paint",
+        "hex_color": "hsl(198 35% 55%)",
+        "image_url": null,
+        "finish_process": "Paint",
+        "price_band": "$$$$"
+      },
+      {
+        "id": "fin-reflective",
+        "slug": "reflective",
+        "material_slug": "stainless_steel",
+        "name": "Reflective",
+        "category": "Paint",
+        "hex_color": "hsl(286 35% 55%)",
+        "image_url": null,
+        "finish_process": "Paint",
+        "price_band": "$$$$"
+      },
+      {
+        "id": "fin-rubberized",
+        "slug": "rubberized",
+        "material_slug": "stainless_steel",
+        "name": "Rubberized",
+        "category": "Paint",
+        "hex_color": "hsl(291 35% 55%)",
+        "image_url": null,
+        "finish_process": "Paint",
+        "price_band": "$$$"
+      },
+      {
+        "id": "fin-rubberized-air-transfer",
+        "slug": "rubberized-air-transfer",
+        "material_slug": "stainless_steel",
+        "name": "Rubberized Air Transfer",
+        "category": "Paint",
+        "hex_color": "hsl(358 35% 55%)",
+        "image_url": null,
+        "finish_process": "Paint",
+        "price_band": "$$$$"
+      },
+      {
+        "id": "fin-rustic-powder-coating",
+        "slug": "rustic-powder-coating",
+        "material_slug": "stainless_steel",
+        "name": "Rustic Powder Coating",
+        "category": "Powder",
+        "hex_color": "hsl(59 35% 55%)",
+        "image_url": null,
+        "finish_process": "Powder",
+        "price_band": "$$"
+      },
+      {
+        "id": "fin-scented-laquer",
+        "slug": "scented-laquer",
+        "material_slug": "stainless_steel",
+        "name": "Scented Laquer",
+        "category": "Paint",
+        "hex_color": "hsl(15 35% 55%)",
+        "image_url": null,
+        "finish_process": "Paint",
+        "price_band": "$$$"
+      },
+      {
+        "id": "fin-shimmer",
+        "slug": "shimmer",
+        "material_slug": "stainless_steel",
+        "name": "Shimmer",
+        "category": "Paint",
+        "hex_color": "hsl(238 35% 55%)",
+        "image_url": null,
+        "finish_process": "Paint",
+        "price_band": "$$$"
+      },
+      {
+        "id": "fin-silk-screen-shimmer",
+        "slug": "silk-screen-shimmer",
+        "material_slug": "stainless_steel",
+        "name": "Silk Screen Shimmer",
+        "category": "Paint",
+        "hex_color": "hsl(272 35% 55%)",
+        "image_url": null,
+        "finish_process": "Paint",
+        "price_band": "$$"
+      },
+      {
+        "id": "fin-silk-screen-semi-matte",
+        "slug": "silk-screen-semi-matte",
+        "material_slug": "stainless_steel",
+        "name": "Silk Screen Semi-Matte",
+        "category": "Paint",
+        "hex_color": "hsl(203 35% 55%)",
+        "image_url": null,
+        "finish_process": "Paint",
+        "price_band": "$$"
+      },
+      {
+        "id": "fin-silk-screen-matte-metallic",
+        "slug": "silk-screen-matte-metallic",
+        "material_slug": "stainless_steel",
+        "name": "Silk Screen Matte Metallic",
+        "category": "Paint",
+        "hex_color": "hsl(111 35% 55%)",
+        "image_url": null,
+        "finish_process": "Paint",
+        "price_band": "$$"
+      },
+      {
+        "id": "fin-silk-screen-glossy",
+        "slug": "silk-screen-glossy",
+        "material_slug": "stainless_steel",
+        "name": "Silk Screen Glossy",
+        "category": "Paint",
+        "hex_color": "hsl(280 35% 55%)",
+        "image_url": null,
+        "finish_process": "Paint",
+        "price_band": "$$"
+      },
+      {
+        "id": "fin-silk-screen-matte",
+        "slug": "silk-screen-matte",
+        "material_slug": "stainless_steel",
+        "name": "Silk Screen Matte",
+        "category": "Paint",
+        "hex_color": "hsl(128 35% 55%)",
+        "image_url": null,
+        "finish_process": "Paint",
+        "price_band": "$$"
+      },
+      {
+        "id": "fin-smoky-ombr",
+        "slug": "smoky-ombr",
+        "material_slug": "stainless_steel",
+        "name": "Smoky Ombré",
+        "category": "Powder",
+        "hex_color": "hsl(259 35% 55%)",
+        "image_url": null,
+        "finish_process": "Powder",
+        "price_band": "$$"
+      },
+      {
+        "id": "fin-sparkle",
+        "slug": "sparkle",
+        "material_slug": "stainless_steel",
+        "name": "Sparkle",
+        "category": "Paint",
+        "hex_color": "hsl(115 35% 55%)",
+        "image_url": null,
+        "finish_process": "Paint",
+        "price_band": "$$"
+      },
+      {
+        "id": "fin-sparkle-ombre",
+        "slug": "sparkle-ombre",
+        "material_slug": "stainless_steel",
+        "name": "Sparkle Ombre",
+        "category": "Paint",
+        "hex_color": "hsl(282 35% 55%)",
+        "image_url": null,
+        "finish_process": "Paint",
+        "price_band": "$$$"
+      },
+      {
+        "id": "fin-splatter",
+        "slug": "splatter",
+        "material_slug": "stainless_steel",
+        "name": "Splatter",
+        "category": "Paint",
+        "hex_color": "hsl(250 35% 55%)",
+        "image_url": null,
+        "finish_process": "Paint",
+        "price_band": "$$$$"
+      },
+      {
+        "id": "fin-triple-glitter-ombr",
+        "slug": "triple-glitter-ombr",
+        "material_slug": "stainless_steel",
+        "name": "Triple Glitter Ombré",
+        "category": "Paint",
+        "hex_color": "hsl(253 35% 55%)",
+        "image_url": null,
+        "finish_process": "Paint",
+        "price_band": "$$$$"
+      },
+      {
+        "id": "fin-triple-powder-coating-ombr",
+        "slug": "triple-powder-coating-ombr",
+        "material_slug": "stainless_steel",
+        "name": "Triple Powder Coating Ombré",
+        "category": "Powder",
+        "hex_color": "hsl(286 35% 55%)",
+        "image_url": null,
+        "finish_process": "Powder",
+        "price_band": "$$$"
+      },
+      {
+        "id": "fin-triple-swirl-glossy-opaque",
+        "slug": "triple-swirl-glossy-opaque",
+        "material_slug": "stainless_steel",
+        "name": "Triple Swirl – Glossy (Opaque)",
+        "category": "Paint",
+        "hex_color": "hsl(217 35% 55%)",
+        "image_url": null,
+        "finish_process": "Paint",
+        "price_band": "$$$$"
+      },
+      {
+        "id": "fin-triple-swirl-semi-matte-metallic",
+        "slug": "triple-swirl-semi-matte-metallic",
+        "material_slug": "stainless_steel",
+        "name": "Triple Swirl – Semi-Matte Metallic",
+        "category": "Paint",
+        "hex_color": "hsl(61 35% 55%)",
+        "image_url": null,
+        "finish_process": "Paint",
+        "price_band": "$$$$"
+      },
+      {
+        "id": "fin-triple-swirl-semi-matte",
+        "slug": "triple-swirl-semi-matte",
+        "material_slug": "stainless_steel",
+        "name": "Triple Swirl – Semi-Matte",
+        "category": "Paint",
+        "hex_color": "hsl(82 35% 55%)",
+        "image_url": null,
+        "finish_process": "Paint",
+        "price_band": "$$$$"
+      },
+      {
+        "id": "fin-uv-ombr",
+        "slug": "uv-ombr",
+        "material_slug": "stainless_steel",
+        "name": "UV Ombré",
+        "category": "UV",
+        "hex_color": "hsl(7 35% 55%)",
+        "image_url": null,
+        "finish_process": "UV",
+        "price_band": "$$$$"
+      },
+      {
+        "id": "fin-uv-paint",
+        "slug": "uv-paint",
+        "material_slug": "stainless_steel",
+        "name": "UV Paint",
+        "category": "UV",
+        "hex_color": "hsl(122 35% 55%)",
+        "image_url": null,
+        "finish_process": "UV",
+        "price_band": "$$$$"
+      },
+      {
+        "id": "fin-verical-metallic-ombr",
+        "slug": "verical-metallic-ombr",
+        "material_slug": "stainless_steel",
+        "name": "Verical Metallic Ombré",
+        "category": "Paint",
+        "hex_color": "hsl(325 35% 55%)",
+        "image_url": null,
+        "finish_process": "Paint",
+        "price_band": "$$$"
+      },
+      {
+        "id": "fin-vertical-semi-matte-ombr",
+        "slug": "vertical-semi-matte-ombr",
+        "material_slug": "stainless_steel",
+        "name": "Vertical Semi-Matte Ombré",
+        "category": "Paint",
+        "hex_color": "hsl(76 35% 55%)",
+        "image_url": null,
+        "finish_process": "Paint",
+        "price_band": "$$$"
+      },
+      {
+        "id": "fin-vintage-powder-coating",
+        "slug": "vintage-powder-coating",
+        "material_slug": "stainless_steel",
+        "name": "Vintage Powder Coating",
+        "category": "Powder",
+        "hex_color": "hsl(193 35% 55%)",
+        "image_url": null,
+        "finish_process": "Powder",
+        "price_band": "$$"
+      },
+      {
+        "id": "fin-water-decal",
+        "slug": "water-decal",
+        "material_slug": "stainless_steel",
+        "name": "Water Decal",
+        "category": "Paint",
+        "hex_color": "hsl(233 35% 55%)",
+        "image_url": null,
+        "finish_process": "Paint",
+        "price_band": "$$$$"
+      },
+      {
+        "id": "fin-water-decal-2",
+        "slug": "water-decal-2",
+        "material_slug": "stainless_steel",
+        "name": "Water Decal",
+        "category": "Paint",
+        "hex_color": "hsl(233 35% 55%)",
+        "image_url": null,
+        "finish_process": "Paint",
+        "price_band": "$$$$"
+      },
+      {
+        "id": "fin-water-transfer",
+        "slug": "water-transfer",
+        "material_slug": "stainless_steel",
+        "name": "Water Transfer",
+        "category": "Paint",
+        "hex_color": "hsl(87 35% 55%)",
+        "image_url": null,
+        "finish_process": "Paint",
+        "price_band": "$$$$"
+      },
+      {
+        "id": "fin-white-speckle",
+        "slug": "white-speckle",
+        "material_slug": "stainless_steel",
+        "name": "White Speckle",
+        "category": "Paint",
+        "hex_color": "hsl(231 35% 55%)",
+        "image_url": null,
+        "finish_process": "Paint",
+        "price_band": "$$"
+      },
+      {
+        "id": "fin-geo-electroplating",
+        "slug": "geo-electroplating",
+        "material_slug": "stainless_steel",
+        "name": "Geo Electroplating",
+        "category": "Electroplating",
+        "hex_color": "hsl(185 35% 55%)",
+        "image_url": null,
+        "finish_process": "Electroplating",
+        "price_band": "$$$$$"
+      },
+      {
+        "id": "fin-sparkle-electroplating",
+        "slug": "sparkle-electroplating",
+        "material_slug": "stainless_steel",
+        "name": "Sparkle Electroplating",
+        "category": "Electroplating",
+        "hex_color": "hsl(148 35% 55%)",
+        "image_url": null,
+        "finish_process": "Electroplating",
+        "price_band": "$$$$$"
+      },
+      {
+        "id": "fin-ceramic-pearlized",
+        "slug": "ceramic-pearlized",
+        "material_slug": "ceramic",
+        "name": "Pearlized",
+        "category": "Glaze",
+        "hex_color": "hsl(7 35% 55%)",
+        "image_url": null,
+        "finish_process": "Glaze",
+        "price_band": "$$"
+      },
+      {
+        "id": "fin-ceramic-sand-clay",
+        "slug": "ceramic-sand-clay",
+        "material_slug": "ceramic",
+        "name": "Sand Clay",
+        "category": "Clay",
+        "hex_color": "hsl(102 35% 55%)",
+        "image_url": null,
+        "finish_process": "Clay",
+        "price_band": "$$"
+      },
+      {
+        "id": "fin-ceramic-matte-reactive",
+        "slug": "ceramic-matte-reactive",
+        "material_slug": "ceramic",
+        "name": "Matte Reactive",
+        "category": "Glaze",
+        "hex_color": "hsl(47 35% 55%)",
+        "image_url": null,
+        "finish_process": "Glaze",
+        "price_band": "$$$"
+      },
+      {
+        "id": "fin-ceramic-two-color-mix",
+        "slug": "ceramic-two-color-mix",
+        "material_slug": "ceramic",
+        "name": "Two Color Mix",
+        "category": "Clay",
+        "hex_color": "hsl(60 35% 55%)",
+        "image_url": null,
+        "finish_process": "Clay",
+        "price_band": "$$$"
+      },
+      {
+        "id": "fin-ceramic-two-color-mix-reactive",
+        "slug": "ceramic-two-color-mix-reactive",
+        "material_slug": "ceramic",
+        "name": "Two Color Mix Reactive",
+        "category": "Clay+Glaze",
+        "hex_color": "hsl(277 35% 55%)",
+        "image_url": null,
+        "finish_process": "Clay+Glaze",
+        "price_band": "$$$$"
+      },
+      {
+        "id": "fin-ceramic-shiny-reactive",
+        "slug": "ceramic-shiny-reactive",
+        "material_slug": "ceramic",
+        "name": "Shiny Reactive",
+        "category": "Glaze",
+        "hex_color": "hsl(273 35% 55%)",
+        "image_url": null,
+        "finish_process": "Glaze",
+        "price_band": "$$$"
+      },
+      {
+        "id": "fin-ceramic-ombre",
+        "slug": "ceramic-ombre",
+        "material_slug": "ceramic",
+        "name": "Ombre",
+        "category": "Glaze",
+        "hex_color": "hsl(112 35% 55%)",
+        "image_url": null,
+        "finish_process": "Glaze",
+        "price_band": "$$$"
+      },
+      {
+        "id": "fin-ceramic-matte-glaze",
+        "slug": "ceramic-matte-glaze",
+        "material_slug": "ceramic",
+        "name": "Matte Glaze",
+        "category": "Glaze",
+        "hex_color": "hsl(297 35% 55%)",
+        "image_url": null,
+        "finish_process": "Glaze",
+        "price_band": "$$"
+      },
+      {
+        "id": "fin-ceramic-glossy-glaze",
+        "slug": "ceramic-glossy-glaze",
+        "material_slug": "ceramic",
+        "name": "Glossy Glaze",
+        "category": "Glaze",
+        "hex_color": "hsl(13 35% 55%)",
+        "image_url": null,
+        "finish_process": "Glaze",
+        "price_band": "$$"
+      },
+      {
+        "id": "fin-glass-solid-tint",
+        "slug": "glass-solid-tint",
+        "material_slug": "glass",
+        "name": "Solid Tint",
+        "category": "Tint",
+        "hex_color": "hsl(9 35% 55%)",
+        "image_url": null,
+        "finish_process": "Tint",
+        "price_band": "$$"
+      },
+      {
+        "id": "fin-glass-two-tone",
+        "slug": "glass-two-tone",
+        "material_slug": "glass",
+        "name": "Two Tone",
+        "category": "In-Furnace",
+        "hex_color": "hsl(255 35% 55%)",
+        "image_url": null,
+        "finish_process": "In-Furnace",
+        "price_band": "$$$"
+      },
+      {
+        "id": "fin-glass-bubble-in-furnace",
+        "slug": "glass-bubble-in-furnace",
+        "material_slug": "glass",
+        "name": "Bubble – In-furnace",
+        "category": "In-Furnace",
+        "hex_color": "hsl(136 35% 55%)",
+        "image_url": null,
+        "finish_process": "In-Furnace",
+        "price_band": "$$$"
+      },
+      {
+        "id": "fin-glass-bubble-dense",
+        "slug": "glass-bubble-dense",
+        "material_slug": "glass",
+        "name": "Bubble – Dense",
+        "category": "In-Furnace",
+        "hex_color": "hsl(79 35% 55%)",
+        "image_url": null,
+        "finish_process": "In-Furnace",
+        "price_band": "$$$$"
+      },
+      {
+        "id": "fin-glass-bubble-sparse",
+        "slug": "glass-bubble-sparse",
+        "material_slug": "glass",
+        "name": "Bubble – Sparse",
+        "category": "In-Furnace",
+        "hex_color": "hsl(312 35% 55%)",
+        "image_url": null,
+        "finish_process": "In-Furnace",
+        "price_band": "$$$"
+      },
+      {
+        "id": "fin-glass-bubble-localized",
+        "slug": "glass-bubble-localized",
+        "material_slug": "glass",
+        "name": "Bubble – Localized",
+        "category": "In-Furnace",
+        "hex_color": "hsl(187 35% 55%)",
+        "image_url": null,
+        "finish_process": "In-Furnace",
+        "price_band": "$$$"
+      },
+      {
+        "id": "fin-glass-colored-powder",
+        "slug": "glass-colored-powder",
+        "material_slug": "glass",
+        "name": "Colored Powder",
+        "category": "Kiln",
+        "hex_color": "hsl(120 35% 55%)",
+        "image_url": null,
+        "finish_process": "Kiln",
+        "price_band": "$$"
+      },
+      {
+        "id": "fin-glass-colored-spots-blown",
+        "slug": "glass-colored-spots-blown",
+        "material_slug": "glass",
+        "name": "Colored Spots – Blown",
+        "category": "Blown Glass",
+        "hex_color": "hsl(97 35% 55%)",
+        "image_url": null,
+        "finish_process": "Blown Glass",
+        "price_band": "$$$"
+      },
+      {
+        "id": "fin-glass-colored-spots-pressed",
+        "slug": "glass-colored-spots-pressed",
+        "material_slug": "glass",
+        "name": "Colored Spots – Pressed",
+        "category": "Pressed Glass",
+        "hex_color": "hsl(207 35% 55%)",
+        "image_url": null,
+        "finish_process": "Pressed Glass",
+        "price_band": "$$"
+      },
+      {
+        "id": "fin-glass-glass-filigree",
+        "slug": "glass-glass-filigree",
+        "material_slug": "glass",
+        "name": "Glass Filigree",
+        "category": "In-Furnace",
+        "hex_color": "hsl(64 35% 55%)",
+        "image_url": null,
+        "finish_process": "In-Furnace",
+        "price_band": "$$$$"
+      },
+      {
+        "id": "fin-glass-frosted",
+        "slug": "glass-frosted",
+        "material_slug": "glass",
+        "name": "Frosted",
+        "category": "Sandblast/Etch",
+        "hex_color": "hsl(50 35% 55%)",
+        "image_url": null,
+        "finish_process": "Sandblast/Etch",
+        "price_band": "$$"
+      },
+      {
+        "id": "fin-glass-sandblasted",
+        "slug": "glass-sandblasted",
+        "material_slug": "glass",
+        "name": "Sandblasted",
+        "category": "Sandblast",
+        "hex_color": "hsl(42 35% 55%)",
+        "image_url": null,
+        "finish_process": "Sandblast",
+        "price_band": "$$"
+      },
+      {
+        "id": "fin-glass-satin",
+        "slug": "glass-satin",
+        "material_slug": "glass",
+        "name": "Satin",
+        "category": "Etch",
+        "hex_color": "hsl(282 35% 55%)",
+        "image_url": null,
+        "finish_process": "Etch",
+        "price_band": "$$"
+      },
+      {
+        "id": "fin-glass-ribbed",
+        "slug": "glass-ribbed",
+        "material_slug": "glass",
+        "name": "Ribbed",
+        "category": "Mold",
+        "hex_color": "hsl(223 35% 55%)",
+        "image_url": null,
+        "finish_process": "Mold",
+        "price_band": "$$"
+      },
+      {
+        "id": "fin-glass-hammered",
+        "slug": "glass-hammered",
+        "material_slug": "glass",
+        "name": "Hammered",
+        "category": "Mold",
+        "hex_color": "hsl(102 35% 55%)",
+        "image_url": null,
+        "finish_process": "Mold",
+        "price_band": "$$"
+      },
+      {
+        "id": "fin-glass-iridescent",
+        "slug": "glass-iridescent",
+        "material_slug": "glass",
+        "name": "Iridescent",
+        "category": "Coating",
+        "hex_color": "hsl(203 35% 55%)",
+        "image_url": null,
+        "finish_process": "Coating",
+        "price_band": "$$$"
+      },
+      {
+        "id": "fin-glass-opaque-spray",
+        "slug": "glass-opaque-spray",
+        "material_slug": "glass",
+        "name": "Opaque Spray",
+        "category": "Paint/Spray",
+        "hex_color": "hsl(63 35% 55%)",
+        "image_url": null,
+        "finish_process": "Paint/Spray",
+        "price_band": "$$"
+      },
+      {
+        "id": "fin-glass-gradient-spray",
+        "slug": "glass-gradient-spray",
+        "material_slug": "glass",
+        "name": "Gradient Spray",
+        "category": "Paint/Spray",
+        "hex_color": "hsl(222 35% 55%)",
+        "image_url": null,
+        "finish_process": "Paint/Spray",
+        "price_band": "$$$"
+      },
+      {
+        "id": "fin-glass-metal-plating",
+        "slug": "glass-metal-plating",
+        "material_slug": "glass",
+        "name": "Metal Plating",
+        "category": "Electroplate",
+        "hex_color": "hsl(177 35% 55%)",
+        "image_url": null,
+        "finish_process": "Electroplate",
+        "price_band": "$$$"
+      },
+      {
+        "id": "fin-glass-bubble-out-of-furnace",
+        "slug": "glass-bubble-out-of-furnace",
+        "material_slug": "glass",
+        "name": "Bubble – Out of Furnace",
+        "category": "Post-Furnace",
+        "hex_color": "hsl(201 35% 55%)",
+        "image_url": null,
+        "finish_process": "Post-Furnace",
+        "price_band": "$$$"
+      },
+      {
+        "id": "fin-glass-ice-cracks",
+        "slug": "glass-ice-cracks",
+        "material_slug": "glass",
+        "name": "Ice Cracks",
+        "category": "Thermal Shock",
+        "hex_color": "hsl(151 35% 55%)",
+        "image_url": null,
+        "finish_process": "Thermal Shock",
+        "price_band": "$$$"
+      },
+      {
+        "id": "fin-glass-glass-debris",
+        "slug": "glass-glass-debris",
+        "material_slug": "glass",
+        "name": "Glass Debris",
+        "category": "In-Furnace",
+        "hex_color": "hsl(88 35% 55%)",
+        "image_url": null,
+        "finish_process": "In-Furnace",
+        "price_band": "$$$$"
+      },
+      {
+        "id": "fin-plastic-high-gloss",
+        "slug": "plastic-high-gloss",
+        "material_slug": "plastic",
+        "name": "High-Gloss",
+        "category": "Injection Mold",
+        "hex_color": "hsl(220 35% 55%)",
+        "image_url": null,
+        "finish_process": "Injection Mold",
+        "price_band": "$$"
+      },
+      {
+        "id": "fin-plastic-semi-gloss",
+        "slug": "plastic-semi-gloss",
+        "material_slug": "plastic",
+        "name": "Semi-Gloss",
+        "category": "Injection Mold",
+        "hex_color": "hsl(264 35% 55%)",
+        "image_url": null,
+        "finish_process": "Injection Mold",
+        "price_band": "$$"
+      },
+      {
+        "id": "fin-plastic-matte",
+        "slug": "plastic-matte",
+        "material_slug": "plastic",
+        "name": "Matte",
+        "category": "Injection Mold",
+        "hex_color": "hsl(44 35% 55%)",
+        "image_url": null,
+        "finish_process": "Injection Mold",
+        "price_band": "$$"
+      },
+      {
+        "id": "fin-plastic-uv-high-gloss",
+        "slug": "plastic-uv-high-gloss",
+        "material_slug": "plastic",
+        "name": "Uv-High Gloss",
+        "category": "UV Coating",
+        "hex_color": "hsl(3 35% 55%)",
+        "image_url": null,
+        "finish_process": "UV Coating",
+        "price_band": "$$$"
+      },
+      {
+        "id": "fin-plastic-dull-textured",
+        "slug": "plastic-dull-textured",
+        "material_slug": "plastic",
+        "name": "Dull/Textured",
+        "category": "Injection Mold",
+        "hex_color": "hsl(178 35% 55%)",
+        "image_url": null,
+        "finish_process": "Injection Mold",
+        "price_band": "$$"
+      },
+      {
+        "id": "fin-plastic-rubberized",
+        "slug": "plastic-rubberized",
+        "material_slug": "plastic",
+        "name": "Rubberized",
+        "category": "Coating",
+        "hex_color": "hsl(45 35% 55%)",
+        "image_url": null,
+        "finish_process": "Coating",
+        "price_band": "$$$"
+      },
+      {
+        "id": "fin-plastic-pearlescent",
+        "slug": "plastic-pearlescent",
+        "material_slug": "plastic",
+        "name": "Pearlescent",
+        "category": "Coating",
+        "hex_color": "hsl(95 35% 55%)",
+        "image_url": null,
+        "finish_process": "Coating",
+        "price_band": "$$$"
+      },
+      {
+        "id": "fin-plastic-uv-ice-crackle",
+        "slug": "plastic-uv-ice-crackle",
+        "material_slug": "plastic",
+        "name": "UV Ice Crackle",
+        "category": "UV Coating",
+        "hex_color": "hsl(244 35% 55%)",
+        "image_url": null,
+        "finish_process": "UV Coating",
+        "price_band": "$$$"
+      },
+      {
+        "id": "fin-plastic-uv-sand-texture",
+        "slug": "plastic-uv-sand-texture",
+        "material_slug": "plastic",
+        "name": "UV Sand Texture",
+        "category": "UV Coating",
+        "hex_color": "hsl(49 35% 55%)",
+        "image_url": null,
+        "finish_process": "UV Coating",
+        "price_band": "$$$"
+      },
+      {
+        "id": "fin-plastic-color-shift",
+        "slug": "plastic-color-shift",
+        "material_slug": "plastic",
+        "name": "Color Shift",
+        "category": "Coating",
+        "hex_color": "hsl(120 35% 55%)",
+        "image_url": null,
+        "finish_process": "Coating",
+        "price_band": "$$$$"
+      }
+    ],
+    "graphic_application_types": [
+      {
+        "id": "gfx-stainless-steel-001",
+        "template_key": "graphic.waterDecal",
+        "label": "Water Decal",
+        "ui_label": "Water Decal",
+        "material_slug": "stainless_steel",
+        "sort_order": 1
+      },
+      {
+        "id": "gfx-stainless-steel-002",
+        "template_key": "graphic.partial3dPrint",
+        "label": "Partial 3D Print",
+        "ui_label": "Gloss 3D Print",
+        "material_slug": "stainless_steel",
+        "sort_order": 2
+      },
+      {
+        "id": "gfx-stainless-steel-003",
+        "template_key": "graphic.silkScreen",
+        "label": "Silk Screen",
+        "ui_label": "Silkscreen",
+        "material_slug": "stainless_steel",
+        "sort_order": 3
+      },
+      {
+        "id": "gfx-stainless-steel-004",
+        "template_key": "graphic.heatTransfer",
+        "label": "Heat Transfer",
+        "ui_label": "Heat Transfer",
+        "material_slug": "stainless_steel",
+        "sort_order": 4
+      },
+      {
+        "id": "gfx-stainless-steel-005",
+        "template_key": "graphic.laserEngraved",
+        "label": "Laser Engraved",
+        "ui_label": "Laser Etch",
+        "material_slug": "stainless_steel",
+        "sort_order": 5
+      },
+      {
+        "id": "gfx-ceramic-001",
+        "template_key": "graphic.laserDecal",
+        "label": "Laser Decal",
+        "ui_label": "Laser Decal",
+        "material_slug": "ceramic",
+        "sort_order": 1
+      },
+      {
+        "id": "gfx-ceramic-002",
+        "template_key": "graphic.padPrinting",
+        "label": "Pad Printing",
+        "ui_label": "Pad Printing",
+        "material_slug": "ceramic",
+        "sort_order": 2
+      },
+      {
+        "id": "gfx-ceramic-003",
+        "template_key": "graphic.silkPrinting",
+        "label": "Silk Printing",
+        "ui_label": "Silk Printing",
+        "material_slug": "ceramic",
+        "sort_order": 3
+      },
+      {
+        "id": "gfx-ceramic-004",
+        "template_key": "graphic.embossDeboss",
+        "label": "Emboss / Deboss",
+        "ui_label": "Emboss / Deboss",
+        "material_slug": "ceramic",
+        "sort_order": 4
+      },
+      {
+        "id": "gfx-ceramic-005",
+        "template_key": "graphic.handPaint",
+        "label": "Hand Paint",
+        "ui_label": "Hand Paint",
+        "material_slug": "ceramic",
+        "sort_order": 5
+      },
+      {
+        "id": "gfx-ceramic-006",
+        "template_key": "graphic.waxResist",
+        "label": "Wax Resist",
+        "ui_label": "Wax Resist",
+        "material_slug": "ceramic",
+        "sort_order": 6
+      },
+      {
+        "id": "gfx-glass-001",
+        "template_key": "graphic.decal",
+        "label": "Decal",
+        "ui_label": "Decal",
+        "material_slug": "glass",
+        "sort_order": 1
+      },
+      {
+        "id": "gfx-glass-002",
+        "template_key": "graphic.silkscreen",
+        "label": "Silk-screen",
+        "ui_label": "Silkscreen",
+        "material_slug": "glass",
+        "sort_order": 2
+      },
+      {
+        "id": "gfx-glass-003",
+        "template_key": "graphic.uvDigital",
+        "label": "UV Digital",
+        "ui_label": "UV Digital",
+        "material_slug": "glass",
+        "sort_order": 3
+      },
+      {
+        "id": "gfx-glass-004",
+        "template_key": "graphic.engraving",
+        "label": "Engraving",
+        "ui_label": "Engraving",
+        "material_slug": "glass",
+        "sort_order": 4
+      },
+      {
+        "id": "gfx-glass-005",
+        "template_key": "graphic.laserEtched",
+        "label": "Laser Etched",
+        "ui_label": "Laser Etched",
+        "material_slug": "glass",
+        "sort_order": 5
+      },
+      {
+        "id": "gfx-glass-006",
+        "template_key": "graphic.icon",
+        "label": "Icon",
+        "ui_label": "Icon",
+        "material_slug": "glass",
+        "sort_order": 6
+      },
+      {
+        "id": "gfx-plastic-001",
+        "template_key": "graphic.heatTransfer",
+        "label": "Heat Transfer",
+        "ui_label": "Heat Transfer",
+        "material_slug": "plastic",
+        "sort_order": 1
+      },
+      {
+        "id": "gfx-plastic-002",
+        "template_key": "graphic.hotStamping",
+        "label": "Hot Stamping",
+        "ui_label": "Hot Stamping",
+        "material_slug": "plastic",
+        "sort_order": 2
+      },
+      {
+        "id": "gfx-plastic-003",
+        "template_key": "graphic.uvInkjet",
+        "label": "UV Inkjet",
+        "ui_label": "UV Inkjet",
+        "material_slug": "plastic",
+        "sort_order": 3
+      },
+      {
+        "id": "gfx-plastic-004",
+        "template_key": "graphic.uvJet",
+        "label": "UV Jet",
+        "ui_label": "UV Jet",
+        "material_slug": "plastic",
+        "sort_order": 4
+      }
+    ],
+    "finish_graphic_compat": [
+      {
+        "finish_id": "fin-2-color-diagonal-glossy-ombr",
+        "graphic_id": "gfx-stainless-steel-001",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-2-color-diagonal-glossy-ombr",
+        "graphic_id": "gfx-stainless-steel-002",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-2-color-diagonal-glossy-ombr",
+        "graphic_id": "gfx-stainless-steel-003",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-2-color-diagonal-glossy-ombr",
+        "graphic_id": "gfx-stainless-steel-004",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-2-color-diagonal-glossy-ombr",
+        "graphic_id": "gfx-stainless-steel-005",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-2-color-diagonal-semi-matte-metallic-ombr",
+        "graphic_id": "gfx-stainless-steel-001",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-2-color-diagonal-semi-matte-metallic-ombr",
+        "graphic_id": "gfx-stainless-steel-002",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-2-color-diagonal-semi-matte-metallic-ombr",
+        "graphic_id": "gfx-stainless-steel-003",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-2-color-diagonal-semi-matte-metallic-ombr",
+        "graphic_id": "gfx-stainless-steel-004",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-2-color-diagonal-semi-matte-metallic-ombr",
+        "graphic_id": "gfx-stainless-steel-005",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-2-tone-glitter",
+        "graphic_id": "gfx-stainless-steel-001",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-2-tone-glitter",
+        "graphic_id": "gfx-stainless-steel-002",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-2-tone-glitter",
+        "graphic_id": "gfx-stainless-steel-003",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-2-tone-glitter",
+        "graphic_id": "gfx-stainless-steel-004",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-2-tone-glitter",
+        "graphic_id": "gfx-stainless-steel-005",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-2-tone-gloss",
+        "graphic_id": "gfx-stainless-steel-001",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-2-tone-gloss",
+        "graphic_id": "gfx-stainless-steel-002",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-2-tone-gloss",
+        "graphic_id": "gfx-stainless-steel-003",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-2-tone-gloss",
+        "graphic_id": "gfx-stainless-steel-004",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-2-tone-gloss",
+        "graphic_id": "gfx-stainless-steel-005",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-2-tone-semi-matte-glossy",
+        "graphic_id": "gfx-stainless-steel-001",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-2-tone-semi-matte-glossy",
+        "graphic_id": "gfx-stainless-steel-002",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-2-tone-semi-matte-glossy",
+        "graphic_id": "gfx-stainless-steel-003",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-2-tone-semi-matte-glossy",
+        "graphic_id": "gfx-stainless-steel-004",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-2-tone-semi-matte-glossy",
+        "graphic_id": "gfx-stainless-steel-005",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-2-tone-metallic-semi-matte",
+        "graphic_id": "gfx-stainless-steel-001",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-2-tone-metallic-semi-matte",
+        "graphic_id": "gfx-stainless-steel-002",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-2-tone-metallic-semi-matte",
+        "graphic_id": "gfx-stainless-steel-003",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-2-tone-metallic-semi-matte",
+        "graphic_id": "gfx-stainless-steel-004",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-2-tone-metallic-semi-matte",
+        "graphic_id": "gfx-stainless-steel-005",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-2-tone-powder-metallic",
+        "graphic_id": "gfx-stainless-steel-001",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-2-tone-powder-metallic",
+        "graphic_id": "gfx-stainless-steel-002",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-2-tone-powder-metallic",
+        "graphic_id": "gfx-stainless-steel-003",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-2-tone-powder-metallic",
+        "graphic_id": "gfx-stainless-steel-004",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-2-tone-powder-metallic",
+        "graphic_id": "gfx-stainless-steel-005",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-2-tone-powder-ombr-metallic",
+        "graphic_id": "gfx-stainless-steel-001",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-2-tone-powder-ombr-metallic",
+        "graphic_id": "gfx-stainless-steel-002",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-2-tone-powder-ombr-metallic",
+        "graphic_id": "gfx-stainless-steel-003",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-2-tone-powder-ombr-metallic",
+        "graphic_id": "gfx-stainless-steel-004",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-2-tone-powder-ombr-metallic",
+        "graphic_id": "gfx-stainless-steel-005",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-3d-print-machine-matte",
+        "graphic_id": "gfx-stainless-steel-001",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-3d-print-machine-matte",
+        "graphic_id": "gfx-stainless-steel-002",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-3d-print-machine-matte",
+        "graphic_id": "gfx-stainless-steel-003",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-3d-print-machine-matte",
+        "graphic_id": "gfx-stainless-steel-004",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-3d-print-machine-matte",
+        "graphic_id": "gfx-stainless-steel-005",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-3d-print-machine-glossy",
+        "graphic_id": "gfx-stainless-steel-001",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-3d-print-machine-glossy",
+        "graphic_id": "gfx-stainless-steel-002",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-3d-print-machine-glossy",
+        "graphic_id": "gfx-stainless-steel-003",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-3d-print-machine-glossy",
+        "graphic_id": "gfx-stainless-steel-004",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-3d-print-machine-glossy",
+        "graphic_id": "gfx-stainless-steel-005",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-3d-print-machine-semi-matte",
+        "graphic_id": "gfx-stainless-steel-001",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-3d-print-machine-semi-matte",
+        "graphic_id": "gfx-stainless-steel-002",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-3d-print-machine-semi-matte",
+        "graphic_id": "gfx-stainless-steel-003",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-3d-print-machine-semi-matte",
+        "graphic_id": "gfx-stainless-steel-004",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-3d-print-machine-semi-matte",
+        "graphic_id": "gfx-stainless-steel-005",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-3d-print-3d-ombr",
+        "graphic_id": "gfx-stainless-steel-001",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-3d-print-3d-ombr",
+        "graphic_id": "gfx-stainless-steel-002",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-3d-print-3d-ombr",
+        "graphic_id": "gfx-stainless-steel-003",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-3d-print-3d-ombr",
+        "graphic_id": "gfx-stainless-steel-004",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-3d-print-3d-ombr",
+        "graphic_id": "gfx-stainless-steel-005",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-3d-print-textured-finish-glossy",
+        "graphic_id": "gfx-stainless-steel-001",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-3d-print-textured-finish-glossy",
+        "graphic_id": "gfx-stainless-steel-002",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-3d-print-textured-finish-glossy",
+        "graphic_id": "gfx-stainless-steel-003",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-3d-print-textured-finish-glossy",
+        "graphic_id": "gfx-stainless-steel-004",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-3d-print-textured-finish-glossy",
+        "graphic_id": "gfx-stainless-steel-005",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-3d-print-textured-finish-semi-matte",
+        "graphic_id": "gfx-stainless-steel-001",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-3d-print-textured-finish-semi-matte",
+        "graphic_id": "gfx-stainless-steel-002",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-3d-print-textured-finish-semi-matte",
+        "graphic_id": "gfx-stainless-steel-003",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-3d-print-textured-finish-semi-matte",
+        "graphic_id": "gfx-stainless-steel-004",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-3d-print-textured-finish-semi-matte",
+        "graphic_id": "gfx-stainless-steel-005",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-3d-print-3d-textured-ombr",
+        "graphic_id": "gfx-stainless-steel-001",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-3d-print-3d-textured-ombr",
+        "graphic_id": "gfx-stainless-steel-002",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-3d-print-3d-textured-ombr",
+        "graphic_id": "gfx-stainless-steel-003",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-3d-print-3d-textured-ombr",
+        "graphic_id": "gfx-stainless-steel-004",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-3d-print-3d-textured-ombr",
+        "graphic_id": "gfx-stainless-steel-005",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-air-transfer-semi-matte",
+        "graphic_id": "gfx-stainless-steel-001",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-air-transfer-semi-matte",
+        "graphic_id": "gfx-stainless-steel-002",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-air-transfer-semi-matte",
+        "graphic_id": "gfx-stainless-steel-003",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-air-transfer-semi-matte",
+        "graphic_id": "gfx-stainless-steel-004",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-air-transfer-semi-matte",
+        "graphic_id": "gfx-stainless-steel-005",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-air-transfer-metallic",
+        "graphic_id": "gfx-stainless-steel-001",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-air-transfer-metallic",
+        "graphic_id": "gfx-stainless-steel-002",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-air-transfer-metallic",
+        "graphic_id": "gfx-stainless-steel-003",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-air-transfer-metallic",
+        "graphic_id": "gfx-stainless-steel-004",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-air-transfer-metallic",
+        "graphic_id": "gfx-stainless-steel-005",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-air-transfer-semi-matte-metallic",
+        "graphic_id": "gfx-stainless-steel-001",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-air-transfer-semi-matte-metallic",
+        "graphic_id": "gfx-stainless-steel-002",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-air-transfer-semi-matte-metallic",
+        "graphic_id": "gfx-stainless-steel-003",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-air-transfer-semi-matte-metallic",
+        "graphic_id": "gfx-stainless-steel-004",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-air-transfer-semi-matte-metallic",
+        "graphic_id": "gfx-stainless-steel-005",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-air-transfer-glossy-opaque",
+        "graphic_id": "gfx-stainless-steel-001",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-air-transfer-glossy-opaque",
+        "graphic_id": "gfx-stainless-steel-002",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-air-transfer-glossy-opaque",
+        "graphic_id": "gfx-stainless-steel-003",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-air-transfer-glossy-opaque",
+        "graphic_id": "gfx-stainless-steel-004",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-air-transfer-glossy-opaque",
+        "graphic_id": "gfx-stainless-steel-005",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-black-iridescent",
+        "graphic_id": "gfx-stainless-steel-001",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-black-iridescent",
+        "graphic_id": "gfx-stainless-steel-002",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-black-iridescent",
+        "graphic_id": "gfx-stainless-steel-003",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-black-iridescent",
+        "graphic_id": "gfx-stainless-steel-004",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-black-iridescent",
+        "graphic_id": "gfx-stainless-steel-005",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-black-uv",
+        "graphic_id": "gfx-stainless-steel-001",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-black-uv",
+        "graphic_id": "gfx-stainless-steel-002",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-black-uv",
+        "graphic_id": "gfx-stainless-steel-003",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-black-uv",
+        "graphic_id": "gfx-stainless-steel-004",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-black-uv",
+        "graphic_id": "gfx-stainless-steel-005",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-ceramic-lining",
+        "graphic_id": "gfx-stainless-steel-001",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-ceramic-lining",
+        "graphic_id": "gfx-stainless-steel-002",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-ceramic-lining",
+        "graphic_id": "gfx-stainless-steel-003",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-ceramic-lining",
+        "graphic_id": "gfx-stainless-steel-004",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-ceramic-lining",
+        "graphic_id": "gfx-stainless-steel-005",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-chameleon",
+        "graphic_id": "gfx-stainless-steel-001",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-chameleon",
+        "graphic_id": "gfx-stainless-steel-002",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-chameleon",
+        "graphic_id": "gfx-stainless-steel-003",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-chameleon",
+        "graphic_id": "gfx-stainless-steel-004",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-chameleon",
+        "graphic_id": "gfx-stainless-steel-005",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-color-changing-glitter",
+        "graphic_id": "gfx-stainless-steel-001",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-color-changing-glitter",
+        "graphic_id": "gfx-stainless-steel-002",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-color-changing-glitter",
+        "graphic_id": "gfx-stainless-steel-003",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-color-changing-glitter",
+        "graphic_id": "gfx-stainless-steel-004",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-color-changing-glitter",
+        "graphic_id": "gfx-stainless-steel-005",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-color-changing-glitter-2",
+        "graphic_id": "gfx-stainless-steel-001",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-color-changing-glitter-2",
+        "graphic_id": "gfx-stainless-steel-002",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-color-changing-glitter-2",
+        "graphic_id": "gfx-stainless-steel-003",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-color-changing-glitter-2",
+        "graphic_id": "gfx-stainless-steel-004",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-color-changing-glitter-2",
+        "graphic_id": "gfx-stainless-steel-005",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-color-speckle",
+        "graphic_id": "gfx-stainless-steel-001",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-color-speckle",
+        "graphic_id": "gfx-stainless-steel-002",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-color-speckle",
+        "graphic_id": "gfx-stainless-steel-003",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-color-speckle",
+        "graphic_id": "gfx-stainless-steel-004",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-color-speckle",
+        "graphic_id": "gfx-stainless-steel-005",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-color-uv",
+        "graphic_id": "gfx-stainless-steel-001",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-color-uv",
+        "graphic_id": "gfx-stainless-steel-002",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-color-uv",
+        "graphic_id": "gfx-stainless-steel-003",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-color-uv",
+        "graphic_id": "gfx-stainless-steel-004",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-color-uv",
+        "graphic_id": "gfx-stainless-steel-005",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-color-uv-metallic",
+        "graphic_id": "gfx-stainless-steel-001",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-color-uv-metallic",
+        "graphic_id": "gfx-stainless-steel-002",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-color-uv-metallic",
+        "graphic_id": "gfx-stainless-steel-003",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-color-uv-metallic",
+        "graphic_id": "gfx-stainless-steel-004",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-color-uv-metallic",
+        "graphic_id": "gfx-stainless-steel-005",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-drip-paint",
+        "graphic_id": "gfx-stainless-steel-001",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-drip-paint",
+        "graphic_id": "gfx-stainless-steel-002",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-drip-paint",
+        "graphic_id": "gfx-stainless-steel-003",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-drip-paint",
+        "graphic_id": "gfx-stainless-steel-004",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-drip-paint",
+        "graphic_id": "gfx-stainless-steel-005",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-drip-paint-2",
+        "graphic_id": "gfx-stainless-steel-001",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-drip-paint-2",
+        "graphic_id": "gfx-stainless-steel-002",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-drip-paint-2",
+        "graphic_id": "gfx-stainless-steel-003",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-drip-paint-2",
+        "graphic_id": "gfx-stainless-steel-004",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-drip-paint-2",
+        "graphic_id": "gfx-stainless-steel-005",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-electroplating",
+        "graphic_id": "gfx-stainless-steel-001",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-electroplating",
+        "graphic_id": "gfx-stainless-steel-002",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-electroplating",
+        "graphic_id": "gfx-stainless-steel-003",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-electroplating",
+        "graphic_id": "gfx-stainless-steel-004",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-electroplating",
+        "graphic_id": "gfx-stainless-steel-005",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-embossed-foil-decal",
+        "graphic_id": "gfx-stainless-steel-001",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-embossed-foil-decal",
+        "graphic_id": "gfx-stainless-steel-002",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-embossed-foil-decal",
+        "graphic_id": "gfx-stainless-steel-003",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-embossed-foil-decal",
+        "graphic_id": "gfx-stainless-steel-004",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-embossed-foil-decal",
+        "graphic_id": "gfx-stainless-steel-005",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-foil-decal",
+        "graphic_id": "gfx-stainless-steel-001",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-foil-decal",
+        "graphic_id": "gfx-stainless-steel-002",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-foil-decal",
+        "graphic_id": "gfx-stainless-steel-003",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-foil-decal",
+        "graphic_id": "gfx-stainless-steel-004",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-foil-decal",
+        "graphic_id": "gfx-stainless-steel-005",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-frosted",
+        "graphic_id": "gfx-stainless-steel-001",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-frosted",
+        "graphic_id": "gfx-stainless-steel-002",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-frosted",
+        "graphic_id": "gfx-stainless-steel-003",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-frosted",
+        "graphic_id": "gfx-stainless-steel-004",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-frosted",
+        "graphic_id": "gfx-stainless-steel-005",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-frosted-ombr",
+        "graphic_id": "gfx-stainless-steel-001",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-frosted-ombr",
+        "graphic_id": "gfx-stainless-steel-002",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-frosted-ombr",
+        "graphic_id": "gfx-stainless-steel-003",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-frosted-ombr",
+        "graphic_id": "gfx-stainless-steel-004",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-frosted-ombr",
+        "graphic_id": "gfx-stainless-steel-005",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-gilded",
+        "graphic_id": "gfx-stainless-steel-001",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-gilded",
+        "graphic_id": "gfx-stainless-steel-002",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-gilded",
+        "graphic_id": "gfx-stainless-steel-003",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-gilded",
+        "graphic_id": "gfx-stainless-steel-004",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-gilded",
+        "graphic_id": "gfx-stainless-steel-005",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-glitter",
+        "graphic_id": "gfx-stainless-steel-001",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-glitter",
+        "graphic_id": "gfx-stainless-steel-002",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-glitter",
+        "graphic_id": "gfx-stainless-steel-003",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-glitter",
+        "graphic_id": "gfx-stainless-steel-004",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-glitter",
+        "graphic_id": "gfx-stainless-steel-005",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-glitter-coated",
+        "graphic_id": "gfx-stainless-steel-001",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-glitter-coated",
+        "graphic_id": "gfx-stainless-steel-002",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-glitter-coated",
+        "graphic_id": "gfx-stainless-steel-003",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-glitter-coated",
+        "graphic_id": "gfx-stainless-steel-004",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-glitter-coated",
+        "graphic_id": "gfx-stainless-steel-005",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-glitter-foil-decal",
+        "graphic_id": "gfx-stainless-steel-001",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-glitter-foil-decal",
+        "graphic_id": "gfx-stainless-steel-002",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-glitter-foil-decal",
+        "graphic_id": "gfx-stainless-steel-003",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-glitter-foil-decal",
+        "graphic_id": "gfx-stainless-steel-004",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-glitter-foil-decal",
+        "graphic_id": "gfx-stainless-steel-005",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-glitter-ombr",
+        "graphic_id": "gfx-stainless-steel-001",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-glitter-ombr",
+        "graphic_id": "gfx-stainless-steel-002",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-glitter-ombr",
+        "graphic_id": "gfx-stainless-steel-003",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-glitter-ombr",
+        "graphic_id": "gfx-stainless-steel-004",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-glitter-ombr",
+        "graphic_id": "gfx-stainless-steel-005",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-glossy-opaque",
+        "graphic_id": "gfx-stainless-steel-001",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-glossy-opaque",
+        "graphic_id": "gfx-stainless-steel-002",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-glossy-opaque",
+        "graphic_id": "gfx-stainless-steel-003",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-glossy-opaque",
+        "graphic_id": "gfx-stainless-steel-004",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-glossy-opaque",
+        "graphic_id": "gfx-stainless-steel-005",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-glossy-opaque-ombr",
+        "graphic_id": "gfx-stainless-steel-001",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-glossy-opaque-ombr",
+        "graphic_id": "gfx-stainless-steel-002",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-glossy-opaque-ombr",
+        "graphic_id": "gfx-stainless-steel-003",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-glossy-opaque-ombr",
+        "graphic_id": "gfx-stainless-steel-004",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-glossy-opaque-ombr",
+        "graphic_id": "gfx-stainless-steel-005",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-glow-in-the-dark",
+        "graphic_id": "gfx-stainless-steel-001",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-glow-in-the-dark",
+        "graphic_id": "gfx-stainless-steel-002",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-glow-in-the-dark",
+        "graphic_id": "gfx-stainless-steel-003",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-glow-in-the-dark",
+        "graphic_id": "gfx-stainless-steel-004",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-glow-in-the-dark",
+        "graphic_id": "gfx-stainless-steel-005",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-gold-sparkle-ombr",
+        "graphic_id": "gfx-stainless-steel-001",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-gold-sparkle-ombr",
+        "graphic_id": "gfx-stainless-steel-002",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-gold-sparkle-ombr",
+        "graphic_id": "gfx-stainless-steel-003",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-gold-sparkle-ombr",
+        "graphic_id": "gfx-stainless-steel-004",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-gold-sparkle-ombr",
+        "graphic_id": "gfx-stainless-steel-005",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-half-air-transfer",
+        "graphic_id": "gfx-stainless-steel-001",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-half-air-transfer",
+        "graphic_id": "gfx-stainless-steel-002",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-half-air-transfer",
+        "graphic_id": "gfx-stainless-steel-003",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-half-air-transfer",
+        "graphic_id": "gfx-stainless-steel-004",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-half-air-transfer",
+        "graphic_id": "gfx-stainless-steel-005",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-half-rubberized",
+        "graphic_id": "gfx-stainless-steel-001",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-half-rubberized",
+        "graphic_id": "gfx-stainless-steel-002",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-half-rubberized",
+        "graphic_id": "gfx-stainless-steel-003",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-half-rubberized",
+        "graphic_id": "gfx-stainless-steel-004",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-half-rubberized",
+        "graphic_id": "gfx-stainless-steel-005",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-heat-transfer",
+        "graphic_id": "gfx-stainless-steel-001",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-heat-transfer",
+        "graphic_id": "gfx-stainless-steel-002",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-heat-transfer",
+        "graphic_id": "gfx-stainless-steel-003",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-heat-transfer",
+        "graphic_id": "gfx-stainless-steel-004",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-heat-transfer",
+        "graphic_id": "gfx-stainless-steel-005",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-heat-transfer-2",
+        "graphic_id": "gfx-stainless-steel-001",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-heat-transfer-2",
+        "graphic_id": "gfx-stainless-steel-002",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-heat-transfer-2",
+        "graphic_id": "gfx-stainless-steel-003",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-heat-transfer-2",
+        "graphic_id": "gfx-stainless-steel-004",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-heat-transfer-2",
+        "graphic_id": "gfx-stainless-steel-005",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-high-gloss",
+        "graphic_id": "gfx-stainless-steel-001",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-high-gloss",
+        "graphic_id": "gfx-stainless-steel-002",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-high-gloss",
+        "graphic_id": "gfx-stainless-steel-003",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-high-gloss",
+        "graphic_id": "gfx-stainless-steel-004",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-high-gloss",
+        "graphic_id": "gfx-stainless-steel-005",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-hydroform",
+        "graphic_id": "gfx-stainless-steel-001",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-hydroform",
+        "graphic_id": "gfx-stainless-steel-002",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-hydroform",
+        "graphic_id": "gfx-stainless-steel-003",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-hydroform",
+        "graphic_id": "gfx-stainless-steel-004",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-hydroform",
+        "graphic_id": "gfx-stainless-steel-005",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-ionplating",
+        "graphic_id": "gfx-stainless-steel-001",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-ionplating",
+        "graphic_id": "gfx-stainless-steel-002",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-ionplating",
+        "graphic_id": "gfx-stainless-steel-003",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-ionplating",
+        "graphic_id": "gfx-stainless-steel-004",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-ionplating",
+        "graphic_id": "gfx-stainless-steel-005",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-iridescent-sparkle",
+        "graphic_id": "gfx-stainless-steel-001",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-iridescent-sparkle",
+        "graphic_id": "gfx-stainless-steel-002",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-iridescent-sparkle",
+        "graphic_id": "gfx-stainless-steel-003",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-iridescent-sparkle",
+        "graphic_id": "gfx-stainless-steel-004",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-iridescent-sparkle",
+        "graphic_id": "gfx-stainless-steel-005",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-laser-engraved",
+        "graphic_id": "gfx-stainless-steel-001",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-laser-engraved",
+        "graphic_id": "gfx-stainless-steel-002",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-laser-engraved",
+        "graphic_id": "gfx-stainless-steel-003",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-laser-engraved",
+        "graphic_id": "gfx-stainless-steel-004",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-laser-engraved",
+        "graphic_id": "gfx-stainless-steel-005",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-laser-engraved-full-body",
+        "graphic_id": "gfx-stainless-steel-001",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-laser-engraved-full-body",
+        "graphic_id": "gfx-stainless-steel-002",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-laser-engraved-full-body",
+        "graphic_id": "gfx-stainless-steel-003",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-laser-engraved-full-body",
+        "graphic_id": "gfx-stainless-steel-004",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-laser-engraved-full-body",
+        "graphic_id": "gfx-stainless-steel-005",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-leafed-foil",
+        "graphic_id": "gfx-stainless-steel-001",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-leafed-foil",
+        "graphic_id": "gfx-stainless-steel-002",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-leafed-foil",
+        "graphic_id": "gfx-stainless-steel-003",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-leafed-foil",
+        "graphic_id": "gfx-stainless-steel-004",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-leafed-foil",
+        "graphic_id": "gfx-stainless-steel-005",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-leather-finish",
+        "graphic_id": "gfx-stainless-steel-001",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-leather-finish",
+        "graphic_id": "gfx-stainless-steel-002",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-leather-finish",
+        "graphic_id": "gfx-stainless-steel-003",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-leather-finish",
+        "graphic_id": "gfx-stainless-steel-004",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-leather-finish",
+        "graphic_id": "gfx-stainless-steel-005",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-semi-matte",
+        "graphic_id": "gfx-stainless-steel-001",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-semi-matte",
+        "graphic_id": "gfx-stainless-steel-002",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-semi-matte",
+        "graphic_id": "gfx-stainless-steel-003",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-semi-matte",
+        "graphic_id": "gfx-stainless-steel-004",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-semi-matte",
+        "graphic_id": "gfx-stainless-steel-005",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-semi-matte-metallic",
+        "graphic_id": "gfx-stainless-steel-001",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-semi-matte-metallic",
+        "graphic_id": "gfx-stainless-steel-002",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-semi-matte-metallic",
+        "graphic_id": "gfx-stainless-steel-003",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-semi-matte-metallic",
+        "graphic_id": "gfx-stainless-steel-004",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-semi-matte-metallic",
+        "graphic_id": "gfx-stainless-steel-005",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-semi-matte-ombr",
+        "graphic_id": "gfx-stainless-steel-001",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-semi-matte-ombr",
+        "graphic_id": "gfx-stainless-steel-002",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-semi-matte-ombr",
+        "graphic_id": "gfx-stainless-steel-003",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-semi-matte-ombr",
+        "graphic_id": "gfx-stainless-steel-004",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-semi-matte-ombr",
+        "graphic_id": "gfx-stainless-steel-005",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-metallic",
+        "graphic_id": "gfx-stainless-steel-001",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-metallic",
+        "graphic_id": "gfx-stainless-steel-002",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-metallic",
+        "graphic_id": "gfx-stainless-steel-003",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-metallic",
+        "graphic_id": "gfx-stainless-steel-004",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-metallic",
+        "graphic_id": "gfx-stainless-steel-005",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-metallic-ombr",
+        "graphic_id": "gfx-stainless-steel-001",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-metallic-ombr",
+        "graphic_id": "gfx-stainless-steel-002",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-metallic-ombr",
+        "graphic_id": "gfx-stainless-steel-003",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-metallic-ombr",
+        "graphic_id": "gfx-stainless-steel-004",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-metallic-ombr",
+        "graphic_id": "gfx-stainless-steel-005",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-metallic-powder-coating",
+        "graphic_id": "gfx-stainless-steel-001",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-metallic-powder-coating",
+        "graphic_id": "gfx-stainless-steel-002",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-metallic-powder-coating",
+        "graphic_id": "gfx-stainless-steel-003",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-metallic-powder-coating",
+        "graphic_id": "gfx-stainless-steel-004",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-metallic-powder-coating",
+        "graphic_id": "gfx-stainless-steel-005",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-metallic-rubberized",
+        "graphic_id": "gfx-stainless-steel-001",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-metallic-rubberized",
+        "graphic_id": "gfx-stainless-steel-002",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-metallic-rubberized",
+        "graphic_id": "gfx-stainless-steel-003",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-metallic-rubberized",
+        "graphic_id": "gfx-stainless-steel-004",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-metallic-rubberized",
+        "graphic_id": "gfx-stainless-steel-005",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-metallic-speckle",
+        "graphic_id": "gfx-stainless-steel-001",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-metallic-speckle",
+        "graphic_id": "gfx-stainless-steel-002",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-metallic-speckle",
+        "graphic_id": "gfx-stainless-steel-003",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-metallic-speckle",
+        "graphic_id": "gfx-stainless-steel-004",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-metallic-speckle",
+        "graphic_id": "gfx-stainless-steel-005",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-metallic-splatter",
+        "graphic_id": "gfx-stainless-steel-001",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-metallic-splatter",
+        "graphic_id": "gfx-stainless-steel-002",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-metallic-splatter",
+        "graphic_id": "gfx-stainless-steel-003",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-metallic-splatter",
+        "graphic_id": "gfx-stainless-steel-004",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-metallic-splatter",
+        "graphic_id": "gfx-stainless-steel-005",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-mirror",
+        "graphic_id": "gfx-stainless-steel-001",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-mirror",
+        "graphic_id": "gfx-stainless-steel-002",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-mirror",
+        "graphic_id": "gfx-stainless-steel-003",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-mirror",
+        "graphic_id": "gfx-stainless-steel-004",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-mirror",
+        "graphic_id": "gfx-stainless-steel-005",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-ombr-freeform",
+        "graphic_id": "gfx-stainless-steel-001",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-ombr-freeform",
+        "graphic_id": "gfx-stainless-steel-002",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-ombr-freeform",
+        "graphic_id": "gfx-stainless-steel-003",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-ombr-freeform",
+        "graphic_id": "gfx-stainless-steel-004",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-ombr-freeform",
+        "graphic_id": "gfx-stainless-steel-005",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-ombr-iridescent-sparkle",
+        "graphic_id": "gfx-stainless-steel-001",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-ombr-iridescent-sparkle",
+        "graphic_id": "gfx-stainless-steel-002",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-ombr-iridescent-sparkle",
+        "graphic_id": "gfx-stainless-steel-003",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-ombr-iridescent-sparkle",
+        "graphic_id": "gfx-stainless-steel-004",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-ombr-iridescent-sparkle",
+        "graphic_id": "gfx-stainless-steel-005",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-ombr-iridescent-sparkle-rainwater",
+        "graphic_id": "gfx-stainless-steel-001",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-ombr-iridescent-sparkle-rainwater",
+        "graphic_id": "gfx-stainless-steel-002",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-ombr-iridescent-sparkle-rainwater",
+        "graphic_id": "gfx-stainless-steel-003",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-ombr-iridescent-sparkle-rainwater",
+        "graphic_id": "gfx-stainless-steel-004",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-ombr-iridescent-sparkle-rainwater",
+        "graphic_id": "gfx-stainless-steel-005",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-pearlized",
+        "graphic_id": "gfx-stainless-steel-001",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-pearlized",
+        "graphic_id": "gfx-stainless-steel-002",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-pearlized",
+        "graphic_id": "gfx-stainless-steel-003",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-pearlized",
+        "graphic_id": "gfx-stainless-steel-004",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-pearlized",
+        "graphic_id": "gfx-stainless-steel-005",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-powder-coating",
+        "graphic_id": "gfx-stainless-steel-001",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-powder-coating",
+        "graphic_id": "gfx-stainless-steel-002",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-powder-coating",
+        "graphic_id": "gfx-stainless-steel-003",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-powder-coating",
+        "graphic_id": "gfx-stainless-steel-004",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-powder-coating",
+        "graphic_id": "gfx-stainless-steel-005",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-powder-coating-white-speckle",
+        "graphic_id": "gfx-stainless-steel-001",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-powder-coating-white-speckle",
+        "graphic_id": "gfx-stainless-steel-002",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-powder-coating-white-speckle",
+        "graphic_id": "gfx-stainless-steel-003",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-powder-coating-white-speckle",
+        "graphic_id": "gfx-stainless-steel-004",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-powder-coating-white-speckle",
+        "graphic_id": "gfx-stainless-steel-005",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-powder-coating-ombr",
+        "graphic_id": "gfx-stainless-steel-001",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-powder-coating-ombr",
+        "graphic_id": "gfx-stainless-steel-002",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-powder-coating-ombr",
+        "graphic_id": "gfx-stainless-steel-003",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-powder-coating-ombr",
+        "graphic_id": "gfx-stainless-steel-004",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-powder-coating-ombr",
+        "graphic_id": "gfx-stainless-steel-005",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-powder-coating-ombr-color-speckle",
+        "graphic_id": "gfx-stainless-steel-001",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-powder-coating-ombr-color-speckle",
+        "graphic_id": "gfx-stainless-steel-002",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-powder-coating-ombr-color-speckle",
+        "graphic_id": "gfx-stainless-steel-003",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-powder-coating-ombr-color-speckle",
+        "graphic_id": "gfx-stainless-steel-004",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-powder-coating-ombr-color-speckle",
+        "graphic_id": "gfx-stainless-steel-005",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-pvd",
+        "graphic_id": "gfx-stainless-steel-001",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-pvd",
+        "graphic_id": "gfx-stainless-steel-002",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-pvd",
+        "graphic_id": "gfx-stainless-steel-003",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-pvd",
+        "graphic_id": "gfx-stainless-steel-004",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-pvd",
+        "graphic_id": "gfx-stainless-steel-005",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-rainbow-glitter",
+        "graphic_id": "gfx-stainless-steel-001",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-rainbow-glitter",
+        "graphic_id": "gfx-stainless-steel-002",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-rainbow-glitter",
+        "graphic_id": "gfx-stainless-steel-003",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-rainbow-glitter",
+        "graphic_id": "gfx-stainless-steel-004",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-rainbow-glitter",
+        "graphic_id": "gfx-stainless-steel-005",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-rainbow-uv",
+        "graphic_id": "gfx-stainless-steel-001",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-rainbow-uv",
+        "graphic_id": "gfx-stainless-steel-002",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-rainbow-uv",
+        "graphic_id": "gfx-stainless-steel-003",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-rainbow-uv",
+        "graphic_id": "gfx-stainless-steel-004",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-rainbow-uv",
+        "graphic_id": "gfx-stainless-steel-005",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-raindrop",
+        "graphic_id": "gfx-stainless-steel-001",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-raindrop",
+        "graphic_id": "gfx-stainless-steel-002",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-raindrop",
+        "graphic_id": "gfx-stainless-steel-003",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-raindrop",
+        "graphic_id": "gfx-stainless-steel-004",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-raindrop",
+        "graphic_id": "gfx-stainless-steel-005",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-reflective",
+        "graphic_id": "gfx-stainless-steel-001",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-reflective",
+        "graphic_id": "gfx-stainless-steel-002",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-reflective",
+        "graphic_id": "gfx-stainless-steel-003",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-reflective",
+        "graphic_id": "gfx-stainless-steel-004",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-reflective",
+        "graphic_id": "gfx-stainless-steel-005",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-rubberized",
+        "graphic_id": "gfx-stainless-steel-001",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-rubberized",
+        "graphic_id": "gfx-stainless-steel-002",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-rubberized",
+        "graphic_id": "gfx-stainless-steel-003",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-rubberized",
+        "graphic_id": "gfx-stainless-steel-004",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-rubberized",
+        "graphic_id": "gfx-stainless-steel-005",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-rubberized-air-transfer",
+        "graphic_id": "gfx-stainless-steel-001",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-rubberized-air-transfer",
+        "graphic_id": "gfx-stainless-steel-002",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-rubberized-air-transfer",
+        "graphic_id": "gfx-stainless-steel-003",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-rubberized-air-transfer",
+        "graphic_id": "gfx-stainless-steel-004",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-rubberized-air-transfer",
+        "graphic_id": "gfx-stainless-steel-005",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-rustic-powder-coating",
+        "graphic_id": "gfx-stainless-steel-001",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-rustic-powder-coating",
+        "graphic_id": "gfx-stainless-steel-002",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-rustic-powder-coating",
+        "graphic_id": "gfx-stainless-steel-003",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-rustic-powder-coating",
+        "graphic_id": "gfx-stainless-steel-004",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-rustic-powder-coating",
+        "graphic_id": "gfx-stainless-steel-005",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-scented-laquer",
+        "graphic_id": "gfx-stainless-steel-001",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-scented-laquer",
+        "graphic_id": "gfx-stainless-steel-002",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-scented-laquer",
+        "graphic_id": "gfx-stainless-steel-003",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-scented-laquer",
+        "graphic_id": "gfx-stainless-steel-004",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-scented-laquer",
+        "graphic_id": "gfx-stainless-steel-005",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-shimmer",
+        "graphic_id": "gfx-stainless-steel-001",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-shimmer",
+        "graphic_id": "gfx-stainless-steel-002",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-shimmer",
+        "graphic_id": "gfx-stainless-steel-003",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-shimmer",
+        "graphic_id": "gfx-stainless-steel-004",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-shimmer",
+        "graphic_id": "gfx-stainless-steel-005",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-silk-screen-shimmer",
+        "graphic_id": "gfx-stainless-steel-001",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-silk-screen-shimmer",
+        "graphic_id": "gfx-stainless-steel-002",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-silk-screen-shimmer",
+        "graphic_id": "gfx-stainless-steel-003",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-silk-screen-shimmer",
+        "graphic_id": "gfx-stainless-steel-004",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-silk-screen-shimmer",
+        "graphic_id": "gfx-stainless-steel-005",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-silk-screen-semi-matte",
+        "graphic_id": "gfx-stainless-steel-001",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-silk-screen-semi-matte",
+        "graphic_id": "gfx-stainless-steel-002",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-silk-screen-semi-matte",
+        "graphic_id": "gfx-stainless-steel-003",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-silk-screen-semi-matte",
+        "graphic_id": "gfx-stainless-steel-004",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-silk-screen-semi-matte",
+        "graphic_id": "gfx-stainless-steel-005",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-silk-screen-matte-metallic",
+        "graphic_id": "gfx-stainless-steel-001",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-silk-screen-matte-metallic",
+        "graphic_id": "gfx-stainless-steel-002",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-silk-screen-matte-metallic",
+        "graphic_id": "gfx-stainless-steel-003",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-silk-screen-matte-metallic",
+        "graphic_id": "gfx-stainless-steel-004",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-silk-screen-matte-metallic",
+        "graphic_id": "gfx-stainless-steel-005",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-silk-screen-glossy",
+        "graphic_id": "gfx-stainless-steel-001",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-silk-screen-glossy",
+        "graphic_id": "gfx-stainless-steel-002",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-silk-screen-glossy",
+        "graphic_id": "gfx-stainless-steel-003",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-silk-screen-glossy",
+        "graphic_id": "gfx-stainless-steel-004",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-silk-screen-glossy",
+        "graphic_id": "gfx-stainless-steel-005",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-silk-screen-matte",
+        "graphic_id": "gfx-stainless-steel-001",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-silk-screen-matte",
+        "graphic_id": "gfx-stainless-steel-002",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-silk-screen-matte",
+        "graphic_id": "gfx-stainless-steel-003",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-silk-screen-matte",
+        "graphic_id": "gfx-stainless-steel-004",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-silk-screen-matte",
+        "graphic_id": "gfx-stainless-steel-005",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-smoky-ombr",
+        "graphic_id": "gfx-stainless-steel-001",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-smoky-ombr",
+        "graphic_id": "gfx-stainless-steel-002",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-smoky-ombr",
+        "graphic_id": "gfx-stainless-steel-003",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-smoky-ombr",
+        "graphic_id": "gfx-stainless-steel-004",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-smoky-ombr",
+        "graphic_id": "gfx-stainless-steel-005",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-sparkle",
+        "graphic_id": "gfx-stainless-steel-001",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-sparkle",
+        "graphic_id": "gfx-stainless-steel-002",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-sparkle",
+        "graphic_id": "gfx-stainless-steel-003",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-sparkle",
+        "graphic_id": "gfx-stainless-steel-004",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-sparkle",
+        "graphic_id": "gfx-stainless-steel-005",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-sparkle-ombre",
+        "graphic_id": "gfx-stainless-steel-001",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-sparkle-ombre",
+        "graphic_id": "gfx-stainless-steel-002",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-sparkle-ombre",
+        "graphic_id": "gfx-stainless-steel-003",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-sparkle-ombre",
+        "graphic_id": "gfx-stainless-steel-004",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-sparkle-ombre",
+        "graphic_id": "gfx-stainless-steel-005",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-splatter",
+        "graphic_id": "gfx-stainless-steel-001",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-splatter",
+        "graphic_id": "gfx-stainless-steel-002",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-splatter",
+        "graphic_id": "gfx-stainless-steel-003",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-splatter",
+        "graphic_id": "gfx-stainless-steel-004",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-splatter",
+        "graphic_id": "gfx-stainless-steel-005",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-triple-glitter-ombr",
+        "graphic_id": "gfx-stainless-steel-001",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-triple-glitter-ombr",
+        "graphic_id": "gfx-stainless-steel-002",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-triple-glitter-ombr",
+        "graphic_id": "gfx-stainless-steel-003",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-triple-glitter-ombr",
+        "graphic_id": "gfx-stainless-steel-004",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-triple-glitter-ombr",
+        "graphic_id": "gfx-stainless-steel-005",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-triple-powder-coating-ombr",
+        "graphic_id": "gfx-stainless-steel-001",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-triple-powder-coating-ombr",
+        "graphic_id": "gfx-stainless-steel-002",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-triple-powder-coating-ombr",
+        "graphic_id": "gfx-stainless-steel-003",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-triple-powder-coating-ombr",
+        "graphic_id": "gfx-stainless-steel-004",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-triple-powder-coating-ombr",
+        "graphic_id": "gfx-stainless-steel-005",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-triple-swirl-glossy-opaque",
+        "graphic_id": "gfx-stainless-steel-001",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-triple-swirl-glossy-opaque",
+        "graphic_id": "gfx-stainless-steel-002",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-triple-swirl-glossy-opaque",
+        "graphic_id": "gfx-stainless-steel-003",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-triple-swirl-glossy-opaque",
+        "graphic_id": "gfx-stainless-steel-004",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-triple-swirl-glossy-opaque",
+        "graphic_id": "gfx-stainless-steel-005",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-triple-swirl-semi-matte-metallic",
+        "graphic_id": "gfx-stainless-steel-001",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-triple-swirl-semi-matte-metallic",
+        "graphic_id": "gfx-stainless-steel-002",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-triple-swirl-semi-matte-metallic",
+        "graphic_id": "gfx-stainless-steel-003",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-triple-swirl-semi-matte-metallic",
+        "graphic_id": "gfx-stainless-steel-004",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-triple-swirl-semi-matte-metallic",
+        "graphic_id": "gfx-stainless-steel-005",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-triple-swirl-semi-matte",
+        "graphic_id": "gfx-stainless-steel-001",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-triple-swirl-semi-matte",
+        "graphic_id": "gfx-stainless-steel-002",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-triple-swirl-semi-matte",
+        "graphic_id": "gfx-stainless-steel-003",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-triple-swirl-semi-matte",
+        "graphic_id": "gfx-stainless-steel-004",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-triple-swirl-semi-matte",
+        "graphic_id": "gfx-stainless-steel-005",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-uv-ombr",
+        "graphic_id": "gfx-stainless-steel-001",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-uv-ombr",
+        "graphic_id": "gfx-stainless-steel-002",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-uv-ombr",
+        "graphic_id": "gfx-stainless-steel-003",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-uv-ombr",
+        "graphic_id": "gfx-stainless-steel-004",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-uv-ombr",
+        "graphic_id": "gfx-stainless-steel-005",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-uv-paint",
+        "graphic_id": "gfx-stainless-steel-001",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-uv-paint",
+        "graphic_id": "gfx-stainless-steel-002",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-uv-paint",
+        "graphic_id": "gfx-stainless-steel-003",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-uv-paint",
+        "graphic_id": "gfx-stainless-steel-004",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-uv-paint",
+        "graphic_id": "gfx-stainless-steel-005",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-verical-metallic-ombr",
+        "graphic_id": "gfx-stainless-steel-001",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-verical-metallic-ombr",
+        "graphic_id": "gfx-stainless-steel-002",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-verical-metallic-ombr",
+        "graphic_id": "gfx-stainless-steel-003",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-verical-metallic-ombr",
+        "graphic_id": "gfx-stainless-steel-004",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-verical-metallic-ombr",
+        "graphic_id": "gfx-stainless-steel-005",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-vertical-semi-matte-ombr",
+        "graphic_id": "gfx-stainless-steel-001",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-vertical-semi-matte-ombr",
+        "graphic_id": "gfx-stainless-steel-002",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-vertical-semi-matte-ombr",
+        "graphic_id": "gfx-stainless-steel-003",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-vertical-semi-matte-ombr",
+        "graphic_id": "gfx-stainless-steel-004",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-vertical-semi-matte-ombr",
+        "graphic_id": "gfx-stainless-steel-005",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-vintage-powder-coating",
+        "graphic_id": "gfx-stainless-steel-001",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-vintage-powder-coating",
+        "graphic_id": "gfx-stainless-steel-002",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-vintage-powder-coating",
+        "graphic_id": "gfx-stainless-steel-003",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-vintage-powder-coating",
+        "graphic_id": "gfx-stainless-steel-004",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-vintage-powder-coating",
+        "graphic_id": "gfx-stainless-steel-005",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-water-decal",
+        "graphic_id": "gfx-stainless-steel-001",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-water-decal",
+        "graphic_id": "gfx-stainless-steel-002",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-water-decal",
+        "graphic_id": "gfx-stainless-steel-003",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-water-decal",
+        "graphic_id": "gfx-stainless-steel-004",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-water-decal",
+        "graphic_id": "gfx-stainless-steel-005",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-water-decal-2",
+        "graphic_id": "gfx-stainless-steel-001",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-water-decal-2",
+        "graphic_id": "gfx-stainless-steel-002",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-water-decal-2",
+        "graphic_id": "gfx-stainless-steel-003",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-water-decal-2",
+        "graphic_id": "gfx-stainless-steel-004",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-water-decal-2",
+        "graphic_id": "gfx-stainless-steel-005",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-water-transfer",
+        "graphic_id": "gfx-stainless-steel-001",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-water-transfer",
+        "graphic_id": "gfx-stainless-steel-002",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-water-transfer",
+        "graphic_id": "gfx-stainless-steel-003",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-water-transfer",
+        "graphic_id": "gfx-stainless-steel-004",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-water-transfer",
+        "graphic_id": "gfx-stainless-steel-005",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-white-speckle",
+        "graphic_id": "gfx-stainless-steel-001",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-white-speckle",
+        "graphic_id": "gfx-stainless-steel-002",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-white-speckle",
+        "graphic_id": "gfx-stainless-steel-003",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-white-speckle",
+        "graphic_id": "gfx-stainless-steel-004",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-white-speckle",
+        "graphic_id": "gfx-stainless-steel-005",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-geo-electroplating",
+        "graphic_id": "gfx-stainless-steel-001",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-geo-electroplating",
+        "graphic_id": "gfx-stainless-steel-002",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-geo-electroplating",
+        "graphic_id": "gfx-stainless-steel-003",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-geo-electroplating",
+        "graphic_id": "gfx-stainless-steel-004",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-geo-electroplating",
+        "graphic_id": "gfx-stainless-steel-005",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-sparkle-electroplating",
+        "graphic_id": "gfx-stainless-steel-001",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-sparkle-electroplating",
+        "graphic_id": "gfx-stainless-steel-002",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-sparkle-electroplating",
+        "graphic_id": "gfx-stainless-steel-003",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-sparkle-electroplating",
+        "graphic_id": "gfx-stainless-steel-004",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-sparkle-electroplating",
+        "graphic_id": "gfx-stainless-steel-005",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-ceramic-pearlized",
+        "graphic_id": "gfx-ceramic-001",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-ceramic-pearlized",
+        "graphic_id": "gfx-ceramic-002",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-ceramic-pearlized",
+        "graphic_id": "gfx-ceramic-003",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-ceramic-pearlized",
+        "graphic_id": "gfx-ceramic-004",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-ceramic-pearlized",
+        "graphic_id": "gfx-ceramic-005",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-ceramic-pearlized",
+        "graphic_id": "gfx-ceramic-006",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-ceramic-sand-clay",
+        "graphic_id": "gfx-ceramic-001",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-ceramic-sand-clay",
+        "graphic_id": "gfx-ceramic-002",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-ceramic-sand-clay",
+        "graphic_id": "gfx-ceramic-003",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-ceramic-sand-clay",
+        "graphic_id": "gfx-ceramic-004",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-ceramic-sand-clay",
+        "graphic_id": "gfx-ceramic-005",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-ceramic-sand-clay",
+        "graphic_id": "gfx-ceramic-006",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-ceramic-matte-reactive",
+        "graphic_id": "gfx-ceramic-001",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-ceramic-matte-reactive",
+        "graphic_id": "gfx-ceramic-002",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-ceramic-matte-reactive",
+        "graphic_id": "gfx-ceramic-003",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-ceramic-matte-reactive",
+        "graphic_id": "gfx-ceramic-004",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-ceramic-matte-reactive",
+        "graphic_id": "gfx-ceramic-005",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-ceramic-matte-reactive",
+        "graphic_id": "gfx-ceramic-006",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-ceramic-two-color-mix",
+        "graphic_id": "gfx-ceramic-001",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-ceramic-two-color-mix",
+        "graphic_id": "gfx-ceramic-002",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-ceramic-two-color-mix",
+        "graphic_id": "gfx-ceramic-003",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-ceramic-two-color-mix",
+        "graphic_id": "gfx-ceramic-004",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-ceramic-two-color-mix",
+        "graphic_id": "gfx-ceramic-005",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-ceramic-two-color-mix",
+        "graphic_id": "gfx-ceramic-006",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-ceramic-two-color-mix-reactive",
+        "graphic_id": "gfx-ceramic-001",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-ceramic-two-color-mix-reactive",
+        "graphic_id": "gfx-ceramic-002",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-ceramic-two-color-mix-reactive",
+        "graphic_id": "gfx-ceramic-003",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-ceramic-two-color-mix-reactive",
+        "graphic_id": "gfx-ceramic-004",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-ceramic-two-color-mix-reactive",
+        "graphic_id": "gfx-ceramic-005",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-ceramic-two-color-mix-reactive",
+        "graphic_id": "gfx-ceramic-006",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-ceramic-shiny-reactive",
+        "graphic_id": "gfx-ceramic-001",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-ceramic-shiny-reactive",
+        "graphic_id": "gfx-ceramic-002",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-ceramic-shiny-reactive",
+        "graphic_id": "gfx-ceramic-003",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-ceramic-shiny-reactive",
+        "graphic_id": "gfx-ceramic-004",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-ceramic-shiny-reactive",
+        "graphic_id": "gfx-ceramic-005",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-ceramic-shiny-reactive",
+        "graphic_id": "gfx-ceramic-006",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-ceramic-ombre",
+        "graphic_id": "gfx-ceramic-001",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-ceramic-ombre",
+        "graphic_id": "gfx-ceramic-002",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-ceramic-ombre",
+        "graphic_id": "gfx-ceramic-003",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-ceramic-ombre",
+        "graphic_id": "gfx-ceramic-004",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-ceramic-ombre",
+        "graphic_id": "gfx-ceramic-005",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-ceramic-ombre",
+        "graphic_id": "gfx-ceramic-006",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-ceramic-matte-glaze",
+        "graphic_id": "gfx-ceramic-001",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-ceramic-matte-glaze",
+        "graphic_id": "gfx-ceramic-002",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-ceramic-matte-glaze",
+        "graphic_id": "gfx-ceramic-003",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-ceramic-matte-glaze",
+        "graphic_id": "gfx-ceramic-004",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-ceramic-matte-glaze",
+        "graphic_id": "gfx-ceramic-005",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-ceramic-matte-glaze",
+        "graphic_id": "gfx-ceramic-006",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-ceramic-glossy-glaze",
+        "graphic_id": "gfx-ceramic-001",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-ceramic-glossy-glaze",
+        "graphic_id": "gfx-ceramic-002",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-ceramic-glossy-glaze",
+        "graphic_id": "gfx-ceramic-003",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-ceramic-glossy-glaze",
+        "graphic_id": "gfx-ceramic-004",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-ceramic-glossy-glaze",
+        "graphic_id": "gfx-ceramic-005",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-ceramic-glossy-glaze",
+        "graphic_id": "gfx-ceramic-006",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-glass-solid-tint",
+        "graphic_id": "gfx-glass-001",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-glass-solid-tint",
+        "graphic_id": "gfx-glass-002",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-glass-solid-tint",
+        "graphic_id": "gfx-glass-003",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-glass-solid-tint",
+        "graphic_id": "gfx-glass-004",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-glass-solid-tint",
+        "graphic_id": "gfx-glass-005",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-glass-solid-tint",
+        "graphic_id": "gfx-glass-006",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-glass-two-tone",
+        "graphic_id": "gfx-glass-001",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-glass-two-tone",
+        "graphic_id": "gfx-glass-002",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-glass-two-tone",
+        "graphic_id": "gfx-glass-003",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-glass-two-tone",
+        "graphic_id": "gfx-glass-004",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-glass-two-tone",
+        "graphic_id": "gfx-glass-005",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-glass-two-tone",
+        "graphic_id": "gfx-glass-006",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-glass-bubble-in-furnace",
+        "graphic_id": "gfx-glass-001",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-glass-bubble-in-furnace",
+        "graphic_id": "gfx-glass-002",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-glass-bubble-in-furnace",
+        "graphic_id": "gfx-glass-003",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-glass-bubble-in-furnace",
+        "graphic_id": "gfx-glass-004",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-glass-bubble-in-furnace",
+        "graphic_id": "gfx-glass-005",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-glass-bubble-in-furnace",
+        "graphic_id": "gfx-glass-006",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-glass-bubble-dense",
+        "graphic_id": "gfx-glass-001",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-glass-bubble-dense",
+        "graphic_id": "gfx-glass-002",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-glass-bubble-dense",
+        "graphic_id": "gfx-glass-003",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-glass-bubble-dense",
+        "graphic_id": "gfx-glass-004",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-glass-bubble-dense",
+        "graphic_id": "gfx-glass-005",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-glass-bubble-dense",
+        "graphic_id": "gfx-glass-006",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-glass-bubble-sparse",
+        "graphic_id": "gfx-glass-001",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-glass-bubble-sparse",
+        "graphic_id": "gfx-glass-002",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-glass-bubble-sparse",
+        "graphic_id": "gfx-glass-003",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-glass-bubble-sparse",
+        "graphic_id": "gfx-glass-004",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-glass-bubble-sparse",
+        "graphic_id": "gfx-glass-005",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-glass-bubble-sparse",
+        "graphic_id": "gfx-glass-006",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-glass-bubble-localized",
+        "graphic_id": "gfx-glass-001",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-glass-bubble-localized",
+        "graphic_id": "gfx-glass-002",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-glass-bubble-localized",
+        "graphic_id": "gfx-glass-003",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-glass-bubble-localized",
+        "graphic_id": "gfx-glass-004",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-glass-bubble-localized",
+        "graphic_id": "gfx-glass-005",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-glass-bubble-localized",
+        "graphic_id": "gfx-glass-006",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-glass-colored-powder",
+        "graphic_id": "gfx-glass-001",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-glass-colored-powder",
+        "graphic_id": "gfx-glass-002",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-glass-colored-powder",
+        "graphic_id": "gfx-glass-003",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-glass-colored-powder",
+        "graphic_id": "gfx-glass-004",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-glass-colored-powder",
+        "graphic_id": "gfx-glass-005",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-glass-colored-powder",
+        "graphic_id": "gfx-glass-006",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-glass-colored-spots-blown",
+        "graphic_id": "gfx-glass-001",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-glass-colored-spots-blown",
+        "graphic_id": "gfx-glass-002",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-glass-colored-spots-blown",
+        "graphic_id": "gfx-glass-003",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-glass-colored-spots-blown",
+        "graphic_id": "gfx-glass-004",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-glass-colored-spots-blown",
+        "graphic_id": "gfx-glass-005",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-glass-colored-spots-blown",
+        "graphic_id": "gfx-glass-006",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-glass-colored-spots-pressed",
+        "graphic_id": "gfx-glass-001",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-glass-colored-spots-pressed",
+        "graphic_id": "gfx-glass-002",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-glass-colored-spots-pressed",
+        "graphic_id": "gfx-glass-003",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-glass-colored-spots-pressed",
+        "graphic_id": "gfx-glass-004",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-glass-colored-spots-pressed",
+        "graphic_id": "gfx-glass-005",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-glass-colored-spots-pressed",
+        "graphic_id": "gfx-glass-006",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-glass-glass-filigree",
+        "graphic_id": "gfx-glass-001",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-glass-glass-filigree",
+        "graphic_id": "gfx-glass-002",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-glass-glass-filigree",
+        "graphic_id": "gfx-glass-003",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-glass-glass-filigree",
+        "graphic_id": "gfx-glass-004",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-glass-glass-filigree",
+        "graphic_id": "gfx-glass-005",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-glass-glass-filigree",
+        "graphic_id": "gfx-glass-006",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-glass-frosted",
+        "graphic_id": "gfx-glass-001",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-glass-frosted",
+        "graphic_id": "gfx-glass-002",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-glass-frosted",
+        "graphic_id": "gfx-glass-003",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-glass-frosted",
+        "graphic_id": "gfx-glass-004",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-glass-frosted",
+        "graphic_id": "gfx-glass-005",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-glass-frosted",
+        "graphic_id": "gfx-glass-006",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-glass-sandblasted",
+        "graphic_id": "gfx-glass-001",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-glass-sandblasted",
+        "graphic_id": "gfx-glass-002",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-glass-sandblasted",
+        "graphic_id": "gfx-glass-003",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-glass-sandblasted",
+        "graphic_id": "gfx-glass-004",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-glass-sandblasted",
+        "graphic_id": "gfx-glass-005",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-glass-sandblasted",
+        "graphic_id": "gfx-glass-006",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-glass-satin",
+        "graphic_id": "gfx-glass-001",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-glass-satin",
+        "graphic_id": "gfx-glass-002",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-glass-satin",
+        "graphic_id": "gfx-glass-003",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-glass-satin",
+        "graphic_id": "gfx-glass-004",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-glass-satin",
+        "graphic_id": "gfx-glass-005",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-glass-satin",
+        "graphic_id": "gfx-glass-006",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-glass-ribbed",
+        "graphic_id": "gfx-glass-001",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-glass-ribbed",
+        "graphic_id": "gfx-glass-002",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-glass-ribbed",
+        "graphic_id": "gfx-glass-003",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-glass-ribbed",
+        "graphic_id": "gfx-glass-004",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-glass-ribbed",
+        "graphic_id": "gfx-glass-005",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-glass-ribbed",
+        "graphic_id": "gfx-glass-006",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-glass-hammered",
+        "graphic_id": "gfx-glass-001",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-glass-hammered",
+        "graphic_id": "gfx-glass-002",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-glass-hammered",
+        "graphic_id": "gfx-glass-003",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-glass-hammered",
+        "graphic_id": "gfx-glass-004",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-glass-hammered",
+        "graphic_id": "gfx-glass-005",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-glass-hammered",
+        "graphic_id": "gfx-glass-006",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-glass-iridescent",
+        "graphic_id": "gfx-glass-001",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-glass-iridescent",
+        "graphic_id": "gfx-glass-002",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-glass-iridescent",
+        "graphic_id": "gfx-glass-003",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-glass-iridescent",
+        "graphic_id": "gfx-glass-004",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-glass-iridescent",
+        "graphic_id": "gfx-glass-005",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-glass-iridescent",
+        "graphic_id": "gfx-glass-006",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-glass-opaque-spray",
+        "graphic_id": "gfx-glass-001",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-glass-opaque-spray",
+        "graphic_id": "gfx-glass-002",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-glass-opaque-spray",
+        "graphic_id": "gfx-glass-003",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-glass-opaque-spray",
+        "graphic_id": "gfx-glass-004",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-glass-opaque-spray",
+        "graphic_id": "gfx-glass-005",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-glass-opaque-spray",
+        "graphic_id": "gfx-glass-006",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-glass-gradient-spray",
+        "graphic_id": "gfx-glass-001",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-glass-gradient-spray",
+        "graphic_id": "gfx-glass-002",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-glass-gradient-spray",
+        "graphic_id": "gfx-glass-003",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-glass-gradient-spray",
+        "graphic_id": "gfx-glass-004",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-glass-gradient-spray",
+        "graphic_id": "gfx-glass-005",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-glass-gradient-spray",
+        "graphic_id": "gfx-glass-006",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-glass-metal-plating",
+        "graphic_id": "gfx-glass-001",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-glass-metal-plating",
+        "graphic_id": "gfx-glass-002",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-glass-metal-plating",
+        "graphic_id": "gfx-glass-003",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-glass-metal-plating",
+        "graphic_id": "gfx-glass-004",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-glass-metal-plating",
+        "graphic_id": "gfx-glass-005",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-glass-metal-plating",
+        "graphic_id": "gfx-glass-006",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-glass-bubble-out-of-furnace",
+        "graphic_id": "gfx-glass-001",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-glass-bubble-out-of-furnace",
+        "graphic_id": "gfx-glass-002",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-glass-bubble-out-of-furnace",
+        "graphic_id": "gfx-glass-003",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-glass-bubble-out-of-furnace",
+        "graphic_id": "gfx-glass-004",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-glass-bubble-out-of-furnace",
+        "graphic_id": "gfx-glass-005",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-glass-bubble-out-of-furnace",
+        "graphic_id": "gfx-glass-006",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-glass-ice-cracks",
+        "graphic_id": "gfx-glass-001",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-glass-ice-cracks",
+        "graphic_id": "gfx-glass-002",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-glass-ice-cracks",
+        "graphic_id": "gfx-glass-003",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-glass-ice-cracks",
+        "graphic_id": "gfx-glass-004",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-glass-ice-cracks",
+        "graphic_id": "gfx-glass-005",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-glass-ice-cracks",
+        "graphic_id": "gfx-glass-006",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-glass-glass-debris",
+        "graphic_id": "gfx-glass-001",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-glass-glass-debris",
+        "graphic_id": "gfx-glass-002",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-glass-glass-debris",
+        "graphic_id": "gfx-glass-003",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-glass-glass-debris",
+        "graphic_id": "gfx-glass-004",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-glass-glass-debris",
+        "graphic_id": "gfx-glass-005",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-glass-glass-debris",
+        "graphic_id": "gfx-glass-006",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-plastic-high-gloss",
+        "graphic_id": "gfx-plastic-001",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-plastic-high-gloss",
+        "graphic_id": "gfx-plastic-002",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-plastic-high-gloss",
+        "graphic_id": "gfx-plastic-003",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-plastic-high-gloss",
+        "graphic_id": "gfx-plastic-004",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-plastic-semi-gloss",
+        "graphic_id": "gfx-plastic-001",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-plastic-semi-gloss",
+        "graphic_id": "gfx-plastic-002",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-plastic-semi-gloss",
+        "graphic_id": "gfx-plastic-003",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-plastic-semi-gloss",
+        "graphic_id": "gfx-plastic-004",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-plastic-matte",
+        "graphic_id": "gfx-plastic-001",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-plastic-matte",
+        "graphic_id": "gfx-plastic-002",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-plastic-matte",
+        "graphic_id": "gfx-plastic-003",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-plastic-matte",
+        "graphic_id": "gfx-plastic-004",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-plastic-uv-high-gloss",
+        "graphic_id": "gfx-plastic-001",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-plastic-uv-high-gloss",
+        "graphic_id": "gfx-plastic-002",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-plastic-uv-high-gloss",
+        "graphic_id": "gfx-plastic-003",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-plastic-uv-high-gloss",
+        "graphic_id": "gfx-plastic-004",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-plastic-dull-textured",
+        "graphic_id": "gfx-plastic-001",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-plastic-dull-textured",
+        "graphic_id": "gfx-plastic-002",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-plastic-dull-textured",
+        "graphic_id": "gfx-plastic-003",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-plastic-dull-textured",
+        "graphic_id": "gfx-plastic-004",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-plastic-rubberized",
+        "graphic_id": "gfx-plastic-001",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-plastic-rubberized",
+        "graphic_id": "gfx-plastic-002",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-plastic-rubberized",
+        "graphic_id": "gfx-plastic-003",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-plastic-rubberized",
+        "graphic_id": "gfx-plastic-004",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-plastic-pearlescent",
+        "graphic_id": "gfx-plastic-001",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-plastic-pearlescent",
+        "graphic_id": "gfx-plastic-002",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-plastic-pearlescent",
+        "graphic_id": "gfx-plastic-003",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-plastic-pearlescent",
+        "graphic_id": "gfx-plastic-004",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-plastic-uv-ice-crackle",
+        "graphic_id": "gfx-plastic-001",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-plastic-uv-ice-crackle",
+        "graphic_id": "gfx-plastic-002",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-plastic-uv-ice-crackle",
+        "graphic_id": "gfx-plastic-003",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-plastic-uv-ice-crackle",
+        "graphic_id": "gfx-plastic-004",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-plastic-uv-sand-texture",
+        "graphic_id": "gfx-plastic-001",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-plastic-uv-sand-texture",
+        "graphic_id": "gfx-plastic-002",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-plastic-uv-sand-texture",
+        "graphic_id": "gfx-plastic-003",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-plastic-uv-sand-texture",
+        "graphic_id": "gfx-plastic-004",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-plastic-color-shift",
+        "graphic_id": "gfx-plastic-001",
+        "compatible": 1
+      },
+      {
+        "finish_id": "fin-plastic-color-shift",
+        "graphic_id": "gfx-plastic-002",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-plastic-color-shift",
+        "graphic_id": "gfx-plastic-003",
+        "compatible": 0
+      },
+      {
+        "finish_id": "fin-plastic-color-shift",
+        "graphic_id": "gfx-plastic-004",
+        "compatible": 0
+      }
+    ],
+    "finish_asset_variants": [],
+    "finish_asset_files": [],
+    "finish_asset_links": []
+  }
+}

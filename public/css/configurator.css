@@ -376,13 +376,13 @@
   --preview-scale: 1;
   display: flex;
   flex-direction: row;
-  align-items: flex-end;
+  align-items: center;
   justify-content: center;
   gap: clamp(2rem, 8vw, 6rem);
   transform: scale(var(--preview-scale));
   transform-origin: center center;
   transition: transform 0.2s ease;
-  padding: 0 1rem 2.5rem;
+  padding: 0 1rem calc(var(--hud-bottom-h) + 1.5rem);
   max-width: min(920px, 92vw);
 }
 
@@ -448,6 +448,9 @@
 }
 
 .preview-2d-label {
+  position: relative;
+  z-index: 1;
+  flex-shrink: 0;
   font-size: 0.875rem;
   font-weight: 500;
   letter-spacing: 0.02em;
@@ -586,7 +589,12 @@
   border: 2px solid var(--lumina-primary);
 }
 
-.graphic-card-thumb img,
+.graphic-card-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
 .graphic-card-thumb .material-symbols-outlined {
   max-width: 70%;
   max-height: 80%;
@@ -818,6 +826,27 @@
   border: 2px solid color-mix(in srgb, var(--lumina-outline-variant) 40%, #fff);
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
   background: var(--lumina-surface-variant);
+  overflow: hidden;
+}
+
+.finish-swatch img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.preview-2d--has-render .mug-tint {
+  display: none;
+}
+
+.preview-2d--has-render .mug-stack {
+  overflow: visible;
+}
+
+.preview-2d--has-render .mug-base {
+  transform: scale(var(--render-fit-scale, 1));
+  transform-origin: center bottom;
 }
 
 .wheel-item.is-near .finish-swatch {
@@ -1305,7 +1334,7 @@
     flex-direction: column;
     align-items: center;
     gap: 1.25rem;
-    padding-bottom: 1rem;
+    padding-bottom: calc(var(--hud-bottom-h) + 1rem);
   }
 
   .mug-stack {

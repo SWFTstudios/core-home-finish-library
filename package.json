@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "wrangler dev",
     "deploy": "wrangler deploy",
-    "pages:deploy": "wrangler pages deploy public --project-name=core-home-finish-library --branch=main --commit-dirty=true",
+    "pages:deploy": "wrangler pages deploy public --project-name=core-home-finish-library --commit-dirty=true",
+    "pages:deploy:main": "npm run pages:deploy -- --branch=main",
     "check": "wrangler check",
     "types": "wrangler types",
     "db:create": "wrangler d1 create render-portal-db",
@@ -17,6 +18,16 @@
     "import:finishes": "node scripts/import-finish-library.mjs",
     "db:migrate:material": "wrangler d1 execute render-portal-db --file=./migrations/002_material_slug.sql",
     "db:migrate:material:local": "wrangler d1 execute render-portal-db --local --file=./migrations/002_material_slug.sql",
+    "db:migrate:assets": "wrangler d1 execute render-portal-db --remote --file=./migrations/003_finish_assets.sql",
+    "db:migrate:assets:local": "wrangler d1 execute render-portal-db --local --file=./migrations/003_finish_assets.sql",
+    "db:seed:assets": "wrangler d1 execute render-portal-db --remote --file=./seed-finish-assets.sql",
+    "db:seed:assets:local": "wrangler d1 execute render-portal-db --local --file=./seed-finish-assets.sql",
+    "assets:inventory": "node scripts/inventory-finish-assets.mjs",
+    "assets:import": "node scripts/import-finish-assets.mjs --replace-links",
+    "assets:suggest": "node scripts/import-finish-assets.mjs --suggest-draft",
+    "assets:validate": "node scripts/validate-finish-assets.mjs",
+    "airtable:sync": "node scripts/export-d1-to-airtable.mjs",
+    "airtable:sync:local": "node scripts/export-d1-to-airtable.mjs --local",
     "fetch:stitch-specs": "node scripts/fetch-stitch-specs.mjs"
   },
   "devDependencies": {

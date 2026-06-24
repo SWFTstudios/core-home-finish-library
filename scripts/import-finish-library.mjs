@@ -275,6 +275,7 @@ function run() {
     "  ('dev-pd-001', 'pd@corehome.internal', 'PD Demo User', 'PD'),",
     "  ('dev-id-001', 'id@corehome.internal', 'ID Demo User', 'ID');",
     "",
+    "DELETE FROM finish_asset_links WHERE finish_id IN (SELECT id FROM finishes WHERE template_id = 'finish_library_ak');",
     "DELETE FROM finish_graphic_compat;",
     "DELETE FROM finishes WHERE template_id = 'finish_library_ak';",
     "DELETE FROM graphic_application_types;",

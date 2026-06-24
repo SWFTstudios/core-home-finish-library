@@ -1,7 +1,14 @@
 /** Shared swatch styling for finish cards. */
 
 export function swatchStyle(finish) {
-  if (finish.image_url) return {};
+  const imageUrl = finish.imageUrl || finish.image_url;
+  if (imageUrl) {
+    return {
+      backgroundImage: `url(${imageUrl})`,
+      backgroundSize: "cover",
+      backgroundPosition: "center",
+    };
+  }
   if (finish.hexColor || finish.hex_color) {
     return { background: finish.hexColor || finish.hex_color };
   }

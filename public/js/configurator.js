@@ -13,6 +13,11 @@ import {
   STYLE_FILTER_FAMILIES,
   uniqueFinishProcesses,
 } from "./finish-wheel-filters.js";
+import { swatchStyle } from "./finish-swatch.js";
+import {
+  resolveBaseFinishUrl,
+  resolveGraphicComboUrl,
+} from "./finish-asset-resolve.js";
 
 const API = "/api";
 
@@ -92,8 +97,9 @@ function applyTheme(mode) {
 }
 
 function selectedGraphic(finish) {
+  if (!state.graphicId) return null;
   const graphics = compatibleGraphics(finish);
-  return graphics.find((g) => g.id === state.graphicId) ?? graphics[0] ?? null;
+  return graphics.find((g) => g.id === state.graphicId) ?? null;
 }
 
 function syncPreview() {
@@ -287,8 +293,7 @@ function applyFinishBrowse({ keepSelection = false } = {}) {
   const finish = state.filteredFinishes[index];
   state.finishIndex = index;
   state.finishId = finish?.id ?? null;
-  const graphics = compatibleGraphics(finish);
-  state.graphicId = graphics[0]?.id ?? null;
+  state.graphicId = null;
   renderWheel();
   updateSpecs();
   syncPreview();
@@ -395,7 +400,14 @@ function buildWheelItems() {
 
     const swatch = document.createElement("span");
     swatch.className = "finish-swatch";
-    swatch.style.background = finish.hexColor || "#c3c6d7";
+    Object.assign(swatch.style, swatchStyle(finish));
+    const previewUrl = resolveBaseFinishUrl(finish);
+    if (previewUrl) {
+      const img = document.createElement("img");
+      img.src = previewUrl;
+      img.alt = "";
+      swatch.appendChild(img);
+    }
     btn.appendChild(swatch);
 
     const label = document.createElement("span");
@@ -424,8 +436,7 @@ function selectFinishIndex(index) {
   state.finishIndex = index;
   const finish = state.filteredFinishes[index];
   state.finishId = finish?.id ?? null;
-  const graphics = compatibleGraphics(finish);
-  state.graphicId = graphics[0]?.id ?? null;
+  state.graphicId = null;
   updateWheelLayout();
   updateSpecs();
   syncPreview();
@@ -456,9 +467,11 @@ function bindFinishWheel() {
   let dragStartY = 0;
   let dragStartIndex = 0;
   let dragging = false;
+  const DRAG_CLICK_THRESHOLD = 6;
 
   const onPointerDown = (e) => {
     if (e.button !== 0) return;
+    if (e.target.closest(".finish-swatch-btn")) return;
     dragging = true;
     dragStartY = e.clientY;
     dragStartIndex = state.finishIndex;
@@ -482,6 +495,10 @@ function bindFinishWheel() {
     list.classList.remove("is-dragging");
     viewport.releasePointerCapture(e.pointerId);
     const delta = e.clientY - dragStartY;
+    if (Math.abs(delta) < DRAG_CLICK_THRESHOLD) {
+      updateWheelLayout();
+      return;
+    }
     const next = Math.max(
       0,
       Math.min(
@@ -526,8 +543,7 @@ async function loadFinishesForMaterial() {
   state.filteredFinishes = browseFinishes(state.finishes, finishBrowseOptions());
   state.finishIndex = 0;
   state.finishId = state.finishes[0]?.id ?? null;
-  const g0 = compatibleGraphics(state.finishes[0])[0];
-  state.graphicId = g0?.id ?? null;
+  state.graphicId = null;
   populateFinishBrowseControls();
   renderWheel();
   syncPreview();
@@ -586,8 +602,8 @@ function renderCarousel() {
     return;
   }
 
-  if (!graphics.some((g) => g.id === state.graphicId)) {
-    state.graphicId = graphics[0].id;
+  if (state.graphicId && !graphics.some((g) => g.id === state.graphicId)) {
+    state.graphicId = null;
   }
 
   graphics.forEach((g) => {
@@ -595,19 +611,35 @@ function renderCarousel() {
     card.type = "button";
     card.className = "graphic-card";
     card.setAttribute("role", "option");
-    card.setAttribute("aria-selected", g.id === state.graphicId);
+    card.setAttribute("aria-selected", String(g.id === state.graphicId));
 
+    const comboUrl = resolveGraphicComboUrl(finish, g);
     const icon = GRAPHIC_ICONS[g.templateKey] ?? "texture";
 
-    card.innerHTML = `
-      <div class="graphic-card-thumb">
-        <span class="material-symbols-outlined" aria-hidden="true">${icon}</span>
-      </div>
-      <span class="graphic-card-label">${g.uiLabel}</span>
-    `;
+    const thumb = document.createElement("div");
+    thumb.className = "graphic-card-thumb";
+    if (comboUrl) {
+      const img = document.createElement("img");
+      img.src = comboUrl;
+      img.alt = "";
+      thumb.appendChild(img);
+    } else {
+      const span = document.createElement("span");
+      span.className = "material-symbols-outlined";
+      span.setAttribute("aria-hidden", "true");
+      span.textContent = icon;
+      thumb.appendChild(span);
+    }
+
+    const label = document.createElement("span");
+    label.className = "graphic-card-label";
+    label.textContent = g.uiLabel;
+
+    card.appendChild(thumb);
+    card.appendChild(label);
 
     card.addEventListener("click", () => {
-      state.graphicId = g.id;
+      state.graphicId = state.graphicId === g.id ? null : g.id;
       renderCarousel();
       syncPreview();
     });
@@ -658,8 +690,8 @@ function bindHudMobileDock() {
 }
 
 function bindPreviewZoom() {
-  document.getElementById("preview-zoom-in")?.addEventListener("click", () => zoomPreview(0.12));
-  document.getElementById("preview-zoom-out")?.addEventListener("click", () => zoomPreview(-0.12));
+  document.getElementById("preview-zoom-in")?.addEventListener("click", () => zoomPreview(-0.12));
+  document.getElementById("preview-zoom-out")?.addEventListener("click", () => zoomPreview(0.12));
 
   document.getElementById("preview-zoom-reset")?.addEventListener("click", () => {
     setPreviewAutoRotate(true);
@@ -727,8 +759,7 @@ async function loadCatalog() {
   state.filteredFinishes = browseFinishes(state.finishes, finishBrowseOptions());
   state.finishIndex = 0;
   state.finishId = state.finishes[0]?.id ?? null;
-  const g0 = compatibleGraphics(state.finishes[0])[0];
-  state.graphicId = g0?.id ?? null;
+  state.graphicId = null;
 
   renderMaterials();
   populateFinishBrowseControls();
