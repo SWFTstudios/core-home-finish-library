@@ -26,8 +26,10 @@ Full phased plan: [phased-deployment.md](phased-deployment.md)
 | URL | [https://core-home-finish-library.pages.dev/](https://core-home-finish-library.pages.dev/) |
 | Entry | `/` → `/configurator/` (302 via `_redirects`) |
 | Build output | `public/` (`pages_build_output_dir` in `wrangler.jsonc`) |
-| CI | Push to `main` → [`.github/workflows/deploy-pages.yml`](../.github/workflows/deploy-pages.yml) |
-| Manual deploy | `npm run pages:deploy` |
+| CI | Push to `main` or PR → [`.github/workflows/deploy-pages.yml`](../.github/workflows/deploy-pages.yml) (`wrangler pages deploy public`) |
+| Manual deploy | `npm run pages:deploy` (uses current git branch; set `CF_PAGES_BRANCH=main` for production) |
+
+> **Note:** Always deploy the `public/` directory via Wrangler. Cloudflare’s Git-connected Pages check can report “Deployed successfully” while the preview hostname stays empty/404 if the project build root is not `public/`. Prefer this workflow over relying on the Git integration alone.
 
 ### Why Phase 1 ships static catalog JSON
 
