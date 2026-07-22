@@ -42,24 +42,34 @@ const branch = slugBranch(
   process.env.CF_PAGES_BRANCH || process.env.PAGES_BRANCH || gitBranch(),
 );
 
-const args = [
-  "pages",
-  "deploy",
-  "public",
-  "--project-name",
-  PROJECT,
-  "--branch",
-  branch,
-  "--commit-dirty=true",
-];
+function run() {
+  // Use Pages-only config so Worker `main` in wrangler.jsonc is not loaded.
+  const args = [
+    "pages",
+    "deploy",
+    path.join(ROOT, "public"),
+    "--config",
+    path.join(ROOT, "wrangler.pages.jsonc"),
+    "--project-name",
+    PROJECT,
+    "--branch",
+    branch,
+    "--commit-dirty=true",
+  ];
 
-console.log(`Deploying public/ → Pages project ${PROJECT} (branch alias: ${branch})`);
+  console.log(
+    `Deploying public/ → Pages project ${PROJECT} (branch alias: ${branch})`,
+  );
 
-const result = spawnSync("npx", ["wrangler", ...args], {
-  cwd: ROOT,
-  stdio: "inherit",
-  env: process.env,
-  shell: process.platform === "win32",
-});
+  const result = spawnSync("npx", ["wrangler", ...args], {
+    cwd: ROOT,
+    stdio: "inherit",
+    env: process.env,
+    shell: process.platform === "win32",
+  });
 
-process.exit(result.status ?? 1);
+  process.exit(result.status ?? 1);
+}
+
+run();
+
