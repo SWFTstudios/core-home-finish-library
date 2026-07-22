@@ -25,7 +25,7 @@ Full phased plan: [phased-deployment.md](phased-deployment.md)
 |------|--------|
 | URL | [https://core-home-finish-library.pages.dev/](https://core-home-finish-library.pages.dev/) |
 | Entry | `/` → `/configurator/` (302 via `_redirects`) |
-| Build output | `public/` (see [`wrangler.pages.jsonc`](../wrangler.pages.jsonc) `pages_build_output_dir`) |
+| Build output | `public/` (uploaded by `wrangler pages deploy public`) |
 | CI | Push to `main` or PR → [`.github/workflows/deploy-pages.yml`](../.github/workflows/deploy-pages.yml) (`wrangler pages deploy public`) |
 | Manual deploy | `npm run pages:deploy` (uses current git branch; set `CF_PAGES_BRANCH=main` for production) |
 

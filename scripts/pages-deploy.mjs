@@ -5,7 +5,10 @@
  * Branch alias:
  *   - CF_PAGES_BRANCH / PAGES_BRANCH env if set
  *   - else current git branch
- *   - "main" always targets production
+ *
+ * Note: `wrangler pages deploy` does NOT support `--config`. Pass the
+ * output directory + project/branch flags only. Wrangler may warn that
+ * Worker wrangler.jsonc lacks pages_build_output_dir and then ignore it.
  *
  * Preview example after a feature-branch deploy:
  *   https://<short-hash>.core-home-finish-library.pages.dev/
@@ -30,12 +33,14 @@ function gitBranch() {
 }
 
 function slugBranch(name) {
-  return String(name || "main")
-    .toLowerCase()
-    .replace(/[^a-z0-9-]+/g, "-")
-    .replace(/-+/g, "-")
-    .replace(/^-|-$/g, "")
-    .slice(0, 58) || "preview";
+  return (
+    String(name || "main")
+      .toLowerCase()
+      .replace(/[^a-z0-9-]+/g, "-")
+      .replace(/-+/g, "-")
+      .replace(/^-|-$/g, "")
+      .slice(0, 58) || "preview"
+  );
 }
 
 const branch = slugBranch(
@@ -43,13 +48,11 @@ const branch = slugBranch(
 );
 
 function run() {
-  // Use Pages-only config so Worker `main` in wrangler.jsonc is not loaded.
+  // Pages rejects `--config <path>`. Deploy the static directory with flags only.
   const args = [
     "pages",
     "deploy",
     path.join(ROOT, "public"),
-    "--config",
-    path.join(ROOT, "wrangler.pages.jsonc"),
     "--project-name",
     PROJECT,
     "--branch",
@@ -72,4 +75,3 @@ function run() {
 }
 
 run();
-
