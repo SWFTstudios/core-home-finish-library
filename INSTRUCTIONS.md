@@ -34,6 +34,9 @@
 
 - [ ] Connect Figma MCP (`.cursor/mcp.json`) and sync finishes from the GD team's Figma library
 - [ ] Render request builder wired to production D1
+- [ ] Apply migration `006_cost_verification.sql` on remote D1 when Phase 2 Worker deploys (cost bands + private euro columns)
+- [ ] Import real per-material factory verification workbooks once quotes return (glass / plastic / stainless steel)
+- [ ] Revisit provisional `costBands` thresholds in `data/factory-library-template.json` after baseline costs land
 
 ### Catalog + 3D milestones (see project book ch. 11–13)
 

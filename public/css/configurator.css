@@ -229,6 +229,83 @@
   color: var(--lumina-on-surface);
 }
 
+.specs-cost-band {
+  font-size: 14px;
+  letter-spacing: 0.04em;
+}
+
+.specs-cost-band--unverified {
+  color: var(--lumina-secondary);
+  font-weight: 500;
+}
+
+.cost-band-key {
+  margin-top: 10px;
+  padding-top: 8px;
+  border-top: 1px solid var(--lumina-outline-variant);
+}
+
+.cost-band-key-summary {
+  font-family: var(--lumina-font-label);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--lumina-secondary);
+  cursor: pointer;
+  list-style: none;
+}
+
+.cost-band-key-summary::-webkit-details-marker {
+  display: none;
+}
+
+.cost-band-key-body {
+  margin-top: 8px;
+}
+
+.cost-band-key-ref,
+.cost-band-key-empty {
+  margin: 0 0 8px;
+  font-size: 11px;
+  line-height: 1.4;
+  color: var(--lumina-secondary);
+}
+
+.cost-band-key-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 4px 10px;
+}
+
+.cost-band-key-list li {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  font-size: 11px;
+  color: var(--lumina-on-surface);
+}
+
+.cost-band-letter {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 1.25rem;
+  height: 1.25rem;
+  padding: 0 4px;
+  border-radius: 4px;
+  background: var(--lumina-surface-container-high);
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+.cost-band-range {
+  color: var(--lumina-secondary);
+}
+
 .specs-notes-block {
   margin-top: auto;
   padding-top: 10px;

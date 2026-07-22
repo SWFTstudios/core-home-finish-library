@@ -12,11 +12,13 @@ CREATE TABLE IF NOT EXISTS profiles (
 );
 
 CREATE TABLE IF NOT EXISTS material_types (
-  id         TEXT PRIMARY KEY,
-  slug       TEXT UNIQUE NOT NULL,
-  label      TEXT NOT NULL,
-  enabled    INTEGER DEFAULT 0,
-  sort_order INTEGER DEFAULT 0
+  id              TEXT PRIMARY KEY,
+  slug            TEXT UNIQUE NOT NULL,
+  label           TEXT NOT NULL,
+  enabled         INTEGER DEFAULT 0,
+  sort_order      INTEGER DEFAULT 0,
+  reference_piece TEXT,
+  reference_moq   INTEGER
 );
 
 CREATE TABLE IF NOT EXISTS graphic_application_types (
@@ -43,6 +45,12 @@ CREATE TABLE IF NOT EXISTS finishes (
   durability_notes TEXT,
   price_band       TEXT,
   cost_tier        INTEGER,
+  unit_price_adder REAL,
+  cost_band        TEXT,
+  cost_index       INTEGER,
+  verified_status  TEXT
+                   CHECK(verified_status IS NULL OR verified_status IN ('yes','no','needs_review')),
+  factory_comments TEXT,
   finish_process   TEXT,
   process_steps    INTEGER,
   extensions       TEXT,
@@ -51,6 +59,18 @@ CREATE TABLE IF NOT EXISTS finishes (
   created_at       TEXT DEFAULT (datetime('now')),
   UNIQUE (material_slug, slug)
 );
+
+CREATE TABLE IF NOT EXISTS cost_bands (
+  material_slug TEXT NOT NULL,
+  band          TEXT NOT NULL,
+  from_eur      REAL NOT NULL,
+  to_eur        REAL,
+  sort_order    INTEGER DEFAULT 0,
+  PRIMARY KEY (material_slug, band)
+);
+
+CREATE INDEX IF NOT EXISTS idx_cost_bands_material
+  ON cost_bands (material_slug, sort_order);
 
 CREATE TABLE IF NOT EXISTS finish_graphic_compat (
   finish_id   TEXT NOT NULL REFERENCES finishes(id) ON DELETE CASCADE,

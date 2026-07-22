@@ -16,7 +16,7 @@ The live app is one full-screen page: [https://core-home-finish-library.pages.de
 |------|----------------|
 | **Top center — Material tabs** | Ceramic, Glass, S. Steel (stainless steel), Plastic. S. Steel has the fullest finish catalog today. |
 | **Center — 3D preview** | A rotating product stand-in (cube for now) updates color and surface as you change finishes. Light/dark mode follows the navbar theme toggle. |
-| **Left — Specs card** | Finish name, durability rating, cost tier, property notes, and **Add to Folder** (folder workflow coming later). |
+| **Left — Specs card** | Finish name, durability rating, **cost band** (letter A–H with optional verified mark), cost band key, property notes, and **Add to Folder** (folder workflow coming later). |
 | **Right — Finish Selector** | Vertical scroll wheel: swatch + label, up/down arrows beside the active item, fade at top and bottom. |
 | **Right bottom — Search card** | Text search plus Sort (name, color spectrum, light/dark, process) and filters (color group, style, process). |
 | **Bottom center — Graphic Application** | Shelf of treatments (e.g. Water Decal, Laser Etch). Pick one compatible with the selected finish. |
@@ -77,7 +77,8 @@ sequenceDiagram
 ### Preview and specs
 
 - **3D preview** (Three.js) reflects finish color and surface character
-- **Specs card** shows durability, cost tier, and notes from the catalog
+- **Specs card** shows durability, **cost band** (factory-verified letter with a per-material range key), and notes from the catalog
+- Legacy `$` / `$$$` price bands are no longer shown in the UI; euro unit-price adders stay private on the verification sheet / D1 seed only
 
 ### Graphic application
 

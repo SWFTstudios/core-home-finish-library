@@ -4,6 +4,83 @@
   "dataStartRow": 3,
   "defaultInputSs": "docs/Finish_Library_2025_AK_10.22 1.xlsx",
   "defaultInputCgp": "docs/Finish_Library_Ceramic_Glass_Plastic_v3.xlsx",
+  "defaultInputVerify": "docs/Finish_Library_Ceramic_Index_vs_Bands.xlsx",
+  "defaultVerificationJson": "data/ceramic-factory-verification.json",
+  "verificationSheet": {
+    "sheetName": "Factory Verification",
+    "materialSlug": "ceramic",
+    "headerRow": 3,
+    "dataStartRow": 4,
+    "referencePieceCell": { "row": 1, "col": 2 },
+    "referenceMoqCell": { "row": 2, "col": 2 },
+    "columns": {
+      "finishName": { "headers": ["Finish Name"], "required": true },
+      "currentTier": { "headers": ["Current tier"] },
+      "unitPriceAdder": { "headers": ["Unit price adder (€/pc)", "Unit price adder (€/pc)"] },
+      "costIndex": { "headers": ["Cost Index"] },
+      "costBand": { "headers": ["Band"] },
+      "verifiedStatus": { "headers": ["Verified?"] },
+      "factoryComments": { "headers": ["Factory comments"] }
+    },
+    "thresholdTable": {
+      "bandHeader": "Band",
+      "fromHeader": "From (€/pc)",
+      "startColHint": 8
+    }
+  },
+  "costBands": {
+    "_note": "Provisional thresholds — adjust after factory quotes return. Ceramic A–H from Factory Verification demo workbook; other materials A–F from team draft key.",
+    "ceramic": {
+      "referencePiece": "250 ml cup",
+      "referenceMoq": 1000,
+      "bands": [
+        { "band": "A", "fromEur": 0, "toEur": 2.99, "sortOrder": 1 },
+        { "band": "B", "fromEur": 3, "toEur": 4.99, "sortOrder": 2 },
+        { "band": "C", "fromEur": 5, "toEur": 6.99, "sortOrder": 3 },
+        { "band": "D", "fromEur": 7, "toEur": 8.99, "sortOrder": 4 },
+        { "band": "E", "fromEur": 9, "toEur": 11.99, "sortOrder": 5 },
+        { "band": "F", "fromEur": 12, "toEur": 15.99, "sortOrder": 6 },
+        { "band": "G", "fromEur": 16, "toEur": 20.99, "sortOrder": 7 },
+        { "band": "H", "fromEur": 21, "toEur": null, "sortOrder": 8 }
+      ]
+    },
+    "glass": {
+      "referencePiece": "16oz Glass tumbler",
+      "referenceMoq": 1000,
+      "bands": [
+        { "band": "A", "fromEur": 0, "toEur": 0.29, "sortOrder": 1 },
+        { "band": "B", "fromEur": 0.3, "toEur": 0.69, "sortOrder": 2 },
+        { "band": "C", "fromEur": 0.7, "toEur": 1.19, "sortOrder": 3 },
+        { "band": "D", "fromEur": 1.2, "toEur": 1.99, "sortOrder": 4 },
+        { "band": "E", "fromEur": 2.0, "toEur": 3.49, "sortOrder": 5 },
+        { "band": "F", "fromEur": 3.5, "toEur": null, "sortOrder": 6 }
+      ]
+    },
+    "plastic": {
+      "referencePiece": "24oz Double Wall AS Axel",
+      "referenceMoq": 1000,
+      "bands": [
+        { "band": "A", "fromEur": 0, "toEur": 0.14, "sortOrder": 1 },
+        { "band": "B", "fromEur": 0.15, "toEur": 0.29, "sortOrder": 2 },
+        { "band": "C", "fromEur": 0.3, "toEur": 0.59, "sortOrder": 3 },
+        { "band": "D", "fromEur": 0.6, "toEur": 0.99, "sortOrder": 4 },
+        { "band": "E", "fromEur": 1.0, "toEur": 1.79, "sortOrder": 5 },
+        { "band": "F", "fromEur": 1.8, "toEur": null, "sortOrder": 6 }
+      ]
+    },
+    "stainless_steel": {
+      "referencePiece": "24oz Double Wall Stainless Steel Axel",
+      "referenceMoq": 1000,
+      "bands": [
+        { "band": "A", "fromEur": 0, "toEur": 0.59, "sortOrder": 1 },
+        { "band": "B", "fromEur": 0.6, "toEur": 1.19, "sortOrder": 2 },
+        { "band": "C", "fromEur": 1.2, "toEur": 1.99, "sortOrder": 3 },
+        { "band": "D", "fromEur": 2.0, "toEur": 3.19, "sortOrder": 4 },
+        { "band": "E", "fromEur": 3.2, "toEur": 4.99, "sortOrder": 5 },
+        { "band": "F", "fromEur": 5.0, "toEur": null, "sortOrder": 6 }
+      ]
+    }
+  },
   "stainlessSteelSheet": {
     "sheetName": "Library",
     "materialSlug": "stainless_steel",
@@ -219,9 +296,37 @@
     }
   ],
   "materialTypes": [
-    { "slug": "ceramic", "label": "Ceramic", "enabled": true, "sortOrder": 1 },
-    { "slug": "glass", "label": "Glass", "enabled": true, "sortOrder": 2 },
-    { "slug": "stainless_steel", "label": "S. Steel", "enabled": true, "sortOrder": 3 },
-    { "slug": "plastic", "label": "Plastic", "enabled": true, "sortOrder": 4 }
+    {
+      "slug": "ceramic",
+      "label": "Ceramic",
+      "enabled": true,
+      "sortOrder": 1,
+      "referencePiece": "250 ml cup",
+      "referenceMoq": 1000
+    },
+    {
+      "slug": "glass",
+      "label": "Glass",
+      "enabled": true,
+      "sortOrder": 2,
+      "referencePiece": "16oz Glass tumbler",
+      "referenceMoq": 1000
+    },
+    {
+      "slug": "stainless_steel",
+      "label": "S. Steel",
+      "enabled": true,
+      "sortOrder": 3,
+      "referencePiece": "24oz Double Wall Stainless Steel Axel",
+      "referenceMoq": 1000
+    },
+    {
+      "slug": "plastic",
+      "label": "Plastic",
+      "enabled": true,
+      "sortOrder": 4,
+      "referencePiece": "24oz Double Wall AS Axel",
+      "referenceMoq": 1000
+    }
   ]
 }

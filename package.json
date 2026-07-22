@@ -17,6 +17,8 @@
     "import:finishes": "node scripts/import-finish-library.mjs",
     "db:migrate:material": "wrangler d1 execute render-portal-db --file=./migrations/002_material_slug.sql",
     "db:migrate:material:local": "wrangler d1 execute render-portal-db --local --file=./migrations/002_material_slug.sql",
+    "db:migrate:cost": "wrangler d1 execute render-portal-db --file=./migrations/006_cost_verification.sql",
+    "db:migrate:cost:local": "wrangler d1 execute render-portal-db --local --file=./migrations/006_cost_verification.sql",
     "fetch:stitch-specs": "node scripts/fetch-stitch-specs.mjs"
   },
   "devDependencies": {

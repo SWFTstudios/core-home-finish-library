@@ -87,15 +87,24 @@ Boot payload for [`/configurator/`](../public/configurator/index.html). All UI o
 {
   "templateId": "finish_library_ak",
   "material": "stainless_steel",
-  "materials": [{ "id", "slug", "label", "enabled", "sortOrder" }],
+  "materials": [{
+    "id", "slug", "label", "enabled", "sortOrder",
+    "referencePiece", "referenceMoq"
+  }],
   "graphicApplicationTypes": [{ "id", "templateKey", "label", "uiLabel", "sortOrder" }],
+  "costBands": {
+    "ceramic": [{ "band": "B", "fromEur": 3, "toEur": 4.99, "sortOrder": 2 }]
+  },
   "finishes": [{
     "id", "slug", "name", "durabilityScore", "durabilityNotes",
-    "priceBand", "costTier", "finishProcess", "hexColor",
+    "priceBand", "costTier", "costBand", "verifiedStatus", "factoryComments",
+    "finishProcess", "hexColor",
     "compatibleGraphics": ["gfx-005", "..."]
   }]
 }
 ```
+
+**Privacy:** `unit_price_adder` (euro) and `cost_index` are stored in D1/seed only and are **never** returned by `/api/catalog` or written to `public/api/catalog.json`. The public surface is the letter band + material band key.
 
 ---
 

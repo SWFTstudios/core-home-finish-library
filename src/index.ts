@@ -128,7 +128,9 @@ async function handleApi(
     const material = url.searchParams.get("material") ?? "stainless_steel";
 
     const materials = await env.DB.prepare(
-      "SELECT id, slug, label, enabled, sort_order AS sortOrder FROM material_types ORDER BY sort_order ASC",
+      `SELECT id, slug, label, enabled, sort_order AS sortOrder,
+              reference_piece AS referencePiece, reference_moq AS referenceMoq
+       FROM material_types ORDER BY sort_order ASC`,
     ).all();
 
     const graphicApplicationTypes = await env.DB.prepare(
@@ -141,17 +143,48 @@ async function handleApi(
       .bind(material)
       .all();
 
+    // unit_price_adder and cost_index intentionally omitted (private / seed-only)
     const finishesResult = await env.DB.prepare(
       `SELECT id, slug, material_slug AS materialSlug, name, category,
               durability_score AS durabilityScore, durability_notes AS durabilityNotes,
-              price_band AS priceBand, cost_tier AS costTier, finish_process AS finishProcess,
-              process_steps AS processSteps, description, hex_color AS hexColor
+              price_band AS priceBand, cost_tier AS costTier, cost_band AS costBand,
+              verified_status AS verifiedStatus, factory_comments AS factoryComments,
+              finish_process AS finishProcess, process_steps AS processSteps,
+              description, hex_color AS hexColor
        FROM finishes
        WHERE template_id = 'finish_library_ak' AND material_slug = ?
        ORDER BY name ASC`,
     )
       .bind(material)
       .all();
+
+    const costBandsResult = await env.DB.prepare(
+      `SELECT material_slug AS materialSlug, band, from_eur AS fromEur,
+              to_eur AS toEur, sort_order AS sortOrder
+       FROM cost_bands
+       ORDER BY material_slug ASC, sort_order ASC`,
+    ).all();
+
+    const costBands: Record<
+      string,
+      Array<{ band: string; fromEur: number; toEur: number | null; sortOrder: number }>
+    > = {};
+    for (const row of costBandsResult.results ?? []) {
+      const r = row as {
+        materialSlug: string;
+        band: string;
+        fromEur: number;
+        toEur: number | null;
+        sortOrder: number;
+      };
+      if (!costBands[r.materialSlug]) costBands[r.materialSlug] = [];
+      costBands[r.materialSlug].push({
+        band: r.band,
+        fromEur: r.fromEur,
+        toEur: r.toEur,
+        sortOrder: r.sortOrder,
+      });
+    }
 
     const compatResult = await env.DB.prepare(
       `SELECT finish_id, graphic_id FROM finish_graphic_compat WHERE compatible = 1`,
@@ -180,6 +213,7 @@ async function handleApi(
         material,
         materials: materials.results ?? [],
         graphicApplicationTypes: graphicApplicationTypes.results ?? [],
+        costBands,
         finishes,
       },
       { headers: JSON_HEADERS },

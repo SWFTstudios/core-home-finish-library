@@ -13,6 +13,13 @@ import {
   STYLE_FILTER_FAMILIES,
   uniqueFinishProcesses,
 } from "./finish-wheel-filters.js";
+import {
+  bandRangeTitle,
+  costBandKeyHtml,
+  costBandLabel,
+  finishCostBand,
+  finishVerifiedStatus,
+} from "./finish-swatch.js";
 
 const API = "/api";
 
@@ -137,6 +144,16 @@ function formatRating(value, max = 5) {
   return `${n}/${max}`;
 }
 
+function currentMaterialMeta() {
+  return (state.catalog?.materials ?? []).find((m) => m.slug === state.material) ?? null;
+}
+
+function updateCostBandKey() {
+  const body = document.getElementById("cost-band-key-body");
+  if (!body) return;
+  body.innerHTML = costBandKeyHtml(state.catalog, state.material, currentMaterialMeta());
+}
+
 function updateSpecs() {
   const finish = selectedFinish();
   const name = document.getElementById("specs-name");
@@ -149,6 +166,8 @@ function updateSpecs() {
     name.removeAttribute("title");
     durability.textContent = "—";
     cost.textContent = "—";
+    cost.removeAttribute("title");
+    cost.classList.remove("specs-cost-band", "specs-cost-band--unverified");
     notes.textContent = "";
     notes.removeAttribute("title");
     return;
@@ -158,7 +177,18 @@ function updateSpecs() {
   name.textContent = finish.name;
   name.title = finish.name;
   durability.textContent = formatRating(finish.durabilityScore);
-  cost.textContent = formatRating(finish.costTier);
+
+  const band = finishCostBand(finish);
+  const verified = finishVerifiedStatus(finish);
+  cost.classList.add("specs-cost-band");
+  cost.classList.toggle("specs-cost-band--unverified", !band);
+  cost.textContent = costBandLabel(finish);
+  if (band && verified === "yes") cost.textContent = `${band} ✓`;
+  else if (band && verified === "needs_review") cost.textContent = `${band} ?`;
+  cost.title = band
+    ? bandRangeTitle(state.catalog, finish.materialSlug || state.material, band)
+    : "Cost not yet factory-verified";
+
   const noteText = finish.durabilityNotes || finish.description || "";
   notes.textContent = noteText;
   notes.title = noteText;
@@ -531,6 +561,7 @@ async function loadFinishesForMaterial() {
   state.graphicId = g0?.id ?? null;
   populateFinishBrowseControls();
   renderWheel();
+  updateCostBandKey();
   syncPreview();
 }
 
@@ -738,6 +769,7 @@ async function loadCatalog() {
   renderMaterials();
   populateFinishBrowseControls();
   renderWheel();
+  updateCostBandKey();
   applyFinishDeepLink();
   syncPreview();
 }

@@ -6,7 +6,7 @@ import {
   processMeta,
   styleFamilyById,
 } from "./library-grouping.js";
-import { swatchStyle, formatRating, costDots } from "./finish-swatch.js";
+import { swatchStyle, formatRating, costBandBadgeHtml, costBandKeyHtml } from "./finish-swatch.js";
 import { taxonomyIconHtml } from "./library-icons.js";
 
 const API = "/api";
@@ -221,7 +221,7 @@ function renderFinishCard(finish) {
   body.innerHTML = `
     <p class="library-finish-name">${escapeHtml(finish.name)}</p>
     <div class="library-finish-meta">
-      <span title="Cost">${costDots(finish.costTier)}</span>
+      <span title="Cost band">${costBandBadgeHtml(finish, state.catalog)}</span>
       <span title="Durability">${formatRating(finish.durabilityScore)}</span>
     </div>
   `;
@@ -381,8 +381,6 @@ function openDetail(finish, triggerEl = null) {
     ["Type", meta.label],
     ["Style", family.label],
     ["Durability", formatRating(finish.durabilityScore)],
-    ["Cost", costDots(finish.costTier)],
-    ["Price band", finish.priceBand || "—"],
   ];
 
   for (const [label, value] of rows) {
@@ -394,6 +392,14 @@ function openDetail(finish, triggerEl = null) {
     `;
     body.appendChild(row);
   }
+
+  const costRow = document.createElement("div");
+  costRow.className = "library-detail-row";
+  costRow.innerHTML = `
+    <span class="library-detail-label">Cost band</span>
+    <p class="library-detail-value">${costBandBadgeHtml(finish, state.catalog)}</p>
+  `;
+  body.appendChild(costRow);
 
   const notes = finish.durabilityNotes || finish.description;
   if (notes && notes !== "/") {
@@ -457,6 +463,16 @@ function closeDetail() {
   trigger?.focus();
 }
 
+function currentMaterialMeta() {
+  return state.materials.find((m) => m.slug === state.material) ?? null;
+}
+
+function updateCostBandKey() {
+  const body = $("cost-band-key-body");
+  if (!body) return;
+  body.innerHTML = costBandKeyHtml(state.catalog, state.material, currentMaterialMeta());
+}
+
 async function loadCatalog() {
   setBanner("");
   const data = await api(`/catalog?material=${encodeURIComponent(state.material)}`);
@@ -479,6 +495,7 @@ async function loadCatalog() {
   if (url.family) state.familyId = url.family;
 
   renderMaterials();
+  updateCostBandKey();
   renderProcessNav();
   renderBreadcrumb();
   renderSections();

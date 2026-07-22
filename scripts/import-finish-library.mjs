@@ -5,6 +5,10 @@
  * Usage:
  *   node scripts/import-finish-library.mjs
  *   node scripts/import-finish-library.mjs --input-ss path/to/ss.xlsx --input-cgp path/to/cgp.xlsx
+ *   node scripts/import-finish-library.mjs --input-verify path/to/verify.xlsx
+ *   node scripts/import-finish-library.mjs --from-catalog
+ *
+ * Euro unit_price_adder is written to seed.sql only — never to catalog.json / public API export.
  */
 import fs from "node:fs";
 import path from "node:path";
@@ -24,12 +28,19 @@ function parseArgs() {
   const args = process.argv.slice(2);
   let inputSs = path.join(ROOT, template.defaultInputSs);
   let inputCgp = path.join(ROOT, template.defaultInputCgp);
+  let inputVerify = template.defaultInputVerify
+    ? path.join(ROOT, template.defaultInputVerify)
+    : null;
+  let fromCatalog = false;
   for (let i = 0; i < args.length; i++) {
     if (args[i] === "--input-ss" && args[i + 1]) inputSs = path.resolve(args[++i]);
     else if (args[i] === "--input-cgp" && args[i + 1]) inputCgp = path.resolve(args[++i]);
+    else if (args[i] === "--input-verify" && args[i + 1])
+      inputVerify = path.resolve(args[++i]);
     else if (args[i] === "--input" && args[i + 1]) inputCgp = path.resolve(args[++i]);
+    else if (args[i] === "--from-catalog") fromCatalog = true;
   }
-  return { inputSs, inputCgp };
+  return { inputSs, inputCgp, inputVerify, fromCatalog };
 }
 
 function normalizeHeader(cell) {
@@ -83,11 +94,80 @@ function sqlString(value) {
   return `'${String(value).replace(/'/g, "''")}'`;
 }
 
+function sqlNum(value) {
+  if (value === null || value === undefined || value === "") return "NULL";
+  const n = Number(value);
+  return Number.isFinite(n) ? String(n) : "NULL";
+}
+
 function boolVal(cell) {
   if (cell === true || cell === 1 || cell === "1") return true;
   const s = String(cell ?? "").trim().toLowerCase();
   if (s === "true" || s === "yes" || s === "y" || s === "✓" || s === "✔") return true;
   return false;
+}
+
+function normalizeVerifiedStatus(cell) {
+  if (cell === null || cell === undefined || cell === "") return null;
+  const s = String(cell).trim().toLowerCase();
+  if (!s) return null;
+  if (s === "yes" || s === "y" || s === "true" || s === "verified") return "yes";
+  if (s === "no" || s === "n" || s === "false") return "no";
+  if (s.includes("review") || s.includes("need")) return "needs_review";
+  return null;
+}
+
+function parseEuro(cell) {
+  if (cell === null || cell === undefined || cell === "") return null;
+  if (typeof cell === "number" && Number.isFinite(cell)) return cell;
+  const s = String(cell).replace(/[€,\s]/g, "").trim();
+  if (!s) return null;
+  const n = Number(s);
+  return Number.isFinite(n) ? n : null;
+}
+
+function parseCostIndex(cell) {
+  if (cell === null || cell === undefined || cell === "") return null;
+  const n = Number(cell);
+  return Number.isFinite(n) ? Math.round(n) : null;
+}
+
+function normalizeBand(cell) {
+  if (cell === null || cell === undefined || cell === "") return null;
+  const s = String(cell).trim().toUpperCase();
+  return /^[A-H]$/.test(s) ? s : null;
+}
+
+/** Map a euro adder to a band letter using sorted fromEur thresholds. */
+function euroToBand(euro, bands) {
+  if (euro === null || euro === undefined || !bands?.length) return null;
+  const sorted = [...bands].sort((a, b) => a.fromEur - b.fromEur);
+  let match = sorted[0]?.band ?? null;
+  for (const b of sorted) {
+    if (euro >= b.fromEur) match = b.band;
+  }
+  return match;
+}
+
+function loadCostBandsFromTemplate() {
+  const byMaterial = {};
+  const refs = {};
+  const cfg = template.costBands || {};
+  for (const [slug, materialCfg] of Object.entries(cfg)) {
+    if (slug.startsWith("_")) continue;
+    byMaterial[slug] = (materialCfg.bands || []).map((b) => ({
+      materialSlug: slug,
+      band: b.band,
+      fromEur: b.fromEur,
+      toEur: b.toEur ?? null,
+      sortOrder: b.sortOrder ?? 0,
+    }));
+    refs[slug] = {
+      referencePiece: materialCfg.referencePiece ?? null,
+      referenceMoq: materialCfg.referenceMoq ?? null,
+    };
+  }
+  return { byMaterial, refs };
 }
 
 function importSheet(wb, sheetConfig, sourceFile) {
@@ -152,6 +232,11 @@ function importSheet(wb, sheetConfig, sourceFile) {
       durabilityNotes: row[colIndexes.durabilityNotes] ?? null,
       priceBand: row[colIndexes.price] ?? null,
       costTier: priceToCostTier(row[colIndexes.price]),
+      unitPriceAdder: null,
+      costBand: null,
+      costIndex: null,
+      verifiedStatus: null,
+      factoryComments: null,
       finishProcess: row[colIndexes.finishProcess] ?? null,
       processSteps: (() => {
         const v = row[colIndexes.processSteps];
@@ -184,12 +269,291 @@ function importSheet(wb, sheetConfig, sourceFile) {
   };
 }
 
-function writeCatalogExport(materials, allGraphics, allFinishes, compatRows) {
+function importFromCatalog() {
+  if (!fs.existsSync(CATALOG_JSON)) {
+    console.error(`Catalog not found: ${CATALOG_JSON}`);
+    process.exit(1);
+  }
+  const catalog = JSON.parse(fs.readFileSync(CATALOG_JSON, "utf8"));
+  const byMaterial = new Map();
+
+  for (const g of catalog.graphicApplicationTypes || []) {
+    const slug = g.materialSlug || g.material_slug;
+    if (!byMaterial.has(slug)) {
+      byMaterial.set(slug, {
+        materialSlug: slug,
+        graphicApplicationTypes: [],
+        graphicIdByKey: {},
+        finishes: [],
+      });
+    }
+    const imp = byMaterial.get(slug);
+    const entry = {
+      id: g.id,
+      templateKey: g.templateKey || g.template_key,
+      label: g.label,
+      uiLabel: g.uiLabel || g.ui_label,
+      materialSlug: slug,
+      sortOrder: g.sortOrder ?? g.sort_order ?? 0,
+    };
+    imp.graphicApplicationTypes.push(entry);
+    imp.graphicIdByKey[entry.templateKey] = entry.id;
+  }
+
+  for (const f of catalog.finishes || []) {
+    const slug = f.materialSlug || f.material_slug;
+    if (!byMaterial.has(slug)) {
+      byMaterial.set(slug, {
+        materialSlug: slug,
+        graphicApplicationTypes: [],
+        graphicIdByKey: {},
+        finishes: [],
+      });
+    }
+    const imp = byMaterial.get(slug);
+    const compatIds = new Set(f.compatibleGraphics || []);
+    const graphics = {};
+    for (const g of imp.graphicApplicationTypes) {
+      graphics[g.templateKey] = compatIds.has(g.id);
+    }
+    imp.finishes.push({
+      id: f.id,
+      slug: f.slug,
+      materialSlug: slug,
+      name: f.name,
+      durabilityScore: f.durabilityScore ?? f.durability_score ?? null,
+      durabilityNotes: f.durabilityNotes ?? f.durability_notes ?? null,
+      priceBand: f.priceBand ?? f.price_band ?? null,
+      costTier: f.costTier ?? f.cost_tier ?? null,
+      unitPriceAdder: null,
+      costBand: f.costBand ?? f.cost_band ?? null,
+      costIndex: null,
+      verifiedStatus: f.verifiedStatus ?? f.verified_status ?? null,
+      factoryComments: f.factoryComments ?? f.factory_comments ?? null,
+      finishProcess: f.finishProcess ?? f.finish_process ?? f.category ?? null,
+      processSteps: f.processSteps ?? f.process_steps ?? null,
+      processStepsRaw: null,
+      notes: null,
+      hexColor: f.hexColor ?? f.hex_color ?? hashColor(`${slug}-${f.name}`),
+      graphics,
+      sourceFile: "catalog.json",
+      description: f.description ?? null,
+    });
+  }
+
+  return [...byMaterial.values()];
+}
+
+function parseVerificationSheet(wb, sourceFile, costBandsState) {
+  const cfg = template.verificationSheet;
+  if (!cfg) return { byName: new Map(), matched: 0 };
+
+  const sheet = wb.Sheets[cfg.sheetName];
+  if (!sheet) {
+    console.warn(`Verification sheet "${cfg.sheetName}" not found in ${sourceFile}`);
+    return { byName: new Map(), matched: 0 };
+  }
+
+  const rows = XLSX.utils.sheet_to_json(sheet, { header: 1, defval: null });
+  const materialSlug = cfg.materialSlug || "ceramic";
+
+  const pieceCell = cfg.referencePieceCell;
+  const moqCell = cfg.referenceMoqCell;
+  if (pieceCell) {
+    const v = rows[pieceCell.row - 1]?.[pieceCell.col - 1];
+    if (v != null && String(v).trim()) {
+      costBandsState.refs[materialSlug] = {
+        ...(costBandsState.refs[materialSlug] || {}),
+        referencePiece: String(v).trim(),
+      };
+    }
+  }
+  if (moqCell) {
+    const v = rows[moqCell.row - 1]?.[moqCell.col - 1];
+    const n = Number(v);
+    if (Number.isFinite(n)) {
+      costBandsState.refs[materialSlug] = {
+        ...(costBandsState.refs[materialSlug] || {}),
+        referenceMoq: n,
+      };
+    }
+  }
+
+  // Optional threshold mini-table (Band / From €/pc) — overrides template bands for this material
+  const thr = cfg.thresholdTable;
+  if (thr) {
+    const headerRow = rows[cfg.headerRow - 1] || [];
+    let bandCol = -1;
+    let fromCol = -1;
+    headerRow.forEach((cell, i) => {
+      const h = normalizeHeader(cell);
+      if (h === normalizeHeader(thr.bandHeader)) bandCol = i;
+      if (h === normalizeHeader(thr.fromHeader)) fromCol = i;
+    });
+    // Prefer the right-hand Band/From pair when Finish Name also has a "Band" column
+    if (bandCol >= 0 && fromCol >= 0 && fromCol > bandCol) {
+      const froms = [];
+      for (let r = cfg.dataStartRow - 1; r < rows.length; r++) {
+        const band = normalizeBand(rows[r]?.[bandCol]);
+        const fromEur = parseEuro(rows[r]?.[fromCol]);
+        if (!band || fromEur === null) continue;
+        froms.push({ band, fromEur });
+      }
+      if (froms.length) {
+        froms.sort((a, b) => a.fromEur - b.fromEur);
+        costBandsState.byMaterial[materialSlug] = froms.map((b, i) => {
+          const next = froms[i + 1];
+          return {
+            materialSlug,
+            band: b.band,
+            fromEur: b.fromEur,
+            toEur: next ? Number((next.fromEur - 0.01).toFixed(2)) : null,
+            sortOrder: i + 1,
+          };
+        });
+        console.log(
+          `Loaded ${froms.length} cost-band thresholds for ${materialSlug} from verification sheet`,
+        );
+      }
+    }
+  }
+
+  const headerRow = rows[cfg.headerRow - 1] || [];
+  // Collect all indices per header — "Band" appears twice (finish band + threshold table)
+  const headerIndices = {};
+  headerRow.forEach((cell, index) => {
+    const key = normalizeHeader(cell);
+    if (!key) return;
+    if (!headerIndices[key]) headerIndices[key] = [];
+    headerIndices[key].push(index);
+  });
+  const headerMap = {};
+  for (const [key, idxs] of Object.entries(headerIndices)) {
+    headerMap[key] = idxs[0];
+  }
+
+  const colIndexes = {};
+  for (const [key, def] of Object.entries(cfg.columns)) {
+    colIndexes[key] = findColumnIndex(headerMap, def);
+  }
+  // Finish Band sits next to Cost Index; threshold Band sits next to From (€/pc)
+  const bandIdxs = headerIndices["Band"] || [];
+  const fromIdxs = headerIndices[normalizeHeader(cfg.thresholdTable?.fromHeader || "From (€/pc)")] || [];
+  if (bandIdxs.length) {
+    const thresholdBand = fromIdxs.length
+      ? bandIdxs.find((i) => fromIdxs.some((f) => Math.abs(f - i) === 1))
+      : null;
+    const finishBand =
+      bandIdxs.find((i) => i !== thresholdBand) ??
+      (colIndexes.costIndex >= 0
+        ? bandIdxs.find((i) => i === colIndexes.costIndex + 1)
+        : null) ??
+      bandIdxs[0];
+    colIndexes.costBand = finishBand;
+  }
+
+  const bands = costBandsState.byMaterial[materialSlug] || [];
+  const byName = new Map();
+
+  for (let r = cfg.dataStartRow - 1; r < rows.length; r++) {
+    const row = rows[r];
+    if (!row) continue;
+    const nameIdx = colIndexes.finishName;
+    if (nameIdx < 0) break;
+    const name = row[nameIdx];
+    if (!name || !String(name).trim()) {
+      // Stop at instruction blocks / blank section
+      if (String(row[0] ?? "").toUpperCase().includes("FACTORY")) break;
+      continue;
+    }
+    const finishName = String(name).replace(/\r?\n/g, " ").trim();
+    if (finishName.toUpperCase().startsWith("FACTORY")) break;
+
+    const unitPriceAdder =
+      colIndexes.unitPriceAdder >= 0 ? parseEuro(row[colIndexes.unitPriceAdder]) : null;
+    let costBand =
+      colIndexes.costBand >= 0 ? normalizeBand(row[colIndexes.costBand]) : null;
+    if (!costBand) costBand = euroToBand(unitPriceAdder, bands);
+    const costIndex =
+      colIndexes.costIndex >= 0 ? parseCostIndex(row[colIndexes.costIndex]) : null;
+    const verifiedStatus =
+      colIndexes.verifiedStatus >= 0
+        ? normalizeVerifiedStatus(row[colIndexes.verifiedStatus])
+        : null;
+    const factoryComments =
+      colIndexes.factoryComments >= 0 && row[colIndexes.factoryComments] != null
+        ? String(row[colIndexes.factoryComments]).trim() || null
+        : null;
+
+    byName.set(finishName.toLowerCase(), {
+      materialSlug,
+      unitPriceAdder,
+      costBand,
+      costIndex,
+      verifiedStatus,
+      factoryComments,
+    });
+  }
+
+  return { byName, matched: byName.size, materialSlug };
+}
+
+function applyVerification(imports, verification) {
+  if (!verification?.byName?.size) return 0;
+  let applied = 0;
+  for (const imp of imports) {
+    for (const f of imp.finishes) {
+      if (
+        verification.materialSlug &&
+        f.materialSlug !== verification.materialSlug
+      ) {
+        continue;
+      }
+      const row = verification.byName.get(f.name.toLowerCase());
+      if (!row) continue;
+      f.unitPriceAdder = row.unitPriceAdder;
+      f.costBand = row.costBand;
+      f.costIndex = row.costIndex;
+      f.verifiedStatus = row.verifiedStatus;
+      f.factoryComments = row.factoryComments;
+      applied += 1;
+    }
+  }
+  return applied;
+}
+
+function materialMeta(slug, refs) {
+  const base = template.materialTypes.find((m) => m.slug === slug) || {
+    slug,
+    label: slug,
+    enabled: true,
+    sortOrder: 99,
+  };
+  const ref = refs[slug] || {};
+  return {
+    ...base,
+    referencePiece:
+      ref.referencePiece ?? base.referencePiece ?? null,
+    referenceMoq: ref.referenceMoq ?? base.referenceMoq ?? null,
+  };
+}
+
+function writeCatalogExport(materials, allGraphics, allFinishes, compatRows, costBandsByMaterial) {
   const compatByFinish = new Map();
   for (const { finishId, graphicId } of compatRows) {
     const list = compatByFinish.get(finishId) ?? [];
     list.push(graphicId);
     compatByFinish.set(finishId, list);
+  }
+
+  const costBands = {};
+  for (const [slug, bands] of Object.entries(costBandsByMaterial)) {
+    costBands[slug] = bands.map((b) => ({
+      band: b.band,
+      fromEur: b.fromEur,
+      toEur: b.toEur,
+      sortOrder: b.sortOrder,
+    }));
   }
 
   const payload = {
@@ -201,6 +565,8 @@ function writeCatalogExport(materials, allGraphics, allFinishes, compatRows) {
       label: m.label,
       enabled: m.enabled ? 1 : 0,
       sortOrder: m.sortOrder,
+      referencePiece: m.referencePiece ?? null,
+      referenceMoq: m.referenceMoq ?? null,
     })),
     graphicApplicationTypes: allGraphics.map((g) => ({
       id: g.id,
@@ -210,6 +576,7 @@ function writeCatalogExport(materials, allGraphics, allFinishes, compatRows) {
       materialSlug: g.materialSlug,
       sortOrder: g.sortOrder,
     })),
+    costBands,
     finishes: allFinishes.map((f) => ({
       id: f.id,
       slug: f.slug,
@@ -220,13 +587,18 @@ function writeCatalogExport(materials, allGraphics, allFinishes, compatRows) {
       durabilityNotes: f.durabilityNotes,
       priceBand: f.priceBand,
       costTier: f.costTier,
+      costBand: f.costBand ?? null,
+      verifiedStatus: f.verifiedStatus ?? null,
+      factoryComments: f.factoryComments ?? null,
       finishProcess: f.finishProcess,
       processSteps: f.processSteps,
       description:
+        f.description ||
         [f.durabilityNotes, f.notes, f.processStepsRaw].filter(Boolean).join(" ").trim() ||
         null,
       hexColor: f.hexColor,
       compatibleGraphics: compatByFinish.get(f.id) ?? [],
+      // unit_price_adder and cost_index intentionally omitted (private)
     })),
   };
 
@@ -235,34 +607,7 @@ function writeCatalogExport(materials, allGraphics, allFinishes, compatRows) {
   fs.writeFileSync(CATALOG_PLAIN, json + "\n");
 }
 
-function run() {
-  const { inputSs, inputCgp } = parseArgs();
-
-  const imports = [];
-
-  if (fs.existsSync(inputSs)) {
-    const wb = XLSX.readFile(inputSs);
-    imports.push(importSheet(wb, template.stainlessSteelSheet, inputSs));
-    console.log(`Imported SS from ${inputSs}`);
-  } else {
-    console.warn(`SS workbook not found (skipped): ${inputSs}`);
-  }
-
-  if (fs.existsSync(inputCgp)) {
-    const wb = XLSX.readFile(inputCgp);
-    for (const sheetConfig of template.materialSheets) {
-      imports.push(importSheet(wb, sheetConfig, inputCgp));
-    }
-    console.log(`Imported Ceramic/Glass/Plastic from ${inputCgp}`);
-  } else {
-    console.warn(`CGP workbook not found (skipped): ${inputCgp}`);
-  }
-
-  if (!imports.length) {
-    console.error("No input workbooks found. Provide --input-ss and/or --input-cgp.");
-    process.exit(1);
-  }
-
+function writeSeed(imports, materials, costBandsByMaterial) {
   const allFinishes = imports.flatMap((i) => i.finishes);
   const allGraphics = imports.flatMap((i) => i.graphicApplicationTypes);
   const compatRows = [];
@@ -270,6 +615,7 @@ function run() {
   const lines = [
     "-- Generated by scripts/import-finish-library.mjs — do not edit by hand",
     `-- Finishes: ${allFinishes.length} (${imports.map((i) => `${i.materialSlug}:${i.finishes.length}`).join(", ")})`,
+    "-- Note: unit_price_adder / cost_index are private (seed/D1 only; not exported to catalog)",
     "",
     "INSERT OR IGNORE INTO profiles (id, email, full_name, team) VALUES",
     "  ('dev-pd-001', 'pd@corehome.internal', 'PD Demo User', 'PD'),",
@@ -278,14 +624,24 @@ function run() {
     "DELETE FROM finish_graphic_compat;",
     "DELETE FROM finishes WHERE template_id = 'finish_library_ak';",
     "DELETE FROM graphic_application_types;",
+    "DELETE FROM cost_bands;",
     "",
   ];
 
-  for (const m of template.materialTypes) {
+  for (const m of materials) {
     const id = `mat-${m.slug}`;
     lines.push(
-      `INSERT OR REPLACE INTO material_types (id, slug, label, enabled, sort_order) VALUES (${sqlString(id)}, ${sqlString(m.slug)}, ${sqlString(m.label)}, ${m.enabled ? 1 : 0}, ${m.sortOrder});`,
+      `INSERT OR REPLACE INTO material_types (id, slug, label, enabled, sort_order, reference_piece, reference_moq) VALUES (${sqlString(id)}, ${sqlString(m.slug)}, ${sqlString(m.label)}, ${m.enabled ? 1 : 0}, ${m.sortOrder}, ${sqlString(m.referencePiece)}, ${sqlNum(m.referenceMoq)});`,
     );
+  }
+  lines.push("");
+
+  for (const [slug, bands] of Object.entries(costBandsByMaterial)) {
+    for (const b of bands) {
+      lines.push(
+        `INSERT OR REPLACE INTO cost_bands (material_slug, band, from_eur, to_eur, sort_order) VALUES (${sqlString(slug)}, ${sqlString(b.band)}, ${sqlNum(b.fromEur)}, ${sqlNum(b.toEur)}, ${b.sortOrder ?? 0});`,
+      );
+    }
   }
   lines.push("");
 
@@ -299,12 +655,14 @@ function run() {
   for (const imp of imports) {
     for (const f of imp.finishes) {
       const desc =
+        f.description ||
         [f.durabilityNotes, f.notes, f.processStepsRaw]
           .filter(Boolean)
           .join(" ")
-          .trim() || null;
+          .trim() ||
+        null;
       lines.push(
-        `INSERT OR REPLACE INTO finishes (id, slug, material_slug, name, category, description, hex_color, durability_score, durability_notes, price_band, cost_tier, finish_process, process_steps, source_file, template_id) VALUES (${sqlString(f.id)}, ${sqlString(f.slug)}, ${sqlString(f.materialSlug)}, ${sqlString(f.name)}, ${sqlString(f.finishProcess || "finish")}, ${sqlString(desc)}, ${sqlString(f.hexColor)}, ${f.durabilityScore ?? "NULL"}, ${sqlString(f.durabilityNotes)}, ${sqlString(f.priceBand)}, ${f.costTier ?? "NULL"}, ${sqlString(f.finishProcess)}, ${f.processSteps ?? "NULL"}, ${sqlString(f.sourceFile)}, 'finish_library_ak');`,
+        `INSERT OR REPLACE INTO finishes (id, slug, material_slug, name, category, description, hex_color, durability_score, durability_notes, price_band, cost_tier, unit_price_adder, cost_band, cost_index, verified_status, factory_comments, finish_process, process_steps, source_file, template_id) VALUES (${sqlString(f.id)}, ${sqlString(f.slug)}, ${sqlString(f.materialSlug)}, ${sqlString(f.name)}, ${sqlString(f.finishProcess || "finish")}, ${sqlString(desc)}, ${sqlString(f.hexColor)}, ${sqlNum(f.durabilityScore)}, ${sqlString(f.durabilityNotes)}, ${sqlString(f.priceBand)}, ${sqlNum(f.costTier)}, ${sqlNum(f.unitPriceAdder)}, ${sqlString(f.costBand)}, ${sqlNum(f.costIndex)}, ${sqlString(f.verifiedStatus)}, ${sqlString(f.factoryComments)}, ${sqlString(f.finishProcess)}, ${sqlNum(f.processSteps)}, ${sqlString(f.sourceFile)}, 'finish_library_ak');`,
       );
       for (const g of imp.graphicApplicationTypes) {
         const compat = f.graphics[g.templateKey] ? 1 : 0;
@@ -322,12 +680,128 @@ function run() {
   }
 
   fs.writeFileSync(SEED_OUT, lines.join("\n") + "\n");
-  writeCatalogExport(template.materialTypes, allGraphics, allFinishes, compatRows);
+  return { allFinishes, allGraphics, compatRows };
+}
+
+function applyVerificationDefaultsJson(imports, costBandsState) {
+  const rel = template.defaultVerificationJson;
+  if (!rel) return 0;
+  const pathJson = path.join(ROOT, rel);
+  if (!fs.existsSync(pathJson)) return 0;
+  const data = JSON.parse(fs.readFileSync(pathJson, "utf8"));
+  const materialSlug = data.materialSlug || "ceramic";
+  if (data.referencePiece || data.referenceMoq) {
+    costBandsState.refs[materialSlug] = {
+      ...(costBandsState.refs[materialSlug] || {}),
+      referencePiece: data.referencePiece ?? null,
+      referenceMoq: data.referenceMoq ?? null,
+    };
+  }
+  if (Array.isArray(data.bands) && data.bands.length) {
+    costBandsState.byMaterial[materialSlug] = data.bands.map((b) => ({
+      materialSlug,
+      band: b.band,
+      fromEur: b.fromEur,
+      toEur: b.toEur ?? null,
+      sortOrder: b.sortOrder ?? 0,
+    }));
+  }
+  const byName = new Map();
+  for (const row of data.finishes || []) {
+    byName.set(String(row.name).toLowerCase(), {
+      materialSlug,
+      unitPriceAdder: row.unitPriceAdder ?? null,
+      costBand: row.costBand ?? null,
+      costIndex: row.costIndex ?? null,
+      verifiedStatus: row.verifiedStatus ?? null,
+      factoryComments: row.factoryComments ?? null,
+    });
+  }
+  const applied = applyVerification(imports, { byName, materialSlug });
+  console.log(`Applied verification defaults from ${rel} (${applied} finishes)`);
+  return applied;
+}
+
+function run() {
+  const { inputSs, inputCgp, inputVerify, fromCatalog } = parseArgs();
+  const costBandsState = loadCostBandsFromTemplate();
+
+  let imports = [];
+
+  if (fromCatalog || (!fs.existsSync(inputSs) && !fs.existsSync(inputCgp))) {
+    if (!fromCatalog) {
+      console.warn("Factory workbooks not found — falling back to --from-catalog");
+    }
+    imports = importFromCatalog();
+    console.log(`Loaded ${imports.reduce((n, i) => n + i.finishes.length, 0)} finishes from catalog`);
+  } else {
+    if (fs.existsSync(inputSs)) {
+      const wb = XLSX.readFile(inputSs);
+      imports.push(importSheet(wb, template.stainlessSteelSheet, inputSs));
+      console.log(`Imported SS from ${inputSs}`);
+    } else {
+      console.warn(`SS workbook not found (skipped): ${inputSs}`);
+    }
+
+    if (fs.existsSync(inputCgp)) {
+      const wb = XLSX.readFile(inputCgp);
+      for (const sheetConfig of template.materialSheets) {
+        imports.push(importSheet(wb, sheetConfig, inputCgp));
+      }
+      console.log(`Imported Ceramic/Glass/Plastic from ${inputCgp}`);
+    } else {
+      console.warn(`CGP workbook not found (skipped): ${inputCgp}`);
+    }
+  }
+
+  if (!imports.length) {
+    console.error("No finishes to import. Provide workbooks or use --from-catalog.");
+    process.exit(1);
+  }
+
+  let verificationApplied = 0;
+  if (inputVerify && fs.existsSync(inputVerify)) {
+    const wb = XLSX.readFile(inputVerify);
+    const verification = parseVerificationSheet(wb, inputVerify, costBandsState);
+    verificationApplied = applyVerification(imports, verification);
+    console.log(
+      `Applied factory verification to ${verificationApplied}/${verification.matched} rows from ${inputVerify}`,
+    );
+  } else {
+    if (inputVerify) {
+      console.warn(`Verification workbook not found (skipped): ${inputVerify}`);
+    }
+    verificationApplied = applyVerificationDefaultsJson(imports, costBandsState);
+  }
+
+  const materials = template.materialTypes.map((m) =>
+    materialMeta(m.slug, costBandsState.refs),
+  );
+
+  const { allFinishes, allGraphics, compatRows } = writeSeed(
+    imports,
+    materials,
+    costBandsState.byMaterial,
+  );
+  writeCatalogExport(
+    materials,
+    allGraphics,
+    allFinishes,
+    compatRows,
+    costBandsState.byMaterial,
+  );
+
+  const withBand = allFinishes.filter((f) => f.costBand).length;
+  const withEuro = allFinishes.filter((f) => f.unitPriceAdder != null).length;
 
   console.log(`Wrote ${allFinishes.length} finishes → ${SEED_OUT}`);
-  console.log(`Wrote catalog export → ${CATALOG_JSON}`);
+  console.log(
+    `Wrote catalog export → ${CATALOG_JSON} (${withBand} with costBand; euro private: ${withEuro} in seed only; verification rows applied: ${verificationApplied})`,
+  );
   for (const imp of imports) {
-    console.log(`  ${imp.materialSlug}: ${imp.finishes.length} finishes, ${imp.graphicApplicationTypes.length} graphic types`);
+    console.log(
+      `  ${imp.materialSlug}: ${imp.finishes.length} finishes, ${imp.graphicApplicationTypes.length} graphic types`,
+    );
   }
 }
 

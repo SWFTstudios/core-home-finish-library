@@ -1,0 +1,89 @@
+{
+  "materialSlug": "ceramic",
+  "referencePiece": "250 ml cup",
+  "referenceMoq": 1000,
+  "bands": [
+    { "band": "A", "fromEur": 0, "toEur": 2.99, "sortOrder": 1 },
+    { "band": "B", "fromEur": 3, "toEur": 4.99, "sortOrder": 2 },
+    { "band": "C", "fromEur": 5, "toEur": 6.99, "sortOrder": 3 },
+    { "band": "D", "fromEur": 7, "toEur": 8.99, "sortOrder": 4 },
+    { "band": "E", "fromEur": 9, "toEur": 11.99, "sortOrder": 5 },
+    { "band": "F", "fromEur": 12, "toEur": 15.99, "sortOrder": 6 },
+    { "band": "G", "fromEur": 16, "toEur": 20.99, "sortOrder": 7 },
+    { "band": "H", "fromEur": 21, "toEur": null, "sortOrder": 8 }
+  ],
+  "finishes": [
+    {
+      "name": "Pearlized",
+      "unitPriceAdder": 4,
+      "costIndex": 100,
+      "costBand": "B",
+      "verifiedStatus": null,
+      "factoryComments": null
+    },
+    {
+      "name": "Sand Clay",
+      "unitPriceAdder": 4,
+      "costIndex": 100,
+      "costBand": "B",
+      "verifiedStatus": null,
+      "factoryComments": null
+    },
+    {
+      "name": "Matte Reactive",
+      "unitPriceAdder": 6.5,
+      "costIndex": 163,
+      "costBand": "C",
+      "verifiedStatus": null,
+      "factoryComments": null
+    },
+    {
+      "name": "Two Color Mix",
+      "unitPriceAdder": 6.5,
+      "costIndex": 163,
+      "costBand": "C",
+      "verifiedStatus": null,
+      "factoryComments": null
+    },
+    {
+      "name": "Two Color Mix Reactive",
+      "unitPriceAdder": 9,
+      "costIndex": 225,
+      "costBand": "E",
+      "verifiedStatus": null,
+      "factoryComments": null
+    },
+    {
+      "name": "Shiny Reactive",
+      "unitPriceAdder": 6.5,
+      "costIndex": 163,
+      "costBand": "C",
+      "verifiedStatus": null,
+      "factoryComments": null
+    },
+    {
+      "name": "Ombre",
+      "unitPriceAdder": 6.5,
+      "costIndex": 163,
+      "costBand": "C",
+      "verifiedStatus": null,
+      "factoryComments": null
+    },
+    {
+      "name": "Matte Glaze",
+      "unitPriceAdder": 4,
+      "costIndex": 100,
+      "costBand": "B",
+      "verifiedStatus": null,
+      "factoryComments": null
+    },
+    {
+      "name": "Glossy Glaze",
+      "unitPriceAdder": 4,
+      "costIndex": 100,
+      "costBand": "B",
+      "verifiedStatus": null,
+      "factoryComments": null
+    }
+  ]
+}

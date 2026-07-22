@@ -59,7 +59,7 @@ erDiagram
     text id PK
     text slug UK
     int durability_score
-    text price_band
+    text cost_band
   }
   finish_graphic_compat {
     text finish_id FK
@@ -90,13 +90,31 @@ Factory capability rows — one per spreadsheet line on sheet `Library` (stainle
 | `name` | Finish Name |
 | `durability_score` | Durability Score |
 | `durability_notes` | Durability / Finish Notes |
-| `price_band` | Price (`$` … `$$$$$`) |
-| `cost_tier` | Derived from price band length |
+| `price_band` | Legacy Price (`$` … `$$$$$`) — kept for import compatibility; not shown in UI |
+| `cost_tier` | Legacy derived `$` length — kept for compatibility; not shown in UI |
+| `unit_price_adder` | Factory-verified euro adder (€/pc) — **private** (seed/D1 only; never in catalog/API) |
+| `cost_band` | Letter A–H derived from per-material euro thresholds |
+| `cost_index` | Optional relative index (stored privately; not displayed) |
+| `verified_status` | `yes` / `no` / `needs_review` from factory sheet |
+| `factory_comments` | Free-text factory notes |
 | `finish_process` | Finish Process |
 | `process_steps` | # of Steps (numeric when possible) |
 | `description` | Combined notes |
 | `hex_color` | Generated swatch placeholder |
 | `template_id` | `finish_library_ak` |
+
+### `cost_bands`
+
+Per-material threshold key (public ranges used by the UI legend):
+
+| Column | Purpose |
+|--------|---------|
+| `material_slug` | e.g. `ceramic` |
+| `band` | Letter `A`–`H` |
+| `from_eur` / `to_eur` | Inclusive euro range for the band (`to_eur` null = open-ended) |
+| `sort_order` | Display order |
+
+`material_types.reference_piece` and `reference_moq` store the agreed quote basis (e.g. 250 ml cup @ 1,000 pcs).
 
 ### `finish_graphic_compat`
 
