@@ -5,6 +5,8 @@
   "compatibility_date": "2025-03-07",
   "compatibility_flags": ["nodejs_compat"],
   "observability": { "enabled": true },
+  // Used by Cloudflare Pages (Git integration + `wrangler pages deploy`)
+  "pages_build_output_dir": "public",
   "assets": {
     "directory": "./public",
     "binding": "STATIC_ASSETS",

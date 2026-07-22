@@ -22,7 +22,8 @@
 
 - [x] GitHub secret `CLOUDFLARE_ACCOUNT_ID` (set via `gh` — May 2026)
 - [ ] GitHub secret `CLOUDFLARE_API_TOKEN` — create in [Cloudflare API tokens](https://dash.cloudflare.com/profile/api-tokens), then `gh secret set CLOUDFLARE_API_TOKEN -R SWFTstudios/core-home-finish-library`
-- [ ] Re-run **Deploy Finish Library (Pages)** workflow after both secrets exist
+  - Current token returns **Authentication error / Invalid access token** on Pages deploy (recreate with **Account → Cloudflare Pages → Edit**)
+- [ ] Re-run **Deploy Finish Library (Pages)** workflow after a valid token exists (needed for working PR preview URLs; Git-connected CF checks currently 404)
 - [ ] Create remote D1: `npm run db:create` → update `database_id` in `wrangler.jsonc`
 - [ ] Apply remote schema: `npm run db:migrate`
 - [ ] Create R2 bucket `render-portal-files` in Cloudflare
