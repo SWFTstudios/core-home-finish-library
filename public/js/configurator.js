@@ -511,7 +511,8 @@ function bindFinishWheel() {
 function catalogForMaterial(data, materialSlug) {
   const material = materialSlug ?? data.material ?? state.material;
   const finishes = (data.finishes ?? []).filter(
-    (f) => !f.materialSlug || f.materialSlug === material,
+    (f) =>
+      (!f.materialSlug || f.materialSlug === material) && f.availability !== "not_offered",
   );
   const graphicApplicationTypes = (data.graphicApplicationTypes ?? []).filter(
     (g) => !g.materialSlug || g.materialSlug === material,

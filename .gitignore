@@ -45,3 +45,6 @@ docs/*.xlsx
 *.local
 .turbo/
 .vercel/
+
+# Factory sheet text exports (same rule as the xlsx sources above)
+docs/factory/
