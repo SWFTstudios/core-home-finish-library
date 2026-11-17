@@ -1,6 +1,6 @@
 {
   "templateId": "finish_library_ak",
-  "templateVersion": 4,
+  "templateVersion": 5,
   "comment": "Header matching: a column matches when the normalized sheet header equals one of `headers`, or starts with one of `prefixes`. The header row is detected automatically (the row with a 'Finish Name' cell).",
   "columns": {
     "finishName": {
@@ -114,6 +114,61 @@
       "reviewStatus": "factory_confirmed"
     }
   ],
+  "factoryUpdates": {
+    "comment": "Factory answers that arrived by email rather than in a spreadsheet. Applied on top of the imported (or carried-over) sheet data on every import, so they survive re-imports until the factory sheet itself carries the same information. No USD prices here: this repository is public (the quoted figure stays in the factory email).",
+    "materials": {
+      "plastic": {
+        "quoteBasis": "24oz double-wall AS tumbler, MOQ 2,000 pcs",
+        "source": "Factory email, 22 Oct 2026: MOQ is 2,000 pcs, not 1,000"
+      }
+    },
+    "finishes": [
+      {
+        "materialSlug": "plastic",
+        "finishName": "High-Gloss",
+        "source": "Factory email, 22 Oct 2026",
+        "set": {
+          "costBand": "A",
+          "costNote": "No added cost: the gloss comes straight from the mould, with no extra surface finishing step."
+        }
+      },
+      {
+        "materialSlug": "plastic",
+        "finishName": "Dull/Textured",
+        "source": "Factory email, 22 Oct 2026",
+        "set": {
+          "costBand": "A",
+          "costNote": "No added cost: the texture comes straight from the mould, with no extra surface finishing step."
+        }
+      },
+      {
+        "materialSlug": "plastic",
+        "finishName": "Pearlescent",
+        "source": "Factory email, 28 Oct 2026",
+        "set": {
+          "costBand": "E",
+          "costNote": "Adds a spray-coating step on top of the moulded cup; factory quote received (24oz double-wall AS tumbler, MOQ 2,000 pcs)."
+        }
+      }
+    ],
+    "graphics": [
+      {
+        "materialSlug": "ceramic",
+        "templateKeys": [
+          "graphic.waterSlideDecal",
+          "graphic.preciousMetalLustre",
+          "graphic.digitalDirectPrint",
+          "graphic.sandblastEtch",
+          "graphic.raisedEnamel"
+        ],
+        "source": "Factory email, 23 Sep 2026",
+        "set": {
+          "availability": "not_offered",
+          "factoryNote": "Not offered by the current ceramic factory at the moment (not a finish incompatibility)."
+        }
+      }
+    ]
+  },
   "graphicApplicationTypes": {
     "stainless_steel": [
       {
