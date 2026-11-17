@@ -384,6 +384,17 @@ function openDetail(finish, triggerEl = null) {
     ["Cost", costDots(finish.costTier)],
     ["Price band", finish.priceBand || "—"],
   ];
+  if (finish.reviewStatus === "pending_factory_review") {
+    rows.push(["Status", "Pending factory review"]);
+  }
+  for (const [label, key] of [
+    ["Microwave safe", "microwaveSafe"],
+    ["Dishwasher safe", "dishwasherSafe"],
+    ["Graphic adhesion", "graphicAdhesion"],
+    ["Colour limits", "colourLimitation"],
+  ]) {
+    if (finish[key]) rows.push([label, finish[key]]);
+  }
 
   for (const [label, value] of rows) {
     const row = document.createElement("div");
@@ -463,7 +474,9 @@ async function loadCatalog() {
   state.catalog = data;
   state.materials = data.materials ?? [];
   state.graphicTypes = data.graphicApplicationTypes ?? [];
-  state.finishes = (data.finishes ?? []).map(normalizeFinish);
+  state.finishes = (data.finishes ?? [])
+    .filter((f) => f.availability !== "not_offered")
+    .map(normalizeFinish);
 
   const mat = state.materials.find((m) => m.slug === state.material);
   if (!mat || !materialEnabled(mat)) {

@@ -145,7 +145,7 @@ async function handleApi(
       `SELECT id, slug, material_slug AS materialSlug, name, category,
               durability_score AS durabilityScore, durability_notes AS durabilityNotes,
               price_band AS priceBand, cost_tier AS costTier, finish_process AS finishProcess,
-              process_steps AS processSteps, description, hex_color AS hexColor
+              process_steps AS processSteps, description, hex_color AS hexColor, extensions
        FROM finishes
        WHERE template_id = 'finish_library_ak' AND material_slug = ?
        ORDER BY name ASC`,
@@ -166,10 +166,19 @@ async function handleApi(
     }
 
     const finishes = (finishesResult.results ?? []).map((row) => {
-      const f = row as Record<string, unknown>;
+      const { extensions, ...f } = row as Record<string, unknown>;
       const id = String(f.id);
+      let details: Record<string, unknown> = {};
+      if (typeof extensions === "string" && extensions) {
+        try {
+          details = JSON.parse(extensions) as Record<string, unknown>;
+        } catch {
+          details = {};
+        }
+      }
       return {
         ...f,
+        ...details,
         compatibleGraphics: compatByFinish.get(id) ?? [],
       };
     });

@@ -1,15 +1,26 @@
 #!/usr/bin/env node
 /**
- * Import factory Finish Library xlsx → seed.sql + public/api/catalog.json
+ * Import factory Finish Library sheets → seed.sql + public/api/catalog.json
+ *
+ * Sources are listed in data/factory-library-template.json (`sources`). Each source
+ * is either an .xlsx workbook or a text export of one (".xlsx.txt": "## Sheet: <name>"
+ * sections with tab-separated rows). Source files are not committed (see .gitignore).
  *
  * Usage:
  *   node scripts/import-finish-library.mjs
- *   node scripts/import-finish-library.mjs --input-ss path/to/ss.xlsx --input-cgp path/to/cgp.xlsx
+ *   node scripts/import-finish-library.mjs --source ceramic=path/to/Ceramic.xlsx
+ *   node scripts/import-finish-library.mjs --include-usd-prices   # see note below
+ *
+ * USD unit prices from the factory are read but NOT written to the generated files
+ * unless --include-usd-prices is passed: public/api/catalog is served publicly and
+ * this repository is public. Cost bands (A–E) and $ bands are always written.
+ *
+ * If a source file is missing and the source has `carryOverIfMissing`, that
+ * material's finishes are carried over unchanged from the current catalog export.
  */
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import XLSX from "xlsx";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(__dirname, "..");
@@ -18,64 +29,59 @@ const SEED_OUT = path.join(ROOT, "seed.sql");
 const CATALOG_JSON = path.join(ROOT, "public", "api", "catalog.json");
 const CATALOG_PLAIN = path.join(ROOT, "public", "api", "catalog");
 
+/** Client names that must never appear in generated (public) output. */
+const BLOCKED_TERMS = [/starbucks/i];
+
 const template = JSON.parse(fs.readFileSync(TEMPLATE_PATH, "utf8"));
 
 function parseArgs() {
   const args = process.argv.slice(2);
-  let inputSs = path.join(ROOT, template.defaultInputSs);
-  let inputCgp = path.join(ROOT, template.defaultInputCgp);
+  const overrides = {};
+  let includeUsdPrices = false;
   for (let i = 0; i < args.length; i++) {
-    if (args[i] === "--input-ss" && args[i + 1]) inputSs = path.resolve(args[++i]);
-    else if (args[i] === "--input-cgp" && args[i + 1]) inputCgp = path.resolve(args[++i]);
-    else if (args[i] === "--input" && args[i + 1]) inputCgp = path.resolve(args[++i]);
+    if (args[i] === "--source" && args[i + 1]) {
+      const [slug, file] = args[++i].split("=");
+      overrides[slug] = path.resolve(file);
+    } else if (args[i] === "--include-usd-prices") {
+      includeUsdPrices = true;
+    }
   }
-  return { inputSs, inputCgp };
+  return { overrides, includeUsdPrices };
 }
 
-function normalizeHeader(cell) {
-  return String(cell ?? "")
+const normalizeHeader = (cell) =>
+  String(cell ?? "")
     .replace(/\r?\n/g, " ")
     .replace(/\s+/g, " ")
     .trim();
-}
 
-function buildHeaderMap(row) {
-  const map = {};
-  row.forEach((cell, index) => {
-    const key = normalizeHeader(cell);
-    if (key) map[key] = index;
-  });
-  return map;
-}
+const cellText = (cell) => {
+  if (cell === null || cell === undefined) return null;
+  const s = String(cell).replace(/\r?\n/g, " ").replace(/\s+/g, " ").trim();
+  return s === "" ? null : s;
+};
 
-function findColumnIndex(headerMap, columnDef) {
-  for (const h of columnDef.headers) {
-    const normalized = h.replace(/\r?\n/g, " ").replace(/\s+/g, " ").trim();
-    if (headerMap[normalized] !== undefined) return headerMap[normalized];
-    if (headerMap[h] !== undefined) return headerMap[h];
-  }
-  return -1;
+/** Placeholder values that mean "no data yet". */
+function isPlaceholder(value) {
+  const s = cellText(value);
+  if (!s) return true;
+  return /^(tbc\b.*|not offered|n\/a|#value!)$/i.test(s);
 }
 
 function slugify(name) {
   return String(name)
     .toLowerCase()
+    .normalize("NFKD")
+    .replace(/[̀-ͯ]/g, "")
     .replace(/[^a-z0-9]+/g, "-")
     .replace(/^-|-$/g, "")
     .slice(0, 72);
 }
 
-function priceToCostTier(price) {
-  if (!price) return null;
-  const s = String(price).trim();
-  return Math.min(5, Math.max(1, s.length));
-}
-
 function hashColor(name) {
   let h = 0;
   for (let i = 0; i < name.length; i++) h = (h * 31 + name.charCodeAt(i)) >>> 0;
-  const hue = h % 360;
-  return `hsl(${hue} 35% 55%)`;
+  return `hsl(${h % 360} 35% 55%)`;
 }
 
 function sqlString(value) {
@@ -86,186 +92,272 @@ function sqlString(value) {
 function boolVal(cell) {
   if (cell === true || cell === 1 || cell === "1") return true;
   const s = String(cell ?? "").trim().toLowerCase();
-  if (s === "true" || s === "yes" || s === "y" || s === "✓" || s === "✔") return true;
-  return false;
+  return ["true", "yes", "y", "✓", "✔"].includes(s);
 }
 
-function importSheet(wb, sheetConfig, sourceFile) {
-  const sheet = wb.Sheets[sheetConfig.sheetName];
-  if (!sheet) {
-    console.error(`Sheet "${sheetConfig.sheetName}" not found in ${sourceFile}`);
-    process.exit(1);
-  }
+/* ---------- Reading workbooks ---------- */
 
-  const rows = XLSX.utils.sheet_to_json(sheet, { header: 1, defval: null });
-  const headerMap = buildHeaderMap(rows[template.headerRow - 1]);
-
-  const colIndexes = {};
-  for (const [key, def] of Object.entries(sheetConfig.columns)) {
-    const idx = findColumnIndex(headerMap, def);
-    if (def.required && idx < 0) {
-      console.error(
-        `Missing required column "${key}" on sheet "${sheetConfig.sheetName}" in ${sourceFile}`,
-      );
-      process.exit(1);
+/** Parse a ".xlsx.txt" text export into { sheetName: rows[][] }. */
+function readTextExport(file) {
+  const sheets = {};
+  let current = null;
+  for (const line of fs.readFileSync(file, "utf8").split(/\r?\n/)) {
+    const m = line.match(/^## Sheet: (.+)$/);
+    if (m) {
+      current = m[1].trim();
+      sheets[current] = [];
+      continue;
     }
-    colIndexes[key] = idx;
+    if (current) sheets[current].push(line.split("\t"));
   }
+  return sheets;
+}
 
-  const graphicKeys = sheetConfig.graphicApplicationTypes.map((g) => g.templateKey);
-  const graphicIdByKey = {};
-  sheetConfig.graphicApplicationTypes.forEach((g, i) => {
-    const prefix = sheetConfig.materialSlug.replace(/_/g, "-");
-    graphicIdByKey[g.templateKey] = `gfx-${prefix}-${String(i + 1).padStart(3, "0")}`;
-  });
+async function readWorkbook(file) {
+  if (file.endsWith(".txt")) return readTextExport(file);
+  const { default: XLSX } = await import("xlsx");
+  const wb = XLSX.readFile(file);
+  const sheets = {};
+  for (const name of wb.SheetNames) {
+    sheets[name] = XLSX.utils.sheet_to_json(wb.Sheets[name], { header: 1, defval: null });
+  }
+  return sheets;
+}
+
+/* ---------- Column matching ---------- */
+
+function findColumn(headerRow, def) {
+  const headers = headerRow.map(normalizeHeader);
+  const lower = headers.map((h) => h.toLowerCase());
+  for (const h of def.headers ?? []) {
+    const i = lower.indexOf(normalizeHeader(h).toLowerCase());
+    if (i >= 0) return i;
+  }
+  for (const p of def.prefixes ?? []) {
+    const pre = normalizeHeader(p).toLowerCase();
+    const i = lower.findIndex((h) => h.startsWith(pre));
+    if (i >= 0) return i;
+  }
+  return -1;
+}
+
+function isHeaderRow(row) {
+  return row.some((c) => normalizeHeader(c).toLowerCase() === "finish name");
+}
+
+/** Factory sometimes packs a warning into the name, e.g. "Glitter (Not recommend — …)". */
+function splitName(raw) {
+  const m = raw.match(/^(.*?)\s*\((not recommend[^)]*)\)\s*$/i);
+  if (!m) return { name: raw, warning: null };
+  return { name: m[1].trim(), warning: m[2].trim().replace(/^not recommend\b/i, "Not recommended") };
+}
+
+const BAND_TIER = { A: 1, B: 2, C: 3, D: 4, E: 5 };
+
+function importSheet(rows, source, sourceFile) {
+  const materialSlug = source.materialSlug;
+  const gfxDefs = template.graphicApplicationTypes[materialSlug] ?? [];
+  const prefix = materialSlug.replace(/_/g, "-");
+  const graphicApplicationTypes = gfxDefs.map((g, i) => ({
+    id: `gfx-${prefix}-${String(i + 1).padStart(3, "0")}`,
+    templateKey: g.templateKey,
+    label: g.label,
+    uiLabel: g.uiLabel,
+    materialSlug,
+    sortOrder: g.sortOrder,
+  }));
 
   const finishes = [];
   const usedSlugs = new Map();
+  const unmapped = new Set();
+  let cols = null;
+  let gfxCols = null;
+  let availability = "offered";
+  let inTable = false;
 
-  for (let r = template.dataStartRow - 1; r < rows.length; r++) {
-    const row = rows[r];
-    if (!row) continue;
-    const name = row[colIndexes.finishName];
-    if (!name || !String(name).trim()) continue;
+  for (const row of rows) {
+    if (isHeaderRow(row)) {
+      cols = {};
+      for (const [key, def] of Object.entries(template.columns)) {
+        cols[key] = findColumn(row, def);
+        if (def.required && cols[key] < 0) {
+          throw new Error(`Missing "${key}" column on sheet "${source.sheetName}" in ${sourceFile}`);
+        }
+      }
+      gfxCols = gfxDefs.map((g) => findColumn(row, g));
+      gfxDefs.forEach((g, i) => {
+        if (gfxCols[i] < 0) unmapped.add(`graphic column "${g.label}" not found`);
+      });
+      inTable = true;
+      continue;
+    }
+    if (!inTable) continue;
 
+    const rawName = cellText(row[cols.finishName]);
+    if (!rawName) {
+      // End of a table. A "currently not available" marker starts a second table.
+      const marker = row.map(cellText).filter(Boolean).join(" ");
+      if (/not available/i.test(marker)) availability = "not_offered";
+      inTable = false;
+      continue;
+    }
+
+    const { name, warning } = splitName(rawName);
     let baseSlug = slugify(name);
     const count = usedSlugs.get(baseSlug) ?? 0;
-    if (count) baseSlug = `${baseSlug}-${count + 1}`;
     usedSlugs.set(baseSlug, count + 1);
+    if (count) baseSlug = `${baseSlug}-${count + 1}`;
+    const slug = materialSlug === "stainless_steel" ? baseSlug : `${materialSlug}-${baseSlug}`;
 
-    const materialSlug = sheetConfig.materialSlug;
-    const slug =
-      materialSlug === "stainless_steel" ? baseSlug : `${materialSlug}-${baseSlug}`;
+    const get = (key) => (cols[key] >= 0 ? row[cols[key]] : null);
+    const text = (key) => (isPlaceholder(get(key)) ? null : cellText(get(key)));
+
+    const scoreRaw = cellText(get("durabilityScore"));
+    const score = scoreRaw && /^\d+(\.\d+)?$/.test(scoreRaw) ? Number(scoreRaw) : null;
+    if (scoreRaw && score === null) unmapped.add(`${name}: durability "${scoreRaw}" is not a number`);
+
+    const stepsRaw = cellText(get("processSteps"));
+    const steps = stepsRaw && /^\d+$/.test(stepsRaw) ? Number(stepsRaw) : null;
+
+    const dollarBand = text("price");
+    const costBandRaw = text("costBand");
+    const costBand = costBandRaw && BAND_TIER[costBandRaw.toUpperCase()] ? costBandRaw.toUpperCase() : null;
+    const priceUsdRaw = cellText(get("priceUsd"));
+    const priceUsd = priceUsdRaw && !Number.isNaN(Number(priceUsdRaw)) ? Math.round(Number(priceUsdRaw) * 10000) / 10000 : null;
+
+    let priceBand = null;
+    let costTier = null;
+    if (dollarBand && /^\$+$/.test(dollarBand)) {
+      priceBand = dollarBand;
+      costTier = Math.min(5, dollarBand.length);
+    } else if (costBand) {
+      priceBand = `Band ${costBand}`;
+      costTier = BAND_TIER[costBand];
+    }
+
+    const rowAvailability =
+      availability === "not_offered" || /^not offered$/i.test(cellText(get("priceUsd")) ?? "")
+        ? "not_offered"
+        : "offered";
+
+    const notes = [warning ? `${warning}.` : null, text("notes")].filter(Boolean).join(" ") || null;
 
     const graphics = {};
-    for (const gk of graphicKeys) {
-      const idx = colIndexes[gk];
-      graphics[gk] = idx >= 0 ? boolVal(row[idx]) : false;
-    }
+    gfxDefs.forEach((g, i) => {
+      graphics[g.templateKey] = gfxCols[i] >= 0 ? boolVal(row[gfxCols[i]]) : false;
+    });
 
     finishes.push({
       id: `fin-${slug}`,
       slug,
       materialSlug,
-      name: String(name).replace(/\r?\n/g, " ").trim(),
-      durabilityScore: row[colIndexes.durabilityScore] ?? null,
-      durabilityNotes: row[colIndexes.durabilityNotes] ?? null,
-      priceBand: row[colIndexes.price] ?? null,
-      costTier: priceToCostTier(row[colIndexes.price]),
-      finishProcess: row[colIndexes.finishProcess] ?? null,
-      processSteps: (() => {
-        const v = row[colIndexes.processSteps];
-        if (v === null || v === undefined || v === "") return null;
-        if (typeof v === "number" && !Number.isNaN(v)) return v;
-        const n = Number(v);
-        return Number.isFinite(n) ? n : null;
-      })(),
-      processStepsRaw:
-        row[colIndexes.processSteps] != null &&
-        typeof row[colIndexes.processSteps] !== "number"
-          ? String(row[colIndexes.processSteps])
-          : null,
-      notes: row[colIndexes.notes] ?? null,
+      name,
+      durabilityScore: score,
+      durabilityNotes: text("durabilityNotes"),
+      priceBand,
+      costTier,
+      finishProcess: text("finishProcess"),
+      processSteps: steps,
+      processStepsRaw: stepsRaw && steps === null && !isPlaceholder(stepsRaw) ? `Number of steps: ${stepsRaw.toLowerCase()}.` : null,
+      notes,
       hexColor: hashColor(`${materialSlug}-${name}`),
       graphics,
       sourceFile: path.basename(sourceFile),
+      details: {
+        availability: rowAvailability,
+        reviewStatus: source.reviewStatus ?? null,
+        costBand,
+        priceUsd,
+        graphicAdhesion: text("graphicAdhesion"),
+        microwaveSafe: text("microwaveSafe"),
+        dishwasherSafe: text("dishwasherSafe"),
+        colourLimitation: text("colourLimitation"),
+        printingLimitations: text("printingLimitations"),
+        matteGlossyOk: text("matteGlossyOk"),
+      },
     });
   }
 
-  return {
-    materialSlug: sheetConfig.materialSlug,
-    graphicApplicationTypes: sheetConfig.graphicApplicationTypes.map((g) => ({
-      ...g,
-      id: graphicIdByKey[g.templateKey],
-      materialSlug: sheetConfig.materialSlug,
-    })),
-    graphicIdByKey,
-    finishes,
-  };
+  if (!cols) throw new Error(`No "Finish Name" header row on sheet "${source.sheetName}" in ${sourceFile}`);
+
+  const graphicIdByKey = Object.fromEntries(graphicApplicationTypes.map((g) => [g.templateKey, g.id]));
+  return { materialSlug, graphicApplicationTypes, graphicIdByKey, finishes, unmapped: [...unmapped] };
 }
 
-function writeCatalogExport(materials, allGraphics, allFinishes, compatRows) {
-  const compatByFinish = new Map();
-  for (const { finishId, graphicId } of compatRows) {
-    const list = compatByFinish.get(finishId) ?? [];
-    list.push(graphicId);
-    compatByFinish.set(finishId, list);
-  }
-
-  const payload = {
-    templateId: template.templateId,
-    material: "stainless_steel",
-    materials: materials.map((m) => ({
-      id: `mat-${m.slug}`,
-      slug: m.slug,
-      label: m.label,
-      enabled: m.enabled ? 1 : 0,
-      sortOrder: m.sortOrder,
-    })),
-    graphicApplicationTypes: allGraphics.map((g) => ({
-      id: g.id,
-      templateKey: g.templateKey,
-      label: g.label,
-      uiLabel: g.uiLabel,
-      materialSlug: g.materialSlug,
-      sortOrder: g.sortOrder,
-    })),
-    finishes: allFinishes.map((f) => ({
-      id: f.id,
-      slug: f.slug,
-      materialSlug: f.materialSlug,
-      name: f.name,
-      category: f.finishProcess || "finish",
-      durabilityScore: f.durabilityScore,
-      durabilityNotes: f.durabilityNotes,
-      priceBand: f.priceBand,
-      costTier: f.costTier,
-      finishProcess: f.finishProcess,
-      processSteps: f.processSteps,
-      description:
-        [f.durabilityNotes, f.notes, f.processStepsRaw].filter(Boolean).join(" ").trim() ||
-        null,
-      hexColor: f.hexColor,
-      compatibleGraphics: compatByFinish.get(f.id) ?? [],
-    })),
-  };
-
-  const json = JSON.stringify(payload, null, 2);
-  fs.writeFileSync(CATALOG_JSON, json + "\n");
-  fs.writeFileSync(CATALOG_PLAIN, json + "\n");
+/** Rebuild one material from the current catalog export (used when its source is missing). */
+function carryOver(source) {
+  const current = JSON.parse(fs.readFileSync(CATALOG_JSON, "utf8"));
+  const graphicApplicationTypes = current.graphicApplicationTypes.filter(
+    (g) => g.materialSlug === source.materialSlug,
+  );
+  const graphicIdByKey = Object.fromEntries(graphicApplicationTypes.map((g) => [g.templateKey, g.id]));
+  const finishes = current.finishes
+    .filter((f) => f.materialSlug === source.materialSlug)
+    .map((f) => ({
+      ...f,
+      descriptionOverride: f.description ?? null,
+      sourceFile: path.basename(source.file),
+      graphics: Object.fromEntries(
+        graphicApplicationTypes.map((g) => [g.templateKey, (f.compatibleGraphics ?? []).includes(g.id)]),
+      ),
+      details: {
+        availability: f.availability ?? "offered",
+        reviewStatus: f.reviewStatus ?? source.reviewStatus ?? null,
+        costBand: f.costBand ?? null,
+        priceUsd: null,
+        graphicAdhesion: f.graphicAdhesion ?? null,
+        microwaveSafe: f.microwaveSafe ?? null,
+        dishwasherSafe: f.dishwasherSafe ?? null,
+        colourLimitation: f.colourLimitation ?? null,
+        printingLimitations: f.printingLimitations ?? null,
+        matteGlossyOk: f.matteGlossyOk ?? null,
+      },
+    }));
+  return { materialSlug: source.materialSlug, graphicApplicationTypes, graphicIdByKey, finishes, unmapped: [] };
 }
 
-function run() {
-  const { inputSs, inputCgp } = parseArgs();
+function joinSentences(parts) {
+  const list = parts.filter(Boolean).map((p) => String(p).trim()).filter(Boolean);
+  if (list.length < 2) return list[0] ?? null;
+  return list.map((p) => (/[.!?)]$/.test(p) ? p : `${p}.`)).join(" ");
+}
 
+const describe = (f) =>
+  f.descriptionOverride !== undefined
+    ? f.descriptionOverride
+    : joinSentences([f.durabilityNotes, f.notes, f.processStepsRaw]);
+
+function publicDetails(f, includeUsdPrices) {
+  const d = { ...f.details };
+  if (!includeUsdPrices) delete d.priceUsd;
+  return d;
+}
+
+/* ---------- Main ---------- */
+
+async function run() {
+  const { overrides, includeUsdPrices } = parseArgs();
   const imports = [];
 
-  if (fs.existsSync(inputSs)) {
-    const wb = XLSX.readFile(inputSs);
-    imports.push(importSheet(wb, template.stainlessSteelSheet, inputSs));
-    console.log(`Imported SS from ${inputSs}`);
-  } else {
-    console.warn(`SS workbook not found (skipped): ${inputSs}`);
-  }
-
-  if (fs.existsSync(inputCgp)) {
-    const wb = XLSX.readFile(inputCgp);
-    for (const sheetConfig of template.materialSheets) {
-      imports.push(importSheet(wb, sheetConfig, inputCgp));
+  for (const source of template.sources) {
+    const file = overrides[source.materialSlug] ?? path.join(ROOT, source.file);
+    if (fs.existsSync(file)) {
+      const sheets = await readWorkbook(file);
+      const rows = sheets[source.sheetName];
+      if (!rows) throw new Error(`Sheet "${source.sheetName}" not found in ${file}`);
+      imports.push(importSheet(rows, source, file));
+      console.log(`Imported ${source.materialSlug} from ${path.relative(ROOT, file)}`);
+    } else if (source.carryOverIfMissing) {
+      imports.push(carryOver(source));
+      console.warn(`${source.materialSlug}: source not found, carried over from current catalog`);
+    } else {
+      throw new Error(`${source.materialSlug}: source not found: ${file}`);
     }
-    console.log(`Imported Ceramic/Glass/Plastic from ${inputCgp}`);
-  } else {
-    console.warn(`CGP workbook not found (skipped): ${inputCgp}`);
-  }
-
-  if (!imports.length) {
-    console.error("No input workbooks found. Provide --input-ss and/or --input-cgp.");
-    process.exit(1);
   }
 
   const allFinishes = imports.flatMap((i) => i.finishes);
   const allGraphics = imports.flatMap((i) => i.graphicApplicationTypes);
-  const compatRows = [];
+  const compatByFinish = new Map();
 
   const lines = [
     "-- Generated by scripts/import-finish-library.mjs — do not edit by hand",
@@ -282,9 +374,8 @@ function run() {
   ];
 
   for (const m of template.materialTypes) {
-    const id = `mat-${m.slug}`;
     lines.push(
-      `INSERT OR REPLACE INTO material_types (id, slug, label, enabled, sort_order) VALUES (${sqlString(id)}, ${sqlString(m.slug)}, ${sqlString(m.label)}, ${m.enabled ? 1 : 0}, ${m.sortOrder});`,
+      `INSERT OR REPLACE INTO material_types (id, slug, label, enabled, sort_order) VALUES (${sqlString(`mat-${m.slug}`)}, ${sqlString(m.slug)}, ${sqlString(m.label)}, ${m.enabled ? 1 : 0}, ${m.sortOrder});`,
     );
   }
   lines.push("");
@@ -298,37 +389,77 @@ function run() {
 
   for (const imp of imports) {
     for (const f of imp.finishes) {
-      const desc =
-        [f.durabilityNotes, f.notes, f.processStepsRaw]
-          .filter(Boolean)
-          .join(" ")
-          .trim() || null;
       lines.push(
-        `INSERT OR REPLACE INTO finishes (id, slug, material_slug, name, category, description, hex_color, durability_score, durability_notes, price_band, cost_tier, finish_process, process_steps, source_file, template_id) VALUES (${sqlString(f.id)}, ${sqlString(f.slug)}, ${sqlString(f.materialSlug)}, ${sqlString(f.name)}, ${sqlString(f.finishProcess || "finish")}, ${sqlString(desc)}, ${sqlString(f.hexColor)}, ${f.durabilityScore ?? "NULL"}, ${sqlString(f.durabilityNotes)}, ${sqlString(f.priceBand)}, ${f.costTier ?? "NULL"}, ${sqlString(f.finishProcess)}, ${f.processSteps ?? "NULL"}, ${sqlString(f.sourceFile)}, 'finish_library_ak');`,
+        `INSERT OR REPLACE INTO finishes (id, slug, material_slug, name, category, description, hex_color, durability_score, durability_notes, price_band, cost_tier, finish_process, process_steps, extensions, source_file, template_id) VALUES (${sqlString(f.id)}, ${sqlString(f.slug)}, ${sqlString(f.materialSlug)}, ${sqlString(f.name)}, ${sqlString(f.finishProcess || "finish")}, ${sqlString(describe(f))}, ${sqlString(f.hexColor)}, ${f.durabilityScore ?? "NULL"}, ${sqlString(f.durabilityNotes)}, ${sqlString(f.priceBand)}, ${f.costTier ?? "NULL"}, ${sqlString(f.finishProcess)}, ${f.processSteps ?? "NULL"}, ${sqlString(JSON.stringify(publicDetails(f, includeUsdPrices)))}, ${sqlString(f.sourceFile)}, 'finish_library_ak');`,
       );
       for (const g of imp.graphicApplicationTypes) {
         const compat = f.graphics[g.templateKey] ? 1 : 0;
         lines.push(
-          `INSERT OR REPLACE INTO finish_graphic_compat (finish_id, graphic_id, compatible) VALUES (${sqlString(f.id)}, ${sqlString(imp.graphicIdByKey[g.templateKey])}, ${compat});`,
+          `INSERT OR REPLACE INTO finish_graphic_compat (finish_id, graphic_id, compatible) VALUES (${sqlString(f.id)}, ${sqlString(g.id)}, ${compat});`,
         );
         if (compat) {
-          compatRows.push({
-            finishId: f.id,
-            graphicId: imp.graphicIdByKey[g.templateKey],
-          });
+          const list = compatByFinish.get(f.id) ?? [];
+          list.push(g.id);
+          compatByFinish.set(f.id, list);
         }
       }
     }
   }
 
-  fs.writeFileSync(SEED_OUT, lines.join("\n") + "\n");
-  writeCatalogExport(template.materialTypes, allGraphics, allFinishes, compatRows);
+  const payload = {
+    templateId: template.templateId,
+    material: "stainless_steel",
+    materials: template.materialTypes.map((m) => ({
+      id: `mat-${m.slug}`,
+      slug: m.slug,
+      label: m.label,
+      enabled: m.enabled ? 1 : 0,
+      sortOrder: m.sortOrder,
+    })),
+    graphicApplicationTypes: allGraphics,
+    finishes: allFinishes.map((f) => ({
+      id: f.id,
+      slug: f.slug,
+      materialSlug: f.materialSlug,
+      name: f.name,
+      category: f.finishProcess || "finish",
+      durabilityScore: f.durabilityScore,
+      durabilityNotes: f.durabilityNotes,
+      priceBand: f.priceBand,
+      costTier: f.costTier,
+      finishProcess: f.finishProcess,
+      processSteps: f.processSteps,
+      description: describe(f),
+      hexColor: f.hexColor,
+      ...publicDetails(f, includeUsdPrices),
+      compatibleGraphics: compatByFinish.get(f.id) ?? [],
+    })),
+  };
 
-  console.log(`Wrote ${allFinishes.length} finishes → ${SEED_OUT}`);
-  console.log(`Wrote catalog export → ${CATALOG_JSON}`);
+  const seedText = lines.join("\n") + "\n";
+  const catalogText = JSON.stringify(payload, null, 2) + "\n";
+  for (const re of BLOCKED_TERMS) {
+    if (re.test(seedText) || re.test(catalogText)) {
+      throw new Error(`Generated output contains a blocked client term (${re}); fix the source mapping before committing.`);
+    }
+  }
+
+  fs.writeFileSync(SEED_OUT, seedText);
+  fs.writeFileSync(CATALOG_JSON, catalogText);
+  fs.writeFileSync(CATALOG_PLAIN, catalogText);
+
+  console.log(`Wrote ${allFinishes.length} finishes → ${path.relative(ROOT, SEED_OUT)}, ${path.relative(ROOT, CATALOG_JSON)}`);
+  console.log(`USD unit prices: ${includeUsdPrices ? "included" : "omitted (pass --include-usd-prices to include)"}`);
   for (const imp of imports) {
-    console.log(`  ${imp.materialSlug}: ${imp.finishes.length} finishes, ${imp.graphicApplicationTypes.length} graphic types`);
+    const off = imp.finishes.filter((f) => f.details.availability === "not_offered").length;
+    console.log(
+      `  ${imp.materialSlug}: ${imp.finishes.length} finishes (${off} not offered), ${imp.graphicApplicationTypes.length} graphic types`,
+    );
+    for (const u of imp.unmapped) console.log(`    note: ${u}`);
   }
 }
 
-run();
+run().catch((err) => {
+  console.error(err.message);
+  process.exit(1);
+});
