@@ -9,7 +9,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import { renderUrlFor, renderSqlLines } from "./lib/finish-renders.mjs";
+import { imageFieldsFor, renderSqlLines } from "./lib/finish-renders.mjs";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const CATALOG_JSON = path.join(ROOT, "public", "api", "catalog.json");
@@ -19,15 +19,15 @@ const MARKER = "-- Finish renders (public/assets/renders)";
 
 const catalog = JSON.parse(fs.readFileSync(CATALOG_JSON, "utf8"));
 catalog.finishes = catalog.finishes.map((f) => {
-  const { imageUrl: _old, ...rest } = f;
-  const imageUrl = renderUrlFor(ROOT, f.materialSlug, f.slug);
-  if (!imageUrl) return rest;
+  const { imageUrl: _a, imageSource: _b, photoSource: _c, renderUrl: _d, ...rest } = f;
+  const image = imageFieldsFor(ROOT, f.materialSlug, f.slug);
+  if (!image.imageUrl) return rest;
   const out = {};
   for (const [k, v] of Object.entries(rest)) {
     out[k] = v;
-    if (k === "hexColor") out.imageUrl = imageUrl;
+    if (k === "hexColor") Object.assign(out, image);
   }
-  if (!("imageUrl" in out)) out.imageUrl = imageUrl;
+  if (!("imageUrl" in out)) Object.assign(out, image);
   return out;
 });
 const catalogText = JSON.stringify(catalog, null, 2) + "\n";
@@ -41,4 +41,5 @@ seed = seed.replace(/\n*$/, "\n\n") + renderSqlLines(catalog.finishes).join("\n"
 fs.writeFileSync(SEED_OUT, seed.replace(/\n*$/, "\n"));
 
 const n = catalog.finishes.filter((f) => f.imageUrl).length;
-console.log(`Attached renders to ${n} of ${catalog.finishes.length} finishes`);
+const photos = catalog.finishes.filter((f) => f.imageSource === "factory_photo").length;
+console.log(`Attached images to ${n} of ${catalog.finishes.length} finishes (${photos} factory photos, ${n - photos} AI renders)`);

@@ -405,6 +405,7 @@ function buildWheelItems() {
     swatch.className = "finish-swatch";
     if (finish.imageUrl) {
       swatch.classList.add("has-render");
+      if (finish.imageSource === "factory_photo") swatch.classList.add("is-photo");
       const img = document.createElement("img");
       img.src = finish.imageUrl;
       img.alt = "";

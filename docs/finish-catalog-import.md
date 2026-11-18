@@ -101,3 +101,16 @@ curl -s "http://localhost:8787/api/catalog?material=ceramic" | head -c 500
 ```
 
 Expect 14 ceramic finishes and 11 `graphicApplicationTypes`; `?material=stainless_steel` returns 114 finishes.
+
+## Finish images: factory photos first, AI renders as fallback
+
+Each finish shows the best image available:
+
+1. **Factory photo.** Real swatch photos extracted from the factory sheets, stored in the R2 bucket `core-home-finish-photos` at `swatches/<material>/<slug>.webp` and served from its public r2.dev URL. [`data/factory-photos.json`](../data/factory-photos.json) lists which finishes have one and which sheet it came from. The photos themselves are **not** in this public repo.
+2. **AI render.** `public/assets/renders/<material>/<slug>.png`, used when there is no factory photo.
+
+The catalog records which one a finish uses (`imageSource`: `factory_photo` or `ai_render`; `photoSource`; `renderUrl` for the AI render). The library shows it under "Image", and AI renders are labelled "AI sample render, not a real sample".
+
+Current coverage: 125 factory photos (ceramic 13, stainless 109, plastic 3). Glass has none because no factory sheet came back. Six photos are held back because they show third-party or customer branding (`heldBack` in the manifest); those finishes keep their AI render.
+
+To add or replace photos: extract the images from the sheet, upload them to the bucket under the finish slug, add the slug to the manifest, then run `npm run renders:attach`.
