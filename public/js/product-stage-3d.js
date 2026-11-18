@@ -8,23 +8,12 @@ import { RoomEnvironment } from "three/addons/environments/RoomEnvironment.js";
 import { buildProduct } from "./product-models-3d.js";
 import { finishRenderSpec, renderDataFor } from "./finish-render-spec.js";
 import { createFinishMaterial, disposeFinishMaterial } from "./finish-material-3d.js";
+import { loadRenderData } from "./finish-render-data.js";
+
+export { loadRenderData };
 
 /** Default view direction (front-right, slightly above), matching the old cube framing. */
 const VIEW_DIR = new THREE.Vector3(0.62, 0.3, 0.72).normalize();
-
-let renderDataPromise = null;
-
-/** Sampled colours + hand overrides; both optional, the preview falls back to name rules. */
-export function loadRenderData() {
-  renderDataPromise ??= Promise.all(
-    ["/data/finish-render.json", "/data/finish-render-overrides.json"].map((url) =>
-      fetch(url)
-        .then((r) => (r.ok ? r.json() : null))
-        .catch(() => null),
-    ),
-  ).then(([renderData, overrides]) => ({ renderData, overrides }));
-  return renderDataPromise;
-}
 
 /** Match `--lumina-background` in lumina-finish.css */
 function themeBackground(theme) {
@@ -33,19 +22,27 @@ function themeBackground(theme) {
 
 /**
  * @param {HTMLElement} container
- * @param {{ interactive?: boolean, preserveDrawingBuffer?: boolean, fit?: number, lift?: number }} [options]
+ * @param {{ interactive?: boolean, preserveDrawingBuffer?: boolean, fit?: number, lift?: number, alpha?: boolean, showEnvironment?: boolean }} [options]
  */
 export function createProductStage(
   container,
-  { interactive = true, preserveDrawingBuffer = false, fit = 1.25, lift = 0 } = {},
+  {
+    interactive = true,
+    preserveDrawingBuffer = false,
+    fit = 1.25,
+    lift = 0,
+    alpha = false,
+    showEnvironment = true,
+  } = {},
 ) {
-  const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: false, preserveDrawingBuffer });
+  const renderer = new THREE.WebGLRenderer({ antialias: true, alpha, preserveDrawingBuffer });
   renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
   renderer.outputColorSpace = THREE.SRGBColorSpace;
   renderer.toneMapping = THREE.ACESFilmicToneMapping;
   renderer.toneMappingExposure = 1.0;
-  renderer.shadowMap.enabled = true;
+  renderer.shadowMap.enabled = showEnvironment;
   renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+  if (alpha) renderer.setClearColor(0x000000, 0);
   container.appendChild(renderer.domElement);
 
   const scene = new THREE.Scene();
@@ -58,7 +55,7 @@ export function createProductStage(
 
   const keyLight = new THREE.DirectionalLight(0xffffff, 1.4);
   keyLight.position.set(2.5, 6, 3.5);
-  keyLight.castShadow = true;
+  keyLight.castShadow = showEnvironment;
   keyLight.shadow.mapSize.set(2048, 2048);
   keyLight.shadow.bias = -0.0002;
   keyLight.shadow.normalBias = 0.01;
@@ -71,12 +68,14 @@ export function createProductStage(
   floor.rotation.x = -Math.PI / 2;
   floor.position.y = -0.1;
   floor.receiveShadow = true;
+  floor.visible = showEnvironment;
   scene.add(floor);
 
   const platformMat = new THREE.MeshStandardMaterial({ color: 0xffffff, roughness: 0.82, metalness: 0.04 });
   const platform = new THREE.Mesh(new THREE.CylinderGeometry(1.4, 1.45, 0.1, 96), platformMat);
   platform.position.y = -0.05;
   platform.receiveShadow = true;
+  platform.visible = showEnvironment;
   scene.add(platform);
 
   let grid = null;
@@ -96,9 +95,14 @@ export function createProductStage(
   function setTheme(next) {
     theme = next === "dark" ? "dark" : "light";
     const isDark = theme === "dark";
-    const bg = new THREE.Color(themeBackground(theme));
-    scene.background = bg;
-    scene.fog = new THREE.Fog(bg, isDark ? 6 : 7, isDark ? 22 : 24);
+    if (alpha || !showEnvironment) {
+      scene.background = null;
+      scene.fog = null;
+    } else {
+      const bg = new THREE.Color(themeBackground(theme));
+      scene.background = bg;
+      scene.fog = new THREE.Fog(bg, isDark ? 6 : 7, isDark ? 22 : 24);
+    }
     floorMat.color.setHex(isDark ? 0x081c2e : 0xf4f6fa);
     platformMat.color.setHex(isDark ? 0x1c2b3c : 0xffffff);
     keyLight.intensity = isDark ? 1.2 : 1.4;
@@ -106,15 +110,34 @@ export function createProductStage(
       scene.remove(grid);
       grid.geometry.dispose();
       [grid.material].flat().forEach((m) => m.dispose());
+      grid = null;
     }
-    grid = new THREE.GridHelper(24, 48, isDark ? 0x3d6a8a : 0xd0d8e4, isDark ? 0x1e3348 : 0xe2e8f0);
-    grid.position.y = -0.095;
-    for (const m of [grid.material].flat()) {
-      m.transparent = true;
-      m.opacity = isDark ? 0.22 : 0.18;
-      m.depthWrite = false;
+    if (showEnvironment) {
+      grid = new THREE.GridHelper(24, 48, isDark ? 0x3d6a8a : 0xd0d8e4, isDark ? 0x1e3348 : 0xe2e8f0);
+      grid.position.y = -0.095;
+      for (const m of [grid.material].flat()) {
+        m.transparent = true;
+        m.opacity = isDark ? 0.22 : 0.18;
+        m.depthWrite = false;
+      }
+      scene.add(grid);
     }
-    scene.add(grid);
+  }
+
+  /** Front / back camera for shell exports (Y-up, looking at product centre). */
+  function setView(side = "front") {
+    if (!product) return;
+    const box = new THREE.Box3().setFromObject(product.group);
+    const size = box.getSize(new THREE.Vector3());
+    const center = box.getCenter(new THREE.Vector3());
+    const dist = Math.max(size.y * 1.05, Math.max(size.x, size.z) * 1.4) / (2 * Math.tan(THREE.MathUtils.degToRad(camera.fov / 2)));
+    const dir = side === "back" ? new THREE.Vector3(0, 0.08, -1) : new THREE.Vector3(0, 0.08, 1);
+    camera.position.copy(center).addScaledVector(dir.normalize(), dist);
+    camera.lookAt(center);
+    if (controls) {
+      controls.target.copy(center);
+      controls.update();
+    }
   }
 
   /**
@@ -255,6 +278,7 @@ export function createProductStage(
     setProduct,
     setFinishes,
     setTheme,
+    setView,
     resize,
     render,
     zoom,

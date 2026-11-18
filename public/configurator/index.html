@@ -20,8 +20,9 @@
     <div class="viewport-root">
       <div class="viewport-stage" aria-label="Product preview">
         <div class="viewport-grid" aria-hidden="true"></div>
-        <div class="preview-stage">
+        <div class="preview-stage" id="preview-stage">
           <div id="preview-3d" class="preview-3d" role="img" aria-label="3D product preview"></div>
+          <div id="preview-2d" class="preview-2d" role="img" aria-label="2D product preview" hidden></div>
         </div>
       </div>
 
@@ -36,6 +37,11 @@
           <button type="button" class="preview-zone-btn" data-zone="body" role="radio" aria-checked="true">Body</button>
           <button type="button" class="preview-zone-btn" data-zone="logo" role="radio" aria-checked="false">Logo</button>
           <button type="button" id="preview-zone-reset" class="preview-zone-reset" hidden>Match body</button>
+        </div>
+
+        <div class="preview-view-toggle" role="radiogroup" aria-label="Preview mode">
+          <button type="button" class="preview-view-btn" data-view="3d" role="radio" aria-checked="true">3D</button>
+          <button type="button" class="preview-view-btn" data-view="2d" role="radio" aria-checked="false">2D</button>
         </div>
 
         <div class="preview-zoom" aria-label="Preview camera controls">

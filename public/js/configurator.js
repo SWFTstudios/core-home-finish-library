@@ -1,7 +1,12 @@
 import { getStoredTheme, setLuminaTheme } from "./components/core-home-navbar.js";
-// The 3D preview is loaded lazily: if Three.js cannot load (blocked network, old
-// browser, no WebGL), the finish library itself must still work.
-let preview3d = null;
+import {
+  initPreview,
+  updatePreview,
+  zoomPreview,
+  setPreviewAutoRotate,
+  setPreviewView,
+  getPreviewView,
+} from "./configurator-preview.js";
 import {
   browseFinishes,
   COLOR_GROUPS,
@@ -56,7 +61,7 @@ const state = {
   finishIndex: 0,
   finishId: null,
   graphicId: null,
-  preview3dReady: false,
+  previewReady: false,
   previewAutoRotate: false,
   // The finish wheel edits one product zone at a time; the logo follows the body until picked.
   activeZone: "body",
@@ -125,12 +130,12 @@ function syncPreview() {
   const current = selectedFinish();
   recordZoneFinish(current);
   updateZoneControls();
-  if (!state.preview3dReady) return;
+  if (!state.previewReady) return;
   const body = state.activeZone === "body" ? current : finishById(state.bodyFinishId) ?? current;
-  preview3d?.updatePreview3d({
+  updatePreview({
     materialSlug: state.material,
     finish: body,
-    logoFinish: finishById(state.logoFinishId),
+    logoFinish: getPreviewView() === "3d" ? finishById(state.logoFinishId) : null,
     graphic: selectedGraphic(current),
     theme: state.luminaTheme,
   });
@@ -168,24 +173,22 @@ function bindZoneToggle() {
   });
 }
 
-async function ensurePreview3d() {
-  const el = document.getElementById("preview-3d");
-  if (!el || state.preview3dReady) return;
+async function ensurePreview() {
+  const el = document.getElementById("preview-stage");
+  if (!el || state.previewReady) return;
   try {
-    preview3d ??= await import("./configurator-preview-3d.js");
+    const ok = await initPreview(el, {
+      onReady: () => {
+        state.previewReady = true;
+        syncPreview();
+      },
+      onError: (msg) => setBanner(msg, "error"),
+    });
+    if (ok === false) state.previewReady = false;
   } catch (err) {
-    console.error("3D preview unavailable", err);
-    setBanner("3D preview could not load. Finish details still work.", "error");
-    return;
+    console.error("Preview unavailable", err);
+    setBanner("Preview could not load. Finish details still work.", "error");
   }
-  const ok = preview3d.initPreview3d(el, {
-    onReady: () => {
-      state.preview3dReady = true;
-      syncPreview();
-    },
-    onError: (msg) => setBanner(msg, "error"),
-  });
-  if (ok === false) state.preview3dReady = false;
 }
 
 function selectedFinish() {
@@ -740,22 +743,36 @@ function bindHudMobileDock() {
 }
 
 function bindPreviewZoom() {
-  document.getElementById("preview-zoom-in")?.addEventListener("click", () => preview3d?.zoomPreview(0.12));
-  document.getElementById("preview-zoom-out")?.addEventListener("click", () => preview3d?.zoomPreview(-0.12));
+  document.getElementById("preview-zoom-in")?.addEventListener("click", () => zoomPreview(0.12));
+  document.getElementById("preview-zoom-out")?.addEventListener("click", () => zoomPreview(-0.12));
 
   const btn360 = document.getElementById("preview-zoom-360");
   btn360?.addEventListener("click", () => {
     state.previewAutoRotate = !state.previewAutoRotate;
-    preview3d?.setPreviewAutoRotate(state.previewAutoRotate);
+    setPreviewAutoRotate(state.previewAutoRotate);
     btn360.setAttribute("aria-pressed", String(state.previewAutoRotate));
     btn360.classList.toggle("is-active", state.previewAutoRotate);
   });
 }
 
+function bindViewToggle() {
+  document.querySelectorAll(".preview-view-btn").forEach((btn) => {
+    btn.addEventListener("click", async () => {
+      const view = btn.dataset.view;
+      if (!view || view === getPreviewView()) return;
+      state.previewReady = false;
+      const ok = await setPreviewView(view);
+      state.previewReady = Boolean(ok);
+      if (ok) syncPreview();
+    });
+  });
+}
+
 function bindControls() {
-  ensurePreview3d();
+  ensurePreview();
   bindHudMobileDock();
   bindPreviewZoom();
+  bindViewToggle();
   bindZoneToggle();
   bindFinishWheel();
   bindFinishSearch();

@@ -17,6 +17,8 @@
     "import:finishes": "node scripts/import-finish-library.mjs",
     "renders:attach": "node scripts/attach-finish-renders.mjs",
     "render:colors": "node scripts/extract-finish-colors.mjs",
+    "photos:prepare": "node scripts/prepare-ai-photos.mjs",
+    "shells:export": "node scripts/export-product-shells.mjs",
     "test": "node --test \"test/*.test.mjs\"",
     "db:migrate:material": "wrangler d1 execute render-portal-db --file=./migrations/002_material_slug.sql",
     "db:migrate:material:local": "wrangler d1 execute render-portal-db --local --file=./migrations/002_material_slug.sql",

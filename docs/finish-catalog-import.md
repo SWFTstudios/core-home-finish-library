@@ -92,7 +92,19 @@ To add or replace renders without re-reading the factory sheets:
 npm run renders:attach   # patches catalog.json, public/api/catalog and seed.sql
 ```
 
-The 14 ceramic renders added in November 2026 are AI-generated samples on a plain 14oz mug (Figma image generation, background removed). Colours were chosen for illustration and are **not matched to factory swatches**; treat them as placeholders until the factory reference photos are used as input.
+Factory photos take priority whenever one exists (`imageFieldsFor` in the attach script). The remaining finishes without a factory photo use AI product photos on the same hero silhouette as the 3D models.
+
+### AI product photos (finishes without a factory photo)
+
+**Scope:** 28 finishes (22 glass, 5 stainless steel PVD-reveal, 1 ceramic rubberize). Plastic finishes that are not offered are skipped.
+
+1. Collect references: 3D-exported product shell (`public/assets/<material>/front.png`), a factory photo of the same material for lighting, and the QA 3D render for colour.
+2. Generate a 3:4 studio photo (plain white background, no logos or text).
+3. Stage the file under `data/ai-photos-raw/<material>/<slug>.jpg`.
+4. Run `npm run photos:prepare` — trims, makes the near-white background transparent, writes `public/assets/renders/<material>/<slug>.png`, and updates [`data/ai-photos.json`](../data/ai-photos.json) (`reviewStatus`: `pending` | `approved` | `rejected`).
+5. Run `npm run renders:attach` then `npm run render:colors`.
+
+GD / PD review on `/render-qa.html`. Rejected images: regenerate, re-prepare, re-attach. A real factory photo always replaces the AI sample once one exists.
 
 ## Validation
 
