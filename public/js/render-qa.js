@@ -14,10 +14,25 @@ const stage = createProductStage(document.getElementById("qa-stage"), {
   preserveDrawingBuffer: true,
 });
 
-let catalog = null;
 let runToken = 0;
 
+/** Public catalog route: the Worker filters by material, the static Pages file returns all. */
+async function fetchCatalog(materialSlug) {
+  const res = await fetch(`/api/catalog?material=${encodeURIComponent(materialSlug)}`);
+  if (!res.ok) throw new Error(res.statusText);
+  return res.json();
+}
+
+/** The D1-backed catalog has no imageSource column; AI renders live under /assets/renders. */
+function imageLabel(finish) {
+  const source =
+    finish.imageSource ??
+    (finish.imageUrl ? (finish.imageUrl.startsWith("/assets/renders/") ? "ai_render" : "factory_photo") : null);
+  return IMAGE_LABEL[source] ?? "No image";
+}
+
 function card(finish) {
+  const label = imageLabel(finish);
   const fig = document.createElement("figure");
   fig.className = "render-qa-card";
   const pair = document.createElement("div");
@@ -25,7 +40,7 @@ function card(finish) {
   if (finish.imageUrl) {
     const photo = document.createElement("img");
     photo.src = finish.imageUrl;
-    photo.alt = `${finish.name} — ${IMAGE_LABEL[finish.imageSource] ?? "image"}`;
+    photo.alt = `${finish.name} — ${label}`;
     photo.loading = "lazy";
     pair.appendChild(photo);
   } else {
@@ -40,15 +55,18 @@ function card(finish) {
   const caption = document.createElement("figcaption");
   caption.innerHTML = `<strong></strong><span></span>`;
   caption.querySelector("strong").textContent = finish.name;
-  caption.querySelector("span").textContent = `${IMAGE_LABEL[finish.imageSource] ?? "No image"} · ${finish.slug}`;
+  caption.querySelector("span").textContent = `${label} · ${finish.slug}`;
   fig.append(pair, caption);
   return { fig, render };
 }
 
 async function renderMaterial(materialSlug) {
   const token = ++runToken;
-  const finishes = catalog.finishes.filter((f) => f.materialSlug === materialSlug && f.availability !== "not_offered");
   grid.innerHTML = "";
+  status.textContent = "Loading catalog…";
+  const catalog = await fetchCatalog(materialSlug);
+  if (token !== runToken) return;
+  const finishes = catalog.finishes.filter((f) => f.materialSlug === materialSlug && f.availability !== "not_offered");
   stage.setProduct(materialSlug);
   const cards = finishes.map((f) => {
     const c = card(f);
@@ -66,23 +84,25 @@ async function renderMaterial(materialSlug) {
 }
 
 async function main() {
-  const res = await fetch("/api/catalog.json");
-  catalog = await res.json();
+  const fromUrl = new URLSearchParams(location.search).get("material");
+  const catalog = await fetchCatalog(fromUrl || "stainless_steel");
   for (const m of catalog.materials ?? []) {
     const opt = document.createElement("option");
     opt.value = m.slug;
     opt.textContent = m.label;
     select.appendChild(opt);
   }
-  const fromUrl = new URLSearchParams(location.search).get("material");
   if (fromUrl) select.value = fromUrl;
+  const run = () => renderMaterial(select.value).catch(showError);
   select.addEventListener("change", () => {
     history.replaceState(null, "", `?material=${select.value}`);
-    renderMaterial(select.value);
+    run();
   });
-  renderMaterial(select.value);
+  run();
 }
 
-main().catch((err) => {
+function showError(err) {
   status.textContent = `Could not load catalog: ${err.message}`;
-});
+}
+
+main().catch(showError);
