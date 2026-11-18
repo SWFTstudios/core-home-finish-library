@@ -12,7 +12,7 @@
 
 | Live now | URL |
 |----------|-----|
-| Configurator | [https://core-home-finish-library.pages.dev/configurator/](https://core-home-finish-library.pages.dev/configurator/) |
+| Configurator | [https://core-home-finish-library.elombe.workers.dev/configurator/](https://core-home-finish-library.elombe.workers.dev/configurator/) |
 
 **Phase 2 in planning:** Worker production deploy, remote D1, R2 uploads, Cloudflare Access for real team emails.
 
@@ -44,7 +44,7 @@ Track day-to-day tasks in [`INSTRUCTIONS.md`](../INSTRUCTIONS.md).
 
 ### Deploy and hosting
 
-- [x] Cloudflare Pages Phase 1 — [core-home-finish-library.pages.dev](https://core-home-finish-library.pages.dev/)  
+- [x] Cloudflare Pages Phase 1 — [core-home-finish-library.elombe.workers.dev](https://core-home-finish-library.elombe.workers.dev/)  
 - [x] `public/_redirects` — `/` → `/configurator/`  
 - [x] `public/_headers` — JSON for `/api/catalog`  
 - [x] Static catalog [`public/api/catalog`](../public/api/catalog) for Pages  

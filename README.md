@@ -10,9 +10,10 @@
 
 | What | URL |
 |------|-----|
-| **Finish Library configurator** | [https://core-home-finish-library.pages.dev/](https://core-home-finish-library.pages.dev/) |
+| **Finish Library configurator** | [https://core-home-finish-library.elombe.workers.dev/](https://core-home-finish-library.elombe.workers.dev/) |
 | Opens at | `/configurator/` (home redirects automatically) |
-| Catalog data | Static JSON at `/api/catalog` (108 finishes) — works without a live database |
+| Catalog data | `/api/catalog` from the D1 database (160 finishes, factory photos) |
+| Static mirror | [core-home-finish-library.pages.dev](https://core-home-finish-library.pages.dev/) (Cloudflare Pages, static catalog file) |
 
 Push to `main` deploys via GitHub Actions. See [Deployment](docs/07-deployment.md).
 

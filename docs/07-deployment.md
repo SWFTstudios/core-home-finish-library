@@ -136,7 +136,7 @@ Key settings in [`wrangler.jsonc`](../wrangler.jsonc):
 
 | Setting | Value |
 |---------|--------|
-| `name` | `render-portal` |
+| `name` | `core-home-finish-library` (served at https://core-home-finish-library.elombe.workers.dev) |
 | `main` | `src/index.ts` |
 | `pages_build_output_dir` | `./public` |
 | `assets.directory` | `./public` |

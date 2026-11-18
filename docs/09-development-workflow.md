@@ -88,7 +88,7 @@ flowchart LR
 2. **Commit in logical chunks** — Conventional Commits (`feat:`, `fix:`, `docs:`)
 3. **Merge to `main`** — keeps production URL current
 4. **Pages auto-deploy** — GitHub Actions or `npm run pages:deploy`
-5. **GD/PD review** — compare [live site](https://core-home-finish-library.pages.dev/) to Figma `study_SS`
+5. **GD/PD review** — compare [live site](https://core-home-finish-library.elombe.workers.dev/) to Figma `study_SS`
 
 ### What still needs the same discipline
 

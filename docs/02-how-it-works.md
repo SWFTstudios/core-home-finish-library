@@ -10,7 +10,7 @@
 
 **For: PD, ID, Sales, GD, C-Suite**
 
-The live app is one full-screen page: [https://core-home-finish-library.pages.dev/configurator/](https://core-home-finish-library.pages.dev/configurator/)
+The live app is one full-screen page: [https://core-home-finish-library.elombe.workers.dev/configurator/](https://core-home-finish-library.elombe.workers.dev/configurator/)
 
 | Area | What it does |
 |------|----------------|

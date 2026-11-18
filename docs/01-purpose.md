@@ -20,7 +20,7 @@ Think of it like ordering a **Chipotle bowl**: PD picks exactly what they want (
 
 The **Finish Library configurator** is deployed and usable:
 
-- **URL:** [https://core-home-finish-library.pages.dev/](https://core-home-finish-library.pages.dev/)
+- **URL:** [https://core-home-finish-library.elombe.workers.dev/](https://core-home-finish-library.elombe.workers.dev/)
 - **What works:** Material tabs, scrollable finish wheel, search and filters, graphic application shelf, live 3D preview, specs card
 - **What is next:** Full render-request dashboard, file uploads, and team login via Cloudflare Access (Phase 2)
 
