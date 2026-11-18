@@ -1,15 +1,28 @@
 # Factory finish catalog import
 
-Each material comes from its own factory sheet. Sources, column mapping and graphic techniques live in [`data/factory-library-template.json`](../data/factory-library-template.json) (template v4).
+Each material comes from its own factory sheet. Sources, column mapping and graphic techniques live in [`data/factory-library-template.json`](../data/factory-library-template.json) (template v5).
 
 | Material | Source file (in `docs/factory/` or `docs/`, not committed) | Sheet | Status |
 |----------|-----------------------------------------------------------|-------|--------|
 | Ceramic | `Finish_Library_Ceramic_260922.xlsx.txt` | `Ceramic` | Factory confirmed (prices dated 2026-09-22) |
 | Glass | `Finish_Library_Ceramic_Glass_Plastic_v3.xlsx` | `Glass` | Internal draft; no factory sheet yet. Carried over from the current catalog when the file is absent |
 | Stainless steel | `Finish_Library_Stainless_Steel_261117_pending_factory_review.xlsx.txt` | `Library` | Internal draft sent to the factory 2026-11-17, **pending factory review** |
-| Plastic | `Finish_Library_Plastic_261009.xlsx.txt` | `Plastic` | Factory confirmed 2026-10-09; prices still TBC |
+| Plastic | `Finish_Library_Plastic_261009.xlsx.txt` | `Plastic` | Factory confirmed 2026-10-09; cost bands from factory emails of 2026-10-22 / 10-28 (see below) |
 
 Sources can be `.xlsx` workbooks or text exports of them (`.xlsx.txt`: `## Sheet: <name>` sections with tab-separated rows). The header row is found automatically (the row containing `Finish Name`); headers match exactly or by prefix, so long factory headers such as `Price USD / piece — 14oz mug MOQ: 1,000 pcs` still map.
+
+## Factory updates that came by email
+
+Some factory answers arrive in an email reply, not in an updated sheet. They live in `factoryUpdates` in the template, each with its source and date, and are applied on top of the sheet on every import. When a later factory sheet carries the same information, remove the entry.
+
+| Material | What | Source |
+|----------|------|--------|
+| Plastic | High-Gloss and Dull/Textured come straight from the mould: no added cost (band A) | Factory email, 22 Oct 2026 |
+| Plastic | Pearlescent adds a spray-coating step; quoted per unit (band E, relative to the two above) | Factory email, 28 Oct 2026 |
+| Plastic | Quotes are on a 24oz double-wall AS tumbler at **MOQ 2,000 pcs** (not 1,000) | Factory email, 22 Oct 2026 |
+| Ceramic | Water-slide decal, precious metal / lustre, direct-to-shape print, sandblast and raised enamel are **not offered by this factory yet**. They are not incompatible with the finishes | Factory email, 23 Sep 2026 |
+
+Finish updates go into `finishes.extensions` (`costNote`, `costBand`, `factoryUpdate`), so the Worker API serves them too. Graphic-technique notes (`availability`, `factoryNote`) and the material `quoteBasis` are in the static catalog only. The D1 tables have no column for them.
 
 ## Import workflow
 
@@ -21,6 +34,12 @@ npm run dev
 ```
 
 `import:finishes` regenerates [`seed.sql`](../seed.sql) and [`public/api/catalog.json`](../public/api/catalog.json). Do not hand-edit either.
+
+Source sheets are not committed. To rebuild after a template change without them, carry the current catalog over and re-apply `factoryUpdates`:
+
+```bash
+node scripts/import-finish-library.mjs --carry-over-missing
+```
 
 Override one source:
 

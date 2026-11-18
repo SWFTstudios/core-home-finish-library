@@ -15,8 +15,12 @@
  * unless --include-usd-prices is passed: public/api/catalog is served publicly and
  * this repository is public. Cost bands (A–E) and $ bands are always written.
  *
- * If a source file is missing and the source has `carryOverIfMissing`, that
- * material's finishes are carried over unchanged from the current catalog export.
+ * If a source file is missing and the source has `carryOverIfMissing` (or the
+ * --carry-over-missing flag is passed), that material's finishes are carried over
+ * from the current catalog export.
+ *
+ * `factoryUpdates` in the template holds factory answers that came by email, not in
+ * a sheet (e.g. a price quoted in a reply). They are applied on top of every import.
  */
 import fs from "node:fs";
 import path from "node:path";
@@ -38,15 +42,18 @@ function parseArgs() {
   const args = process.argv.slice(2);
   const overrides = {};
   let includeUsdPrices = false;
+  let carryOverMissing = false;
   for (let i = 0; i < args.length; i++) {
     if (args[i] === "--source" && args[i + 1]) {
       const [slug, file] = args[++i].split("=");
       overrides[slug] = path.resolve(file);
     } else if (args[i] === "--include-usd-prices") {
       includeUsdPrices = true;
+    } else if (args[i] === "--carry-over-missing") {
+      carryOverMissing = true;
     }
   }
-  return { overrides, includeUsdPrices };
+  return { overrides, includeUsdPrices, carryOverMissing };
 }
 
 const normalizeHeader = (cell) =>
@@ -316,6 +323,47 @@ function carryOver(source) {
   return { materialSlug: source.materialSlug, graphicApplicationTypes, graphicIdByKey, finishes, unmapped: [] };
 }
 
+/* ---------- Email-only factory updates ---------- */
+
+function applyCostBand(f, band) {
+  f.details.costBand = band;
+  // A $-band from the sheet (stainless steel) wins; otherwise show the A–E band.
+  if (!(f.priceBand && /^\$+$/.test(f.priceBand))) {
+    f.priceBand = `Band ${band}`;
+    f.costTier = BAND_TIER[band];
+  }
+}
+
+function applyFactoryUpdates(imports) {
+  const updates = template.factoryUpdates ?? {};
+  const bySlug = new Map(imports.map((i) => [i.materialSlug, i]));
+  const applied = [];
+
+  for (const u of updates.finishes ?? []) {
+    const imp = bySlug.get(u.materialSlug);
+    const f = imp?.finishes.find((x) => x.name.toLowerCase() === u.finishName.toLowerCase());
+    if (!f) throw new Error(`factoryUpdates: finish "${u.finishName}" (${u.materialSlug}) not found; was it renamed in the sheet?`);
+    const { costBand, ...rest } = u.set;
+    if (costBand) {
+      if (!BAND_TIER[costBand]) throw new Error(`factoryUpdates: bad cost band "${costBand}" for ${u.finishName}`);
+      applyCostBand(f, costBand);
+    }
+    Object.assign(f.details, rest, { factoryUpdate: u.source ?? null });
+    applied.push(`${u.materialSlug}/${f.name} (${u.source ?? "no source"})`);
+  }
+
+  for (const u of updates.graphics ?? []) {
+    const imp = bySlug.get(u.materialSlug);
+    for (const key of u.templateKeys) {
+      const g = imp?.graphicApplicationTypes.find((x) => x.templateKey === key);
+      if (!g) throw new Error(`factoryUpdates: graphic "${key}" (${u.materialSlug}) not found`);
+      Object.assign(g, u.set, { factoryUpdate: u.source ?? null });
+      applied.push(`${u.materialSlug}/${g.label} (${u.source ?? "no source"})`);
+    }
+  }
+  return applied;
+}
+
 function joinSentences(parts) {
   const list = parts.filter(Boolean).map((p) => String(p).trim()).filter(Boolean);
   if (list.length < 2) return list[0] ?? null;
@@ -336,7 +384,7 @@ function publicDetails(f, includeUsdPrices) {
 /* ---------- Main ---------- */
 
 async function run() {
-  const { overrides, includeUsdPrices } = parseArgs();
+  const { overrides, includeUsdPrices, carryOverMissing } = parseArgs();
   const imports = [];
 
   for (const source of template.sources) {
@@ -347,7 +395,7 @@ async function run() {
       if (!rows) throw new Error(`Sheet "${source.sheetName}" not found in ${file}`);
       imports.push(importSheet(rows, source, file));
       console.log(`Imported ${source.materialSlug} from ${path.relative(ROOT, file)}`);
-    } else if (source.carryOverIfMissing) {
+    } else if (source.carryOverIfMissing || carryOverMissing) {
       imports.push(carryOver(source));
       console.warn(`${source.materialSlug}: source not found, carried over from current catalog`);
     } else {
@@ -355,6 +403,7 @@ async function run() {
     }
   }
 
+  const appliedUpdates = applyFactoryUpdates(imports);
   const allFinishes = imports.flatMap((i) => i.finishes);
   const allGraphics = imports.flatMap((i) => i.graphicApplicationTypes);
   const compatByFinish = new Map();
@@ -415,6 +464,9 @@ async function run() {
       label: m.label,
       enabled: m.enabled ? 1 : 0,
       sortOrder: m.sortOrder,
+      ...(template.factoryUpdates?.materials?.[m.slug]?.quoteBasis
+        ? { quoteBasis: template.factoryUpdates.materials[m.slug].quoteBasis }
+        : {}),
     })),
     graphicApplicationTypes: allGraphics,
     finishes: allFinishes.map((f) => ({
@@ -450,6 +502,8 @@ async function run() {
 
   console.log(`Wrote ${allFinishes.length} finishes → ${path.relative(ROOT, SEED_OUT)}, ${path.relative(ROOT, CATALOG_JSON)}`);
   console.log(`USD unit prices: ${includeUsdPrices ? "included" : "omitted (pass --include-usd-prices to include)"}`);
+  console.log(`Email-only factory updates applied: ${appliedUpdates.length}`);
+  for (const a of appliedUpdates) console.log(`  ${a}`);
   for (const imp of imports) {
     const off = imp.finishes.filter((f) => f.details.availability === "not_offered").length;
     console.log(

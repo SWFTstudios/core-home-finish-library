@@ -149,6 +149,7 @@ function updateSpecs() {
     name.removeAttribute("title");
     durability.textContent = "—";
     cost.textContent = "—";
+    cost.removeAttribute("title");
     notes.textContent = "";
     notes.removeAttribute("title");
     return;
@@ -159,6 +160,8 @@ function updateSpecs() {
   name.title = finish.name;
   durability.textContent = formatRating(finish.durabilityScore);
   cost.textContent = formatRating(finish.costTier);
+  if (finish.costNote) cost.title = finish.costNote;
+  else cost.removeAttribute("title");
   const noteText = finish.durabilityNotes || finish.description || "";
   notes.textContent = noteText;
   notes.title = noteText;

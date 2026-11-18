@@ -28,7 +28,8 @@
       "slug": "plastic",
       "label": "Plastic",
       "enabled": 1,
-      "sortOrder": 4
+      "sortOrder": 4,
+      "quoteBasis": "24oz double-wall AS tumbler, MOQ 2,000 pcs"
     }
   ],
   "graphicApplicationTypes": [
@@ -86,7 +87,10 @@
       "label": "Water-slide Decal",
       "uiLabel": "Water-slide Decal",
       "materialSlug": "ceramic",
-      "sortOrder": 7
+      "sortOrder": 7,
+      "availability": "not_offered",
+      "factoryNote": "Not offered by the current ceramic factory at the moment (not a finish incompatibility).",
+      "factoryUpdate": "Factory email, 23 Sep 2026"
     },
     {
       "id": "gfx-ceramic-008",
@@ -94,7 +98,10 @@
       "label": "Precious Metal Banding / Lustre",
       "uiLabel": "Metal Banding / Lustre",
       "materialSlug": "ceramic",
-      "sortOrder": 8
+      "sortOrder": 8,
+      "availability": "not_offered",
+      "factoryNote": "Not offered by the current ceramic factory at the moment (not a finish incompatibility).",
+      "factoryUpdate": "Factory email, 23 Sep 2026"
     },
     {
       "id": "gfx-ceramic-009",
@@ -102,7 +109,10 @@
       "label": "Digital / Direct-to-Shape Print",
       "uiLabel": "Direct-to-Shape Print",
       "materialSlug": "ceramic",
-      "sortOrder": 9
+      "sortOrder": 9,
+      "availability": "not_offered",
+      "factoryNote": "Not offered by the current ceramic factory at the moment (not a finish incompatibility).",
+      "factoryUpdate": "Factory email, 23 Sep 2026"
     },
     {
       "id": "gfx-ceramic-010",
@@ -110,7 +120,10 @@
       "label": "Sandblast / Etch",
       "uiLabel": "Sandblast / Etch",
       "materialSlug": "ceramic",
-      "sortOrder": 10
+      "sortOrder": 10,
+      "availability": "not_offered",
+      "factoryNote": "Not offered by the current ceramic factory at the moment (not a finish incompatibility).",
+      "factoryUpdate": "Factory email, 23 Sep 2026"
     },
     {
       "id": "gfx-ceramic-011",
@@ -118,7 +131,10 @@
       "label": "Raised Enamel / 3D Dimensional Print",
       "uiLabel": "Raised Enamel / 3D",
       "materialSlug": "ceramic",
-      "sortOrder": 11
+      "sortOrder": 11,
+      "availability": "not_offered",
+      "factoryNote": "Not offered by the current ceramic factory at the moment (not a finish incompatibility).",
+      "factoryUpdate": "Factory email, 23 Sep 2026"
     },
     {
       "id": "gfx-glass-001",
@@ -4556,21 +4572,23 @@
       "category": "Injection Mold",
       "durabilityScore": 2,
       "durabilityNotes": "Very smooth; prone to fingerprints/scratches",
-      "priceBand": null,
-      "costTier": null,
+      "priceBand": "Band A",
+      "costTier": 1,
       "finishProcess": "Injection Mold",
       "processSteps": 1,
       "description": "Very smooth; prone to fingerprints/scratches",
       "hexColor": "hsl(220 35% 55%)",
       "availability": "offered",
       "reviewStatus": "factory_confirmed",
-      "costBand": null,
+      "costBand": "A",
       "graphicAdhesion": "It can pass the 3M tape test.",
       "microwaveSafe": "Single-wall plastic cups can be used in the microwave, while double-wall plastic cups cannot.",
       "dishwasherSafe": "Yes",
       "colourLimitation": "No limitations have been identified to date.",
       "printingLimitations": "No limitations.",
       "matteGlossyOk": "The matte or glossy finish is determined by the mold.",
+      "costNote": "No added cost: the gloss comes straight from the mould, with no extra surface finishing step.",
+      "factoryUpdate": "Factory email, 22 Oct 2026",
       "compatibleGraphics": [
         "gfx-plastic-001",
         "gfx-plastic-002"
@@ -4584,21 +4602,23 @@
       "category": "Injection Mold",
       "durabilityScore": 3,
       "durabilityNotes": "Textured matte; heat transfer only",
-      "priceBand": null,
-      "costTier": null,
+      "priceBand": "Band A",
+      "costTier": 1,
       "finishProcess": "Injection Mold",
       "processSteps": 1,
       "description": "Textured matte; heat transfer only",
       "hexColor": "hsl(178 35% 55%)",
       "availability": "offered",
       "reviewStatus": "factory_confirmed",
-      "costBand": null,
+      "costBand": "A",
       "graphicAdhesion": "It can pass the 3M tape test.",
       "microwaveSafe": "Single-wall plastic cups can be used in the microwave, while double-wall plastic cups cannot.",
       "dishwasherSafe": "Yes",
       "colourLimitation": "No limitations have been identified to date.",
       "printingLimitations": "No limitations.",
       "matteGlossyOk": "The matte or glossy finish is determined by the mold.",
+      "costNote": "No added cost: the texture comes straight from the mould, with no extra surface finishing step.",
+      "factoryUpdate": "Factory email, 22 Oct 2026",
       "compatibleGraphics": [
         "gfx-plastic-001"
       ]
@@ -4611,21 +4631,23 @@
       "category": "Coating",
       "durabilityScore": 2,
       "durabilityNotes": "Pearlized surface effect; heat transfer compatible",
-      "priceBand": null,
-      "costTier": null,
+      "priceBand": "Band E",
+      "costTier": 5,
       "finishProcess": "Coating",
       "processSteps": 2,
       "description": "Pearlized surface effect; heat transfer compatible",
       "hexColor": "hsl(95 35% 55%)",
       "availability": "offered",
       "reviewStatus": "factory_confirmed",
-      "costBand": null,
+      "costBand": "E",
       "graphicAdhesion": "It can pass the 3M tape test.",
       "microwaveSafe": "Single-wall plastic cups can be used in the microwave, while double-wall plastic cups cannot.",
       "dishwasherSafe": "Yes",
       "colourLimitation": "No limitations have been identified to date.",
       "printingLimitations": "No limitations.",
       "matteGlossyOk": "Both matte and glossy finishes can be achieved through spray painting.",
+      "costNote": "Adds a spray-coating step on top of the moulded cup; factory quote received (24oz double-wall AS tumbler, MOQ 2,000 pcs).",
+      "factoryUpdate": "Factory email, 28 Oct 2026",
       "compatibleGraphics": [
         "gfx-plastic-001"
       ]

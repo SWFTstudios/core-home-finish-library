@@ -384,6 +384,7 @@ function openDetail(finish, triggerEl = null) {
     ["Cost", costDots(finish.costTier)],
     ["Price band", finish.priceBand || "—"],
   ];
+  if (finish.costNote) rows.push(["Cost note", finish.costNote]);
   if (finish.reviewStatus === "pending_factory_review") {
     rows.push(["Status", "Pending factory review"]);
   }
@@ -433,6 +434,19 @@ function openDetail(finish, triggerEl = null) {
     body.appendChild(row);
   }
 
+  const notOffered = state.graphicTypes.filter(
+    (g) => g.materialSlug === finish.materialSlug && g.availability === "not_offered",
+  );
+  if (notOffered.length) {
+    const row = document.createElement("div");
+    row.className = "library-detail-row";
+    row.innerHTML = `
+      <span class="library-detail-label">Not offered by factory yet</span>
+      <p class="library-detail-value">${escapeHtml(notOffered.map((g) => g.uiLabel || g.label).join(", "))}</p>
+    `;
+    body.appendChild(row);
+  }
+
   if (link && finish.slug) {
     link.href = `/configurator/?finish=${encodeURIComponent(finish.slug)}`;
   }
@@ -473,9 +487,11 @@ async function loadCatalog() {
   const data = await api(`/catalog?material=${encodeURIComponent(state.material)}`);
   state.catalog = data;
   state.materials = data.materials ?? [];
-  state.graphicTypes = data.graphicApplicationTypes ?? [];
+  // The static catalog (Pages) holds every material; the Worker API filters server-side.
+  const forMaterial = (x) => !x.materialSlug || x.materialSlug === state.material;
+  state.graphicTypes = (data.graphicApplicationTypes ?? []).filter(forMaterial);
   state.finishes = (data.finishes ?? [])
-    .filter((f) => f.availability !== "not_offered")
+    .filter((f) => forMaterial(f) && f.availability !== "not_offered")
     .map(normalizeFinish);
 
   const mat = state.materials.find((m) => m.slug === state.material);
