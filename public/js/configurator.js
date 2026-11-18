@@ -1,10 +1,7 @@
 import { getStoredTheme, setLuminaTheme } from "./components/core-home-navbar.js";
-import {
-  initPreview3d,
-  setPreviewAutoRotate,
-  updatePreview3d,
-  zoomPreview,
-} from "./configurator-preview-3d.js";
+// The 3D preview is loaded lazily: if Three.js cannot load (blocked network, old
+// browser, no WebGL), the finish library itself must still work.
+let preview3d = null;
 import {
   browseFinishes,
   COLOR_GROUPS,
@@ -100,7 +97,7 @@ function selectedGraphic(finish) {
 function syncPreview() {
   if (!state.preview3dReady) return;
   const finish = selectedFinish();
-  updatePreview3d({
+  preview3d?.updatePreview3d({
     materialSlug: state.material,
     finish,
     graphic: selectedGraphic(finish),
@@ -108,10 +105,17 @@ function syncPreview() {
   });
 }
 
-function ensurePreview3d() {
+async function ensurePreview3d() {
   const el = document.getElementById("preview-3d");
   if (!el || state.preview3dReady) return;
-  const ok = initPreview3d(el, {
+  try {
+    preview3d ??= await import("./configurator-preview-3d.js");
+  } catch (err) {
+    console.error("3D preview unavailable", err);
+    setBanner("3D preview could not load. Finish details still work.", "error");
+    return;
+  }
+  const ok = preview3d.initPreview3d(el, {
     onReady: () => {
       state.preview3dReady = true;
       syncPreview();
@@ -663,13 +667,13 @@ function bindHudMobileDock() {
 }
 
 function bindPreviewZoom() {
-  document.getElementById("preview-zoom-in")?.addEventListener("click", () => zoomPreview(0.12));
-  document.getElementById("preview-zoom-out")?.addEventListener("click", () => zoomPreview(-0.12));
+  document.getElementById("preview-zoom-in")?.addEventListener("click", () => preview3d?.zoomPreview(0.12));
+  document.getElementById("preview-zoom-out")?.addEventListener("click", () => preview3d?.zoomPreview(-0.12));
 
   const btn360 = document.getElementById("preview-zoom-360");
   btn360?.addEventListener("click", () => {
     state.previewAutoRotate = !state.previewAutoRotate;
-    setPreviewAutoRotate(state.previewAutoRotate);
+    preview3d?.setPreviewAutoRotate(state.previewAutoRotate);
     btn360.setAttribute("aria-pressed", String(state.previewAutoRotate));
     btn360.classList.toggle("is-active", state.previewAutoRotate);
   });
