@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" data-lumina-theme="light">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>3D render QA — Core Home Finish Library</title>
+    <link rel="stylesheet" href="/css/lumina-finish.css" />
+    <link rel="stylesheet" href="/css/core-home-navbar.css" />
+    <link rel="stylesheet" href="/css/render-qa.css" />
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "/vendor/three-0.180.0/build/three.module.js",
+          "three/addons/": "/vendor/three-0.180.0/examples/jsm/"
+        }
+      }
+    </script>
+  </head>
+  <body class="portal-body render-qa-body">
+    <div id="core-home-navbar-mount"></div>
+
+    <main class="render-qa-main">
+      <header class="render-qa-header">
+        <h1>3D render QA</h1>
+        <p>
+          Each finish's image (factory photo or AI sample) next to the live 3D render. Use it to sign off finishes and to
+          spot ones that need a correction in <code>public/data/finish-render-overrides.json</code>.
+        </p>
+        <div class="render-qa-controls">
+          <label for="qa-material">Material</label>
+          <select id="qa-material"></select>
+          <span id="qa-status" class="render-qa-status" role="status" aria-live="polite"></span>
+        </div>
+      </header>
+
+      <div id="qa-grid" class="render-qa-grid"></div>
+    </main>
+
+    <div id="qa-stage" class="render-qa-stage" aria-hidden="true"></div>
+
+    <script type="module" src="/js/portal.js"></script>
+    <script type="module" src="/js/render-qa.js"></script>
+  </body>
+</html>

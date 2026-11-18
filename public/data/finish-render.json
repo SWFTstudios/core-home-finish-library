@@ -1,0 +1,2606 @@
+{
+  "generatedBy": "scripts/extract-finish-colors.mjs",
+  "finishes": {
+    "ceramic/ceramic-matte-glaze": {
+      "source": "factory_photo",
+      "coverage": 0.66,
+      "primary": "#bdb85d",
+      "secondary": null,
+      "top": "#dfd86d",
+      "middle": "#bdb85d",
+      "bottom": "#b3ae58",
+      "left": "#beba65",
+      "right": "#dbd777",
+      "crop": [
+        0.156,
+        0.101,
+        0.521,
+        0.759
+      ]
+    },
+    "ceramic/ceramic-glossy-glaze": {
+      "source": "factory_photo",
+      "coverage": 1,
+      "primary": "#adaca5",
+      "secondary": null,
+      "top": "#898379",
+      "middle": "#aaaba8",
+      "bottom": "#aeada6",
+      "left": "#d4cdbe",
+      "right": "#909495",
+      "crop": [
+        0,
+        0,
+        1,
+        1
+      ]
+    },
+    "ceramic/ceramic-two-color-clay": {
+      "source": "factory_photo",
+      "coverage": 0.44,
+      "primary": "#b8bbbc",
+      "secondary": null,
+      "top": "#bcbfc2",
+      "middle": "#babdbe",
+      "bottom": "#b5b7b7",
+      "left": "#b8bdc0",
+      "right": "#d8d8d6",
+      "crop": [
+        0.205,
+        0.24,
+        0.455,
+        0.5
+      ]
+    },
+    "ceramic/ceramic-pearlized": {
+      "source": "factory_photo",
+      "coverage": 1,
+      "primary": "#9a958a",
+      "secondary": null,
+      "top": "#a09c94",
+      "middle": "#a19b90",
+      "bottom": "#8d867b",
+      "left": "#7e7a74",
+      "right": "#9d988f",
+      "crop": [
+        0.01,
+        0,
+        0.979,
+        1
+      ]
+    },
+    "ceramic/ceramic-sand-clay": {
+      "source": "factory_photo",
+      "coverage": 0.72,
+      "primary": "#a2a19c",
+      "secondary": null,
+      "top": "#e0e1e0",
+      "middle": "#9b9a94",
+      "bottom": "#92908b",
+      "left": "#94918a",
+      "right": "#adaca8",
+      "crop": [
+        0.247,
+        0.344,
+        0.447,
+        0.469
+      ]
+    },
+    "ceramic/ceramic-ombre": {
+      "source": "factory_photo",
+      "coverage": 0.83,
+      "primary": "#a5959c",
+      "secondary": "#243651",
+      "top": "#a89a9b",
+      "middle": "#7f758c",
+      "bottom": "#37465a",
+      "left": "#9e8f96",
+      "right": "#a7999c",
+      "crop": [
+        0.082,
+        0,
+        0.824,
+        0.865
+      ]
+    },
+    "ceramic/ceramic-two-color-mix-reactive": {
+      "source": "factory_photo",
+      "coverage": 0.96,
+      "primary": "#9fa1a0",
+      "secondary": null,
+      "top": "#ffffff",
+      "middle": "#b9bbbb",
+      "bottom": "#fefffe",
+      "left": "#ffffff",
+      "right": "#fffffe",
+      "crop": [
+        0.01,
+        0,
+        0.979,
+        1
+      ]
+    },
+    "ceramic/ceramic-shiny-reactive": {
+      "source": "factory_photo",
+      "coverage": 0.71,
+      "primary": "#787b7a",
+      "secondary": null,
+      "top": "#7a7d7c",
+      "middle": "#808382",
+      "bottom": "#66696a",
+      "left": "#7b7d7c",
+      "right": "#828584",
+      "crop": [
+        0.146,
+        0.044,
+        0.583,
+        0.744
+      ]
+    },
+    "ceramic/ceramic-matte-reactive": {
+      "source": "factory_photo",
+      "coverage": 0.85,
+      "primary": "#5d7c88",
+      "secondary": null,
+      "top": "#627f8c",
+      "middle": "#648590",
+      "bottom": "#54717c",
+      "left": "#617f8d",
+      "right": "#5c7884",
+      "crop": [
+        0.115,
+        0.065,
+        0.75,
+        0.935
+      ]
+    },
+    "ceramic/ceramic-two-color-marbled-glaze": {
+      "source": "factory_photo",
+      "coverage": 0.99,
+      "primary": "#aeaba5",
+      "secondary": "#535666",
+      "top": "#a2a09a",
+      "middle": "#9e9b95",
+      "bottom": "#c3c1bc",
+      "left": "#a4a19a",
+      "right": "#bebcb8",
+      "crop": [
+        0,
+        0,
+        0.979,
+        1
+      ]
+    },
+    "ceramic/ceramic-rubberize": {
+      "source": "ai_render",
+      "coverage": 0.73,
+      "primary": "#282828",
+      "secondary": "#353534",
+      "top": "#333232",
+      "middle": "#2e2e2d",
+      "bottom": "#262626",
+      "left": "#363635",
+      "right": "#292928",
+      "crop": [
+        0.083,
+        0.097,
+        0.625,
+        0.774
+      ]
+    },
+    "ceramic/ceramic-iridescent": {
+      "source": "factory_photo",
+      "coverage": 0.96,
+      "primary": "#c1c5c0",
+      "secondary": null,
+      "top": "#e8ebe8",
+      "middle": "#dcddd8",
+      "bottom": "#e5e6e4",
+      "left": "#e8ebe8",
+      "right": "#f1f3f1",
+      "crop": [
+        0.01,
+        0,
+        0.979,
+        1
+      ]
+    },
+    "ceramic/ceramic-silver-gold-electroplate": {
+      "source": "factory_photo",
+      "coverage": 0.96,
+      "primary": "#bab3a6",
+      "secondary": null,
+      "top": "#d8d5d2",
+      "middle": "#ded9cf",
+      "bottom": "#cec8be",
+      "left": "#ebeae8",
+      "right": "#a8a199",
+      "crop": [
+        0.01,
+        0,
+        0.979,
+        1
+      ]
+    },
+    "ceramic/ceramic-glitter": {
+      "source": "factory_photo",
+      "coverage": 0.96,
+      "primary": "#d9d9d9",
+      "secondary": null,
+      "top": "#d2d2d2",
+      "middle": "#d5d5d3",
+      "bottom": "#e0e0df",
+      "left": "#d3d3ce",
+      "right": "#dddddf",
+      "crop": [
+        0,
+        0,
+        0.979,
+        1
+      ]
+    },
+    "glass/glass-solid-tint": {
+      "source": "ai_render",
+      "coverage": 0.84,
+      "primary": "#d29738",
+      "secondary": "#e1b05e",
+      "top": "#d9a249",
+      "middle": "#d19637",
+      "bottom": "#b06c13",
+      "left": "#deaa54",
+      "right": "#cb8f32",
+      "crop": [
+        0.059,
+        0.104,
+        0.853,
+        0.729
+      ]
+    },
+    "glass/glass-two-tone": {
+      "source": "ai_render",
+      "coverage": 0.86,
+      "primary": "#d0cecd",
+      "secondary": "#7f7f7f",
+      "top": "#d7d6d5",
+      "middle": "#aeadac",
+      "bottom": "#6e6d6d",
+      "left": "#d1cfce",
+      "right": "#cac8c7",
+      "crop": [
+        0.049,
+        0.135,
+        0.885,
+        0.667
+      ]
+    },
+    "glass/glass-bubble-in-furnace": {
+      "source": "ai_render",
+      "coverage": 0.86,
+      "primary": "#ceccca",
+      "secondary": null,
+      "top": "#d1cfcc",
+      "middle": "#d0cecb",
+      "bottom": "#c5c2bf",
+      "left": "#d4d2d0",
+      "right": "#cfcdca",
+      "crop": [
+        0.046,
+        0.104,
+        0.892,
+        0.729
+      ]
+    },
+    "glass/glass-bubble-dense": {
+      "source": "ai_render",
+      "coverage": 0.83,
+      "primary": "#d2cfcb",
+      "secondary": null,
+      "top": "#d3d0cc",
+      "middle": "#d3d0cc",
+      "bottom": "#cbc8c3",
+      "left": "#d7d4d1",
+      "right": "#cecbc7",
+      "crop": [
+        0.062,
+        0.115,
+        0.862,
+        0.708
+      ]
+    },
+    "glass/glass-bubble-sparse": {
+      "source": "ai_render",
+      "coverage": 0.84,
+      "primary": "#cccac8",
+      "secondary": null,
+      "top": "#cfcdcb",
+      "middle": "#cbc9c7",
+      "bottom": "#c9c7c5",
+      "left": "#d3d1cf",
+      "right": "#cdcbc9",
+      "crop": [
+        0.05,
+        0.135,
+        0.867,
+        0.656
+      ]
+    },
+    "glass/glass-bubble-localized": {
+      "source": "ai_render",
+      "coverage": 0.86,
+      "primary": "#d9d6d3",
+      "secondary": null,
+      "top": "#dfdcd9",
+      "middle": "#dddad8",
+      "bottom": "#cfccca",
+      "left": "#e5e2e1",
+      "right": "#dedbd9",
+      "crop": [
+        0.048,
+        0.125,
+        0.889,
+        0.698
+      ]
+    },
+    "glass/glass-colored-powder": {
+      "source": "ai_render",
+      "coverage": 0.84,
+      "primary": "#b5c1c6",
+      "secondary": null,
+      "top": "#bcc5c8",
+      "middle": "#b0bec5",
+      "bottom": "#9eb3bb",
+      "left": "#b6c4c9",
+      "right": "#a2b6bf",
+      "crop": [
+        0.049,
+        0.125,
+        0.885,
+        0.677
+      ]
+    },
+    "glass/glass-colored-spots-blown": {
+      "source": "ai_render",
+      "coverage": 0.84,
+      "primary": "#d9d6d4",
+      "secondary": null,
+      "top": "#d8d6d4",
+      "middle": "#d8d5d3",
+      "bottom": "#cfcbc8",
+      "left": "#d5d1cf",
+      "right": "#d3cfcc",
+      "crop": [
+        0.063,
+        0.125,
+        0.857,
+        0.677
+      ]
+    },
+    "glass/glass-colored-spots-pressed": {
+      "source": "ai_render",
+      "coverage": 0.86,
+      "primary": "#d2ceca",
+      "secondary": null,
+      "top": "#d2cecb",
+      "middle": "#d3cfcb",
+      "bottom": "#c9c6c1",
+      "left": "#d4d0cc",
+      "right": "#cecac6",
+      "crop": [
+        0.046,
+        0.104,
+        0.892,
+        0.729
+      ]
+    },
+    "glass/glass-glass-filigree": {
+      "source": "ai_render",
+      "coverage": 0.8,
+      "primary": "#ceccca",
+      "secondary": null,
+      "top": "#d0cecc",
+      "middle": "#cfcdca",
+      "bottom": "#cccac8",
+      "left": "#d7d6d4",
+      "right": "#d1d0cd",
+      "crop": [
+        0.068,
+        0.156,
+        0.847,
+        0.625
+      ]
+    },
+    "glass/glass-frosted": {
+      "source": "ai_render",
+      "coverage": 0.84,
+      "primary": "#d0d0d0",
+      "secondary": null,
+      "top": "#d4d3d3",
+      "middle": "#d0cfcf",
+      "bottom": "#cbcbcb",
+      "left": "#d6d5d5",
+      "right": "#cdcdcd",
+      "crop": [
+        0.063,
+        0.135,
+        0.857,
+        0.667
+      ]
+    },
+    "glass/glass-sandblasted": {
+      "source": "ai_render",
+      "coverage": 0.83,
+      "primary": "#c4c2bf",
+      "secondary": null,
+      "top": "#cac8c5",
+      "middle": "#c1bfbc",
+      "bottom": "#bbb9b6",
+      "left": "#cac8c5",
+      "right": "#c0bebb",
+      "crop": [
+        0.078,
+        0.125,
+        0.844,
+        0.677
+      ]
+    },
+    "glass/glass-satin": {
+      "source": "ai_render",
+      "coverage": 0.83,
+      "primary": "#d3d1cf",
+      "secondary": null,
+      "top": "#d3d1d0",
+      "middle": "#d5d3d1",
+      "bottom": "#cfcdcb",
+      "left": "#d3d1d0",
+      "right": "#d1cfcd",
+      "crop": [
+        0.068,
+        0.156,
+        0.847,
+        0.625
+      ]
+    },
+    "glass/glass-ribbed": {
+      "source": "ai_render",
+      "coverage": 0.82,
+      "primary": "#d2d0cd",
+      "secondary": null,
+      "top": "#d7d5d1",
+      "middle": "#d4d2cf",
+      "bottom": "#cdcbc8",
+      "left": "#d4d2ce",
+      "right": "#cfcdca",
+      "crop": [
+        0.05,
+        0.146,
+        0.867,
+        0.646
+      ]
+    },
+    "glass/glass-hammered": {
+      "source": "ai_render",
+      "coverage": 0.8,
+      "primary": "#cecbc8",
+      "secondary": null,
+      "top": "#d3d0cd",
+      "middle": "#d0cdca",
+      "bottom": "#c7c3c0",
+      "left": "#d8d5d3",
+      "right": "#cfccc9",
+      "crop": [
+        0.063,
+        0.104,
+        0.857,
+        0.677
+      ]
+    },
+    "glass/glass-iridescent": {
+      "source": "ai_render",
+      "coverage": 0.84,
+      "primary": "#c0bfc1",
+      "secondary": "#dec5a1",
+      "top": "#c7c4b9",
+      "middle": "#bfc2b3",
+      "bottom": "#b6b2af",
+      "left": "#d5b4c3",
+      "right": "#92c3c6",
+      "crop": [
+        0.065,
+        0.135,
+        0.871,
+        0.677
+      ]
+    },
+    "glass/glass-opaque-spray": {
+      "source": "ai_render",
+      "coverage": 0.83,
+      "primary": "#8b947f",
+      "secondary": null,
+      "top": "#a0a795",
+      "middle": "#88917c",
+      "bottom": "#808975",
+      "left": "#9aa38e",
+      "right": "#5e6553",
+      "crop": [
+        0.068,
+        0.156,
+        0.847,
+        0.625
+      ]
+    },
+    "glass/glass-gradient-spray": {
+      "source": "ai_render",
+      "coverage": 0.86,
+      "primary": "#ddd8d5",
+      "secondary": "#d4b4b3",
+      "top": "#e4dfdd",
+      "middle": "#dccfcd",
+      "bottom": "#c78a8d",
+      "left": "#e2dbd9",
+      "right": "#ddd3d0",
+      "crop": [
+        0.052,
+        0.146,
+        0.897,
+        0.646
+      ]
+    },
+    "glass/glass-metal-plating": {
+      "source": "ai_render",
+      "coverage": 0.84,
+      "primary": "#ebb8a1",
+      "secondary": null,
+      "top": "#ebb8a2",
+      "middle": "#ebb8a2",
+      "bottom": "#e4af99",
+      "left": "#fde0d1",
+      "right": "#e8b49d",
+      "crop": [
+        0.063,
+        0.135,
+        0.857,
+        0.667
+      ]
+    },
+    "glass/glass-bubble-out-of-furnace": {
+      "source": "ai_render",
+      "coverage": 0.82,
+      "primary": "#d3cfcc",
+      "secondary": null,
+      "top": "#d6d2cf",
+      "middle": "#d5d1ce",
+      "bottom": "#ccc9c5",
+      "left": "#d9d5d2",
+      "right": "#d3cfcc",
+      "crop": [
+        0.065,
+        0.135,
+        0.839,
+        0.646
+      ]
+    },
+    "glass/glass-ice-cracks": {
+      "source": "ai_render",
+      "coverage": 0.78,
+      "primary": "#cdcac7",
+      "secondary": null,
+      "top": "#cecbc9",
+      "middle": "#cdcac8",
+      "bottom": "#c8c5c2",
+      "left": "#d5d2d0",
+      "right": "#cdcac7",
+      "crop": [
+        0.076,
+        0.094,
+        0.848,
+        0.698
+      ]
+    },
+    "glass/glass-glass-debris": {
+      "source": "ai_render",
+      "coverage": 0.84,
+      "primary": "#c5c0b8",
+      "secondary": null,
+      "top": "#cac6be",
+      "middle": "#c0bab0",
+      "bottom": "#b1ab9e",
+      "left": "#beb8ad",
+      "right": "#b3ada0",
+      "crop": [
+        0.059,
+        0.104,
+        0.853,
+        0.719
+      ]
+    },
+    "stainless_steel/2-color-diagonal-glossy-ombre": {
+      "source": "factory_photo",
+      "coverage": 0.94,
+      "primary": "#7a8d82",
+      "secondary": "#455953",
+      "top": "#879b8f",
+      "middle": "#75887d",
+      "bottom": "#4b5d57",
+      "left": "#3f514d",
+      "right": "#819386",
+      "crop": [
+        0.084,
+        0.01,
+        0.821,
+        0.979
+      ]
+    },
+    "stainless_steel/2-color-diagonal-semi-matte-metallic-ombre": {
+      "source": "factory_photo",
+      "coverage": 0.94,
+      "primary": "#2c352f",
+      "secondary": "#6b7a6f",
+      "top": "#646c62",
+      "middle": "#5a645b",
+      "bottom": "#3e4e47",
+      "left": "#293331",
+      "right": "#384036",
+      "crop": [
+        0.083,
+        0.01,
+        0.813,
+        0.979
+      ]
+    },
+    "stainless_steel/2-tone-glitter": {
+      "source": "factory_photo",
+      "coverage": 0.98,
+      "primary": "#94806b",
+      "secondary": null,
+      "top": "#998672",
+      "middle": "#96836f",
+      "bottom": "#937e68",
+      "left": "#927f6a",
+      "right": "#85725d",
+      "crop": [
+        0,
+        0,
+        0.979,
+        1
+      ]
+    },
+    "stainless_steel/2-tone-gloss": {
+      "source": "factory_photo",
+      "coverage": 0.97,
+      "primary": "#49645d",
+      "secondary": null,
+      "top": "#566a5e",
+      "middle": "#4d6861",
+      "bottom": "#496560",
+      "left": "#4a6861",
+      "right": "#2f4740",
+      "crop": [
+        0,
+        0,
+        0.979,
+        1
+      ]
+    },
+    "stainless_steel/2-tone-semi-matte-glossy": {
+      "source": "factory_photo",
+      "coverage": 0.96,
+      "primary": "#587776",
+      "secondary": null,
+      "top": "#688584",
+      "middle": "#597877",
+      "bottom": "#4a6a69",
+      "left": "#375353",
+      "right": "#5e7c7a",
+      "crop": [
+        0.011,
+        0,
+        0.968,
+        1
+      ]
+    },
+    "stainless_steel/2-tone-metallic-semi-matte": {
+      "source": "factory_photo",
+      "coverage": 0.96,
+      "primary": "#69837d",
+      "secondary": null,
+      "top": "#5e7369",
+      "middle": "#68817c",
+      "bottom": "#69847f",
+      "left": "#4e6c6a",
+      "right": "#657f79",
+      "crop": [
+        0.01,
+        0,
+        0.979,
+        1
+      ]
+    },
+    "stainless_steel/2-tone-powder-metallic": {
+      "source": "factory_photo",
+      "coverage": 0.96,
+      "primary": "#788e8a",
+      "secondary": null,
+      "top": "#7a9091",
+      "middle": "#7b908a",
+      "bottom": "#73887d",
+      "left": "#758881",
+      "right": "#94aaa6",
+      "crop": [
+        0.073,
+        0,
+        0.833,
+        0.99
+      ]
+    },
+    "stainless_steel/2-tone-powder-ombre-metallic": {
+      "source": "factory_photo",
+      "coverage": 0.96,
+      "primary": "#8ba09a",
+      "secondary": null,
+      "top": "#95aaa5",
+      "middle": "#778b87",
+      "bottom": "#75897e",
+      "left": "#81958d",
+      "right": "#96aba4",
+      "crop": [
+        0.01,
+        0,
+        0.979,
+        1
+      ]
+    },
+    "stainless_steel/3d-print-machine-matte": {
+      "source": "factory_photo",
+      "coverage": 0.96,
+      "primary": "#d1bdb1",
+      "secondary": "#67646c",
+      "top": "#a2938d",
+      "middle": "#c3b1a9",
+      "bottom": "#bdada7",
+      "left": "#b29f99",
+      "right": "#cdbcb1",
+      "crop": [
+        0,
+        0,
+        0.979,
+        1
+      ]
+    },
+    "stainless_steel/3d-print-machine-glossy": {
+      "source": "factory_photo",
+      "coverage": 0.97,
+      "primary": "#9a1e2e",
+      "secondary": "#a02733",
+      "top": "#a3481e",
+      "middle": "#a1313d",
+      "bottom": "#a0283e",
+      "left": "#a43323",
+      "right": "#a44749",
+      "crop": [
+        0,
+        0,
+        0.979,
+        1
+      ]
+    },
+    "stainless_steel/3d-print-machine-semi-matte": {
+      "source": "factory_photo",
+      "coverage": 0.98,
+      "primary": "#dbc3a7",
+      "secondary": "#4e4c54",
+      "top": "#c7b09b",
+      "middle": "#cdb69b",
+      "bottom": "#d4bda3",
+      "left": "#d8c9b7",
+      "right": "#c9b094",
+      "crop": [
+        0,
+        0,
+        0.979,
+        1
+      ]
+    },
+    "stainless_steel/3d-print-3d-ombre": {
+      "source": "factory_photo",
+      "coverage": 0.97,
+      "primary": "#957f96",
+      "secondary": "#6a4b65",
+      "top": "#867487",
+      "middle": "#8f788f",
+      "bottom": "#987f99",
+      "left": "#9f879b",
+      "right": "#5e3d56",
+      "crop": [
+        0,
+        0,
+        0.979,
+        1
+      ]
+    },
+    "stainless_steel/3d-print-textured-finish-glossy": {
+      "source": "factory_photo",
+      "coverage": 0.94,
+      "primary": "#b9b8b6",
+      "secondary": null,
+      "top": "#bab9b8",
+      "middle": "#b9b8b6",
+      "bottom": "#b9b8b6",
+      "left": "#b7b7b7",
+      "right": "#a8a59f",
+      "crop": [
+        0.083,
+        0.011,
+        0.813,
+        0.979
+      ]
+    },
+    "stainless_steel/3d-print-textured-finish-semi-matte": {
+      "source": "factory_photo",
+      "coverage": 0.97,
+      "primary": "#b4b5b5",
+      "secondary": null,
+      "top": "#b6b7b7",
+      "middle": "#b5b6b5",
+      "bottom": "#b7b7b6",
+      "left": "#838383",
+      "right": "#c5c5c3",
+      "crop": [
+        0,
+        0,
+        0.979,
+        1
+      ]
+    },
+    "stainless_steel/3d-print-3d-textured-ombre": {
+      "source": "factory_photo",
+      "coverage": 0.97,
+      "primary": "#6f818b",
+      "secondary": null,
+      "top": "#5a6770",
+      "middle": "#6b7d87",
+      "bottom": "#7e929d",
+      "left": "#485862",
+      "right": "#798a94",
+      "crop": [
+        0,
+        0,
+        0.979,
+        1
+      ]
+    },
+    "stainless_steel/air-transfer-semi-matte": {
+      "source": "factory_photo",
+      "coverage": 0.96,
+      "primary": "#40476a",
+      "secondary": "#a3b5c1",
+      "top": "#8e9093",
+      "middle": "#677084",
+      "bottom": "#707e90",
+      "left": "#3f4c62",
+      "right": "#6f7583",
+      "crop": [
+        0.01,
+        0,
+        0.979,
+        1
+      ]
+    },
+    "stainless_steel/air-transfer-metallic": {
+      "source": "factory_photo",
+      "coverage": 0.97,
+      "primary": "#3f4046",
+      "secondary": "#1c1924",
+      "top": "#534f4e",
+      "middle": "#49484b",
+      "bottom": "#3f3d43",
+      "left": "#37373b",
+      "right": "#4e4742",
+      "crop": [
+        0.01,
+        0,
+        0.979,
+        1
+      ]
+    },
+    "stainless_steel/air-transfer-semi-matte-metallic": {
+      "source": "factory_photo",
+      "coverage": 0.97,
+      "primary": "#17233e",
+      "secondary": "#3f4d6b",
+      "top": "#414960",
+      "middle": "#42516e",
+      "bottom": "#3a4764",
+      "left": "#1e2638",
+      "right": "#444d67",
+      "crop": [
+        0,
+        0,
+        0.979,
+        1
+      ]
+    },
+    "stainless_steel/air-transfer-glossy": {
+      "source": "factory_photo",
+      "coverage": 0.97,
+      "primary": "#144a8e",
+      "secondary": "#476ea8",
+      "top": "#2e4f81",
+      "middle": "#2a5491",
+      "bottom": "#3364a5",
+      "left": "#123467",
+      "right": "#3e649b",
+      "crop": [
+        0,
+        0,
+        0.979,
+        1
+      ]
+    },
+    "stainless_steel/black-iridescent": {
+      "source": "factory_photo",
+      "coverage": 0.98,
+      "primary": "#767c7c",
+      "secondary": null,
+      "top": "#6c7476",
+      "middle": "#6e7777",
+      "bottom": "#6b7474",
+      "left": "#4b5152",
+      "right": "#6d7674",
+      "crop": [
+        0,
+        0,
+        0.979,
+        1
+      ]
+    },
+    "stainless_steel/black-uv": {
+      "source": "factory_photo",
+      "coverage": 0.97,
+      "primary": "#565957",
+      "secondary": "#15191e",
+      "top": "#5c615e",
+      "middle": "#585b5b",
+      "bottom": "#505251",
+      "left": "#1f2327",
+      "right": "#60625d",
+      "crop": [
+        0,
+        0,
+        0.979,
+        1
+      ]
+    },
+    "stainless_steel/ceramic-lining": {
+      "source": "factory_photo",
+      "coverage": 0.97,
+      "primary": "#566e69",
+      "secondary": null,
+      "top": "#5b726d",
+      "middle": "#657b76",
+      "bottom": "#5a706c",
+      "left": "#435a57",
+      "right": "#5d746e",
+      "crop": [
+        0,
+        0,
+        0.979,
+        1
+      ]
+    },
+    "stainless_steel/chameleon": {
+      "source": "factory_photo",
+      "coverage": 0.99,
+      "primary": "#2f3841",
+      "secondary": "#a7cedc",
+      "top": "#415964",
+      "middle": "#4b7a84",
+      "bottom": "#385a61",
+      "left": "#3b5b68",
+      "right": "#444550",
+      "crop": [
+        0,
+        0,
+        0.979,
+        1
+      ]
+    },
+    "stainless_steel/pearl-glitter": {
+      "source": "factory_photo",
+      "coverage": 0.96,
+      "primary": "#bfc6c7",
+      "secondary": null,
+      "top": "#c0c7c9",
+      "middle": "#bfc6c7",
+      "bottom": "#bfc6c6",
+      "left": "#aeb4b1",
+      "right": "#cacfcb",
+      "crop": [
+        0.01,
+        0,
+        0.979,
+        1
+      ]
+    },
+    "stainless_steel/color-changing-glitter": {
+      "source": "factory_photo",
+      "coverage": 0.96,
+      "primary": "#2f3729",
+      "secondary": "#141d19",
+      "top": "#3b483b",
+      "middle": "#3e4a39",
+      "bottom": "#3d4736",
+      "left": "#141a15",
+      "right": "#455c55",
+      "crop": [
+        0.01,
+        0,
+        0.958,
+        1
+      ]
+    },
+    "stainless_steel/color-speckle": {
+      "source": "factory_photo",
+      "coverage": 0.97,
+      "primary": "#afbbb1",
+      "secondary": null,
+      "top": "#aebab1",
+      "middle": "#afbbb2",
+      "bottom": "#b0bcb2",
+      "left": "#9faca3",
+      "right": "#b5c1b6",
+      "crop": [
+        0,
+        0,
+        0.979,
+        1
+      ]
+    },
+    "stainless_steel/color-uv": {
+      "source": "factory_photo",
+      "coverage": 0.96,
+      "primary": "#6c817f",
+      "secondary": null,
+      "top": "#708583",
+      "middle": "#6c817f",
+      "bottom": "#637876",
+      "left": "#445b5b",
+      "right": "#768c89",
+      "crop": [
+        0.01,
+        0,
+        0.979,
+        1
+      ]
+    },
+    "stainless_steel/color-uv-metallic": {
+      "source": "factory_photo",
+      "coverage": 0.97,
+      "primary": "#527a76",
+      "secondary": "#3d5a57",
+      "top": "#537a76",
+      "middle": "#517672",
+      "bottom": "#4c706b",
+      "left": "#35504e",
+      "right": "#577c78",
+      "crop": [
+        0,
+        0,
+        0.979,
+        1
+      ]
+    },
+    "stainless_steel/drip-paint-semi-matte": {
+      "source": "factory_photo",
+      "coverage": 0.97,
+      "primary": "#4e6361",
+      "secondary": null,
+      "top": "#6f8076",
+      "middle": "#5c6f6a",
+      "bottom": "#4f6361",
+      "left": "#334949",
+      "right": "#768675",
+      "crop": [
+        0.01,
+        0,
+        0.979,
+        1
+      ]
+    },
+    "stainless_steel/drip-paint-glossy": {
+      "source": "factory_photo",
+      "coverage": 0.96,
+      "primary": "#d8dbd0",
+      "secondary": "#234c85",
+      "top": "#d7d8cd",
+      "middle": "#cdd5c9",
+      "bottom": "#c1d0c3",
+      "left": "#d2d7cd",
+      "right": "#d2d2c5",
+      "crop": [
+        0.01,
+        0,
+        0.979,
+        1
+      ]
+    },
+    "stainless_steel/embossed-foil-decal": {
+      "source": "factory_photo",
+      "coverage": 0.96,
+      "primary": "#016e64",
+      "secondary": null,
+      "top": "#0b7671",
+      "middle": "#107977",
+      "bottom": "#107573",
+      "left": "#0c6e75",
+      "right": "#017c75",
+      "crop": [
+        0.01,
+        0,
+        0.979,
+        1
+      ]
+    },
+    "stainless_steel/foil-decal": {
+      "source": "factory_photo",
+      "coverage": 0.97,
+      "primary": "#323330",
+      "secondary": "#8b805b",
+      "top": "#9e967a",
+      "middle": "#686143",
+      "bottom": "#a99f7f",
+      "left": "#64604e",
+      "right": "#7c765d",
+      "crop": [
+        0,
+        0,
+        0.979,
+        1
+      ]
+    },
+    "stainless_steel/frosted": {
+      "source": "factory_photo",
+      "coverage": 0.97,
+      "primary": "#617471",
+      "secondary": null,
+      "top": "#5f7370",
+      "middle": "#647775",
+      "bottom": "#5f716f",
+      "left": "#4d5e5c",
+      "right": "#5b6e6a",
+      "crop": [
+        0,
+        0,
+        0.979,
+        1
+      ]
+    },
+    "stainless_steel/frosted-ombre": {
+      "source": "factory_photo",
+      "coverage": 0.96,
+      "primary": "#aeb9b8",
+      "secondary": null,
+      "top": "#718083",
+      "middle": "#a8b4b8",
+      "bottom": "#c0cac3",
+      "left": "#96a0a0",
+      "right": "#b9c4c0",
+      "crop": [
+        0.01,
+        0,
+        0.979,
+        1
+      ]
+    },
+    "stainless_steel/gilded": {
+      "source": "factory_photo",
+      "coverage": 0.96,
+      "primary": "#698081",
+      "secondary": null,
+      "top": "#6c8384",
+      "middle": "#6b8182",
+      "bottom": "#657d7d",
+      "left": "#395152",
+      "right": "#6b8382",
+      "crop": [
+        0.01,
+        0,
+        0.979,
+        1
+      ]
+    },
+    "stainless_steel/glitter": {
+      "source": "factory_photo",
+      "coverage": 0.98,
+      "primary": "#cca1a4",
+      "secondary": null,
+      "top": "#cda5a7",
+      "middle": "#cfa4a8",
+      "bottom": "#cfa3a6",
+      "left": "#bf8c91",
+      "right": "#edd1d2",
+      "crop": [
+        0,
+        0,
+        0.979,
+        1
+      ]
+    },
+    "stainless_steel/glitter-coated": {
+      "source": "factory_photo",
+      "coverage": 0.96,
+      "primary": "#596b6b",
+      "secondary": null,
+      "top": "#6a7b7b",
+      "middle": "#667777",
+      "bottom": "#5c6f6e",
+      "left": "#4b5959",
+      "right": "#6d807f",
+      "crop": [
+        0.01,
+        0,
+        0.979,
+        1
+      ]
+    },
+    "stainless_steel/glitter-foil-decal": {
+      "source": "factory_photo",
+      "coverage": 0.98,
+      "primary": "#d5cdbd",
+      "secondary": "#718199",
+      "top": "#aaadb0",
+      "middle": "#c2bcab",
+      "bottom": "#d1c8b8",
+      "left": "#a39e92",
+      "right": "#bcb7ab",
+      "crop": [
+        0,
+        0,
+        0.979,
+        1
+      ]
+    },
+    "stainless_steel/glitter-ombre": {
+      "source": "factory_photo",
+      "coverage": 0.96,
+      "primary": "#353e3f",
+      "secondary": "#73807f",
+      "top": "#545b5d",
+      "middle": "#5d6868",
+      "bottom": "#717e7c",
+      "left": "#323d3e",
+      "right": "#525a59",
+      "crop": [
+        0.01,
+        0,
+        0.979,
+        1
+      ]
+    },
+    "stainless_steel/glossy-opaque": {
+      "source": "factory_photo",
+      "coverage": 0.96,
+      "primary": "#a2a6be",
+      "secondary": null,
+      "top": "#a5abc3",
+      "middle": "#a2a7bf",
+      "bottom": "#9b9fb5",
+      "left": "#a9adc6",
+      "right": "#959bb0",
+      "crop": [
+        0.01,
+        0,
+        0.979,
+        1
+      ]
+    },
+    "stainless_steel/glossy-opaque-ombre": {
+      "source": "factory_photo",
+      "coverage": 0.96,
+      "primary": "#99aeab",
+      "secondary": null,
+      "top": "#abc0b7",
+      "middle": "#90a7a9",
+      "bottom": "#5e7778",
+      "left": "#809390",
+      "right": "#a7bcb7",
+      "crop": [
+        0.01,
+        0,
+        0.979,
+        1
+      ]
+    },
+    "stainless_steel/glow-in-the-dark": {
+      "source": "factory_photo",
+      "coverage": 0.96,
+      "primary": "#445f5a",
+      "secondary": "#325b5a",
+      "top": "#50645d",
+      "middle": "#4d635c",
+      "bottom": "#4c625b",
+      "left": "#3f534f",
+      "right": "#56675e",
+      "crop": [
+        0.01,
+        0,
+        0.979,
+        1
+      ]
+    },
+    "stainless_steel/gold-sparkle-ombre": {
+      "source": "factory_photo",
+      "coverage": 0.96,
+      "primary": "#97a39e",
+      "secondary": null,
+      "top": "#5a6764",
+      "middle": "#8c9896",
+      "bottom": "#adb9b1",
+      "left": "#7b8785",
+      "right": "#a2aea9",
+      "crop": [
+        0.01,
+        0,
+        0.979,
+        1
+      ]
+    },
+    "stainless_steel/half-air-transfer": {
+      "source": "factory_photo",
+      "coverage": 0.97,
+      "primary": "#333445",
+      "secondary": "#becdd9",
+      "top": "#837e6d",
+      "middle": "#7a8898",
+      "bottom": "#4f92d4",
+      "left": "#33414f",
+      "right": "#88a4b9",
+      "crop": [
+        0.01,
+        0,
+        0.979,
+        1
+      ]
+    },
+    "stainless_steel/half-rubberized": {
+      "source": "factory_photo",
+      "coverage": 0.97,
+      "primary": "#7f918a",
+      "secondary": null,
+      "top": "#86968f",
+      "middle": "#83958e",
+      "bottom": "#83978f",
+      "left": "#5a6964",
+      "right": "#99aba1",
+      "crop": [
+        0,
+        0,
+        0.979,
+        1
+      ]
+    },
+    "stainless_steel/heat-transfer-on-glossy-base": {
+      "source": "factory_photo",
+      "coverage": 0.97,
+      "primary": "#96b2b8",
+      "secondary": null,
+      "top": "#95b2b9",
+      "middle": "#98aeb3",
+      "bottom": "#96b3b8",
+      "left": "#97b7bd",
+      "right": "#778c86",
+      "crop": [
+        0,
+        0,
+        0.979,
+        1
+      ]
+    },
+    "stainless_steel/heat-transfer-on-metallic-base": {
+      "source": "factory_photo",
+      "coverage": 0.96,
+      "primary": "#2f3348",
+      "secondary": "#666879",
+      "top": "#716f64",
+      "middle": "#6d6b63",
+      "bottom": "#6b6753",
+      "left": "#545042",
+      "right": "#6e6a65",
+      "crop": [
+        0.01,
+        0,
+        0.979,
+        1
+      ]
+    },
+    "stainless_steel/high-gloss": {
+      "source": "factory_photo",
+      "coverage": 0.97,
+      "primary": "#566a63",
+      "secondary": "#93b5aa",
+      "top": "#6e887f",
+      "middle": "#748e85",
+      "bottom": "#789289",
+      "left": "#526a64",
+      "right": "#7d9589",
+      "crop": [
+        0,
+        0,
+        0.979,
+        1
+      ]
+    },
+    "stainless_steel/hydroform": {
+      "source": "factory_photo",
+      "coverage": 0.97,
+      "primary": "#ae8867",
+      "secondary": "#5c4634",
+      "top": "#a98564",
+      "middle": "#a37f60",
+      "bottom": "#9e7b5d",
+      "left": "#a4815f",
+      "right": "#5b4333",
+      "crop": [
+        0,
+        0,
+        0.979,
+        1
+      ]
+    },
+    "stainless_steel/ionplating": {
+      "source": "factory_photo",
+      "coverage": 0.97,
+      "primary": "#817847",
+      "secondary": "#d7d187",
+      "top": "#beb776",
+      "middle": "#c4bd78",
+      "bottom": "#c7bf77",
+      "left": "#ddd88a",
+      "right": "#c9bf7c",
+      "crop": [
+        0,
+        0,
+        0.979,
+        1
+      ]
+    },
+    "stainless_steel/iridescent-sparkle": {
+      "source": "factory_photo",
+      "coverage": 0.97,
+      "primary": "#a8b0b0",
+      "secondary": null,
+      "top": "#a6b0b0",
+      "middle": "#a8b0b0",
+      "bottom": "#acb3b3",
+      "left": "#919899",
+      "right": "#afb6b3",
+      "crop": [
+        0.01,
+        0,
+        0.979,
+        1
+      ]
+    },
+    "stainless_steel/laser-engraved": {
+      "source": "factory_photo",
+      "coverage": 0.98,
+      "primary": "#b3bdb6",
+      "secondary": null,
+      "top": "#b7c5be",
+      "middle": "#aeb4ae",
+      "bottom": "#abb4ad",
+      "left": "#84928d",
+      "right": "#bdcdc4",
+      "crop": [
+        0,
+        0,
+        0.979,
+        1
+      ]
+    },
+    "stainless_steel/laser-engraved-full-body": {
+      "source": "factory_photo",
+      "coverage": 0.98,
+      "primary": "#687872",
+      "secondary": null,
+      "top": "#778480",
+      "middle": "#6b7b77",
+      "bottom": "#65746e",
+      "left": "#415653",
+      "right": "#707f79",
+      "crop": [
+        0,
+        0,
+        0.979,
+        1
+      ]
+    },
+    "stainless_steel/leafed-foil": {
+      "source": "factory_photo",
+      "coverage": 0.97,
+      "primary": "#667777",
+      "secondary": null,
+      "top": "#667877",
+      "middle": "#667777",
+      "bottom": "#647675",
+      "left": "#4f5d5c",
+      "right": "#728482",
+      "crop": [
+        0,
+        0,
+        0.979,
+        1
+      ]
+    },
+    "stainless_steel/leather-finish": {
+      "source": "factory_photo",
+      "coverage": 0.96,
+      "primary": "#5a6e6e",
+      "secondary": null,
+      "top": "#667978",
+      "middle": "#637676",
+      "bottom": "#5e7271",
+      "left": "#3b5151",
+      "right": "#697d7c",
+      "crop": [
+        0.01,
+        0,
+        0.979,
+        1
+      ]
+    },
+    "stainless_steel/semi-matte": {
+      "source": "factory_photo",
+      "coverage": 0.97,
+      "primary": "#58706c",
+      "secondary": null,
+      "top": "#5a726e",
+      "middle": "#5a736e",
+      "bottom": "#536a67",
+      "left": "#526b68",
+      "right": "#3c4d47",
+      "crop": [
+        0,
+        0,
+        0.979,
+        1
+      ]
+    },
+    "stainless_steel/semi-matte-metallic": {
+      "source": "factory_photo",
+      "coverage": 0.96,
+      "primary": "#4d605a",
+      "secondary": "#78948c",
+      "top": "#6f867f",
+      "middle": "#647a73",
+      "bottom": "#586f67",
+      "left": "#3b4e49",
+      "right": "#5e736a",
+      "crop": [
+        0,
+        0,
+        0.979,
+        1
+      ]
+    },
+    "stainless_steel/semi-matte-ombre": {
+      "source": "factory_photo",
+      "coverage": 0.96,
+      "primary": "#90a89e",
+      "secondary": null,
+      "top": "#5c7270",
+      "middle": "#809a8f",
+      "bottom": "#afc7bb",
+      "left": "#768c83",
+      "right": "#95ada0",
+      "crop": [
+        0.01,
+        0,
+        0.979,
+        1
+      ]
+    },
+    "stainless_steel/metallic": {
+      "source": "factory_photo",
+      "coverage": 0.96,
+      "primary": "#405c53",
+      "secondary": "#1a2f2c",
+      "top": "#47645b",
+      "middle": "#46645a",
+      "bottom": "#426057",
+      "left": "#456559",
+      "right": "#67897e",
+      "crop": [
+        0.01,
+        0,
+        0.979,
+        1
+      ]
+    },
+    "stainless_steel/metallic-ombre": {
+      "source": "factory_photo",
+      "coverage": 0.97,
+      "primary": "#677469",
+      "secondary": "#90a092",
+      "top": "#818879",
+      "middle": "#748276",
+      "bottom": "#5a6d64",
+      "left": "#647268",
+      "right": "#6d786b",
+      "crop": [
+        0,
+        0,
+        0.989,
+        1
+      ]
+    },
+    "stainless_steel/metallic-powder-coating": {
+      "source": "factory_photo",
+      "coverage": 0.96,
+      "primary": "#597070",
+      "secondary": null,
+      "top": "#667c7b",
+      "middle": "#617877",
+      "bottom": "#576e6d",
+      "left": "#374e4e",
+      "right": "#5c7473",
+      "crop": [
+        0.01,
+        0,
+        0.979,
+        1
+      ]
+    },
+    "stainless_steel/metallic-rubberized": {
+      "source": "factory_photo",
+      "coverage": 0.96,
+      "primary": "#475853",
+      "secondary": "#718c84",
+      "top": "#5e746e",
+      "middle": "#657b74",
+      "bottom": "#657b74",
+      "left": "#2f3937",
+      "right": "#5a6e65",
+      "crop": [
+        0.01,
+        0,
+        0.979,
+        1
+      ]
+    },
+    "stainless_steel/metallic-speckle": {
+      "source": "factory_photo",
+      "coverage": 0.96,
+      "primary": "#394b47",
+      "secondary": "#86a79b",
+      "top": "#5e756c",
+      "middle": "#5a7068",
+      "bottom": "#546b63",
+      "left": "#354541",
+      "right": "#657a70",
+      "crop": [
+        0.01,
+        0,
+        0.979,
+        1
+      ]
+    },
+    "stainless_steel/metallic-splatter": {
+      "source": "factory_photo",
+      "coverage": 0.97,
+      "primary": "#2b2d25",
+      "secondary": "#5a5c4d",
+      "top": "#67695a",
+      "middle": "#505345",
+      "bottom": "#5d5e4f",
+      "left": "#3b3d33",
+      "right": "#5b5c4c",
+      "crop": [
+        0,
+        0,
+        0.979,
+        1
+      ]
+    },
+    "stainless_steel/mirror": {
+      "source": "factory_photo",
+      "coverage": 0.98,
+      "primary": "#a5a092",
+      "secondary": null,
+      "top": "#cfccbe",
+      "middle": "#cdcabb",
+      "bottom": "#cbc8ba",
+      "left": "#99978b",
+      "right": "#c7c0b1",
+      "crop": [
+        0,
+        0,
+        0.979,
+        1
+      ]
+    },
+    "stainless_steel/ombre-freeform": {
+      "source": "factory_photo",
+      "coverage": 0.97,
+      "primary": "#b0ae7f",
+      "secondary": null,
+      "top": "#b2af7a",
+      "middle": "#afae82",
+      "bottom": "#aaac81",
+      "left": "#a9ae73",
+      "right": "#a69d85",
+      "crop": [
+        0,
+        0,
+        0.979,
+        1
+      ]
+    },
+    "stainless_steel/ombre-iridescent-sparkle": {
+      "source": "factory_photo",
+      "coverage": 0.96,
+      "primary": "#a1adac",
+      "secondary": null,
+      "top": "#829196",
+      "middle": "#a3b0b2",
+      "bottom": "#b2bdb8",
+      "left": "#808b88",
+      "right": "#aebab6",
+      "crop": [
+        0.01,
+        0,
+        0.979,
+        1
+      ]
+    },
+    "stainless_steel/ombre-iridescent-sparkle-raindrop": {
+      "source": "factory_photo",
+      "coverage": 0.96,
+      "primary": "#a8b2b2",
+      "secondary": null,
+      "top": "#858b84",
+      "middle": "#99a2a1",
+      "bottom": "#b4c0c1",
+      "left": "#8d989a",
+      "right": "#a8b0ae",
+      "crop": [
+        0,
+        0,
+        0.979,
+        1
+      ]
+    },
+    "stainless_steel/pearlized": {
+      "source": "factory_photo",
+      "coverage": 0.97,
+      "primary": "#625141",
+      "secondary": "#c1ac91",
+      "top": "#b2a189",
+      "middle": "#ae9a82",
+      "bottom": "#ac9377",
+      "left": "#b9a184",
+      "right": "#4a3b2f",
+      "crop": [
+        0,
+        0,
+        0.979,
+        1
+      ]
+    },
+    "stainless_steel/powder-coating": {
+      "source": "factory_photo",
+      "coverage": 0.96,
+      "primary": "#6d8483",
+      "secondary": "#869a9a",
+      "top": "#7c9291",
+      "middle": "#79908f",
+      "bottom": "#718887",
+      "left": "#395050",
+      "right": "#788f8d",
+      "crop": [
+        0.01,
+        0,
+        0.979,
+        1
+      ]
+    },
+    "stainless_steel/powder-coating-white-speckle": {
+      "source": "factory_photo",
+      "coverage": 0.96,
+      "primary": "#596e6d",
+      "secondary": "#788a8a",
+      "top": "#6c7f7f",
+      "middle": "#697d7c",
+      "bottom": "#617574",
+      "left": "#2f4443",
+      "right": "#6d817f",
+      "crop": [
+        0.01,
+        0,
+        0.979,
+        1
+      ]
+    },
+    "stainless_steel/powder-coating-ombre": {
+      "source": "factory_photo",
+      "coverage": 0.97,
+      "primary": "#95a9a3",
+      "secondary": null,
+      "top": "#b0c7bc",
+      "middle": "#8ca19d",
+      "bottom": "#738784",
+      "left": "#899c95",
+      "right": "#a3b9b1",
+      "crop": [
+        0,
+        0,
+        0.979,
+        1
+      ]
+    },
+    "stainless_steel/powder-coating-ombre-color-speckle": {
+      "source": "factory_photo",
+      "coverage": 0.97,
+      "primary": "#95ada6",
+      "secondary": null,
+      "top": "#aac4b9",
+      "middle": "#8da6a0",
+      "bottom": "#718885",
+      "left": "#8ca39b",
+      "right": "#9cb5ac",
+      "crop": [
+        0,
+        0,
+        0.979,
+        1
+      ]
+    },
+    "stainless_steel/pvd": {
+      "source": "factory_photo",
+      "coverage": 0.97,
+      "primary": "#bd9b86",
+      "secondary": null,
+      "top": "#bf9f8b",
+      "middle": "#c5a490",
+      "bottom": "#c4a18d",
+      "left": "#85614a",
+      "right": "#e5c3b1",
+      "crop": [
+        0,
+        0,
+        0.979,
+        1
+      ]
+    },
+    "stainless_steel/rainbow-glitter": {
+      "source": "factory_photo",
+      "coverage": 0.96,
+      "primary": "#97584c",
+      "secondary": null,
+      "top": "#ac7064",
+      "middle": "#a26557",
+      "bottom": "#9a5649",
+      "left": "#8c5752",
+      "right": "#8b4a40",
+      "crop": [
+        0.01,
+        0,
+        0.979,
+        1
+      ]
+    },
+    "stainless_steel/rainbow-uv": {
+      "source": "factory_photo",
+      "coverage": 0.97,
+      "primary": "#9b989f",
+      "secondary": null,
+      "top": "#a2a596",
+      "middle": "#a4a39e",
+      "bottom": "#a0a4ab",
+      "left": "#9d8d96",
+      "right": "#8f8f96",
+      "crop": [
+        0,
+        0,
+        0.979,
+        1
+      ]
+    },
+    "stainless_steel/raindrop": {
+      "source": "factory_photo",
+      "coverage": 0.98,
+      "primary": "#60786f",
+      "secondary": null,
+      "top": "#677e75",
+      "middle": "#637b72",
+      "bottom": "#627b72",
+      "left": "#425c57",
+      "right": "#6c847a",
+      "crop": [
+        0,
+        0,
+        0.979,
+        1
+      ]
+    },
+    "stainless_steel/reflective": {
+      "source": "factory_photo",
+      "coverage": 0.98,
+      "primary": "#797976",
+      "secondary": null,
+      "top": "#81817e",
+      "middle": "#7a7a77",
+      "bottom": "#727270",
+      "left": "#929290",
+      "right": "#5b5953",
+      "crop": [
+        0,
+        0,
+        0.979,
+        1
+      ]
+    },
+    "stainless_steel/rubberized": {
+      "source": "factory_photo",
+      "coverage": 0.96,
+      "primary": "#596c67",
+      "secondary": null,
+      "top": "#596c67",
+      "middle": "#596d68",
+      "bottom": "#576a66",
+      "left": "#798a86",
+      "right": "#34413c",
+      "crop": [
+        0.01,
+        0,
+        0.979,
+        1
+      ]
+    },
+    "stainless_steel/rubberized-air-transfer": {
+      "source": "factory_photo",
+      "coverage": 0.97,
+      "primary": "#c49ead",
+      "secondary": null,
+      "top": "#c79fae",
+      "middle": "#c4a1af",
+      "bottom": "#be99aa",
+      "left": "#c7a5b2",
+      "right": "#b694a1",
+      "crop": [
+        0,
+        0,
+        0.979,
+        1
+      ]
+    },
+    "stainless_steel/rustic-powder-coating": {
+      "source": "factory_photo",
+      "coverage": 0.97,
+      "primary": "#6b7c79",
+      "secondary": null,
+      "top": "#72837f",
+      "middle": "#6e7e7c",
+      "bottom": "#677876",
+      "left": "#475959",
+      "right": "#72837f",
+      "crop": [
+        0,
+        0,
+        0.979,
+        1
+      ]
+    },
+    "stainless_steel/scented-lacquer": {
+      "source": "factory_photo",
+      "coverage": 0.97,
+      "primary": "#bccdce",
+      "secondary": "#e16670",
+      "top": "#bec6c7",
+      "middle": "#bcc4c5",
+      "bottom": "#afc3c7",
+      "left": "#999c9f",
+      "right": "#c1d2d2",
+      "crop": [
+        0,
+        0,
+        0.979,
+        1
+      ]
+    },
+    "stainless_steel/shimmer": {
+      "source": "factory_photo",
+      "coverage": 0.97,
+      "primary": "#6f8382",
+      "secondary": null,
+      "top": "#748887",
+      "middle": "#708382",
+      "bottom": "#677878",
+      "left": "#4e5b59",
+      "right": "#7d908f",
+      "crop": [
+        0,
+        0,
+        0.979,
+        1
+      ]
+    },
+    "stainless_steel/silk-screen-on-shimmer-base": {
+      "source": "factory_photo",
+      "coverage": 0.96,
+      "primary": "#82889c",
+      "secondary": "#cfbb36",
+      "top": "#868fa5",
+      "middle": "#abab8b",
+      "bottom": "#c1b03b",
+      "left": "#737478",
+      "right": "#929aaf",
+      "crop": [
+        0.01,
+        0,
+        0.979,
+        1
+      ]
+    },
+    "stainless_steel/silk-screen-on-semi-matte-base": {
+      "source": "factory_photo",
+      "coverage": 0.97,
+      "primary": "#4f6361",
+      "secondary": "#a2bab4",
+      "top": "#92a8a4",
+      "middle": "#90a5a2",
+      "bottom": "#899f9a",
+      "left": "#6b7f7b",
+      "right": "#9db4ad",
+      "crop": [
+        0,
+        0,
+        0.979,
+        1
+      ]
+    },
+    "stainless_steel/silk-screen-on-semi-matte-metallic-base": {
+      "source": "factory_photo",
+      "coverage": 0.97,
+      "primary": "#33353c",
+      "secondary": "#b49075",
+      "top": "#917b69",
+      "middle": "#957967",
+      "bottom": "#957561",
+      "left": "#78665c",
+      "right": "#8b6851",
+      "crop": [
+        0,
+        0,
+        0.979,
+        1
+      ]
+    },
+    "stainless_steel/silk-screen-on-glossy-base": {
+      "source": "factory_photo",
+      "coverage": 0.96,
+      "primary": "#83847d",
+      "secondary": null,
+      "top": "#7e7f7b",
+      "middle": "#858373",
+      "bottom": "#84847b",
+      "left": "#7b7a71",
+      "right": "#716d5f",
+      "crop": [
+        0.01,
+        0,
+        0.979,
+        1
+      ]
+    },
+    "stainless_steel/silk-screen-on-matte-base": {
+      "source": "factory_photo",
+      "coverage": 0.96,
+      "primary": "#81827d",
+      "secondary": null,
+      "top": "#7f807d",
+      "middle": "#828179",
+      "bottom": "#81827b",
+      "left": "#7e7d76",
+      "right": "#75746e",
+      "crop": [
+        0.01,
+        0,
+        0.979,
+        1
+      ]
+    },
+    "stainless_steel/smoky-ombre": {
+      "source": "factory_photo",
+      "coverage": 0.98,
+      "primary": "#b4b6ad",
+      "secondary": "#5c676d",
+      "top": "#c2c2b6",
+      "middle": "#9da6a6",
+      "bottom": "#484f53",
+      "left": "#a7aaa4",
+      "right": "#a1a298",
+      "crop": [
+        0,
+        0,
+        0.979,
+        1
+      ]
+    },
+    "stainless_steel/sparkle": {
+      "source": "factory_photo",
+      "coverage": 0.96,
+      "primary": "#414d4b",
+      "secondary": "#7c8e88",
+      "top": "#6c7c77",
+      "middle": "#667671",
+      "bottom": "#61706b",
+      "left": "#42504e",
+      "right": "#64706b",
+      "crop": [
+        0.01,
+        0,
+        0.979,
+        1
+      ]
+    },
+    "stainless_steel/sparkle-ombre": {
+      "source": "factory_photo",
+      "coverage": 0.95,
+      "primary": "#132521",
+      "secondary": "#354e45",
+      "top": "#48685c",
+      "middle": "#2c4038",
+      "bottom": "#252d2a",
+      "left": "#162a25",
+      "right": "#31473e",
+      "crop": [
+        0.01,
+        0,
+        0.958,
+        1
+      ]
+    },
+    "stainless_steel/splatter": {
+      "source": "factory_photo",
+      "coverage": 0.96,
+      "primary": "#515549",
+      "secondary": null,
+      "top": "#5c5e52",
+      "middle": "#5a5e52",
+      "bottom": "#565a4d",
+      "left": "#3f4138",
+      "right": "#696a5d",
+      "crop": [
+        0.01,
+        0,
+        0.979,
+        1
+      ]
+    },
+    "stainless_steel/triple-glitter-ombre": {
+      "source": "factory_photo",
+      "coverage": 0.97,
+      "primary": "#5a615b",
+      "secondary": "#80877e",
+      "top": "#6d6e6e",
+      "middle": "#7d8477",
+      "bottom": "#7b867d",
+      "left": "#4b544e",
+      "right": "#797e75",
+      "crop": [
+        0,
+        0,
+        0.979,
+        1
+      ]
+    },
+    "stainless_steel/triple-powder-coating-ombre": {
+      "source": "factory_photo",
+      "coverage": 0.97,
+      "primary": "#919d75",
+      "secondary": null,
+      "top": "#76897a",
+      "middle": "#929c6c",
+      "bottom": "#a5b38d",
+      "left": "#6d7751",
+      "right": "#9da878",
+      "crop": [
+        0,
+        0,
+        0.979,
+        1
+      ]
+    },
+    "stainless_steel/triple-swirl-glossy-opaque": {
+      "source": "factory_photo",
+      "coverage": 0.99,
+      "primary": "#9eb39b",
+      "secondary": null,
+      "top": "#9eb4a4",
+      "middle": "#a2b79e",
+      "bottom": "#96a785",
+      "left": "#889b89",
+      "right": "#a4b79e",
+      "crop": [
+        0,
+        0,
+        0.979,
+        1
+      ]
+    },
+    "stainless_steel/triple-swirl-semi-matte-metallic": {
+      "source": "factory_photo",
+      "coverage": 0.97,
+      "primary": "#5b6c64",
+      "secondary": null,
+      "top": "#687669",
+      "middle": "#5b6c63",
+      "bottom": "#5c716a",
+      "left": "#3d4033",
+      "right": "#63766d",
+      "crop": [
+        0,
+        0,
+        0.979,
+        1
+      ]
+    },
+    "stainless_steel/triple-swirl-semi-matte": {
+      "source": "factory_photo",
+      "coverage": 0.97,
+      "primary": "#a6918e",
+      "secondary": null,
+      "top": "#ad9b8b",
+      "middle": "#a28c8a",
+      "bottom": "#bb8d7c",
+      "left": "#b1887a",
+      "right": "#a69585",
+      "crop": [
+        0,
+        0,
+        0.979,
+        1
+      ]
+    },
+    "stainless_steel/uv-ombre": {
+      "source": "factory_photo",
+      "coverage": 0.98,
+      "primary": "#143e3a",
+      "secondary": "#548a7e",
+      "top": "#5a8f83",
+      "middle": "#5a9084",
+      "bottom": "#51887c",
+      "left": "#1b5249",
+      "right": "#5b9082",
+      "crop": [
+        0,
+        0,
+        0.979,
+        1
+      ]
+    },
+    "stainless_steel/uv-paint": {
+      "source": "factory_photo",
+      "coverage": 0.96,
+      "primary": "#1a5c56",
+      "secondary": "#39b5ad",
+      "top": "#37a098",
+      "middle": "#329992",
+      "bottom": "#329790",
+      "left": "#32a69d",
+      "right": "#499c96",
+      "crop": [
+        0,
+        0,
+        0.979,
+        1
+      ]
+    },
+    "stainless_steel/vertical-metallic-ombre": {
+      "source": "factory_photo",
+      "coverage": 0.97,
+      "primary": "#465549",
+      "secondary": "#809683",
+      "top": "#56685b",
+      "middle": "#506255",
+      "bottom": "#505f52",
+      "left": "#212e2a",
+      "right": "#626e5c",
+      "crop": [
+        0.01,
+        0,
+        0.979,
+        1
+      ]
+    },
+    "stainless_steel/vertical-semi-matte-ombre": {
+      "source": "factory_photo",
+      "coverage": 0.97,
+      "primary": "#8faeaa",
+      "secondary": "#597171",
+      "top": "#8dada9",
+      "middle": "#8ba9a6",
+      "bottom": "#88a5a2",
+      "left": "#91b1ac",
+      "right": "#435856",
+      "crop": [
+        0,
+        0,
+        0.979,
+        1
+      ]
+    },
+    "stainless_steel/vintage-powder-coating": {
+      "source": "factory_photo",
+      "coverage": 0.96,
+      "primary": "#6a807c",
+      "secondary": null,
+      "top": "#6e8480",
+      "middle": "#6a817d",
+      "bottom": "#657c78",
+      "left": "#506765",
+      "right": "#6b827e",
+      "crop": [
+        0,
+        0,
+        0.979,
+        1
+      ]
+    },
+    "stainless_steel/water-decal-on-glossy-base": {
+      "source": "factory_photo",
+      "coverage": 0.97,
+      "primary": "#eab86a",
+      "secondary": "#506e60",
+      "top": "#a96e4f",
+      "middle": "#ceb156",
+      "bottom": "#e7b666",
+      "left": "#a48146",
+      "right": "#d1b982",
+      "crop": [
+        0,
+        0,
+        0.979,
+        1
+      ]
+    },
+    "stainless_steel/water-decal-on-metallic-base": {
+      "source": "factory_photo",
+      "coverage": 0.97,
+      "primary": "#618074",
+      "secondary": "#a6a389",
+      "top": "#687e6b",
+      "middle": "#98927d",
+      "bottom": "#7c9599",
+      "left": "#627f73",
+      "right": "#96b4a1",
+      "crop": [
+        0,
+        0,
+        0.979,
+        1
+      ]
+    },
+    "stainless_steel/water-transfer": {
+      "source": "factory_photo",
+      "coverage": 0.96,
+      "primary": "#343636",
+      "secondary": "#939492",
+      "top": "#737472",
+      "middle": "#676867",
+      "bottom": "#666664",
+      "left": "#656767",
+      "right": "#605f5d",
+      "crop": [
+        0.01,
+        0,
+        0.979,
+        1
+      ]
+    },
+    "stainless_steel/white-speckle": {
+      "source": "factory_photo",
+      "coverage": 0.96,
+      "primary": "#5c7773",
+      "secondary": null,
+      "top": "#617c78",
+      "middle": "#5d7975",
+      "bottom": "#55706d",
+      "left": "#355350",
+      "right": "#57736f",
+      "crop": [
+        0.01,
+        0,
+        0.979,
+        1
+      ]
+    },
+    "stainless_steel/geo-electroplating": {
+      "source": "factory_photo",
+      "coverage": 0.98,
+      "primary": "#02566f",
+      "secondary": "#51848c",
+      "top": "#015671",
+      "middle": "#226f80",
+      "bottom": "#55848b",
+      "left": "#3b7b88",
+      "right": "#135160",
+      "crop": [
+        0,
+        0,
+        0.979,
+        1
+      ]
+    },
+    "stainless_steel/sparkle-electroplating": {
+      "source": "factory_photo",
+      "coverage": 0.97,
+      "primary": "#728986",
+      "secondary": "#94b0ad",
+      "top": "#95b1ae",
+      "middle": "#89a3a0",
+      "bottom": "#839b99",
+      "left": "#93b0af",
+      "right": "#566866",
+      "crop": [
+        0,
+        0,
+        0.979,
+        1
+      ]
+    },
+    "stainless_steel/powder-coat-pvd-reveal-gold": {
+      "source": "ai_render",
+      "coverage": 0.87,
+      "primary": "#dcd6cd",
+      "secondary": "#bf9b55",
+      "top": "#e5dfd3",
+      "middle": "#e3daca",
+      "bottom": "#e4dfd6",
+      "left": "#f5f2ee",
+      "right": "#bfb8ac",
+      "crop": [
+        0.05,
+        0.25,
+        0.9,
+        0.448
+      ]
+    },
+    "stainless_steel/powder-coat-pvd-reveal-dark-silver": {
+      "source": "ai_render",
+      "coverage": 0.87,
+      "primary": "#d0cecd",
+      "secondary": "#928e8a",
+      "top": "#d8d7d6",
+      "middle": "#d7d6d5",
+      "bottom": "#d5d3d3",
+      "left": "#ebeaea",
+      "right": "#c9c7c6",
+      "crop": [
+        0.024,
+        0.229,
+        0.905,
+        0.479
+      ]
+    },
+    "stainless_steel/powder-coat-pvd-reveal-rosegold": {
+      "source": "ai_render",
+      "coverage": 0.83,
+      "primary": "#d8d5d4",
+      "secondary": null,
+      "top": "#e2dfde",
+      "middle": "#e2dedd",
+      "bottom": "#dfdcda",
+      "left": "#edebec",
+      "right": "#d4d1d0",
+      "crop": [
+        0.047,
+        0.229,
+        0.884,
+        0.479
+      ]
+    },
+    "stainless_steel/powder-coat-pvd-reveal-rainbow": {
+      "source": "ai_render",
+      "coverage": 0.88,
+      "primary": "#2d2c2c",
+      "secondary": null,
+      "top": "#594d57",
+      "middle": "#525c66",
+      "bottom": "#4d4661",
+      "left": "#575d5d",
+      "right": "#494453",
+      "crop": [
+        0.025,
+        0.24,
+        0.9,
+        0.458
+      ]
+    },
+    "stainless_steel/powder-coat-pvd-reveal-blue": {
+      "source": "ai_render",
+      "coverage": 0.86,
+      "primary": "#e0dfdf",
+      "secondary": "#1e8edf",
+      "top": "#dedfe0",
+      "middle": "#dcdcde",
+      "bottom": "#ddddde",
+      "left": "#e3e4e5",
+      "right": "#ddddde",
+      "crop": [
+        0.048,
+        0.24,
+        0.857,
+        0.448
+      ]
+    },
+    "stainless_steel/sheer-3d": {
+      "source": "factory_photo",
+      "coverage": 0.98,
+      "primary": "#82908c",
+      "secondary": null,
+      "top": "#7f8c88",
+      "middle": "#7a8886",
+      "bottom": "#85928d",
+      "left": "#849494",
+      "right": "#8e9d96",
+      "crop": [
+        0,
+        0,
+        0.989,
+        1
+      ]
+    },
+    "plastic/plastic-high-gloss": {
+      "source": "factory_photo",
+      "coverage": 0.81,
+      "primary": "#017d51",
+      "secondary": "#267957",
+      "top": "#077e53",
+      "middle": "#0a8258",
+      "bottom": "#749883",
+      "left": "#81ac95",
+      "right": "#297e5c",
+      "crop": [
+        0.186,
+        0.271,
+        0.744,
+        0.396
+      ]
+    },
+    "plastic/plastic-dull-textured": {
+      "source": "factory_photo",
+      "coverage": 0.61,
+      "primary": "#6b7969",
+      "secondary": null,
+      "top": "#6c7a6a",
+      "middle": "#6a7868",
+      "bottom": "#8e958c",
+      "left": "#969d96",
+      "right": "#6b7b6a",
+      "crop": [
+        0.203,
+        0.26,
+        0.522,
+        0.448
+      ]
+    },
+    "plastic/plastic-pearlescent": {
+      "source": "factory_photo",
+      "coverage": 1,
+      "primary": "#b5aca0",
+      "secondary": "#b7b7aa",
+      "top": "#b99a97",
+      "middle": "#aca993",
+      "bottom": "#a8aa9d",
+      "left": "#bfc2b3",
+      "right": "#b0a59d",
+      "crop": [
+        0,
+        0,
+        1,
+        1
+      ]
+    }
+  }
+}
