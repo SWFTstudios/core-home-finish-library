@@ -25,6 +25,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import { renderUrlFor, renderSqlLines } from "./lib/finish-renders.mjs";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(__dirname, "..");
@@ -405,6 +406,7 @@ async function run() {
 
   const appliedUpdates = applyFactoryUpdates(imports);
   const allFinishes = imports.flatMap((i) => i.finishes);
+  for (const f of allFinishes) f.imageUrl = renderUrlFor(ROOT, f.materialSlug, f.slug);
   const allGraphics = imports.flatMap((i) => i.graphicApplicationTypes);
   const compatByFinish = new Map();
 
@@ -483,11 +485,13 @@ async function run() {
       processSteps: f.processSteps,
       description: describe(f),
       hexColor: f.hexColor,
+      ...(f.imageUrl ? { imageUrl: f.imageUrl } : {}),
       ...publicDetails(f, includeUsdPrices),
       compatibleGraphics: compatByFinish.get(f.id) ?? [],
     })),
   };
 
+  lines.push("", ...renderSqlLines(allFinishes));
   const seedText = lines.join("\n") + "\n";
   const catalogText = JSON.stringify(payload, null, 2) + "\n";
   for (const re of BLOCKED_TERMS) {

@@ -76,6 +76,24 @@ Mapping notes:
 
 The factory USD unit prices are read but **not written** by default, because `public/api/catalog` is served publicly and this repository is public. Pass `--include-usd-prices` to add `priceUsd` once the catalog is behind Cloudflare Access. The importer also refuses to write output that contains client names.
 
+## Finish renders
+
+Each finish can show a product render: a transparent PNG cutout saved as
+
+```
+public/assets/renders/<materialSlug>/<finishSlug>.png
+```
+
+for example `public/assets/renders/ceramic/ceramic-matte-glaze.png`. When the file exists, the importer sets `imageUrl` on that finish in `catalog.json` and adds an `UPDATE finishes SET image_url = …` line to `seed.sql`. The library cards, the detail panel and the configurator finish wheel show the render instead of the flat colour swatch.
+
+To add or replace renders without re-reading the factory sheets:
+
+```bash
+npm run renders:attach   # patches catalog.json, public/api/catalog and seed.sql
+```
+
+The 14 ceramic renders added in November 2026 are AI-generated samples on a plain 14oz mug (Figma image generation, background removed). Colours were chosen for illustration and are **not matched to factory swatches**; treat them as placeholders until the factory reference photos are used as input.
+
 ## Validation
 
 ```bash

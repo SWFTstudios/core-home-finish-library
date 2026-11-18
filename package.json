@@ -2,7 +2,7 @@
   "name": "core-home-finish-library",
   "version": "0.1.0",
   "private": true,
-  "description": "Core Home Render Portal — Finish Library and render request workflow",
+  "description": "Core Home Render Portal \u2014 Finish Library and render request workflow",
   "scripts": {
     "dev": "wrangler dev",
     "deploy": "wrangler deploy",
@@ -15,6 +15,7 @@
     "db:seed:local": "wrangler d1 execute render-portal-db --local --file=./seed.sql",
     "db:seed": "wrangler d1 execute render-portal-db --remote --file=./seed.sql",
     "import:finishes": "node scripts/import-finish-library.mjs",
+    "renders:attach": "node scripts/attach-finish-renders.mjs",
     "db:migrate:material": "wrangler d1 execute render-portal-db --file=./migrations/002_material_slug.sql",
     "db:migrate:material:local": "wrangler d1 execute render-portal-db --local --file=./migrations/002_material_slug.sql",
     "fetch:stitch-specs": "node scripts/fetch-stitch-specs.mjs"
