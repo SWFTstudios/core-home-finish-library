@@ -127,12 +127,16 @@ Real-time preview uses **physically based rendering (PBR)**. The main knobs:
 | **Roughness** | How shiny vs matte | Low = gloss; high = matte / powder |
 | **Emissive** (optional) | Glow | Some UV finish names today |
 
-**Shipped today:** [`public/js/configurator-preview-3d.js`](../public/js/configurator-preview-3d.js) uses:
+**Shipped today:** [`public/js/finish-render-spec.js`](../public/js/finish-render-spec.js) uses:
 
-- `MATERIAL_PRESETS` per material tab (steel, glass, ceramic, plastic)
-- `inferFinishAppearance()` — guesses extra tweaks from finish **name** and **process** (gloss, powder, metallic, ombré, …)
+- A base per material tab (paint over steel, glazed ceramic, transmissive glass, clear plastic)
+- Colours sampled from the real factory photos (`public/data/finish-render.json`), not the placeholder `hex_color`
+- Finish **name** and **process** rules for gloss, matte, powder, metallic, glitter, iridescent, pearl, ombré, two-tone and bare metal
+- Hand corrections per finish in `public/data/finish-render-overrides.json`
 
-**Build later:** store explicit metalness/roughness (and glass **transmission**) on each finish row so we rely less on name guessing. See [12 — Database](12-database-multi-material.md).
+See [13 — 3D pipeline, Stage 1b](13-3d-preview-pipeline.md) for the full flow.
+
+**Build later:** move the overrides onto each finish row in D1 so they travel with the catalog. See [12 — Database](12-database-multi-material.md).
 
 ---
 

@@ -125,7 +125,7 @@ In [`wrangler.jsonc`](../wrangler.jsonc), the assets binding is named **`STATIC_
 | Page shell | `public/configurator/index.html` | HUD markup, import map for Three.js |
 | Layout / theme | `public/css/configurator.css` | Viewport HUD, wheel, shelf, search card |
 | App logic | `public/js/configurator.js` | Wheel, browse filters, theme, API fetch |
-| 3D scene | `public/js/configurator-preview-3d.js` | WebGL preview (cube today → GLTF + zones) — [11](11-3d-materials-primer.md), [13](13-3d-preview-pipeline.md) |
+| 3D scene | `public/js/configurator-preview-3d.js` | WebGL preview (code-built products + body/logo zones today → GLTF later); scene in `product-stage-3d.js` — [11](11-3d-materials-primer.md), [13](13-3d-preview-pipeline.md) |
 | Filters | `public/js/finish-wheel-filters.js` | Sort, color group, style, process |
 | Grouping | `public/js/library-grouping.js` | Style families for filters and library |
 | Navbar | `public/js/components/core-home-navbar.js` | Nav, theme toggle, `lumina-theme-change` |

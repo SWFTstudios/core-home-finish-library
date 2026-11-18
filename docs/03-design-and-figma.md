@@ -67,7 +67,7 @@ Implemented in [`public/css/configurator.css`](../public/css/configurator.css) o
 | Zoom pill | `.preview-zoom` | Left of shelf; zoom + 360° rotate |
 | Wheel arrows | `.wheel-controls` | Track vertical focus line of active finish |
 
-**3D viewport:** [`public/js/configurator-preview-3d.js`](../public/js/configurator-preview-3d.js) — cube stand-in until product GLTF. Theme sync via `lumina-theme-change` from the navbar. Concepts and stages: [11 — 3D and materials primer](11-3d-materials-primer.md), [13 — 3D preview pipeline](13-3d-preview-pipeline.md).
+**3D viewport:** [`public/js/configurator-preview-3d.js`](../public/js/configurator-preview-3d.js) — code-built hero product per material, finished from factory photos, with a Body / Logo zone toggle (GLB models later). Theme sync via `lumina-theme-change` from the navbar. Concepts and stages: [11 — 3D and materials primer](11-3d-materials-primer.md), [13 — 3D preview pipeline](13-3d-preview-pipeline.md).
 
 **Multi-material frames:** `study_Ceramic`, `study_Glass`, `study_Plastic` mirror separate factory xlsx tabs and future `material_types.enabled` flags — [12 — Database and multi-material](12-database-multi-material.md).
 

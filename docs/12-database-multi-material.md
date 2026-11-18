@@ -104,7 +104,7 @@ Response should include only finishes where `material_slug = 'ceramic'`, plus sh
 
 **For: WD**
 
-Today, 3D color and surface style use heuristics in [`configurator-preview-3d.js`](../public/js/configurator-preview-3d.js). Optional later storage:
+Today, 3D color and surface style come from [`finish-render-spec.js`](../public/js/finish-render-spec.js): colours sampled from factory photos plus name/process rules, with per-finish corrections in `public/data/finish-render-overrides.json` (see [13, Stage 1b](13-3d-preview-pipeline.md)). Optional later storage in D1:
 
 | Field | Use |
 |-------|-----|
