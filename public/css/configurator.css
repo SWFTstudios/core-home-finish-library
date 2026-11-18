@@ -738,6 +738,20 @@
   background: var(--lumina-surface-variant);
 }
 
+.finish-swatch.has-render {
+  overflow: hidden;
+  background: var(--lumina-surface-container-lowest, #fff);
+}
+
+.finish-swatch.has-render img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  padding: 3px;
+  box-sizing: border-box;
+  display: block;
+}
+
 .wheel-item.is-near .finish-swatch {
   width: 42px;
   height: 42px;

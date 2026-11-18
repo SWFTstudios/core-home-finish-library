@@ -145,7 +145,8 @@ async function handleApi(
       `SELECT id, slug, material_slug AS materialSlug, name, category,
               durability_score AS durabilityScore, durability_notes AS durabilityNotes,
               price_band AS priceBand, cost_tier AS costTier, finish_process AS finishProcess,
-              process_steps AS processSteps, description, hex_color AS hexColor, extensions
+              process_steps AS processSteps, description, hex_color AS hexColor,
+              image_url AS imageUrl, extensions
        FROM finishes
        WHERE template_id = 'finish_library_ak' AND material_slug = ?
        ORDER BY name ASC`,

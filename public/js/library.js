@@ -6,7 +6,7 @@ import {
   processMeta,
   styleFamilyById,
 } from "./library-grouping.js";
-import { swatchStyle, formatRating, costDots } from "./finish-swatch.js";
+import { swatchStyle, formatRating, costDots, finishImageUrl } from "./finish-swatch.js";
 import { taxonomyIconHtml } from "./library-icons.js";
 
 const API = "/api";
@@ -209,10 +209,11 @@ function renderFinishCard(finish) {
   const swatch = document.createElement("div");
   swatch.className = "library-finish-swatch";
   Object.assign(swatch.style, swatchStyle(finish));
-  if (finish.image_url || finish.imageUrl) {
+  if (finishImageUrl(finish)) {
     const img = document.createElement("img");
-    img.src = finish.image_url || finish.imageUrl;
+    img.src = finishImageUrl(finish);
     img.alt = "";
+    img.loading = "lazy";
     swatch.appendChild(img);
   }
 
@@ -368,6 +369,12 @@ function openDetail(finish, triggerEl = null) {
   const swatch = document.createElement("div");
   swatch.className = "library-detail-swatch";
   Object.assign(swatch.style, swatchStyle(finish));
+  if (finishImageUrl(finish)) {
+    const img = document.createElement("img");
+    img.src = finishImageUrl(finish);
+    img.alt = `${finish.name} render`;
+    swatch.appendChild(img);
+  }
 
   const proc = finish.finishProcess || finish.category || "—";
   const meta = processMeta(proc);

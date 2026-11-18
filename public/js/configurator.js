@@ -396,7 +396,15 @@ function buildWheelItems() {
 
     const swatch = document.createElement("span");
     swatch.className = "finish-swatch";
-    swatch.style.background = finish.hexColor || "#c3c6d7";
+    if (finish.imageUrl) {
+      swatch.classList.add("has-render");
+      const img = document.createElement("img");
+      img.src = finish.imageUrl;
+      img.alt = "";
+      swatch.appendChild(img);
+    } else {
+      swatch.style.background = finish.hexColor || "#c3c6d7";
+    }
     btn.appendChild(swatch);
 
     const label = document.createElement("span");

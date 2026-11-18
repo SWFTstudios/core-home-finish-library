@@ -1,7 +1,12 @@
 /** Shared swatch styling for finish cards. */
 
+/** Render image for a finish (transparent PNG cutout), if one exists. */
+export function finishImageUrl(finish) {
+  return finish?.imageUrl || finish?.image_url || null;
+}
+
 export function swatchStyle(finish) {
-  if (finish.image_url) return {};
+  if (finishImageUrl(finish)) return {};
   if (finish.hexColor || finish.hex_color) {
     return { background: finish.hexColor || finish.hex_color };
   }
