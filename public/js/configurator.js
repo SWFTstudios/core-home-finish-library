@@ -58,6 +58,11 @@ const state = {
   graphicId: null,
   preview3dReady: false,
   previewAutoRotate: false,
+  // The finish wheel edits one product zone at a time; the logo follows the body until picked.
+  activeZone: "body",
+  bodyFinishId: null,
+  logoFinishId: null,
+  zoneEntryFinishId: null,
   finishSearchQuery: "",
   finishSort: "name-az",
   finishFilterProcess: "",
@@ -94,14 +99,72 @@ function selectedGraphic(finish) {
   return graphics.find((g) => g.id === state.graphicId) ?? graphics[0] ?? null;
 }
 
+function finishById(id) {
+  return id ? state.finishes.find((f) => f.id === id) ?? null : null;
+}
+
+function recordZoneFinish(current) {
+  if (!current) return;
+  if (state.activeZone === "body") {
+    state.bodyFinishId = current.id;
+  } else if (current.id !== state.zoneEntryFinishId) {
+    state.logoFinishId = current.id;
+    state.zoneEntryFinishId = null;
+  }
+}
+
+function updateZoneControls() {
+  document.querySelectorAll(".preview-zone-btn").forEach((btn) => {
+    btn.setAttribute("aria-checked", String(btn.dataset.zone === state.activeZone));
+  });
+  const reset = document.getElementById("preview-zone-reset");
+  if (reset) reset.hidden = !state.logoFinishId;
+}
+
 function syncPreview() {
+  const current = selectedFinish();
+  recordZoneFinish(current);
+  updateZoneControls();
   if (!state.preview3dReady) return;
-  const finish = selectedFinish();
+  const body = state.activeZone === "body" ? current : finishById(state.bodyFinishId) ?? current;
   preview3d?.updatePreview3d({
     materialSlug: state.material,
-    finish,
-    graphic: selectedGraphic(finish),
+    finish: body,
+    logoFinish: finishById(state.logoFinishId),
+    graphic: selectedGraphic(current),
     theme: state.luminaTheme,
+  });
+}
+
+function setActiveZone(zone) {
+  state.activeZone = zone;
+  const targetId = zone === "logo" ? state.logoFinishId ?? state.bodyFinishId : state.bodyFinishId;
+  const index = state.filteredFinishes.findIndex((f) => f.id === targetId);
+  if (index >= 0 && index !== state.finishIndex) {
+    state.finishIndex = index;
+    state.finishId = targetId;
+    updateWheelLayout();
+    updateSpecs();
+    renderCarousel();
+  }
+  state.zoneEntryFinishId = selectedFinish()?.id ?? null;
+  syncPreview();
+}
+
+function resetZones() {
+  state.activeZone = "body";
+  state.bodyFinishId = null;
+  state.logoFinishId = null;
+  state.zoneEntryFinishId = null;
+}
+
+function bindZoneToggle() {
+  document.querySelectorAll(".preview-zone-btn").forEach((btn) => {
+    btn.addEventListener("click", () => setActiveZone(btn.dataset.zone));
+  });
+  document.getElementById("preview-zone-reset")?.addEventListener("click", () => {
+    state.logoFinishId = null;
+    setActiveZone("body");
   });
 }
 
@@ -541,6 +604,7 @@ async function loadFinishesForMaterial() {
   state.catalog = catalogForMaterial(data, state.material);
   state.finishes = state.catalog.finishes ?? [];
   resetFinishBrowse();
+  resetZones();
   state.filteredFinishes = browseFinishes(state.finishes, finishBrowseOptions());
   state.finishIndex = 0;
   state.finishId = state.finishes[0]?.id ?? null;
@@ -692,6 +756,7 @@ function bindControls() {
   ensurePreview3d();
   bindHudMobileDock();
   bindPreviewZoom();
+  bindZoneToggle();
   bindFinishWheel();
   bindFinishSearch();
 

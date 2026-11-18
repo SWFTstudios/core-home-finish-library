@@ -41,12 +41,28 @@
 |----|------|---------|
 | **M2a** | Remote D1 live; `GET /api/catalog?material=` filters finishes by material | [12 — Database](docs/12-database-multi-material.md) Phase 0–1 |
 | **M2b** | Multi-tab xlsx import (`Library_Ceramic`, …); enable material tabs in seed | [12](docs/12-database-multi-material.md) Phase 1 |
-| **M3** | Replace Three.js cube with bundled GLTF tumbler | [13 — 3D pipeline](docs/13-3d-preview-pipeline.md) Stage 2 |
-| **M4** | Zone map (`body`, `logo`) + per-zone finishes in preview | [13](docs/13-3d-preview-pipeline.md) Stage 3 · [12](docs/12-database-multi-material.md) Phase 3 |
+| **M3** | ~~Replace cube~~ Done as code-built products (Stage 1b); GLB swap when CAD exists | [13 — 3D pipeline](docs/13-3d-preview-pipeline.md) Stage 1b · Stage 2 |
+| **M4** | Zone map (`body`, `logo`) + per-zone finishes — preview done; persist to `request_finishes.zone` open | [13](docs/13-3d-preview-pipeline.md) Stage 3 · [12](docs/12-database-multi-material.md) Phase 3 |
 | **M5** | R2 GLB upload + admin mesh→zone assignment | [13](docs/13-3d-preview-pipeline.md) Stage 4 |
 | **M6** | Graphic decals / textures on logo mesh | [13](docs/13-3d-preview-pipeline.md) · [10 — Roadmap](docs/10-roadmap-and-status.md) |
 
 **Concepts for PD/ID/GD:** [11 — 3D and materials primer](docs/11-3d-materials-primer.md)
+
+### Open — 3D product render (branch `feature/3d-product-render`)
+
+Worktree: `../CORE HOME FINISH LIBRARY-3d` (created from `origin/main`, Nov 2026). Not committed yet.
+
+- [ ] PD: confirm real height / top and bottom diameter for each hero product → update `PROFILES` in `public/js/product-models-3d.js`
+- [ ] GD / PD: review `/render-qa.html` per material; record corrections in `public/data/finish-render-overrides.json`
+- [ ] Re-run `npm run render:colors` whenever factory photos or AI images change
+- [ ] Optional: "Render HD still" button (`three-gpu-pathtracer`) for render requests
+- [ ] M6: graphic decals on the `logo` patch (UVs are already 0–1 across the patch)
+
+### Open — related photo work
+
+- [ ] Commit or move the uncommitted work on `2d-version` (folders, PDF export, request detail, migrations 004/005) before rebasing it onto `main`
+- [ ] 2D preview: show the factory photo when a finish has one, tinted product image otherwise
+- [ ] Regenerate the 28 AI placeholders (22 glass, 5 stainless steel, 1 ceramic) from reference factory photos; GD/PD approval before publishing
 
 ---
 

@@ -425,6 +425,60 @@
   background: rgba(18, 33, 49, 0.85);
 }
 
+/* —— Body / Logo zone toggle (which part the finish wheel paints) —— */
+.preview-zone {
+  position: fixed;
+  top: calc(var(--hud-top) + 76px);
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 69;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px;
+  border-radius: 999px;
+  background: var(--hud-card-bg);
+  border: 1px solid var(--hud-card-border);
+  backdrop-filter: blur(var(--hud-card-blur));
+  -webkit-backdrop-filter: blur(var(--hud-card-blur));
+  box-shadow: var(--lumina-shadow-card);
+  pointer-events: auto;
+}
+
+[data-lumina-theme="dark"] .preview-zone {
+  background: rgba(18, 33, 49, 0.85);
+}
+
+.preview-zone-btn,
+.preview-zone-reset {
+  border: none;
+  border-radius: 999px;
+  padding: 6px 14px;
+  background: transparent;
+  color: var(--lumina-secondary);
+  font-family: var(--lumina-font-label);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+}
+
+.preview-zone-btn:hover,
+.preview-zone-reset:hover {
+  background: var(--lumina-surface-container-low);
+}
+
+.preview-zone-btn[aria-checked="true"] {
+  background: var(--lumina-primary-container);
+  color: var(--lumina-primary);
+}
+
+.preview-zone-reset {
+  font-weight: 500;
+  color: var(--lumina-on-surface-variant);
+}
+
 /* —— Graphic shelf (fixed bottom, Porsche-style shelf) —— */
 .graphic-shelf {
   border-radius: var(--lumina-radius-xl);
@@ -1080,6 +1134,10 @@
     top: calc(var(--core-home-navbar-height) + 6px);
     max-width: calc(100vw - 24px);
     padding: 4px 8px;
+  }
+
+  .preview-zone {
+    top: calc(var(--core-home-navbar-height) + 60px);
   }
 
   .material-tab {

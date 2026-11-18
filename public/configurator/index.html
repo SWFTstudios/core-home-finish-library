@@ -21,7 +21,7 @@
       <div class="viewport-stage" aria-label="Product preview">
         <div class="viewport-grid" aria-hidden="true"></div>
         <div class="preview-stage">
-          <div id="preview-3d" class="preview-3d" role="img" aria-label="Finish preview cube"></div>
+          <div id="preview-3d" class="preview-3d" role="img" aria-label="3D product preview"></div>
         </div>
       </div>
 
@@ -31,6 +31,12 @@
         <div id="page-banner" class="status-banner status-banner--hud" hidden></div>
 
         <div id="material-row" class="material-tabs material-tabs--stage" role="tablist" aria-label="Material"></div>
+
+        <div class="preview-zone" role="radiogroup" aria-label="Part to finish">
+          <button type="button" class="preview-zone-btn" data-zone="body" role="radio" aria-checked="true">Body</button>
+          <button type="button" class="preview-zone-btn" data-zone="logo" role="radio" aria-checked="false">Logo</button>
+          <button type="button" id="preview-zone-reset" class="preview-zone-reset" hidden>Match body</button>
+        </div>
 
         <div class="preview-zoom" aria-label="Preview camera controls">
           <button type="button" id="preview-zoom-in" class="icon-btn icon-btn--sm" aria-label="Zoom in">

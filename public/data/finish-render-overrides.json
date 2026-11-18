@@ -1,0 +1,11 @@
+{
+  "comment": "Hand corrections for the 3D preview, keyed by <material>/<slug>. Any field from finishRenderSpec (public/js/finish-render-spec.js) can be set here and wins over the automatic rules and sampled colours. Edit, then reload the configurator; no build step.",
+  "finishes": {
+    "stainless_steel/glow-in-the-dark": { "emissiveIntensity": 0.35 },
+    "stainless_steel/ceramic-lining": { "roughness": 0.3, "clearcoat": 0.8 },
+    "plastic/plastic-high-gloss": { "transmission": 0.35, "attenuationDistance": 0.012 },
+    "plastic/plastic-pearlescent": {
+      "gradient": { "type": "vertical", "stops": ["#dba7a4", "#e2b98f", "#cdd3a1", "#a3a6c8"] }
+    }
+  }
+}
