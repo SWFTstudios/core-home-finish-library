@@ -1,0 +1,369 @@
+{
+  "comment": "AI product photos for finishes without a factory photo. reviewStatus: pending | approved | rejected. Regenerate rejected ones, then npm run photos:prepare && npm run renders:attach && npm run render:colors.",
+  "photos": {
+    "glass/glass-bubble-localized": {
+      "material": "glass",
+      "slug": "glass-bubble-localized",
+      "output": "/assets/renders/glass/glass-bubble-localized.png",
+      "preparedAt": "2026-11-18T19:32:51.732Z",
+      "reviewStatus": "pending",
+      "references": {
+        "shell": "/assets/glass/front.png",
+        "style": "studio lighting from plastic-high-gloss photo"
+      },
+      "promptSummary": "Studio product photo of hero glass product in glass-bubble-localized finish; plain white background; no logos; photorealistic; match shell silhouette.",
+      "generatedAt": "2026-11-18"
+    },
+    "glass/glass-bubble-dense": {
+      "material": "glass",
+      "slug": "glass-bubble-dense",
+      "output": "/assets/renders/glass/glass-bubble-dense.png",
+      "preparedAt": "2026-11-18T19:32:51.744Z",
+      "reviewStatus": "pending",
+      "references": {
+        "shell": "/assets/glass/front.png",
+        "style": "studio lighting from plastic-high-gloss photo"
+      },
+      "promptSummary": "Studio product photo of hero glass product in glass-bubble-dense finish; plain white background; no logos; photorealistic; match shell silhouette.",
+      "generatedAt": "2026-11-18"
+    },
+    "glass/glass-bubble-in-furnace": {
+      "material": "glass",
+      "slug": "glass-bubble-in-furnace",
+      "output": "/assets/renders/glass/glass-bubble-in-furnace.png",
+      "preparedAt": "2026-11-18T19:32:51.744Z",
+      "reviewStatus": "pending",
+      "references": {
+        "shell": "/assets/glass/front.png",
+        "style": "studio lighting from plastic-high-gloss photo"
+      },
+      "promptSummary": "Studio product photo of hero glass product in glass-bubble-in-furnace finish; plain white background; no logos; photorealistic; match shell silhouette.",
+      "generatedAt": "2026-11-18"
+    },
+    "ceramic/ceramic-rubberize": {
+      "material": "ceramic",
+      "slug": "ceramic-rubberize",
+      "output": "/assets/renders/ceramic/ceramic-rubberize.png",
+      "preparedAt": "2026-11-18T19:32:51.767Z",
+      "reviewStatus": "pending",
+      "references": {
+        "shell": "/assets/ceramic/front.png",
+        "style": "factory ceramic-matte-glaze swatch"
+      },
+      "promptSummary": "Studio product photo of hero ceramic product in ceramic-rubberize finish; plain white background; no logos; photorealistic; match shell silhouette.",
+      "generatedAt": "2026-11-18"
+    },
+    "glass/glass-bubble-sparse": {
+      "material": "glass",
+      "slug": "glass-bubble-sparse",
+      "output": "/assets/renders/glass/glass-bubble-sparse.png",
+      "preparedAt": "2026-11-18T19:32:51.810Z",
+      "reviewStatus": "pending",
+      "references": {
+        "shell": "/assets/glass/front.png",
+        "style": "studio lighting from plastic-high-gloss photo"
+      },
+      "promptSummary": "Studio product photo of hero glass product in glass-bubble-sparse finish; plain white background; no logos; photorealistic; match shell silhouette.",
+      "generatedAt": "2026-11-18"
+    },
+    "glass/glass-bubble-out-of-furnace": {
+      "material": "glass",
+      "slug": "glass-bubble-out-of-furnace",
+      "output": "/assets/renders/glass/glass-bubble-out-of-furnace.png",
+      "preparedAt": "2026-11-18T19:32:51.824Z",
+      "reviewStatus": "pending",
+      "references": {
+        "shell": "/assets/glass/front.png",
+        "style": "studio lighting from plastic-high-gloss photo"
+      },
+      "promptSummary": "Studio product photo of hero glass product in glass-bubble-out-of-furnace finish; plain white background; no logos; photorealistic; match shell silhouette.",
+      "generatedAt": "2026-11-18"
+    },
+    "glass/glass-colored-spots-blown": {
+      "material": "glass",
+      "slug": "glass-colored-spots-blown",
+      "output": "/assets/renders/glass/glass-colored-spots-blown.png",
+      "preparedAt": "2026-11-18T19:32:51.855Z",
+      "reviewStatus": "pending",
+      "references": {
+        "shell": "/assets/glass/front.png",
+        "style": "studio lighting from plastic-high-gloss photo"
+      },
+      "promptSummary": "Studio product photo of hero glass product in glass-colored-spots-blown finish; plain white background; no logos; photorealistic; match shell silhouette.",
+      "generatedAt": "2026-11-18"
+    },
+    "glass/glass-colored-powder": {
+      "material": "glass",
+      "slug": "glass-colored-powder",
+      "output": "/assets/renders/glass/glass-colored-powder.png",
+      "preparedAt": "2026-11-18T19:32:51.860Z",
+      "reviewStatus": "pending",
+      "references": {
+        "shell": "/assets/glass/front.png",
+        "style": "studio lighting from plastic-high-gloss photo"
+      },
+      "promptSummary": "Studio product photo of hero glass product in glass-colored-powder finish; plain white background; no logos; photorealistic; match shell silhouette.",
+      "generatedAt": "2026-11-18"
+    },
+    "glass/glass-frosted": {
+      "material": "glass",
+      "slug": "glass-frosted",
+      "output": "/assets/renders/glass/glass-frosted.png",
+      "preparedAt": "2026-11-18T19:32:51.880Z",
+      "reviewStatus": "pending",
+      "references": {
+        "shell": "/assets/glass/front.png",
+        "style": "studio lighting from plastic-high-gloss photo"
+      },
+      "promptSummary": "Studio product photo of hero glass product in glass-frosted finish; plain white background; no logos; photorealistic; match shell silhouette.",
+      "generatedAt": "2026-11-18"
+    },
+    "glass/glass-colored-spots-pressed": {
+      "material": "glass",
+      "slug": "glass-colored-spots-pressed",
+      "output": "/assets/renders/glass/glass-colored-spots-pressed.png",
+      "preparedAt": "2026-11-18T19:32:51.913Z",
+      "reviewStatus": "pending",
+      "references": {
+        "shell": "/assets/glass/front.png",
+        "style": "studio lighting from plastic-high-gloss photo"
+      },
+      "promptSummary": "Studio product photo of hero glass product in glass-colored-spots-pressed finish; plain white background; no logos; photorealistic; match shell silhouette.",
+      "generatedAt": "2026-11-18"
+    },
+    "glass/glass-hammered": {
+      "material": "glass",
+      "slug": "glass-hammered",
+      "output": "/assets/renders/glass/glass-hammered.png",
+      "preparedAt": "2026-11-18T19:32:51.983Z",
+      "reviewStatus": "pending",
+      "references": {
+        "shell": "/assets/glass/front.png",
+        "style": "studio lighting from plastic-high-gloss photo"
+      },
+      "promptSummary": "Studio product photo of hero glass product in glass-hammered finish; plain white background; no logos; photorealistic; match shell silhouette.",
+      "generatedAt": "2026-11-18"
+    },
+    "glass/glass-glass-filigree": {
+      "material": "glass",
+      "slug": "glass-glass-filigree",
+      "output": "/assets/renders/glass/glass-glass-filigree.png",
+      "preparedAt": "2026-11-18T19:32:52.005Z",
+      "reviewStatus": "pending",
+      "references": {
+        "shell": "/assets/glass/front.png",
+        "style": "studio lighting from plastic-high-gloss photo"
+      },
+      "promptSummary": "Studio product photo of hero glass product in glass-glass-filigree finish; plain white background; no logos; photorealistic; match shell silhouette.",
+      "generatedAt": "2026-11-18"
+    },
+    "glass/glass-gradient-spray": {
+      "material": "glass",
+      "slug": "glass-gradient-spray",
+      "output": "/assets/renders/glass/glass-gradient-spray.png",
+      "preparedAt": "2026-11-18T19:32:52.038Z",
+      "reviewStatus": "pending",
+      "references": {
+        "shell": "/assets/glass/front.png",
+        "style": "studio lighting from plastic-high-gloss photo"
+      },
+      "promptSummary": "Studio product photo of hero glass product in glass-gradient-spray finish; plain white background; no logos; photorealistic; match shell silhouette.",
+      "generatedAt": "2026-11-18"
+    },
+    "glass/glass-glass-debris": {
+      "material": "glass",
+      "slug": "glass-glass-debris",
+      "output": "/assets/renders/glass/glass-glass-debris.png",
+      "preparedAt": "2026-11-18T19:32:52.057Z",
+      "reviewStatus": "pending",
+      "references": {
+        "shell": "/assets/glass/front.png",
+        "style": "studio lighting from plastic-high-gloss photo"
+      },
+      "promptSummary": "Studio product photo of hero glass product in glass-glass-debris finish; plain white background; no logos; photorealistic; match shell silhouette.",
+      "generatedAt": "2026-11-18"
+    },
+    "glass/glass-ribbed": {
+      "material": "glass",
+      "slug": "glass-ribbed",
+      "output": "/assets/renders/glass/glass-ribbed.png",
+      "preparedAt": "2026-11-18T19:32:52.157Z",
+      "reviewStatus": "pending",
+      "references": {
+        "shell": "/assets/glass/front.png",
+        "style": "studio lighting from plastic-high-gloss photo"
+      },
+      "promptSummary": "Studio product photo of hero glass product in glass-ribbed finish; plain white background; no logos; photorealistic; match shell silhouette.",
+      "generatedAt": "2026-11-18"
+    },
+    "glass/glass-ice-cracks": {
+      "material": "glass",
+      "slug": "glass-ice-cracks",
+      "output": "/assets/renders/glass/glass-ice-cracks.png",
+      "preparedAt": "2026-11-18T19:32:52.198Z",
+      "reviewStatus": "pending",
+      "references": {
+        "shell": "/assets/glass/front.png",
+        "style": "studio lighting from plastic-high-gloss photo"
+      },
+      "promptSummary": "Studio product photo of hero glass product in glass-ice-cracks finish; plain white background; no logos; photorealistic; match shell silhouette.",
+      "generatedAt": "2026-11-18"
+    },
+    "glass/glass-iridescent": {
+      "material": "glass",
+      "slug": "glass-iridescent",
+      "output": "/assets/renders/glass/glass-iridescent.png",
+      "preparedAt": "2026-11-18T19:32:52.220Z",
+      "reviewStatus": "pending",
+      "references": {
+        "shell": "/assets/glass/front.png",
+        "style": "studio lighting from plastic-high-gloss photo"
+      },
+      "promptSummary": "Studio product photo of hero glass product in glass-iridescent finish; plain white background; no logos; photorealistic; match shell silhouette.",
+      "generatedAt": "2026-11-18"
+    },
+    "glass/glass-opaque-spray": {
+      "material": "glass",
+      "slug": "glass-opaque-spray",
+      "output": "/assets/renders/glass/glass-opaque-spray.png",
+      "preparedAt": "2026-11-18T19:32:52.263Z",
+      "reviewStatus": "pending",
+      "references": {
+        "shell": "/assets/glass/front.png",
+        "style": "studio lighting from plastic-high-gloss photo"
+      },
+      "promptSummary": "Studio product photo of hero glass product in glass-opaque-spray finish; plain white background; no logos; photorealistic; match shell silhouette.",
+      "generatedAt": "2026-11-18"
+    },
+    "glass/glass-metal-plating": {
+      "material": "glass",
+      "slug": "glass-metal-plating",
+      "output": "/assets/renders/glass/glass-metal-plating.png",
+      "preparedAt": "2026-11-18T19:32:52.349Z",
+      "reviewStatus": "pending",
+      "references": {
+        "shell": "/assets/glass/front.png",
+        "style": "studio lighting from plastic-high-gloss photo"
+      },
+      "promptSummary": "Studio product photo of hero glass product in glass-metal-plating finish; plain white background; no logos; photorealistic; match shell silhouette.",
+      "generatedAt": "2026-11-18"
+    },
+    "glass/glass-sandblasted": {
+      "material": "glass",
+      "slug": "glass-sandblasted",
+      "output": "/assets/renders/glass/glass-sandblasted.png",
+      "preparedAt": "2026-11-18T19:32:52.366Z",
+      "reviewStatus": "pending",
+      "references": {
+        "shell": "/assets/glass/front.png",
+        "style": "studio lighting from plastic-high-gloss photo"
+      },
+      "promptSummary": "Studio product photo of hero glass product in glass-sandblasted finish; plain white background; no logos; photorealistic; match shell silhouette.",
+      "generatedAt": "2026-11-18"
+    },
+    "glass/glass-solid-tint": {
+      "material": "glass",
+      "slug": "glass-solid-tint",
+      "output": "/assets/renders/glass/glass-solid-tint.png",
+      "preparedAt": "2026-11-18T19:32:52.393Z",
+      "reviewStatus": "pending",
+      "references": {
+        "shell": "/assets/glass/front.png",
+        "style": "studio lighting from plastic-high-gloss photo"
+      },
+      "promptSummary": "Studio product photo of hero glass product in glass-solid-tint finish; plain white background; no logos; photorealistic; match shell silhouette.",
+      "generatedAt": "2026-11-18"
+    },
+    "glass/glass-satin": {
+      "material": "glass",
+      "slug": "glass-satin",
+      "output": "/assets/renders/glass/glass-satin.png",
+      "preparedAt": "2026-11-18T19:32:52.418Z",
+      "reviewStatus": "pending",
+      "references": {
+        "shell": "/assets/glass/front.png",
+        "style": "studio lighting from plastic-high-gloss photo"
+      },
+      "promptSummary": "Studio product photo of hero glass product in glass-satin finish; plain white background; no logos; photorealistic; match shell silhouette.",
+      "generatedAt": "2026-11-18"
+    },
+    "glass/glass-two-tone": {
+      "material": "glass",
+      "slug": "glass-two-tone",
+      "output": "/assets/renders/glass/glass-two-tone.png",
+      "preparedAt": "2026-11-18T19:32:52.459Z",
+      "reviewStatus": "pending",
+      "references": {
+        "shell": "/assets/glass/front.png",
+        "style": "studio lighting from plastic-high-gloss photo"
+      },
+      "promptSummary": "Studio product photo of hero glass product in glass-two-tone finish; plain white background; no logos; photorealistic; match shell silhouette.",
+      "generatedAt": "2026-11-18"
+    },
+    "stainless_steel/powder-coat-pvd-reveal-gold": {
+      "material": "stainless_steel",
+      "slug": "powder-coat-pvd-reveal-gold",
+      "output": "/assets/renders/stainless_steel/powder-coat-pvd-reveal-gold.png",
+      "preparedAt": "2026-11-18T19:32:52.523Z",
+      "reviewStatus": "pending",
+      "references": {
+        "shell": "/assets/stainless_steel/front.png",
+        "style": "factory stainless rubberized swatch"
+      },
+      "promptSummary": "Studio product photo of hero stainless_steel product in powder-coat-pvd-reveal-gold finish; plain white background; no logos; photorealistic; match shell silhouette.",
+      "generatedAt": "2026-11-18"
+    },
+    "stainless_steel/powder-coat-pvd-reveal-blue": {
+      "material": "stainless_steel",
+      "slug": "powder-coat-pvd-reveal-blue",
+      "output": "/assets/renders/stainless_steel/powder-coat-pvd-reveal-blue.png",
+      "preparedAt": "2026-11-18T19:32:52.543Z",
+      "reviewStatus": "pending",
+      "references": {
+        "shell": "/assets/stainless_steel/front.png",
+        "style": "factory stainless rubberized swatch"
+      },
+      "promptSummary": "Studio product photo of hero stainless_steel product in powder-coat-pvd-reveal-blue finish; plain white background; no logos; photorealistic; match shell silhouette.",
+      "generatedAt": "2026-11-18"
+    },
+    "stainless_steel/powder-coat-pvd-reveal-rosegold": {
+      "material": "stainless_steel",
+      "slug": "powder-coat-pvd-reveal-rosegold",
+      "output": "/assets/renders/stainless_steel/powder-coat-pvd-reveal-rosegold.png",
+      "preparedAt": "2026-11-18T19:32:52.551Z",
+      "reviewStatus": "pending",
+      "references": {
+        "shell": "/assets/stainless_steel/front.png",
+        "style": "factory stainless rubberized swatch"
+      },
+      "promptSummary": "Studio product photo of hero stainless_steel product in powder-coat-pvd-reveal-rosegold finish; plain white background; no logos; photorealistic; match shell silhouette.",
+      "generatedAt": "2026-11-18"
+    },
+    "stainless_steel/powder-coat-pvd-reveal-rainbow": {
+      "material": "stainless_steel",
+      "slug": "powder-coat-pvd-reveal-rainbow",
+      "output": "/assets/renders/stainless_steel/powder-coat-pvd-reveal-rainbow.png",
+      "preparedAt": "2026-11-18T19:32:52.568Z",
+      "reviewStatus": "pending",
+      "references": {
+        "shell": "/assets/stainless_steel/front.png",
+        "style": "factory stainless rubberized swatch"
+      },
+      "promptSummary": "Studio product photo of hero stainless_steel product in powder-coat-pvd-reveal-rainbow finish; plain white background; no logos; photorealistic; match shell silhouette.",
+      "generatedAt": "2026-11-18"
+    },
+    "stainless_steel/powder-coat-pvd-reveal-dark-silver": {
+      "material": "stainless_steel",
+      "slug": "powder-coat-pvd-reveal-dark-silver",
+      "output": "/assets/renders/stainless_steel/powder-coat-pvd-reveal-dark-silver.png",
+      "preparedAt": "2026-11-18T19:32:52.614Z",
+      "reviewStatus": "pending",
+      "references": {
+        "shell": "/assets/stainless_steel/front.png",
+        "style": "factory stainless rubberized swatch"
+      },
+      "promptSummary": "Studio product photo of hero stainless_steel product in powder-coat-pvd-reveal-dark-silver finish; plain white background; no logos; photorealistic; match shell silhouette.",
+      "generatedAt": "2026-11-18"
+    }
+  }
+}

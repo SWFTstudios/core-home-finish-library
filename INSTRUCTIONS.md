@@ -48,21 +48,21 @@
 
 **Concepts for PD/ID/GD:** [11 — 3D and materials primer](docs/11-3d-materials-primer.md)
 
-### Open — 3D product render (branch `feature/3d-product-render`)
+### Open — 2D / 3D view toggle (branch `feature/2d-3d-view-toggle`)
 
-Worktree: `../CORE HOME FINISH LIBRARY-3d` (created from `origin/main`, Nov 2026). Not committed yet.
+Worktree: `../CORE HOME FINISH LIBRARY-3d` (from `feature/3d-product-render`).
 
-- [ ] PD: confirm real height / top and bottom diameter for each hero product → update `PROFILES` in `public/js/product-models-3d.js`
+- [ ] PD: confirm real height / top and bottom diameter for each hero product → update `PROFILES` in `public/js/product-models-3d.js` (then re-run `npm run shells:export`)
 - [ ] GD / PD: review `/render-qa.html` per material; record corrections in `public/data/finish-render-overrides.json`
+- [ ] GD / PD: set `reviewStatus` in `data/ai-photos.json` (`approved` / `rejected`) for the 28 AI photos; regenerate rejected ones
 - [ ] Re-run `npm run render:colors` whenever factory photos or AI images change
 - [ ] Optional: "Render HD still" button (`three-gpu-pathtracer`) for render requests
 - [ ] M6: graphic decals on the `logo` patch (UVs are already 0–1 across the patch)
 
-### Open — related photo work
+### Related PRs
 
-- [ ] Commit or move the uncommitted work on `2d-version` (folders, PDF export, request detail, migrations 004/005) before rebasing it onto `main`
-- [ ] 2D preview: show the factory photo when a finish has one, tinted product image otherwise
-- [ ] Regenerate the 28 AI placeholders (22 glass, 5 stainless steel, 1 ceramic) from reference factory photos; GD/PD approval before publishing
+- Folders / PDF / request detail: [PR #10](https://github.com/SWFTstudios/core-home-finish-library/pull/10) (`feature/folders-and-requests`)
+- 3D product render: [PR #9](https://github.com/SWFTstudios/core-home-finish-library/pull/9) (`feature/3d-product-render`) — prefer merging before or with the view-toggle PR
 
 ---
 

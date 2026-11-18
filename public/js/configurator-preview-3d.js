@@ -3,7 +3,8 @@
  * Driven by material tab, finish wheel (body / logo zones), and theme.
  * Scene, models and materials live in product-stage-3d.js.
  */
-import { createProductStage, loadRenderData } from "./product-stage-3d.js";
+import { createProductStage } from "./product-stage-3d.js";
+import { loadRenderData } from "./finish-render-data.js";
 
 let stage = null;
 let containerEl = null;

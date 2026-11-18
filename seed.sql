@@ -1252,4 +1252,3 @@ UPDATE finishes SET image_url = 'https://pub-f9f6c3b2256245ee8b31fc02b986300b.r2
 UPDATE finishes SET image_url = 'https://pub-f9f6c3b2256245ee8b31fc02b986300b.r2.dev/swatches/plastic/plastic-high-gloss.webp' WHERE id = 'fin-plastic-high-gloss';
 UPDATE finishes SET image_url = 'https://pub-f9f6c3b2256245ee8b31fc02b986300b.r2.dev/swatches/plastic/plastic-dull-textured.webp' WHERE id = 'fin-plastic-dull-textured';
 UPDATE finishes SET image_url = 'https://pub-f9f6c3b2256245ee8b31fc02b986300b.r2.dev/swatches/plastic/plastic-pearlescent.webp' WHERE id = 'fin-plastic-pearlescent';
-
