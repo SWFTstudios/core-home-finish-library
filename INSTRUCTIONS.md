@@ -12,7 +12,7 @@
 - [x] Project scaffold (Worker, D1 schema, static UI)
 - [x] Project book documentation (`docs/`)
 - [x] Rebuild UI to match Figma `SS` screen — `/configurator/` + factory xlsx import ([finish-catalog-import.md](docs/finish-catalog-import.md))
-- [x] **Phase 1 Pages:** configurator live at [core-home-finish-library.pages.dev](https://core-home-finish-library.pages.dev/)
+- [x] **Phase 1 Pages:** configurator live at [core-home-finish-library.elombe.workers.dev](https://core-home-finish-library.elombe.workers.dev/)
 - [x] Static catalog fallback (`public/api/catalog`) for Pages without remote D1
 - [x] HUD layout: specs card, finish wheel, search/filters, graphic shelf, 3D preview
 - [x] `STATIC_ASSETS` binding rename (Pages reserves `ASSETS`)
@@ -68,5 +68,5 @@
 ## Links
 
 - Repository: https://github.com/SWFTstudios/core-home-finish-library
-- Live configurator: https://core-home-finish-library.pages.dev/configurator/
+- Live configurator: https://core-home-finish-library.elombe.workers.dev/configurator/
 - Figma: https://www.figma.com/design/XY8ZVNYLrbK6OMVWNNqSBt/InteractiveFinishLibrary_COPY

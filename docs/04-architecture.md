@@ -149,7 +149,7 @@ If email is missing → `401`. If no matching `profiles` row → `403`.
 
 | Setting | Value |
 |---------|--------|
-| `name` | `render-portal` |
+| `name` | `core-home-finish-library` |
 | `main` | `src/index.ts` |
 | `pages_build_output_dir` | `./public` |
 | `assets.directory` | `./public` |

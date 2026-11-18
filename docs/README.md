@@ -6,7 +6,7 @@ Internal documentation for the **Render Portal / Finish Library**: why it exists
 
 **Repository:** https://github.com/SWFTstudios/core-home-finish-library  
 **Company:** Core Home (NYC housewares)  
-**Live configurator:** https://core-home-finish-library.pages.dev/  
+**Live configurator:** https://core-home-finish-library.elombe.workers.dev/  
 **Last updated:** May 2026
 
 ---
@@ -48,7 +48,7 @@ Internal documentation for the **Render Portal / Finish Library**: why it exists
 - **Schema:** [`schema.sql`](../schema.sql)
 - **Worker API:** [`src/index.ts`](../src/index.ts)
 - **Active todos:** [`INSTRUCTIONS.md`](../INSTRUCTIONS.md)
-- **Pages site:** [core-home-finish-library.pages.dev](https://core-home-finish-library.pages.dev/)
+- **Pages site:** [core-home-finish-library.elombe.workers.dev](https://core-home-finish-library.elombe.workers.dev/)
 
 ---
 

@@ -77,7 +77,7 @@ Implemented in [`public/css/configurator.css`](../public/css/configurator.css) o
 
 **For: GD**
 
-1. Open Figma frame **`study_SS`** side by side with [live configurator](https://core-home-finish-library.pages.dev/configurator/).
+1. Open Figma frame **`study_SS`** side by side with [live configurator](https://core-home-finish-library.elombe.workers.dev/configurator/).
 2. Check material tabs, wheel position, shelf labels, and typography against Lumina tokens in `public/css/`.
 3. Use reference screenshots in [`inspiration/viewport-hud/`](../inspiration/viewport-hud/) — e.g. search/shelf alignment before/after fixes.
 4. Log gaps in a GitHub issue or PR comment with **frame name + screenshot + expected behavior**.
