@@ -16,7 +16,8 @@ The live app is one full-screen page: [https://core-home-finish-library.elombe.w
 |------|----------------|
 | **Top center — Material tabs** | Ceramic, Glass, S. Steel (stainless steel), Plastic. S. Steel has the fullest finish catalog today. |
 | **Center — 3D preview** | A rotating product stand-in (cube for now) updates color and surface as you change finishes. Light/dark mode follows the navbar theme toggle. |
-| **Left — Specs card** | Finish name, durability rating, cost tier, property notes, and **Add to Folder** (folder workflow coming later). |
+| **Left — Specs card** | Finish name, durability rating, cost tier, property notes, and **Create render request**. |
+| **Top right — Add to folder** | Saves the current material, finish, and graphic to **My folder** for later review. Badge shows item count. |
 | **Right — Finish Selector** | Vertical scroll wheel: swatch + label, up/down arrows beside the active item, fade at top and bottom. |
 | **Right bottom — Search card** | Text search plus Sort (name, color spectrum, light/dark, process) and filters (color group, style, process). |
 | **Bottom center — Graphic Application** | Shelf of treatments (e.g. Water Decal, Laser Etch). Pick one compatible with the selected finish. |
@@ -83,6 +84,15 @@ sequenceDiagram
 
 - **Shelf** of compatible graphic types for the selected finish
 - Selection updates the preview pipeline (decals/textures expand in a later release)
+
+### My folder
+
+1. In the configurator, pick material, finish, and graphic, then click **add to folder** (top right).
+2. Open **My folder** from the navbar folder icon or [`/folder.html`](../public/folder.html).
+3. Review saved items — toggle selection, add per-item notes, remove items you no longer need.
+4. Click **Create render request** to hand off selected items to the request form.
+
+On static Pages, folder items persist in `localStorage`. After Phase 2 Worker deploy, the same items sync to D1 via `/api/folder` (run migration `005_user_folders.sql`).
 
 ---
 

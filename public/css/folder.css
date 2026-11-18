@@ -1,0 +1,314 @@
+/* My Folder page — saved configurator selections for review */
+
+.folder-body {
+  margin: 0;
+  min-height: 100vh;
+  background: var(--lumina-background);
+  color: var(--lumina-on-background);
+  font-family: var(--lumina-font-body);
+}
+
+.folder-main {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: calc(var(--core-home-navbar-height) + 2rem) 1.5rem 3rem;
+}
+
+.folder-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.folder-title {
+  margin: 0;
+  font-family: var(--lumina-font-display);
+  font-size: clamp(2rem, 4vw, 2.75rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.folder-subtitle {
+  margin: 0.35rem 0 0;
+  color: var(--lumina-on-surface-variant);
+  font-size: 0.95rem;
+}
+
+.folder-header-icon {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  border: 1px solid var(--lumina-outline-variant);
+  background: var(--lumina-surface-container-low);
+  color: var(--lumina-on-surface);
+}
+
+.folder-header-icon .material-symbols-outlined {
+  font-size: 28px;
+}
+
+.folder-header-badge {
+  position: absolute;
+  top: -2px;
+  right: -2px;
+  min-width: 22px;
+  height: 22px;
+  padding: 0 6px;
+  border-radius: 999px;
+  background: var(--lumina-primary);
+  color: var(--lumina-on-primary);
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 22px;
+  text-align: center;
+}
+
+.folder-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.25rem;
+}
+
+@media (max-width: 960px) {
+  .folder-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .folder-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.folder-card {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--lumina-outline-variant);
+  border-radius: var(--lumina-radius-lg);
+  background: var(--lumina-surface-container-lowest);
+  overflow: hidden;
+  box-shadow: var(--lumina-shadow-card);
+}
+
+.folder-card.is-selected {
+  border-color: var(--lumina-primary);
+  box-shadow: 0 0 0 1px var(--lumina-primary);
+}
+
+.folder-card-head {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 0.85rem 0.5rem;
+}
+
+.folder-card-select {
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+  margin: 0;
+  accent-color: var(--lumina-primary);
+  cursor: pointer;
+}
+
+.folder-card-title {
+  flex: 1;
+  margin: 0;
+  font-size: 0.8rem;
+  font-weight: 600;
+  line-height: 1.3;
+  color: var(--lumina-on-surface);
+}
+
+.folder-card-remove {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  background: transparent;
+  color: var(--lumina-on-surface-variant);
+  cursor: pointer;
+}
+
+.folder-card-remove:hover {
+  background: var(--lumina-surface-container-high);
+  color: var(--lumina-error);
+}
+
+.folder-card-previews {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.5rem;
+  padding: 0 0.85rem;
+  min-height: 140px;
+}
+
+.folder-preview-frame {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--lumina-radius-md);
+  background: var(--lumina-surface-container);
+  overflow: hidden;
+  min-height: 120px;
+}
+
+.folder-preview-frame img {
+  max-width: 85%;
+  max-height: 110px;
+  object-fit: contain;
+}
+
+.folder-preview-label {
+  position: absolute;
+  bottom: 6px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: lowercase;
+  color: var(--lumina-primary);
+}
+
+.folder-card-meta {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+  padding: 0.75rem 0.85rem;
+}
+
+.folder-rating-block {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.folder-rating-label {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--lumina-on-surface-variant);
+}
+
+.folder-rating-dots {
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  color: var(--lumina-primary);
+}
+
+.folder-card-notes {
+  padding: 0 0.85rem 0.85rem;
+}
+
+.folder-card-notes label {
+  display: block;
+  margin-bottom: 0.35rem;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--lumina-on-surface-variant);
+}
+
+.folder-card-notes textarea {
+  width: 100%;
+  min-height: 64px;
+  padding: 0.5rem 0.65rem;
+  border: 1px solid var(--lumina-outline-variant);
+  border-radius: var(--lumina-radius-md);
+  background: var(--lumina-surface);
+  color: var(--lumina-on-surface);
+  font-family: inherit;
+  font-size: 0.8rem;
+  line-height: 1.4;
+  resize: vertical;
+}
+
+.folder-empty {
+  text-align: center;
+  padding: 3rem 1rem;
+  color: var(--lumina-on-surface-variant);
+}
+
+.folder-footer {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 2.5rem;
+}
+
+.btn-folder-outline {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.65rem 1.25rem;
+  border: 1px solid var(--lumina-outline);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--lumina-on-surface);
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-decoration: none;
+  text-transform: lowercase;
+  cursor: pointer;
+}
+
+.btn-folder-outline:hover {
+  background: var(--lumina-surface-container-low);
+}
+
+.btn-folder-primary {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.65rem 1.5rem;
+  border: none;
+  border-radius: 999px;
+  background: var(--lumina-primary);
+  color: var(--lumina-on-primary);
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.btn-folder-primary:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.btn-folder-primary:not(:disabled):hover {
+  filter: brightness(1.05);
+}
+
+.status-banner {
+  margin-bottom: 1rem;
+  padding: 0.65rem 1rem;
+  border-radius: var(--lumina-radius-md);
+  font-size: 0.9rem;
+}
+
+.status-banner.error {
+  background: color-mix(in srgb, var(--lumina-error) 12%, transparent);
+  color: var(--lumina-error);
+}
+
+.status-banner.success {
+  background: color-mix(in srgb, var(--lumina-primary) 12%, transparent);
+  color: var(--lumina-primary);
+}

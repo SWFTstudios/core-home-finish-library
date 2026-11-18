@@ -39,6 +39,9 @@ Canonical schema: [`schema.sql`](../schema.sql). Factory import: [finish-catalog
 erDiagram
   profiles ||--o{ render_requests : requests
   profiles ||--o{ renders : uploads
+  profiles ||--o{ saved_folders : owns
+  saved_folders ||--o{ saved_folder_items : contains
+  finishes ||--o{ saved_folder_items : saved
   render_requests ||--o{ request_finishes : selections
   finishes ||--o{ request_finishes : selected
   finishes ||--o{ finish_graphic_compat : supports
@@ -113,6 +116,32 @@ Team membership tied to Cloudflare Access email (`PD`, `ID`, `GD`, `Admin`).
 ### `render_requests` / `request_finishes` / `renders`
 
 PD specs and ID deliverables. `request_finishes.zone` (e.g. `body`, `logo`) will align with `product_model_zones.zone_key` when 3D zone preview ships — [13 — 3D preview pipeline](13-3d-preview-pipeline.md).
+
+**`render_requests` columns (extended):**
+
+| Column | Purpose |
+|--------|---------|
+| `material_slug` | Material tab from configurator |
+| `graphic_application_id` | Selected graphic treatment |
+| `source` | `configurator` or `request_form` |
+| `spec_snapshot` | JSON TEXT — frozen UI state for PDF export |
+
+Migration: [`migrations/004_render_request_spec.sql`](../migrations/004_render_request_spec.sql)
+
+### `saved_folders` / `saved_folder_items`
+
+User collections for configurator selections before submitting a render request. One default folder per profile (`name = 'My folder'`).
+
+| Column | Purpose |
+|--------|---------|
+| `saved_folders.profile_id` | Owner (`profiles.id`) |
+| `saved_folder_items.spec_snapshot` | JSON TEXT — material, finish, graphic, preview URLs, ratings |
+| `saved_folder_items.selected_for_review` | `1` = included when creating a render request from folder |
+| `saved_folder_items.notes` | Per-item notes editable on the folder page |
+
+Migration: [`migrations/005_user_folders.sql`](../migrations/005_user_folders.sql)
+
+On static Pages (Phase 1), the same item shape is stored in `localStorage` under `corehome:my-folder` until the Worker API is available.
 
 ### `product_models` / `product_model_zones` (planned)
 

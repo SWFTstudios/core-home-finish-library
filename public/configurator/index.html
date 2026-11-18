@@ -21,6 +21,13 @@
       <div class="viewport-stage" aria-label="Product preview">
         <div class="viewport-grid" aria-hidden="true"></div>
         <div class="preview-stage">
+          <div class="folder-toolbar" aria-label="Folder actions">
+            <button type="button" id="btn-add-to-folder" class="btn-add-folder">add to folder</button>
+            <a href="/folder.html" class="folder-badge-link" aria-label="My folder">
+              <span class="material-symbols-outlined" aria-hidden="true">folder</span>
+              <span id="folder-count" class="folder-badge" hidden>0</span>
+            </a>
+          </div>
           <div id="preview-3d" class="preview-3d" role="img" aria-label="Finish preview cube"></div>
         </div>
       </div>
@@ -80,9 +87,9 @@
               <p class="specs-notes" id="specs-notes"></p>
             </div>
           </div>
-          <button type="button" class="btn-add-folder" disabled title="Coming soon">
-            <span class="material-symbols-outlined" aria-hidden="true">add</span>
-            Add to Folder
+          <button type="button" class="btn-create-request" id="btn-create-render-request">
+            <span class="material-symbols-outlined" aria-hidden="true">assignment</span>
+            Create render request
           </button>
         </aside>
 

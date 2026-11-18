@@ -130,6 +130,28 @@ Ordered by `updated_at` descending.
 
 ---
 
+### `GET /api/requests/:id`
+
+**Auth:** required profile.
+
+**Response:** `{ "request": { ... } }` — full request detail for dashboard and PDF export.
+
+| Field | Description |
+|-------|-------------|
+| `id`, `title`, `product_type`, `status`, `notes`, `deadline` | Core request metadata |
+| `material_slug`, `material_label` | Material tab from configurator |
+| `graphic_application_id`, `graphic` | Graphic treatment (`{ id, label, template_key }` or null) |
+| `source` | `configurator` or `request_form` |
+| `spec_snapshot` | Frozen JSON copy of UI state at submit time |
+| `created_at`, `updated_at` | Timestamps |
+| `requested_by` | `{ id, email, full_name, team }` |
+| `finishes` | Array of zone selections with joined finish catalog fields |
+| `renders` | Versioned ID deliverables (`version`, `file_url`, `created_at`, …) |
+
+**Errors:** `404` if request ID not found.
+
+---
+
 ### `POST /api/requests`
 
 **Auth:** profile with `team` = `PD` or `Admin`.
@@ -143,6 +165,10 @@ Ordered by `updated_at` descending.
   "notes": "Optional",
   "deadline": "2026-06-15",
   "status": "Submitted",
+  "material_slug": "stainless_steel",
+  "graphic_application_id": "gfx-005",
+  "source": "configurator",
+  "spec_snapshot": { "title": "24oz bottle — Spring 2026", "finishes": [] },
   "finishes": [
     { "finish_id": "fin-matte-pink", "zone": "body", "notes": null }
   ]
@@ -156,6 +182,10 @@ Ordered by `updated_at` descending.
 | `notes` | No | |
 | `deadline` | No | ISO date string |
 | `status` | No | Default `Draft` |
+| `material_slug` | No | From configurator material tab |
+| `graphic_application_id` | No | FK to `graphic_application_types` |
+| `source` | No | `configurator` or `request_form` (default `request_form`) |
+| `spec_snapshot` | No | JSON object stored as TEXT for stable PDF export |
 | `finishes` | No | Array of `{ finish_id, zone, notes? }` |
 
 **Response:** `201` — `{ "id", "status" }`
@@ -182,6 +212,62 @@ Stores file in R2 at `renders/{requestId}/{uuid}-{filename}`, inserts `renders` 
 
 ---
 
+### `GET /api/folder`
+
+**Auth:** any authenticated profile.
+
+Returns the user's default folder and saved configurator items (newest first).
+
+**Response:**
+
+```json
+{
+  "folder": { "id": "…", "name": "My folder" },
+  "items": [
+    {
+      "id": "…",
+      "material_slug": "stainless_steel",
+      "finish_id": "fin-…",
+      "graphic_application_id": "gfx-…",
+      "notes": "",
+      "selected_for_review": true,
+      "spec_snapshot": { }
+    }
+  ]
+}
+```
+
+---
+
+### `POST /api/folder/items`
+
+**Auth:** any authenticated profile.
+
+**Body:** `{ "spec_snapshot": { … } }` — must include `finish_id` and `material_slug` (see [`public/js/folder-store.js`](../public/js/folder-store.js)).
+
+**Response:** `201` — `{ "item": { … } }`  
+**409** — duplicate finish + graphic combo in folder.
+
+---
+
+### `PATCH /api/folder/items/:id`
+
+**Auth:** owner only (via profile's default folder).
+
+**Body:** `{ "notes"?: string, "selected_for_review"?: boolean }`
+
+**Response:** `{ "item": { … } }`
+
+---
+
+### `DELETE /api/folder/items/:id`
+
+**Auth:** owner only.
+
+**Response:** `204`
+
+---
+
 ## Planned routes (catalog + 3D)
 
 **Not implemented yet** — documented for Phase 3+ in [12 — Database and multi-material](12-database-multi-material.md) and [13 — 3D preview pipeline](13-3d-preview-pipeline.md).
@@ -202,7 +288,7 @@ JSON errors use `{ "error": "message" }` with appropriate HTTP status.
 
 ## Client usage
 
-[`public/js/app.js`](../public/js/app.js) wraps `fetch("/api/...")` for the scaffold UI. New UI should reuse these endpoints until the API evolves.
+[`public/js/app.js`](../public/js/app.js) wraps `fetch("/api/...")` for the scaffold UI. [`public/js/render-request-pdf.js`](../public/js/render-request-pdf.js) generates shareable PDF exports from `GET /api/requests/:id` on submit and from [`public/request-detail.html`](../public/request-detail.html).
 
 ---
 

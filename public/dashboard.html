@@ -13,14 +13,33 @@
 
     <main>
       <section class="hero">
-        <h1>Render requests</h1>
-        <p>
-          Shared source of truth for PD &amp; ID — replace spreadsheet chaos with
-          visual finish selection and versioned render deliverables.
-        </p>
+        <div class="hero-row">
+          <div>
+            <h1>Render requests</h1>
+            <p>
+              Shared source of truth for PD &amp; ID — replace spreadsheet chaos with
+              visual finish selection and versioned render deliverables.
+            </p>
+          </div>
+          <div class="hero-actions">
+            <a class="btn" href="/request.html">New request</a>
+          </div>
+        </div>
       </section>
 
       <div id="page-banner" class="status-banner" hidden></div>
+
+      <div class="dashboard-toolbar">
+        <label for="status-filter">Filter by status</label>
+        <select id="status-filter" name="status">
+          <option value="">All statuses</option>
+          <option value="Draft">Draft</option>
+          <option value="Submitted">Submitted</option>
+          <option value="In Progress">In Progress</option>
+          <option value="Delivered">Delivered</option>
+          <option value="Revision Requested">Revision Requested</option>
+        </select>
+      </div>
 
       <section aria-labelledby="requests-heading">
         <h2 id="requests-heading" class="visually-hidden">Request list</h2>

@@ -34,6 +34,7 @@
 
 - [ ] Connect Figma MCP (`.cursor/mcp.json`) and sync finishes from the GD team's Figma library
 - [ ] Render request builder wired to production D1
+- [ ] Apply migration `005_user_folders.sql` on remote D1 when Phase 2 Worker deploys (folder API persistence)
 
 ### Catalog + 3D milestones (see project book ch. 11–13)
 

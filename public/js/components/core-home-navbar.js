@@ -71,9 +71,10 @@ export function renderCoreHomeNavbarHTML(options = {}) {
       <button type="button" class="core-home-navbar__icon-btn" aria-label="Home">
         <span class="material-symbols-outlined">home</span>
       </button>
-      <button type="button" class="core-home-navbar__icon-btn" aria-label="Folders">
+      <a href="/folder.html" class="core-home-navbar__icon-btn core-home-navbar__folder-link" aria-label="My folder">
         <span class="material-symbols-outlined">folder</span>
-      </button>
+        <span id="navbar-folder-count" class="core-home-navbar__folder-badge" hidden>0</span>
+      </a>
       <button type="button" class="core-home-navbar__icon-btn" aria-label="Account">
         <span class="material-symbols-outlined">account_circle</span>
       </button>
@@ -109,5 +110,6 @@ export function detectActiveNav() {
   if (path.includes("dashboard")) return "projects";
   if (path.includes("library")) return "standards";
   if (path.includes("request")) return "projects";
+  if (path.includes("folder")) return "library";
   return "library";
 }

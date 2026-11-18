@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en" data-lumina-theme="light">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Request Detail — Core Home</title>
+    <link rel="stylesheet" href="/css/lumina-finish.css" />
+    <link rel="stylesheet" href="/css/core-home-navbar.css" />
+    <link rel="stylesheet" href="/css/styles.css" />
+    <link rel="stylesheet" href="/css/render-request-pdf.css" />
+  </head>
+  <body class="portal-body">
+    <div id="core-home-navbar-mount" data-active="projects"></div>
+
+    <main>
+      <section class="hero hero--compact">
+        <div class="hero-actions">
+          <a class="btn btn-secondary" href="/dashboard.html">← Back to requests</a>
+          <button type="button" class="btn" id="export-pdf-btn">Export PDF</button>
+        </div>
+      </section>
+
+      <div id="detail-banner" class="status-banner" hidden></div>
+
+      <div id="request-detail-root" class="request-detail">
+        <p class="empty-state">Loading request…</p>
+      </div>
+    </main>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" crossorigin="anonymous"></script>
+    <script type="module" src="/js/portal.js"></script>
+    <script src="/js/app.js" type="module"></script>
+  </body>
+</html>

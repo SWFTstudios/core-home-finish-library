@@ -148,6 +148,28 @@
   align-items: center;
   justify-content: center;
   transition: background 0.2s, transform 0.15s;
+  text-decoration: none;
+}
+
+.core-home-navbar__folder-link {
+  position: relative;
+}
+
+.core-home-navbar__folder-badge {
+  position: absolute;
+  top: 0;
+  right: 0;
+  min-width: 16px;
+  height: 16px;
+  padding: 0 4px;
+  border-radius: 999px;
+  background: var(--lumina-primary);
+  color: var(--lumina-on-primary);
+  font-size: 9px;
+  font-weight: 700;
+  line-height: 16px;
+  text-align: center;
+  pointer-events: none;
 }
 
 .core-home-navbar__icon-btn:hover {

@@ -10,6 +10,11 @@ import {
   STYLE_FILTER_FAMILIES,
   uniqueFinishProcesses,
 } from "./finish-wheel-filters.js";
+import {
+  addItem,
+  buildFolderItemFromConfigurator,
+  syncFolderBadges,
+} from "./folder-store.js";
 
 const API = "/api";
 
@@ -688,12 +693,46 @@ function bindPreviewZoom() {
   });
 }
 
+const REQUEST_DRAFT_KEY = "corehome:request-draft";
+
+function bindCreateRenderRequest() {
+  const btn = document.getElementById("btn-create-render-request");
+  if (!btn) return;
+
+  btn.addEventListener("click", () => {
+    const finish = selectedFinish();
+    if (!finish) {
+      setBanner("Select a finish before creating a render request.", "error");
+      return;
+    }
+
+    const graphic = selectedGraphic(finish);
+    const materialMeta = state.catalog?.materials?.find((m) => m.slug === state.material);
+
+    const draft = {
+      source: "configurator",
+      material_slug: state.material,
+      material_label: materialMeta?.label ?? state.material,
+      finish_id: finish.id,
+      finish_name: finish.name,
+      graphic_application_id: graphic?.id ?? null,
+      graphic_label: graphic?.uiLabel ?? graphic?.label ?? null,
+      finishes: [{ finish_id: finish.id, zone: "body" }],
+    };
+
+    sessionStorage.setItem(REQUEST_DRAFT_KEY, JSON.stringify(draft));
+    window.location.href = "/request.html?from=configurator";
+  });
+}
+
 function bindControls() {
   ensurePreview3d();
   bindHudMobileDock();
   bindPreviewZoom();
   bindFinishWheel();
   bindFinishSearch();
+  bindCreateRenderRequest();
+  bindAddToFolder();
 
   document.addEventListener("keydown", (e) => {
     if (e.target.matches("input, textarea")) return;
@@ -727,8 +766,19 @@ function finishIndexFromSlug(slug) {
   return state.filteredFinishes.findIndex((f) => String(f.slug).toLowerCase() === needle);
 }
 
-function applyFinishDeepLink() {
-  const slug = new URLSearchParams(location.search).get("finish");
+function applyDeepLink() {
+  const params = new URLSearchParams(location.search);
+  const material = params.get("material");
+  if (material && material !== state.material) {
+    state.material = material;
+  }
+
+  const graphicId = params.get("graphic");
+  if (graphicId) {
+    state.graphicId = graphicId;
+  }
+
+  const slug = params.get("finish");
   if (!slug) return;
   let index = finishIndexFromSlug(slug);
   if (index < 0) {
@@ -739,9 +789,45 @@ function applyFinishDeepLink() {
   }
   if (index < 0) return;
   selectFinishIndex(index);
+  if (graphicId) {
+    renderCarousel();
+    syncPreview();
+  }
+}
+
+function bindAddToFolder() {
+  const btn = document.getElementById("btn-add-to-folder");
+  if (!btn) return;
+
+  btn.addEventListener("click", async () => {
+    const finish = selectedFinish();
+    if (!finish) {
+      setBanner("Select a finish before adding to folder.", "error");
+      return;
+    }
+
+    const graphic = selectedGraphic(finish);
+    const snapshot = buildFolderItemFromConfigurator(state, finish, graphic);
+
+    try {
+      await addItem(snapshot);
+      setBanner("Added to your folder.", "success");
+      await syncFolderBadges();
+    } catch (err) {
+      if (err.code === "duplicate") {
+        setBanner(err.message, "error");
+      } else {
+        setBanner(err.message || "Could not add to folder.", "error");
+      }
+    }
+  });
 }
 
 async function loadCatalog() {
+  const params = new URLSearchParams(location.search);
+  const materialParam = params.get("material");
+  if (materialParam) state.material = materialParam;
+
   const data = await api(`/catalog?material=${encodeURIComponent(state.material)}`);
   state.catalog = catalogForMaterial(data, state.material);
   state.finishes = state.catalog.finishes ?? [];
@@ -750,13 +836,14 @@ async function loadCatalog() {
   state.finishIndex = 0;
   state.finishId = state.finishes[0]?.id ?? null;
   const g0 = compatibleGraphics(state.finishes[0])[0];
-  state.graphicId = g0?.id ?? null;
+  state.graphicId = params.get("graphic") || g0?.id || null;
 
   renderMaterials();
   populateFinishBrowseControls();
   renderWheel();
-  applyFinishDeepLink();
+  applyDeepLink();
   syncPreview();
+  syncFolderBadges().catch(() => {});
 }
 
 document.addEventListener("lumina-theme-change", (e) => {

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" data-lumina-theme="light">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>My Folder | Core Home</title>
+    <link rel="stylesheet" href="/css/lumina-finish.css" />
+    <link rel="stylesheet" href="/css/core-home-navbar.css" />
+    <link rel="stylesheet" href="/css/folder.css" />
+  </head>
+  <body class="folder-body">
+    <div id="core-home-navbar-mount" data-active="library"></div>
+
+    <main class="folder-main">
+      <header class="folder-header">
+        <div class="folder-header-text">
+          <h1 class="folder-title">My folder</h1>
+          <p class="folder-subtitle">Items selected for review</p>
+        </div>
+        <div class="folder-header-icon" aria-hidden="true">
+          <span class="material-symbols-outlined">folder</span>
+          <span id="folder-page-count" class="folder-header-badge" hidden>0</span>
+        </div>
+      </header>
+
+      <div id="folder-banner" class="status-banner" hidden></div>
+
+      <div id="folder-empty" class="folder-empty" hidden>
+        <p>Your folder is empty. Save finishes from the library to review them here.</p>
+        <a class="btn-folder-outline" href="/configurator/">Browse library</a>
+      </div>
+
+      <div id="folder-grid" class="folder-grid" role="list" aria-label="Saved finishes"></div>
+
+      <footer class="folder-footer">
+        <a class="btn-folder-outline" href="/configurator/">
+          <span class="material-symbols-outlined" aria-hidden="true">arrow_back</span>
+          back to library
+        </a>
+        <button type="button" id="btn-folder-create-request" class="btn-folder-primary" disabled>
+          Create render request
+        </button>
+      </footer>
+    </main>
+
+    <script type="module" src="/js/portal.js"></script>
+    <script type="module" src="/js/folder-page.js"></script>
+  </body>
+</html>

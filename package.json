@@ -18,6 +18,10 @@
     "renders:attach": "node scripts/attach-finish-renders.mjs",
     "db:migrate:material": "wrangler d1 execute render-portal-db --file=./migrations/002_material_slug.sql",
     "db:migrate:material:local": "wrangler d1 execute render-portal-db --local --file=./migrations/002_material_slug.sql",
+    "db:migrate:request-spec": "wrangler d1 execute render-portal-db --remote --file=./migrations/004_render_request_spec.sql",
+    "db:migrate:request-spec:local": "wrangler d1 execute render-portal-db --local --file=./migrations/004_render_request_spec.sql",
+    "db:migrate:folders": "wrangler d1 execute render-portal-db --remote --file=./migrations/005_user_folders.sql",
+    "db:migrate:folders:local": "wrangler d1 execute render-portal-db --local --file=./migrations/005_user_folders.sql",
     "fetch:stitch-specs": "node scripts/fetch-stitch-specs.mjs"
   },
   "devDependencies": {

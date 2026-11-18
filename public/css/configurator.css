@@ -254,6 +254,33 @@
 }
 
 .btn-add-folder {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  flex: 0 0 auto;
+  min-height: 36px;
+  padding: 0 16px;
+  border: 1px solid var(--hud-card-border);
+  border-radius: 999px;
+  background: var(--hud-card-bg);
+  color: var(--lumina-on-surface);
+  font-family: var(--lumina-font-label);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: lowercase;
+  cursor: pointer;
+  backdrop-filter: blur(var(--hud-card-blur));
+  -webkit-backdrop-filter: blur(var(--hud-card-blur));
+  transition: filter 0.15s ease;
+}
+
+.btn-add-folder:hover {
+  filter: brightness(1.05);
+}
+
+.btn-create-request {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -270,19 +297,70 @@
   font-size: 12px;
   font-weight: 600;
   letter-spacing: 0.05em;
-  cursor: not-allowed;
-  opacity: 0.7;
+  cursor: pointer;
+  opacity: 1;
   box-shadow: 0 2px 8px rgba(0, 74, 198, 0.25);
 }
 
-[data-lumina-theme="dark"] .btn-add-folder {
+.btn-create-request:hover {
+  filter: brightness(1.05);
+}
+
+[data-lumina-theme="dark"] .btn-create-request {
   background: var(--lumina-primary-container);
   color: var(--lumina-on-primary-container);
   box-shadow: 0 2px 8px rgba(37, 99, 235, 0.35);
 }
 
-.btn-add-folder .material-symbols-outlined {
+.btn-create-request .material-symbols-outlined {
   font-size: 18px;
+}
+
+.folder-toolbar {
+  position: absolute;
+  top: calc(var(--core-home-navbar-height) + var(--hud-gap));
+  right: calc(var(--hud-right-w) + var(--hud-inset) + 8px);
+  z-index: 25;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  pointer-events: auto;
+}
+
+.folder-badge-link {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid var(--hud-card-border);
+  background: var(--hud-card-bg);
+  color: var(--lumina-on-surface);
+  text-decoration: none;
+  backdrop-filter: blur(var(--hud-card-blur));
+  -webkit-backdrop-filter: blur(var(--hud-card-blur));
+}
+
+.folder-badge-link .material-symbols-outlined {
+  font-size: 22px;
+}
+
+.folder-badge {
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 5px;
+  border-radius: 999px;
+  background: var(--lumina-primary);
+  color: var(--lumina-on-primary);
+  font-size: 10px;
+  font-weight: 700;
+  line-height: 18px;
+  text-align: center;
 }
 
 /* —— Material tabs (floating on stage) —— */
@@ -1036,6 +1114,11 @@
 .status-banner.error {
   background: #ffdad6;
   color: #690005;
+}
+
+.status-banner.success {
+  background: color-mix(in srgb, var(--lumina-primary) 14%, transparent);
+  color: var(--lumina-primary);
 }
 
 .empty-state {
