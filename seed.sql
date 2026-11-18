@@ -1097,3 +1097,19 @@ INSERT OR REPLACE INTO finish_graphic_compat (finish_id, graphic_id, compatible)
 INSERT OR REPLACE INTO finish_graphic_compat (finish_id, graphic_id, compatible) VALUES ('fin-plastic-color-shift', 'gfx-plastic-002', 0);
 INSERT OR REPLACE INTO finish_graphic_compat (finish_id, graphic_id, compatible) VALUES ('fin-plastic-color-shift', 'gfx-plastic-003', 0);
 INSERT OR REPLACE INTO finish_graphic_compat (finish_id, graphic_id, compatible) VALUES ('fin-plastic-color-shift', 'gfx-plastic-004', 0);
+
+-- Finish renders (public/assets/renders)
+UPDATE finishes SET image_url = '/assets/renders/ceramic/ceramic-matte-glaze.png' WHERE id = 'fin-ceramic-matte-glaze';
+UPDATE finishes SET image_url = '/assets/renders/ceramic/ceramic-glossy-glaze.png' WHERE id = 'fin-ceramic-glossy-glaze';
+UPDATE finishes SET image_url = '/assets/renders/ceramic/ceramic-two-color-clay.png' WHERE id = 'fin-ceramic-two-color-clay';
+UPDATE finishes SET image_url = '/assets/renders/ceramic/ceramic-pearlized.png' WHERE id = 'fin-ceramic-pearlized';
+UPDATE finishes SET image_url = '/assets/renders/ceramic/ceramic-sand-clay.png' WHERE id = 'fin-ceramic-sand-clay';
+UPDATE finishes SET image_url = '/assets/renders/ceramic/ceramic-ombre.png' WHERE id = 'fin-ceramic-ombre';
+UPDATE finishes SET image_url = '/assets/renders/ceramic/ceramic-two-color-mix-reactive.png' WHERE id = 'fin-ceramic-two-color-mix-reactive';
+UPDATE finishes SET image_url = '/assets/renders/ceramic/ceramic-shiny-reactive.png' WHERE id = 'fin-ceramic-shiny-reactive';
+UPDATE finishes SET image_url = '/assets/renders/ceramic/ceramic-matte-reactive.png' WHERE id = 'fin-ceramic-matte-reactive';
+UPDATE finishes SET image_url = '/assets/renders/ceramic/ceramic-two-color-marbled-glaze.png' WHERE id = 'fin-ceramic-two-color-marbled-glaze';
+UPDATE finishes SET image_url = '/assets/renders/ceramic/ceramic-rubberize.png' WHERE id = 'fin-ceramic-rubberize';
+UPDATE finishes SET image_url = '/assets/renders/ceramic/ceramic-iridescent.png' WHERE id = 'fin-ceramic-iridescent';
+UPDATE finishes SET image_url = '/assets/renders/ceramic/ceramic-silver-gold-electroplate.png' WHERE id = 'fin-ceramic-silver-gold-electroplate';
+UPDATE finishes SET image_url = '/assets/renders/ceramic/ceramic-glitter.png' WHERE id = 'fin-ceramic-glitter';
