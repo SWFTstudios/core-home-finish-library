@@ -25,7 +25,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import { renderUrlFor, renderSqlLines } from "./lib/finish-renders.mjs";
+import { imageFieldsFor, renderSqlLines } from "./lib/finish-renders.mjs";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(__dirname, "..");
@@ -406,7 +406,11 @@ async function run() {
 
   const appliedUpdates = applyFactoryUpdates(imports);
   const allFinishes = imports.flatMap((i) => i.finishes);
-  for (const f of allFinishes) f.imageUrl = renderUrlFor(ROOT, f.materialSlug, f.slug);
+  for (const f of allFinishes) {
+    for (const k of ["imageUrl", "imageSource", "photoSource", "renderUrl"]) delete f[k];
+    f.image = imageFieldsFor(ROOT, f.materialSlug, f.slug);
+    f.imageUrl = f.image.imageUrl ?? null;
+  }
   const allGraphics = imports.flatMap((i) => i.graphicApplicationTypes);
   const compatByFinish = new Map();
 
@@ -485,7 +489,7 @@ async function run() {
       processSteps: f.processSteps,
       description: describe(f),
       hexColor: f.hexColor,
-      ...(f.imageUrl ? { imageUrl: f.imageUrl } : {}),
+      ...f.image,
       ...publicDetails(f, includeUsdPrices),
       compatibleGraphics: compatByFinish.get(f.id) ?? [],
     })),

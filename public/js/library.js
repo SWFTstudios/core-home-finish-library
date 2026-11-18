@@ -6,7 +6,7 @@ import {
   processMeta,
   styleFamilyById,
 } from "./library-grouping.js";
-import { swatchStyle, formatRating, costDots, finishImageUrl } from "./finish-swatch.js";
+import { swatchStyle, formatRating, costDots, finishImageUrl, isFactoryPhoto, imageSourceLabel } from "./finish-swatch.js";
 import { taxonomyIconHtml } from "./library-icons.js";
 
 const API = "/api";
@@ -214,6 +214,7 @@ function renderFinishCard(finish) {
     img.src = finishImageUrl(finish);
     img.alt = "";
     img.loading = "lazy";
+    swatch.classList.toggle("is-photo", isFactoryPhoto(finish));
     swatch.appendChild(img);
   }
 
@@ -372,7 +373,8 @@ function openDetail(finish, triggerEl = null) {
   if (finishImageUrl(finish)) {
     const img = document.createElement("img");
     img.src = finishImageUrl(finish);
-    img.alt = `${finish.name} render`;
+    img.alt = isFactoryPhoto(finish) ? `${finish.name} factory photo` : `${finish.name} render`;
+    swatch.classList.toggle("is-photo", isFactoryPhoto(finish));
     swatch.appendChild(img);
   }
 
@@ -391,6 +393,7 @@ function openDetail(finish, triggerEl = null) {
     ["Cost", costDots(finish.costTier)],
     ["Price band", finish.priceBand || "—"],
   ];
+  if (imageSourceLabel(finish)) rows.push(["Image", imageSourceLabel(finish)]);
   if (finish.costNote) rows.push(["Cost note", finish.costNote]);
   if (finish.reviewStatus === "pending_factory_review") {
     rows.push(["Status", "Pending factory review"]);

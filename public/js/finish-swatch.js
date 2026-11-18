@@ -1,8 +1,22 @@
 /** Shared swatch styling for finish cards. */
 
-/** Render image for a finish (transparent PNG cutout), if one exists. */
+/** Best image for a finish: a factory photo when one exists, else an AI render (PNG cutout). */
 export function finishImageUrl(finish) {
   return finish?.imageUrl || finish?.image_url || null;
+}
+
+/** True when the finish image is a real factory photo (fills its frame) rather than an AI cutout. */
+export function isFactoryPhoto(finish) {
+  if (finish?.imageSource) return finish.imageSource === "factory_photo";
+  const url = finishImageUrl(finish);
+  return Boolean(url) && !url.startsWith("/assets/renders/");
+}
+
+/** Short label for where the finish image comes from. */
+export function imageSourceLabel(finish) {
+  if (!finishImageUrl(finish)) return null;
+  if (isFactoryPhoto(finish)) return finish.photoSource ? `Factory photo (${finish.photoSource})` : "Factory photo";
+  return "AI sample render, not a real sample";
 }
 
 export function swatchStyle(finish) {

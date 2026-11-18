@@ -1274,3 +1274,9 @@
     max-width: none;
   }
 }
+
+/* Factory photos fill the round swatch; AI renders (cutouts) stay contained. */
+.finish-swatch.has-render.is-photo img {
+  object-fit: cover;
+  padding: 0;
+}

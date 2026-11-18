@@ -648,3 +648,15 @@
     border-radius: var(--lumina-radius-xl) var(--lumina-radius-xl) 0 0;
   }
 }
+
+/* Factory photos are rectangular close-ups: fill the frame (AI renders are cutouts and stay contained). */
+.library-finish-swatch.is-photo img {
+  object-fit: cover;
+  padding: 0;
+}
+
+/* The detail view shows the whole photo (product shots such as mugs would be cropped by cover). */
+.library-detail-swatch.is-photo img {
+  object-fit: contain;
+  padding: 0;
+}
