@@ -72,5 +72,8 @@ for (const material of fs.readdirSync(RAW)) {
 }
 await Promise.all(jobs);
 fs.mkdirSync(path.dirname(MANIFEST), { recursive: true });
-fs.writeFileSync(MANIFEST, JSON.stringify(manifest, null, 2) + "\n");
+const json = JSON.stringify(manifest, null, 2) + "\n";
+fs.writeFileSync(MANIFEST, json);
+fs.mkdirSync(path.join(ROOT, "public", "data"), { recursive: true });
+fs.writeFileSync(path.join(ROOT, "public", "data", "ai-photos.json"), json);
 console.log(`Manifest: ${Object.keys(manifest.photos).length} photos`);
