@@ -1,5 +1,6 @@
 export interface Env {
-  DB: D1Database;
+  /** Optional at runtime: branch preview builds run without the D1 binding. */
+  DB?: D1Database;
   RENDERS?: R2Bucket;
   STATIC_ASSETS: Fetcher;
 }
@@ -20,6 +21,25 @@ const JSON_HEADERS = {
 
 async function enableForeignKeys(db: D1Database): Promise<void> {
   await db.prepare("PRAGMA foreign_keys = ON").run();
+}
+
+/**
+ * The catalog bundled with the static assets (public/api/catalog.json, same data as D1, all
+ * materials; the client filters by material). Used when D1 is not bound — Workers Builds branch
+ * previews — or a D1 query fails, so the configurator still loads instead of showing nothing.
+ */
+async function staticCatalog(request: Request, env: Env, url: URL, reason: string): Promise<Response> {
+  const assetUrl = new URL("/api/catalog.json", url.origin);
+  const res = await env.STATIC_ASSETS.fetch(new Request(assetUrl.toString(), { method: "GET", headers: request.headers }));
+  if (!res.ok) {
+    return Response.json({ error: `Catalog unavailable (${reason})` }, { status: 503, headers: JSON_HEADERS });
+  }
+  const data = (await res.json()) as Record<string, unknown>;
+  const material = url.searchParams.get("material") ?? (data.material as string) ?? "stainless_steel";
+  return Response.json(
+    { ...data, material },
+    { headers: { ...JSON_HEADERS, "X-Catalog-Source": `static (${reason})` } },
+  );
 }
 
 async function getProfile(
@@ -96,6 +116,33 @@ export default {
 async function handleApi(
   request: Request,
   env: Env,
+  url: URL,
+): Promise<Response> {
+  const isCatalog = request.method === "GET" && url.pathname === "/api/catalog";
+  if (!env.DB) {
+    if (isCatalog) return staticCatalog(request, env, url, "no database binding");
+    if (url.pathname === "/api/health") {
+      return Response.json({ ok: true, service: "render-portal", database: false }, { headers: JSON_HEADERS });
+    }
+    return Response.json(
+      { error: "Database not available in this environment" },
+      { status: 503, headers: JSON_HEADERS },
+    );
+  }
+  if (isCatalog) {
+    try {
+      return await handleDbApi(request, env as Env & { DB: D1Database }, url);
+    } catch (err) {
+      console.error("D1 catalog failed, serving static catalog", err);
+      return staticCatalog(request, env, url, "database error");
+    }
+  }
+  return handleDbApi(request, env as Env & { DB: D1Database }, url);
+}
+
+async function handleDbApi(
+  request: Request,
+  env: Env & { DB: D1Database },
   url: URL,
 ): Promise<Response> {
   await enableForeignKeys(env.DB);
