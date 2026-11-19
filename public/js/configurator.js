@@ -133,6 +133,20 @@ function resetZones() {
   state.zoneEntryFinishId = null;
 }
 
+/** Open the request builder with the finishes currently chosen for each zone. */
+function bindCreateRequest() {
+  document.getElementById("create-render-request")?.addEventListener("click", () => {
+    const body = state.bodyFinishId ?? selectedFinish()?.id ?? null;
+    if (!body) {
+      setBanner("Pick a finish first, then create a render request.", "error");
+      return;
+    }
+    const params = new URLSearchParams({ body });
+    if (state.logoFinishId) params.set("logo", state.logoFinishId);
+    location.href = `/request.html?${params}`;
+  });
+}
+
 function bindZoneToggle() {
   document.querySelectorAll(".preview-zone-btn").forEach((btn) => {
     btn.addEventListener("click", () => setActiveZone(btn.dataset.zone));
@@ -638,6 +652,7 @@ function bindControls() {
   bindPreviewZoom();
   bindViewToggle();
   bindZoneToggle();
+  bindCreateRequest();
   bindFinishWheel();
   bindFinishSearch();
 

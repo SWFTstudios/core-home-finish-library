@@ -130,3 +130,36 @@
   font-weight: 600;
   background: var(--lumina-surface-container-high);
 }
+
+/* Department access editor (Settings + request form) */
+.access-editor {
+  display: grid;
+  gap: 8px;
+}
+.access-editor__row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr);
+  align-items: center;
+  gap: 12px;
+}
+.access-editor__row label {
+  font-size: 14px;
+  color: var(--lumina-on-surface);
+}
+.access-editor__row select {
+  font: inherit;
+  color: var(--lumina-on-surface);
+  background: var(--lumina-surface-container-lowest);
+  border: 1px solid var(--lumina-outline-variant);
+  border-radius: 8px;
+  padding: 8px 10px;
+  min-height: 40px;
+  width: 100%;
+  box-sizing: border-box;
+}
+@media (max-width: 480px) {
+  .access-editor__row {
+    grid-template-columns: 1fr;
+    gap: 4px;
+  }
+}
