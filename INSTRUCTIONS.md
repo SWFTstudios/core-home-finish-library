@@ -20,8 +20,10 @@
 
 ### Open — infrastructure (WD / IT)
 
+Rollout branches: `chore/infra-01-api-token` → `…-07-ci` (merge to `main` in order).
+
 - [x] GitHub secret `CLOUDFLARE_ACCOUNT_ID` (set via `gh` — May 2026)
-- [ ] GitHub secret `CLOUDFLARE_API_TOKEN` — create in [Cloudflare API tokens](https://dash.cloudflare.com/profile/api-tokens), then `gh secret set CLOUDFLARE_API_TOKEN -R SWFTstudios/core-home-finish-library`
+- [x] GitHub secret `CLOUDFLARE_API_TOKEN` (set Nov 2026 — verified present for Pages/Worker Actions)
 - [ ] Re-run **Deploy Finish Library (Pages)** workflow after both secrets exist
 - [ ] Create remote D1: `npm run db:create` → update `database_id` in `wrangler.jsonc`
 - [ ] Apply remote schema: `npm run db:migrate`
