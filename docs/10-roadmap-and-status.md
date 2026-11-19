@@ -107,7 +107,7 @@ flowchart LR
 | M1 — Scaffold | Worker, schema, docs, basic UI | Done |
 | M2 — Phase 1 Pages | Public configurator + static catalog | **Done** |
 | M3 — Figma SS UI | Parity with `study_SS` (layout + interactions) | In progress |
-| M4 — Production infra | D1, R2, Access, Worker deploy | Not started |
+| M4 — Production infra | D1, R2, email OTP, Worker deploy | **Done** (Nov 2026) |
 | M5 — Rollout | PD/ID using portal instead of Excel/PPT | Blocked on M4 |
 
 ### Catalog and 3D track (M2a–M6)
