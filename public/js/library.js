@@ -2,12 +2,12 @@ import {
   buildLibraryTree,
   filterFinishes,
   inferStyleFamily,
-  MATERIAL_ICONS,
   processMeta,
   styleFamilyById,
 } from "./library-grouping.js";
 import { swatchStyle, formatRating, costDots, finishImageUrl, isFactoryPhoto, imageSourceLabel } from "./finish-swatch.js";
-import { taxonomyIconHtml } from "./library-icons.js";
+import { materialThumbHtml, taxonomyIconHtml } from "./library-icons.js";
+import { iconSvg } from "./icons.js";
 
 const API = "/api";
 const DEFAULT_MATERIAL = "stainless_steel";
@@ -132,8 +132,7 @@ function renderMaterials() {
       btn.title = "Coming soon";
     }
 
-    const icon = MATERIAL_ICONS[m.slug] || "category";
-    btn.innerHTML = `${taxonomyIconHtml(icon, m.label || m.slug)}<span>${escapeHtml(m.label || m.slug)}</span>`;
+    btn.innerHTML = `${materialThumbHtml(m.slug, m.label || m.slug)}<span>${escapeHtml(m.label || m.slug)}</span>`;
 
     if (enabled) {
       btn.addEventListener("click", () => selectMaterial(m.slug));
@@ -280,7 +279,7 @@ function renderSections() {
         <span class="library-family-desc">${escapeHtml(family.description)}</span>
       </span>
       <span class="library-family-badge">${family.count}</span>
-      <span class="material-symbols-outlined library-family-chevron" aria-hidden="true">expand_more</span>
+      ${iconSvg("expand_more", { className: "library-family-chevron" })}
     `;
 
     const panel = document.createElement("div");

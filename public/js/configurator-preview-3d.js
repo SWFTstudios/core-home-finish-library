@@ -5,6 +5,7 @@
  */
 import { createProductStage } from "./product-stage-3d.js";
 import { loadRenderData } from "./finish-render-data.js";
+import { iconSvg } from "./icons.js";
 
 let stage = null;
 let containerEl = null;
@@ -28,8 +29,7 @@ function addDragHint(container) {
   const hint = document.createElement("p");
   hint.className = "preview-3d-hint";
   hint.setAttribute("aria-hidden", "true");
-  hint.innerHTML =
-    '<span class="material-symbols-outlined" aria-hidden="true">3d_rotation</span>Drag to rotate · Scroll to zoom · Double-click to reset';
+  hint.innerHTML = `${iconSvg("3d_rotation")}Drag to rotate · Scroll to zoom · Double-click to reset`;
   container.appendChild(hint);
   const off = stage.onInteract(() => {
     hint.classList.add("is-hidden");

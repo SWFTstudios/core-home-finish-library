@@ -9,6 +9,7 @@ import {
 } from "./configurator-preview.js";
 import { renderGraphicThumbs } from "./graphic-thumbs.js";
 import { createFinishWheel } from "./finish-wheel.js";
+import { materialThumbHtml } from "./library-icons.js";
 import {
   browseFinishes,
   COLOR_GROUPS,
@@ -19,13 +20,6 @@ import {
 } from "./finish-wheel-filters.js";
 
 const API = "/api";
-
-const MATERIAL_ICONS = {
-  ceramic: "breakfast_dining",
-  glass: "window",
-  stainless_steel: "rebase",
-  plastic: "shopping_bag",
-};
 
 
 const state = {
@@ -503,12 +497,11 @@ function renderMaterials() {
     const selected = mat.slug === state.material;
     btn.setAttribute("aria-selected", selected);
 
-    const icon = MATERIAL_ICONS[mat.slug] ?? "category";
     const shortLabel =
       mat.slug === "stainless_steel" ? "S. Steel" : mat.label?.replace("Stainless Steel", "S. Steel") ?? mat.label;
 
     btn.innerHTML = `
-      <span class="material-symbols-outlined" aria-hidden="true">${icon}</span>
+      ${materialThumbHtml(mat.slug, shortLabel)}
       <span>${shortLabel}</span>
     `;
 

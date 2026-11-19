@@ -1,58 +1,26 @@
-/** Material Symbols used in library taxonomy — avoids invalid names rendering as text. */
+/** Taxonomy icons (library page, material chips) — inline SVG from icons.js, no icon font. */
+import { hasIcon, iconSvg } from "./icons.js";
 
-export const VALID_TAXONOMY_ICONS = new Set([
-  "layers",
-  "view_in_ar",
-  "auto_awesome",
-  "wb_twilight",
-  "tonality",
-  "gradient",
-  "swap_horiz",
-  "sticker",
-  "palette",
-  "format_paint",
-  "texture",
-  "hardware",
-  "auto_fix_high",
-  "help_outline",
-  "category",
-  "breakfast_dining",
-  "window",
-  "rebase",
-  "shopping_bag",
-  "close",
-  "expand_more",
-  "search",
-]);
+/** Product thumbnail for a material (front shell render), as used on the material tabs. */
+export function materialThumbHtml(slug, label = "") {
+  return `<img class="material-thumb" src="/assets/${encodeURIComponent(slug)}/thumb.png" alt="" aria-hidden="true" decoding="async" onerror="this.replaceWith(Object.assign(document.createElement('span'),{className:'material-thumb-fallback',textContent:${JSON.stringify(String(label).charAt(0).toUpperCase() || "?")}}))" />`;
+}
 
 function fallbackInitial(label) {
   const text = String(label || "?").trim();
   return text ? text.charAt(0).toUpperCase() : "?";
 }
 
-/** @returns {HTMLElement} */
+/** @returns {Element} */
 export function taxonomyIconElement(iconName, label) {
-  const name = String(iconName || "").trim();
-  if (name && VALID_TAXONOMY_ICONS.has(name)) {
-    const span = document.createElement("span");
-    span.className = "material-symbols-outlined";
-    span.setAttribute("aria-hidden", "true");
-    span.textContent = name;
-    return span;
-  }
-  const span = document.createElement("span");
-  span.className = "library-icon-fallback";
-  span.setAttribute("aria-hidden", "true");
-  span.textContent = fallbackInitial(label);
-  return span;
+  const tpl = document.createElement("template");
+  tpl.innerHTML = taxonomyIconHtml(iconName, label);
+  return tpl.content.firstElementChild;
 }
 
-/** Safe HTML for templates (icon name must be in allowlist). */
+/** Safe HTML for templates (unknown names get the label's initial, never raw text). */
 export function taxonomyIconHtml(iconName, label) {
-  const name = String(iconName || "").trim();
-  if (name && VALID_TAXONOMY_ICONS.has(name)) {
-    return `<span class="material-symbols-outlined" aria-hidden="true">${name}</span>`;
-  }
-  const initial = fallbackInitial(label);
+  if (hasIcon(iconName)) return iconSvg(iconName);
+  const initial = fallbackInitial(label).replace(/[<>&"]/g, "");
   return `<span class="library-icon-fallback" aria-hidden="true">${initial}</span>`;
 }

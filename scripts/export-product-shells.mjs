@@ -2,10 +2,12 @@
 /**
  * Capture transparent front/back product shells from /render-qa.html?shells=1
  * and write them to public/assets/<material>/{front,back}.png, plus the lighting passes the 2D
- * view uses to paint finishes onto them: {front,back}-{uv,light,metal}.png.
+ * view uses to paint finishes onto them: {front,back}-{uv,light,metal}.png, plus thumb.png (the
+ * product icon on the material tabs).
  *
  * Requires a local static server (default http://127.0.0.1:8788) and Chrome.
  * Usage: node scripts/export-product-shells.mjs [baseUrl]
+ *        node scripts/export-product-shells.mjs --thumbs-only   (rebuild thumb.png from front.png)
  */
 import fs from "node:fs";
 import path from "node:path";
@@ -14,7 +16,7 @@ import { spawn } from "node:child_process";
 import sharp from "sharp";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
-const BASE = process.argv[2] || "http://127.0.0.1:8788";
+const BASE = process.argv.slice(2).find((a) => !a.startsWith("--")) || "http://127.0.0.1:8788";
 const CHROME =
   process.env.CHROME_PATH ||
   "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome";
@@ -123,6 +125,45 @@ async function captureShells() {
   }
 }
 
+/**
+ * Material tab thumbnail: the product without its straw (rows much narrower than the body are
+ * dropped), slightly darkened so the white shell reads on a white tab.
+ */
+async function writeThumb(src, out) {
+  const trimmed = await sharp(src).trim({ threshold: 1 }).png().toBuffer();
+  const { data, info } = await sharp(trimmed).ensureAlpha().raw().toBuffer({ resolveWithObject: true });
+  const widths = [];
+  for (let y = 0; y < info.height; y++) {
+    let l = -1;
+    let r = -1;
+    for (let x = 0; x < info.width; x++) {
+      if (data[(y * info.width + x) * 4 + 3] > 40) {
+        if (l < 0) l = x;
+        r = x;
+      }
+    }
+    widths.push(l < 0 ? 0 : r - l + 1);
+  }
+  const widest = Math.max(...widths);
+  const top = Math.max(0, widths.findIndex((w) => w >= widest * 0.5) - 2);
+  await sharp(trimmed)
+    .extract({ left: 0, top, width: info.width, height: info.height - top })
+    .trim({ threshold: 1 })
+    .modulate({ brightness: 0.88 })
+    .resize({ height: 96, fit: "inside" })
+    .png({ compressionLevel: 9, adaptiveFiltering: true, palette: false })
+    .toFile(out);
+}
+
+if (process.argv.includes("--thumbs-only")) {
+  for (const material of MATERIALS) {
+    const dir = path.join(ROOT, "public", "assets", material);
+    await writeThumb(path.join(dir, "front.png"), path.join(dir, "thumb.png"));
+    console.log(`Wrote public/assets/${material}/thumb.png`);
+  }
+  process.exit(0);
+}
+
 await waitForReady(`${BASE}/render-qa.html`);
 const shells = await captureShells();
 for (const material of MATERIALS) {
@@ -139,5 +180,7 @@ for (const material of MATERIALS) {
       .toBuffer();
     fs.writeFileSync(path.join(dir, `${name}.png`), png);
   }
-  console.log(`Wrote public/assets/${material}/{front,back}{,-uv,-light,-metal}.png`);
+  // Small product render for the material tabs / chips (Figma uses product images, not icons).
+  await writeThumb(path.join(dir, "front.png"), path.join(dir, "thumb.png"));
+  console.log(`Wrote public/assets/${material}/{front,back}{,-uv,-light,-metal}.png and thumb.png`);
 }
