@@ -101,8 +101,8 @@ sequenceDiagram
 
 ### Access control
 
-- **Cloudflare Access** (Zero Trust) for internal users only
-- Team role (`PD`, `ID`, `GD`, `Admin`) in `profiles` — see [05 — Data model](05-data-model.md)
+- **Email OTP** for `@corehome.com` addresses (`ALLOWED_EMAIL_DOMAIN`) — see [07 — Deployment](07-deployment.md)
+- Team role (`PD`, `ID`, `GD`, `Admin`) in `profiles` — see [05 — Data model](05-data-model.md); seed helpers in `scripts/seed-team-profiles.example.sql`
 
 ---
 
