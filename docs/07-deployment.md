@@ -107,7 +107,7 @@ In the Cloudflare dashboard, create bucket **`render-portal-files`** (must match
 
 Sign-in uses one-time codes emailed through Cloudflare Email Service (see [API reference](08-api-reference.md#authentication)).
 
-- The sender domain in `AUTH_EMAIL_FROM` must be onboarded for Email Sending (`npx wrangler email sending list`). Today it is `no-reply@swftstudios.com`; to send from a Core Home address, onboard that domain and update `AUTH_EMAIL_FROM` and `allowed_sender_addresses` in `wrangler.jsonc`.
+- The sender domain in `AUTH_EMAIL_FROM` must be onboarded for Email Sending (`npx wrangler email sending list`). Today it is `no-reply@core-home-finish-library.swftstudios.com`; to send from a Core Home address, onboard that domain and update `AUTH_EMAIL_FROM` and `allowed_sender_addresses` in `wrangler.jsonc`.
 - `ALLOWED_EMAIL_DOMAIN` (`corehome.com`) decides who may sign in.
 - Add the sign-in tables to the remote database once: `npm run db:migrate:auth`.
 
