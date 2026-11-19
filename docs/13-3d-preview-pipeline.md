@@ -63,6 +63,34 @@ The 2D front and back are not a photo pasted into a silhouette. `npm run shells:
    The R2 bucket sends `Access-Control-Allow-Origin: *`, so the browser can read the photo pixels. Flat-colour finishes get a light `grain` (orange peel / glaze mottling) so matte paint does not look like plastic CG; metal and clear glass stay clean.
 4. **Corrections.** If a render does not match its photo on the QA page, add an entry to `finish-render-overrides.json`.
 
+### Graphic applications (logo on the product)
+
+Picking a card on the **Graphic Application** shelf puts the logo on the product front in that application's style, in both views. Following the Figma `GraphicApplication_*` tiles, the artwork is the Core Home badge (a disc with the "core / HOME" wordmark knocked out). It works as a "your logo here" for every account and tells the designer and PD which printing methods a finish supports.
+
+| Piece | Location | What it does |
+|-------|----------|--------------|
+| Logo artwork | [`public/assets/brand/core-home-logo.svg`](../public/assets/brand/core-home-logo.svg) | Wordmark traced from the Figma logo (only a raster exists there). Replace it with the official single-colour vector; everything else picks it up. |
+| Badge mask | [`public/js/logo-art.js`](../public/js/logo-art.js) | Disc with the wordmark knocked out; crisp, soft (pad print, enamel) or brushed (hand paint) edges. |
+| Application looks | [`public/js/graphic-application-spec.js`](../public/js/graphic-application-spec.js) | Pure rules per `templateKey`: ink / metal / frost / clay / relief, colour, roughness, metalness, clearcoat, opacity, relief height. Unit-tested; every catalog application has a defined look. |
+| Placement | `badge` in [`product-profiles.js`](../public/js/product-profiles.js) | Diameter (mm) and centre height per product. |
+| 2D | [`finish-composite-2d.js`](../public/js/finish-composite-2d.js) `applyLogo` | Badge mapped through the uv pass at real size (follows the curve), lit by the same passes; relief shaded from the mask slope toward the key light. Front only. |
+| 3D | `graphic` mesh in [`product-models-3d.js`](../public/js/product-models-3d.js) + `createGraphicMaterial` | Curved decal patch facing the camera; badge mask as alpha and bump map. |
+| Shelf thumbnails | [`graphic-thumbs.js`](../public/js/graphic-thumbs.js) | The current product and finish wearing each application, rendered with the 2D compositor on quarter-size passes. |
+
+How the main applications read:
+
+- **Laser etch / engrave (steel):** coating removed, so the badge shows bare brushed steel, slightly sunk. On mirror or plated steel it leaves a darker mark instead.
+- **Laser etched / engraving / sandblast (glass):** frosted white, sunk.
+- **Decals, heat transfer:** thin printed film with a satin sheen.
+- **Silkscreen, pad, direct print:** flat matte ink (pad print has softer edges).
+- **UV / gloss 3D print, raised enamel:** glossy and raised.
+- **Hot stamping, lustre:** metallic foil.
+- **Emboss / deboss:** no ink; only the pressed edge catches the light.
+- **Hand paint:** ink with brushed, slightly irregular edges.
+- **Wax resist:** the badge stays unglazed matte clay.
+
+Ink colour is automatic: light ink on dark finishes, charcoal on light ones.
+
 ### Zones
 
 The **Body / Logo** toggle above the viewport chooses which part the finish wheel paints. The logo patch follows the body until a different finish is picked for it; **Match body** resets it. Zone choices are preview-only for now; persisting them to `request_finishes.zone` is part of Stage 3.
@@ -71,7 +99,7 @@ The **Body / Logo** toggle above the viewport chooses which part the finish whee
 
 - Product dimensions are typical sizes traced from the Figma product images, not CAD. Update `PROFILES` in `product-profiles.js` once PD confirms real heights and diameters, then re-run `npm run shells:export`.
 - Real-time rendering is strongest for paint, metal, gloss, matte and glass. Reactive glazes and multi-colour patterns are only as good as the photo crop: a small or low-resolution photo gives a soft texture. Better source photos (straight-on, evenly lit, high resolution) directly improve the preview.
-- Graphic applications (decals, laser etch on the logo) are not drawn yet (M6).
+- Graphic applications use one placeholder logo (the Core Home badge) at a fixed size and position per product; uploading an account's own artwork is a later step.
 
 ---
 

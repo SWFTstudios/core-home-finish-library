@@ -11,6 +11,7 @@
  * material and the same ACES tone curve. Lid, straw and liner keep their neutral shell pixels.
  */
 import { buildAlbedo } from "./finish-albedo.js";
+import { badgeMask, sampleMask } from "./logo-art.js";
 
 const PASSES = ["uv", "light", "metal"];
 const passCache = new Map();
@@ -138,10 +139,17 @@ function metalReflection(mirror, brushed, diffuse, rough) {
  * @param {ImageData} albedo from buildAlbedo()
  * @param {object} spec from finishRenderSpec()
  * @param {HTMLCanvasElement} [target] canvas to draw into (resized to the shell)
- * @param {{ translucent?: boolean }} [opts] translucent: the map's alpha is pattern opacity over
- *   clear glass (see buildAlbedo)
+ * @param {{ translucent?: boolean, logo?: object|null }} [opts] translucent: the map's alpha is
+ *   pattern opacity over clear glass (see buildAlbedo); logo: graphic application layer
+ *   ({ mask, gspec, placement }, see paintFinish)
  */
-export function compositeFinish(passes, albedo, spec, target = document.createElement("canvas"), { translucent = false } = {}) {
+export function compositeFinish(
+  passes,
+  albedo,
+  spec,
+  target = document.createElement("canvas"),
+  { translucent = false, logo = null } = {},
+) {
   const { width: w, height: h, shell, uv, light, metal } = passes;
   target.width = w;
   target.height = h;
@@ -306,15 +314,88 @@ export function compositeFinish(passes, albedo, spec, target = document.createEl
     o[p + 3] = Math.round(shellA * Math.min(1, outA));
   }
 
+  if (logo) applyLogo(o, passes, spec, logo);
   ctx.putImageData(out, 0, 0);
   return target;
 }
 
+const srgbOut = (x) => (x <= 0.0031308 ? x * 12.92 : 1.055 * x ** (1 / 2.4) - 0.055);
+
+/**
+ * Graphic application layer: the badge printed / etched / pressed onto the lit product, centred on
+ * the front (u = 0.5). Uses the same passes, so the logo follows the curve and the studio light.
+ * Relief is shaded from the mask's slope toward the key light (upper right).
+ */
+function applyLogo(o, passes, spec, { mask, gspec, placement }) {
+  const { width: w, height: h, shell, uv, light, metal } = passes;
+  const S = shell.data;
+  const U = uv.data;
+  const L = light.data;
+  const M = metal.data;
+  const { diameter, center, height, radius } = placement;
+  // Physical scale per row: how many badge widths one full turn of u is at that height.
+  const turns = new Float32Array(257).map((_, i) => (2 * Math.PI * radius(i / 256)) / diameter);
+  const ink = hexToLin(gspec.color);
+  const e = 1.6 / mask.size;
+  const tone = [0, 0, 0];
+  const lit = [0, 0, 0];
+
+  for (let i = 0; i < w * h; i++) {
+    const p = i * 4;
+    if (U[p + 3] < 128 || !S[p + 3]) continue;
+    const u = ((U[p] << 4) | (U[p + 2] >> 4)) / 4095;
+    const v = ((U[p + 1] << 4) | (U[p + 2] & 15)) / 4095;
+    const lx = 0.5 + (u - 0.5) * turns[Math.round(v * 256)];
+    const ly = 0.5 - ((v - center) * height) / diameter;
+    if (lx < -0.02 || lx > 1.02 || ly < -0.02 || ly > 1.02) continue;
+    const m = sampleMask(mask, lx, ly);
+    // Slope toward the light: positive on edges that face it.
+    const bevel = sampleMask(mask, lx - e, ly + e) - sampleMask(mask, lx + e, ly - e);
+    if (m <= 0.001 && Math.abs(bevel) < 0.001) continue;
+
+    const diffuse = LIGHT[L[p]];
+    const gloss = LIGHT[L[p + 1]];
+    const satin = LIGHT[L[p + 2]];
+    const relief = gspec.relief;
+    const glint = relief * bevel > 0 ? relief * bevel * (satin * 9 + diffuse * 0.4) : 0;
+
+    if (gspec.kind === "relief" || (m <= 0.001 && relief)) {
+      // Pressed shape (or the rim of a raised print): only the light on the surface changes.
+      const k = 1 + relief * bevel * 0.9 - (relief < 0 ? Math.abs(relief) * m * 0.12 : 0);
+      for (let c = 0; c < 3; c++) {
+        const x = (o[p + c] / 255) * k + srgbOut(Math.min(1, glint * 0.5));
+        o[p + c] = Math.max(0, Math.min(255, Math.round(x * 255)));
+      }
+      continue;
+    }
+
+    const shadeK = 1 + relief * bevel * 0.8;
+    if (gspec.kind === "metal") {
+      const refl = metalReflection(LIGHT[M[p]], LIGHT[M[p + 1]], diffuse, gspec.roughness);
+      for (let c = 0; c < 3; c++) lit[c] = ink[c] * refl * shadeK + glint * 0.5;
+    } else {
+      const refl = reflection(gloss, satin, gspec.roughness);
+      const coat = gspec.clearcoat * reflection(gloss, satin, 0.05);
+      for (let c = 0; c < 3; c++) lit[c] = ink[c] * diffuse * shadeK + refl + coat + glint;
+    }
+    aces(lit[0], lit[1], lit[2], tone);
+    const a = Math.min(1, m * gspec.opacity);
+    const baseA = o[p + 3] / S[p + 3];
+    const outA = baseA + a * (1 - baseA);
+    for (let c = 0; c < 3; c++) {
+      const premult = (o[p + c] / 255) * baseA * (1 - a) + srgbOut(tone[c]) * a;
+      o[p + c] = Math.max(0, Math.min(255, Math.round((premult / Math.max(outA, 1e-3)) * 255)));
+    }
+    o[p + 3] = Math.round(S[p + 3] * Math.min(1, outA));
+  }
+}
+
 /**
  * Build the finish colour map once and paint it onto several product sides.
- * @param {{ spec: object, photoUrl?: string|null, aspect: number, sides: { passes: object, canvas: HTMLCanvasElement }[] }} opts
+ * @param {{ spec: object, photoUrl?: string|null, aspect: number, sides: { passes: object, canvas: HTMLCanvasElement }[], graphic?: { gspec: object, placement: object }|null }} opts
+ *   graphic: logo application (graphicRenderSpec + badgePlacement); drawn on the front only
  */
-export async function paintFinish({ spec, photoUrl = null, aspect, sides }) {
+export async function paintFinish({ spec, photoUrl = null, aspect, sides, graphic = null }) {
   const key = JSON.stringify([spec, photoUrl, aspect]);
   let entry = albedoCache.get(key);
   if (!entry) {
@@ -328,5 +409,15 @@ export async function paintFinish({ spec, photoUrl = null, aspect, sides }) {
     entry.catch(() => albedoCache.delete(key));
   }
   const { albedo, translucent } = await entry;
-  for (const side of sides) compositeFinish(side.passes, albedo, spec, side.canvas, { translucent });
+  let logo = null;
+  if (graphic?.gspec) {
+    try {
+      logo = { ...graphic, mask: await badgeMask(graphic.gspec.edge) };
+    } catch (err) {
+      console.warn(err.message);
+    }
+  }
+  for (const side of sides) {
+    compositeFinish(side.passes, albedo, spec, side.canvas, { translucent, logo: side.logo === false ? null : logo });
+  }
 }

@@ -7,6 +7,7 @@ import {
   setPreviewView,
   getPreviewView,
 } from "./configurator-preview.js";
+import { renderGraphicThumbs } from "./graphic-thumbs.js";
 import {
   browseFinishes,
   COLOR_GROUPS,
@@ -28,29 +29,6 @@ const MATERIAL_ICONS = {
 const WHEEL_ITEM_STEP = 68;
 const WHEEL_ARC_X = -16;
 const WHEEL_FADE_SPREAD = 3.25;
-
-const GRAPHIC_ICONS = {
-  "graphic.waterDecal": "water_drop",
-  "graphic.partial3dPrint": "view_in_ar",
-  "graphic.silkScreen": "print",
-  "graphic.heatTransfer": "local_fire_department",
-  "graphic.laserEngraved": "flare",
-  "graphic.laserDecal": "flare",
-  "graphic.padPrinting": "stamp",
-  "graphic.silkPrinting": "print",
-  "graphic.embossDeboss": "layers",
-  "graphic.handPaint": "brush",
-  "graphic.waxResist": "waves",
-  "graphic.decal": "label",
-  "graphic.silkscreen": "print",
-  "graphic.uvDigital": "photo_camera",
-  "graphic.engraving": "draw",
-  "graphic.laserEtched": "flare",
-  "graphic.icon": "star",
-  "graphic.hotStamping": "approval",
-  "graphic.uvInkjet": "print",
-  "graphic.uvJet": "print",
-};
 
 const state = {
   luminaTheme: "light",
@@ -675,6 +653,7 @@ function renderCarousel() {
     state.graphicId = graphics[0].id;
   }
 
+  const thumbs = [];
   graphics.forEach((g) => {
     const card = document.createElement("button");
     card.type = "button";
@@ -682,14 +661,14 @@ function renderCarousel() {
     card.setAttribute("role", "option");
     card.setAttribute("aria-selected", g.id === state.graphicId);
 
-    const icon = GRAPHIC_ICONS[g.templateKey] ?? "texture";
-
+    // Thumbnail: the product in this finish wearing the logo in this application's style.
     card.innerHTML = `
       <div class="graphic-card-thumb">
-        <span class="material-symbols-outlined" aria-hidden="true">${icon}</span>
+        <canvas width="192" height="128" aria-hidden="true"></canvas>
       </div>
       <span class="graphic-card-label">${g.uiLabel}</span>
     `;
+    thumbs.push({ graphic: g, canvas: card.querySelector("canvas") });
 
     card.addEventListener("click", () => {
       state.graphicId = g.id;
@@ -698,6 +677,9 @@ function renderCarousel() {
     });
     track.appendChild(card);
   });
+  renderGraphicThumbs({ materialSlug: state.material, finish, items: thumbs }).catch((err) =>
+    console.warn("Graphic thumbnails", err),
+  );
 }
 
 function bindHudMobileDock() {

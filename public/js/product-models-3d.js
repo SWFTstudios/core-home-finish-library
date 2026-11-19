@@ -8,6 +8,7 @@
  * Mesh names double as zones (see docs/13-3d-preview-pipeline.md, Stage 3):
  *   body   — takes the selected finish (mug handle included)
  *   logo   — front patch on the body; takes the logo finish when one is chosen
+ *   graphic — badge patch for the graphic application (logo decal), see graphic-application-spec.js
  *   lid, straw, liner — fixed parts, not finishable
  */
 import * as THREE from "three";
@@ -116,6 +117,35 @@ function logoGeometry(profile) {
   return geometry;
 }
 
+/** Margin around the badge inside its patch (share of the badge diameter on each side). */
+export const BADGE_MARGIN = 0.08;
+
+/**
+ * Curved patch for the graphic application badge, facing the default camera like the logo
+ * patch. UVs run 0–1 across and up the patch, which is square in millimetres.
+ */
+function badgeGeometry(profile) {
+  const height = profile.outer[profile.outer.length - 1][1];
+  const { diameter, center } = profile.badge;
+  const half = (diameter / 2) * (1 + 2 * BADGE_MARGIN);
+  const yc = height * center;
+  const y0 = yc - half;
+  const y1 = yc + half;
+  const span = (2 * half) / radiusAt(profile.outer, yc);
+  const steps = 24;
+  const section = [];
+  for (let i = 0; i <= steps; i++) {
+    const y = y0 + ((y1 - y0) * i) / steps;
+    section.push([radiusAt(profile.outer, y) + 0.6, y]);
+  }
+  const geometry = lathe(section, { phiStart: LOGO_PHI - span / 2, phiLength: span, segments: 64 });
+  const pos = geometry.attributes.position;
+  const uv = geometry.attributes.uv;
+  for (let i = 0; i < pos.count; i++) uv.setY(i, (pos.getY(i) - y0 * MM) / ((y1 - y0) * MM));
+  uv.needsUpdate = true;
+  return geometry;
+}
+
 const LID_MATERIAL = () =>
   new THREE.MeshPhysicalMaterial({ color: 0xe4e7eb, roughness: 0.42, clearcoat: 0.4, clearcoatRoughness: 0.2 });
 const STRAW_MATERIAL = () =>
@@ -196,10 +226,16 @@ export function buildProduct(materialSlug) {
   logo.visible = false;
   group.add(logo);
 
+  const badge = mesh(badgeGeometry(profile), placeholder(), "graphic");
+  badge.visible = false;
+  badge.castShadow = false;
+  badge.renderOrder = 2;
+  group.add(badge);
+
   const circumference = 2 * Math.PI * Math.max(...profile.outer.map(([r]) => r)) * MM;
   return {
     group,
-    zones: { body: bodyZone, logo: [logo] },
+    zones: { body: bodyZone, logo: [logo], graphic: [badge] },
     height: height * MM,
     circumference,
     label: profile.label,

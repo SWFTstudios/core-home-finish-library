@@ -7,7 +7,8 @@ import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 import { RoomEnvironment } from "three/addons/environments/RoomEnvironment.js";
 import { buildProduct } from "./product-models-3d.js";
 import { finishRenderSpec, renderDataFor } from "./finish-render-spec.js";
-import { createFinishMaterial, disposeFinishMaterial } from "./finish-material-3d.js";
+import { createFinishMaterial, createGraphicMaterial, disposeFinishMaterial } from "./finish-material-3d.js";
+import { graphicRenderSpec } from "./graphic-application-spec.js";
 import { loadRenderData } from "./finish-render-data.js";
 
 export { loadRenderData };
@@ -208,22 +209,36 @@ export function createProductStage(
    * Apply finishes; logo === null hides the logo patch (it follows the body).
    * Resolves once textures are loaded, so callers can capture a finished frame.
    */
-  async function setFinishes({ body, logo = null }) {
+  async function graphicMaterialFor(graphic, body, data) {
+    const { sampled, override } = renderDataFor(data.renderData, data.overrides, materialSlug, body?.slug);
+    const finishSpec = body ? finishRenderSpec(body, materialSlug, sampled, override) : null;
+    return createGraphicMaterial(graphicRenderSpec(graphic, finishSpec));
+  }
+
+  /**
+   * Apply finishes; logo === null hides the logo patch (it follows the body); graphic === null
+   * hides the graphic application badge.
+   */
+  async function setFinishes({ body, logo = null, graphic = null }) {
     if (!product) return;
     const token = ++finishToken;
     const data = await loadRenderData();
-    const [bodyMat, logoMat] = await Promise.all([
+    const [bodyMat, logoMat, graphicMat] = await Promise.all([
       body ? materialFor(body, data) : null,
       logo ? materialFor(logo, data) : null,
+      graphic ? graphicMaterialFor(graphic, body, data).catch((err) => (console.warn(err.message), null)) : null,
     ]);
     if (token !== finishToken || !product) {
       disposeFinishMaterial(bodyMat);
       disposeFinishMaterial(logoMat);
+      disposeFinishMaterial(graphicMat);
       return;
     }
     if (bodyMat) assign("body", bodyMat);
     product.zones.logo[0].visible = Boolean(logoMat);
     if (logoMat) assign("logo", logoMat);
+    product.zones.graphic[0].visible = Boolean(graphicMat);
+    if (graphicMat) assign("graphic", graphicMat);
   }
 
   /**

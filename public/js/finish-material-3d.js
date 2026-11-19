@@ -7,6 +7,8 @@
  */
 import * as THREE from "three";
 import { buildAlbedo, rng } from "./finish-albedo.js";
+import { badgeMask, maskCanvas } from "./logo-art.js";
+import { BADGE_MARGIN } from "./product-models-3d.js";
 
 const WHITE = new THREE.Color(0xffffff);
 
@@ -218,6 +220,42 @@ export async function createFinishMaterial(spec, { photoUrl = null, aspect = 1.4
   }
   material.userData.ownedTextures = owned;
   material.userData.spec = spec;
+  return material;
+}
+
+/**
+ * Decal material for the graphic application badge (logo). The badge mask is the alpha; relief
+ * comes from the same mask as a bump map (raised > 0, etched / debossed < 0).
+ * @param {object} gspec from graphicRenderSpec()
+ */
+export async function createGraphicMaterial(gspec) {
+  const mask = await badgeMask(gspec.edge);
+  const alphaTex = new THREE.CanvasTexture(maskCanvas(mask, { opacity: gspec.opacity, margin: BADGE_MARGIN }));
+  alphaTex.colorSpace = THREE.SRGBColorSpace;
+  alphaTex.anisotropy = 8;
+  const bumpTex = new THREE.CanvasTexture(maskCanvas(mask, { asGrey: true, margin: BADGE_MARGIN }));
+  bumpTex.anisotropy = 8;
+  const color = new THREE.Color(gspec.color);
+  const material = new THREE.MeshPhysicalMaterial({
+    color,
+    map: alphaTex,
+    transparent: true,
+    depthWrite: false,
+    polygonOffset: true,
+    polygonOffsetFactor: -2,
+    polygonOffsetUnits: -2,
+    roughness: gspec.roughness,
+    metalness: gspec.metalness,
+    clearcoat: gspec.clearcoat,
+    clearcoatRoughness: 0.06,
+    bumpMap: bumpTex,
+    bumpScale: gspec.relief * 6,
+    envMapIntensity: gspec.metalness > 0.8 ? 1.2 : 1,
+  });
+  // Emboss / deboss has no ink: only the pressed edge should show, so the face stays faint.
+  if (gspec.kind === "relief") material.opacity = 0.35;
+  material.userData.ownedTextures = [alphaTex, bumpTex];
+  material.userData.graphic = gspec;
   return material;
 }
 

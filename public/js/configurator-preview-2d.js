@@ -12,7 +12,8 @@ import { resolveFinishPreviewUrl, resolveGraphicComboUrl } from "./finish-asset-
 import { loadRenderData } from "./finish-render-data.js";
 import { finishRenderSpec, renderDataFor } from "./finish-render-spec.js";
 import { loadShellPasses, paintFinish } from "./finish-composite-2d.js";
-import { surfaceAspect } from "./product-profiles.js";
+import { badgePlacement, surfaceAspect } from "./product-profiles.js";
+import { graphicRenderSpec } from "./graphic-application-spec.js";
 
 const DEFAULT_COLOR = "#c3c6d7";
 const FALLBACK_SRC = "/assets/ss/hero/default-tumbler.svg";
@@ -307,8 +308,10 @@ export function updatePreview2d({ materialSlug, finish, graphic, theme }) {
           aspect: surfaceAspect(slug),
           sides: [
             { passes: front, canvas: next[0] },
-            { passes: back, canvas: next[1] },
+            // The logo sits on the front; the back shows the other side of the product.
+            { passes: back, canvas: next[1], logo: false },
           ],
+          graphic: graphic ? { gspec: graphicRenderSpec(graphic, spec), placement: badgePlacement(slug) } : null,
         });
         if (token !== applyToken || disposed) return;
         copyCanvas(next[0], frontCanvas);

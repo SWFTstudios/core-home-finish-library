@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-8 -6 586 268" width="586" height="268">
+  <!--
+    Core Home wordmark for the graphic application previews ("Your logo here" placeholder).
+    Traced from the logo in the Finish Library Figma file (raster only there); swap in the
+    official vector from the brand team when available, keeping a single-colour artwork on a
+    transparent background. Colour is irrelevant: the preview uses the shape as a mask.
+  -->
+  <g fill="none" stroke="#000" stroke-linecap="butt" stroke-linejoin="miter">
+    <g stroke-width="9.5">
+      <path d="M133 27 A75 75 0 1 0 133 133" />
+      <circle cx="205" cy="80" r="75" />
+      <path d="M350 8 V155 M350 62 L412 8" />
+      <path d="M405 80 H555 A75 75 0 1 0 537 128" />
+    </g>
+    <path d="M0 187 H565" stroke-width="3" />
+    <g stroke-width="5">
+      <path d="M18 220 V250 M48 220 V250 M18 235 H48" />
+      <circle cx="204" cy="235" r="15" />
+      <path d="M360 250 V220 L375 240 L390 220 V250" />
+      <path d="M555 220 H530 V250 H555 M530 235 H551" />
+    </g>
+  </g>
+</svg>
