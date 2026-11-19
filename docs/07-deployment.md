@@ -135,7 +135,7 @@ npx wrangler d1 execute render-portal-db --remote --command "UPDATE profiles SET
 npm run deploy
 ```
 
-CI also deploys on push to `main` (`.github/workflows/deploy-worker.yml`).
+CI also deploys on push to `main` (`.github/workflows/deploy-worker.yml`). Catalog `seed.sql` is **not** applied on every push (avoids FK failures once requests exist); use workflow_dispatch with **seed_catalog**, or `npm run db:seed` locally.
 
 ### 8. Verify
 
