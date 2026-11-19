@@ -1,3 +1,5 @@
+import { loadAccessDefaults, readAccessEditor, renderAccessEditor } from "./request-access-ui.js";
+
 const API = "/api";
 
 async function api(path, options = {}) {
@@ -114,6 +116,16 @@ function bindRequestPage() {
   );
   if (preset.get("product")) form.product_type.value = preset.get("product");
 
+  // Who can access this request: start from the preparer's saved defaults.
+  const accessEditor = document.getElementById("access-editor");
+  const resetAccessEditor = () =>
+    accessEditor
+      ? loadAccessDefaults()
+          .then((d) => renderAccessEditor(accessEditor, d.departments, d.access))
+          .catch(showError)
+      : Promise.resolve();
+  resetAccessEditor();
+
   document.addEventListener("finish-toggle", (e) => {
     const { finish, selected } = e.detail;
     if (selected) selections.set(finish.id, finish);
@@ -154,11 +166,13 @@ function bindRequestPage() {
           notes: form.notes.value,
           deadline: form.deadline.value || null,
           status: "Submitted",
+          access: accessEditor ? readAccessEditor(accessEditor) : undefined,
           finishes,
         }),
       });
       setBanner(banner, "Request submitted. ID team can pick it up from the dashboard.", "success");
       form.reset();
+      resetAccessEditor();
       selections.clear();
       renderSelections(list, selections);
       grid.querySelectorAll(".is-selected").forEach((el) => el.classList.remove("is-selected"));

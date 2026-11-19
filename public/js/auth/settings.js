@@ -1,6 +1,7 @@
 import { iconSvg } from "../icons.js";
 import { setLuminaTheme } from "../components/core-home-navbar.js";
 import { DEPARTMENTS, getMe, initials, signOut, updateMe } from "../session.js";
+import { loadAccessDefaults, readAccessEditor, renderAccessEditor, saveAccessDefaults } from "../request-access-ui.js";
 
 const $ = (id) => document.getElementById(id);
 const nameInput = $("full_name");
@@ -70,6 +71,37 @@ $("profile-form").addEventListener("submit", async (event) => {
     status.textContent = err.message;
   } finally {
     save.disabled = false;
+  }
+});
+
+const accessEditor = $("access-editor");
+const accessStatus = $("access-status");
+try {
+  const defaults = await loadAccessDefaults();
+  renderAccessEditor(accessEditor, defaults.departments, defaults.access);
+  if (!defaults.saved) {
+    accessStatus.textContent = "Not saved yet: Industrial Design and Visualization can edit by default.";
+  }
+} catch (err) {
+  accessStatus.textContent = err.message;
+}
+accessEditor.addEventListener("change", () => {
+  accessStatus.textContent = "";
+  accessStatus.classList.remove("is-ok");
+});
+$("access-form").addEventListener("submit", async (event) => {
+  event.preventDefault();
+  $("access-save").disabled = true;
+  accessStatus.textContent = "Saving…";
+  accessStatus.classList.remove("is-ok");
+  try {
+    await saveAccessDefaults(readAccessEditor(accessEditor));
+    accessStatus.textContent = "Saved. New requests will start with these settings.";
+    accessStatus.classList.add("is-ok");
+  } catch (err) {
+    accessStatus.textContent = err.message;
+  } finally {
+    $("access-save").disabled = false;
   }
 });
 

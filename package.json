@@ -24,6 +24,8 @@
     "db:migrate:material:local": "wrangler d1 execute render-portal-db --local --file=./migrations/002_material_slug.sql",
     "db:migrate:auth": "wrangler d1 execute render-portal-db --remote --file=./migrations/003_auth.sql",
     "db:migrate:auth:local": "wrangler d1 execute render-portal-db --local --file=./migrations/003_auth.sql",
+    "db:migrate:access": "wrangler d1 execute render-portal-db --remote --file=./migrations/004_request_access.sql",
+    "db:migrate:access:local": "wrangler d1 execute render-portal-db --local --file=./migrations/004_request_access.sql",
     "fetch:stitch-specs": "node scripts/fetch-stitch-specs.mjs"
   },
   "devDependencies": {
