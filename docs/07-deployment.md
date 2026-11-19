@@ -13,7 +13,7 @@
 | Phase | Status | What users get |
 |-------|--------|----------------|
 | **Phase 1 — Pages** | **Complete (May 2026)** | Configurator UI + static `/api/catalog` |
-| **Phase 2 — Worker + D1 + R2 + Access** | Not started | Live API, render uploads, team auth |
+| **Phase 2 — Worker + D1 + R2 + email OTP** | **Live (Nov 2026)** | Live API, render uploads, team auth |
 
 Full phased plan: [phased-deployment.md](phased-deployment.md)
 

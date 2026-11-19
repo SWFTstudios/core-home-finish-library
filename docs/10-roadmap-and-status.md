@@ -61,7 +61,7 @@ Track day-to-day tasks in [`INSTRUCTIONS.md`](../INSTRUCTIONS.md).
 | Email OTP + real `profiles` | IT | `@corehome.com` domain; seed remaining teammates |
 | Production Worker deploy | WD | Live on `*.workers.dev`; CI on `main` |
 | Replace static catalog with live D1 API | WD | Remove or sync `public/api/catalog` after Worker live |
-| CI pipeline (`wrangler check`, lint) | WD | Add workflow when team scales |
+| CI pipeline (`tsc`, wrangler dry-run) | WD | **Done** — `.github/workflows/ci.yml` |
 | Figma MCP finish sync | GD + WD | `.cursor/mcp.json`, map components → `finishes` |
 | Product GLTF (replace cube) | ID + WD | [13 — 3D pipeline](13-3d-preview-pipeline.md) Stage 2 |
 | Multi-material D1 + xlsx tabs | WD + PD | [12 — Database](12-database-multi-material.md) Phase 1 |

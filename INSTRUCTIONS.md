@@ -30,7 +30,7 @@ Rollout branches: `chore/infra-01-api-token` → `…-07-ci` (merge to `main` in
 - [x] R2 bucket `render-portal-files` created; `RENDERS` binding enabled in `wrangler.jsonc`
 - [x] Auth + profiles: email OTP (`ALLOWED_EMAIL_DOMAIN=corehome.com`); first sign-in creates profile — see `scripts/seed-team-profiles.example.sql` for role seeding
 - [x] **Phase 2 Worker:** live at [core-home-finish-library.elombe.workers.dev](https://core-home-finish-library.elombe.workers.dev/) — CI deploy on `main` + R2 binding deploy
-- [ ] CI (lint / `wrangler check`) when pipeline is needed
+- [x] CI: `.github/workflows/ci.yml` — `tsc --noEmit` + `wrangler deploy --dry-run` on PR/`main`
 
 ### Open — design & data (GD / WD)
 
