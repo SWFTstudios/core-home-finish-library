@@ -108,7 +108,7 @@ Junction: which graphic applications each finish supports (`compatible = 1`).
 
 ### `profiles`
 
-Team membership tied to Cloudflare Access email (`PD`, `ID`, `GD`, `Admin`).
+Team membership tied to signed-in `@corehome.com` email (`PD`, `ID`, `GD`, `Admin`).
 
 ### `render_requests` / `request_finishes` / `renders`
 

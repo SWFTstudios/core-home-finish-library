@@ -14,7 +14,7 @@
 |----------|-----|
 | Configurator | [https://core-home-finish-library.elombe.workers.dev/configurator/](https://core-home-finish-library.elombe.workers.dev/configurator/) |
 
-**Phase 2 in planning:** Worker production deploy, remote D1, R2 uploads, Cloudflare Access for real team emails.
+**Phase 2 largely live:** Worker + remote D1 + email OTP auth; R2 uploads enabled; continue seeding teammate profiles as needed.
 
 Track day-to-day tasks in [`INSTRUCTIONS.md`](../INSTRUCTIONS.md).
 
