@@ -310,60 +310,78 @@ async function handleDbApi(
   }
 
   if (request.method === "POST" && url.pathname === "/api/requests") {
-    if (profile?.team !== "PD" && profile?.team !== "Admin") {
-      return Response.json(
-        { error: "Only PD or Admin can create requests" },
-        { status: 403, headers: JSON_HEADERS },
-      );
-    }
-
-    const body = (await request.json()) as {
+    // Any signed-in team member may create a render request (auth is enforced upstream).
+    const body = (await request.json().catch(() => null)) as {
       title?: string;
       product_type?: string;
       notes?: string;
       deadline?: string;
       status?: string;
       finishes?: { finish_id: string; zone: string; notes?: string }[];
-    };
+    } | null;
 
-    if (!body.title?.trim()) {
+    if (!body?.title?.trim()) {
       return Response.json(
         { error: "title is required" },
         { status: 400, headers: JSON_HEADERS },
       );
     }
 
-    const requestId = crypto.randomUUID();
+    // Requesters may only save a draft or submit; later statuses belong to the ID workflow.
     const status = body.status ?? "Draft";
+    if (status !== "Draft" && status !== "Submitted") {
+      return Response.json(
+        { error: "status must be Draft or Submitted" },
+        { status: 400, headers: JSON_HEADERS },
+      );
+    }
 
-    await env.DB.prepare(
-      `INSERT INTO render_requests (id, title, product_type, requested_by, status, notes, deadline)
-       VALUES (?, ?, ?, ?, ?, ?, ?)`,
-    )
-      .bind(
+    const selections = Array.isArray(body.finishes) ? body.finishes : [];
+    if (selections.length > 20 || selections.some((s) => !s?.finish_id || !s?.zone)) {
+      return Response.json(
+        { error: "finishes need a finish_id and zone each (max 20)" },
+        { status: 400, headers: JSON_HEADERS },
+      );
+    }
+
+    const requestId = crypto.randomUUID();
+
+    // One batch is one transaction: a request is never saved with only some of its finishes.
+    try {
+      await env.DB.batch([
+      env.DB.prepare(
+        `INSERT INTO render_requests (id, title, product_type, requested_by, status, notes, deadline)
+         VALUES (?, ?, ?, ?, ?, ?, ?)`,
+      ).bind(
         requestId,
         body.title.trim(),
-        body.product_type ?? null,
-        profile!.id,
+        body.product_type?.trim() || null,
+        profile.id,
         status,
-        body.notes ?? null,
-        body.deadline ?? null,
-      )
-      .run();
-
-    for (const selection of body.finishes ?? []) {
-      await env.DB.prepare(
-        `INSERT INTO request_finishes (id, request_id, finish_id, zone, notes)
-         VALUES (?, ?, ?, ?, ?)`,
-      )
-        .bind(
+        body.notes?.trim() || null,
+        body.deadline || null,
+      ),
+      ...selections.map((selection) =>
+        env.DB.prepare(
+          `INSERT INTO request_finishes (id, request_id, finish_id, zone, notes)
+           VALUES (?, ?, ?, ?, ?)`,
+        ).bind(
           crypto.randomUUID(),
           requestId,
           selection.finish_id,
           selection.zone,
           selection.notes ?? null,
-        )
-        .run();
+        ),
+      ),
+      ]);
+    } catch (err) {
+      if (String(err).includes("FOREIGN KEY")) {
+        return Response.json(
+          { error: "One of the selected finishes does not exist" },
+          { status: 400, headers: JSON_HEADERS },
+        );
+      }
+      throw err;
     }
 
     return Response.json({ id: requestId, status }, { status: 201, headers: JSON_HEADERS });

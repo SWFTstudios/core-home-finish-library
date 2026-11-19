@@ -86,12 +86,14 @@ async function loadRequests(tableBody) {
 
   for (const req of requests) {
     const tr = document.createElement("tr");
+    const esc = (v) =>
+      String(v).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]);
     tr.innerHTML = `
-      <td>${req.title}</td>
-      <td>${req.product_type || "—"}</td>
-      <td><span class="status-pill ${String(req.status).toLowerCase().replace(/\s+/g, "-")}">${req.status}</span></td>
-      <td>${req.deadline || "—"}</td>
-      <td>${req.updated_at || req.created_at || "—"}</td>
+      <td>${esc(req.title)}</td>
+      <td>${esc(req.product_type || "—")}</td>
+      <td><span class="status-pill ${esc(String(req.status).toLowerCase().replace(/\s+/g, "-"))}">${esc(req.status)}</span></td>
+      <td>${esc(req.deadline || "—")}</td>
+      <td>${esc(req.updated_at || req.created_at || "—")}</td>
     `;
     tableBody.appendChild(tr);
   }
@@ -105,15 +107,30 @@ function bindRequestPage() {
   if (!grid || !form) return;
 
   const selections = new Map();
+  // Zones carried over from the configurator (?body=<id>&logo=<id>); picked finishes fill the rest.
+  const preset = new URLSearchParams(location.search);
+  const presetZones = new Map(
+    ["body", "logo"].filter((z) => preset.get(z)).map((z) => [preset.get(z), z]),
+  );
+  if (preset.get("product")) form.product_type.value = preset.get("product");
 
   document.addEventListener("finish-toggle", (e) => {
     const { finish, selected } = e.detail;
     if (selected) selections.set(finish.id, finish);
     else selections.delete(finish.id);
-    renderSelections(list, selections);
+    renderSelections(list, selections, presetZones);
   });
 
-  loadFinishes({ gridEl: grid, selectable: true }).catch(showError);
+  loadFinishes({ gridEl: grid, selectable: true })
+    .then((finishes) => {
+      const byId = new Map(finishes.map((f) => [f.id, f]));
+      for (const id of presetZones.keys()) {
+        const finish = byId.get(id);
+        if (finish) selections.set(finish.id, finish);
+      }
+      renderSelections(list, selections, presetZones);
+    })
+    .catch(showError);
 
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
@@ -125,10 +142,7 @@ function bindRequestPage() {
       return;
     }
 
-    const finishes = [...selections.values()].map((f, i) => ({
-      finish_id: f.id,
-      zone: i === 0 ? "body" : i === 1 ? "logo" : "accent",
-    }));
+    const finishes = zonedSelections(selections, presetZones);
 
     try {
       await api("/requests", {
@@ -160,16 +174,32 @@ function bindDashboardPage() {
   loadRequests(tbody).catch(showError);
 }
 
-function renderSelections(listEl, selections) {
+/** Assign each selected finish a zone: configurator zones first, then body, logo and accents. */
+function zonedSelections(selections, presetZones = new Map()) {
+  const taken = new Set(presetZones.values());
+  const free = ["body", "logo"].filter((z) => !taken.has(z));
+  return [...selections.values()].map((f) => ({
+    finish_id: f.id,
+    zone: presetZones.get(f.id) ?? free.shift() ?? "accent",
+  }));
+}
+
+function renderSelections(listEl, selections, presetZones = new Map()) {
   if (!listEl) return;
   listEl.innerHTML = "";
   if (!selections.size) {
     listEl.innerHTML = "<li class='empty-state'>Tap finishes to build your spec (body, logo, accents).</li>";
     return;
   }
-  for (const finish of selections.values()) {
+  for (const { finish_id, zone } of zonedSelections(selections, presetZones)) {
+    const finish = selections.get(finish_id);
     const li = document.createElement("li");
-    li.innerHTML = `<span>${finish.name}</span><span class="badge">${finish.category || "finish"}</span>`;
+    const name = document.createElement("span");
+    name.textContent = finish.name;
+    const badge = document.createElement("span");
+    badge.className = "badge";
+    badge.textContent = zone;
+    li.append(name, badge);
     listEl.appendChild(li);
   }
 }
