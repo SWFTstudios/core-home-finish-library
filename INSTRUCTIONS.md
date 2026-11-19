@@ -44,7 +44,7 @@
 | **M3** | ~~Replace cube~~ Done as code-built products (Stage 1b); GLB swap when CAD exists | [13 — 3D pipeline](docs/13-3d-preview-pipeline.md) Stage 1b · Stage 2 |
 | **M4** | Zone map (`body`, `logo`) + per-zone finishes — preview done; persist to `request_finishes.zone` open | [13](docs/13-3d-preview-pipeline.md) Stage 3 · [12](docs/12-database-multi-material.md) Phase 3 |
 | **M5** | R2 GLB upload + admin mesh→zone assignment | [13](docs/13-3d-preview-pipeline.md) Stage 4 |
-| **M6** | Graphic decals / textures on logo mesh | [13](docs/13-3d-preview-pipeline.md) · [10 — Roadmap](docs/10-roadmap-and-status.md) |
+| **M6** | ~~Graphic decals~~ Done: Core Home badge per graphic application in 2D, 3D and shelf thumbnails; official logo vector + per-account artwork upload open | [13](docs/13-3d-preview-pipeline.md) · [10 — Roadmap](docs/10-roadmap-and-status.md) |
 
 **Concepts for PD/ID/GD:** [11 — 3D and materials primer](docs/11-3d-materials-primer.md)
 
@@ -52,12 +52,15 @@
 
 Worktree: `../CORE HOME FINISH LIBRARY-3d` (from `feature/3d-product-render`).
 
-- [ ] PD: confirm real height / top and bottom diameter for each hero product → update `PROFILES` in `public/js/product-models-3d.js` (then re-run `npm run shells:export`)
+- [ ] PD: confirm real height / top and bottom diameter for each hero product → update `PROFILES` in `public/js/product-profiles.js` (then re-run `npm run shells:export`)
+- [x] Authentic finishes on the product: 2D paints the finish onto the shells with the 3D studio's lighting passes (no more stretched photos); 3D and 2D share one de-lit, seamless photo colour map (branch `claude/finish-library-improvements-836hk0`)
 - [ ] GD / PD: review `/render-qa.html` per material; record corrections in `public/data/finish-render-overrides.json`
 - [ ] GD / PD: set `reviewStatus` in `data/ai-photos.json` (`approved` / `rejected`) for the 28 AI photos; regenerate rejected ones
 - [ ] Re-run `npm run render:colors` whenever factory photos or AI images change
 - [ ] Optional: "Render HD still" button (`three-gpu-pathtracer`) for render requests
-- [ ] M6: graphic decals on the `logo` patch (UVs are already 0–1 across the patch)
+- [x] M6: logo graphic applications on the product (2D, 3D, shelf thumbnails)
+- [ ] GD: replace `public/assets/brand/core-home-logo.svg` with the official Core Home vector (current file is traced from the Figma raster)
+- [ ] GD / PD: check badge size / height per product (`badge` in `public/js/product-profiles.js`) and the look of each application (`public/js/graphic-application-spec.js`)
 
 ### Related PRs
 

@@ -283,7 +283,12 @@
       "bottom": "#dcdcdd",
       "left": "#d4d4d5",
       "right": "#d3d3d4",
-      "crop": null
+      "crop": [
+        0.085,
+        0.304,
+        0.8,
+        0.642
+      ]
     },
     "glass/glass-bubble-dense": {
       "source": "ai_render",
@@ -295,7 +300,12 @@
       "bottom": "#dddddf",
       "left": "#dcdcde",
       "right": "#dcdcde",
-      "crop": null
+      "crop": [
+        0.086,
+        0.304,
+        0.797,
+        0.642
+      ]
     },
     "glass/glass-bubble-sparse": {
       "source": "ai_render",
@@ -307,7 +317,12 @@
       "bottom": "#e0e0e2",
       "left": "#dadadc",
       "right": "#dddddf",
-      "crop": null
+      "crop": [
+        0.112,
+        0.304,
+        0.776,
+        0.642
+      ]
     },
     "glass/glass-bubble-localized": {
       "source": "ai_render",
@@ -319,7 +334,12 @@
       "bottom": "#dadce0",
       "left": "#d8d9dd",
       "right": "#d6d7db",
-      "crop": null
+      "crop": [
+        0.086,
+        0.304,
+        0.797,
+        0.642
+      ]
     },
     "glass/glass-colored-powder": {
       "source": "ai_render",
@@ -331,7 +351,12 @@
       "bottom": "#95c7e2",
       "left": "#99c9e4",
       "right": "#98c5de",
-      "crop": null
+      "crop": [
+        0.086,
+        0.304,
+        0.797,
+        0.642
+      ]
     },
     "glass/glass-colored-spots-blown": {
       "source": "ai_render",
@@ -343,7 +368,12 @@
       "bottom": "#c0bdb0",
       "left": "#c2bdad",
       "right": "#c1bfb3",
-      "crop": null
+      "crop": [
+        0.086,
+        0.304,
+        0.797,
+        0.642
+      ]
     },
     "glass/glass-colored-spots-pressed": {
       "source": "ai_render",
@@ -355,7 +385,12 @@
       "bottom": "#b0b5ab",
       "left": "#b6bab1",
       "right": "#bdbfba",
-      "crop": null
+      "crop": [
+        0.086,
+        0.304,
+        0.797,
+        0.642
+      ]
     },
     "glass/glass-glass-filigree": {
       "source": "ai_render",
@@ -367,7 +402,12 @@
       "bottom": "#e5e5e6",
       "left": "#ddddde",
       "right": "#dedede",
-      "crop": null
+      "crop": [
+        0.069,
+        0.294,
+        0.638,
+        0.651
+      ]
     },
     "glass/glass-frosted": {
       "source": "ai_render",
@@ -379,7 +419,12 @@
       "bottom": "#eeeef0",
       "left": "#e9e9eb",
       "right": "#e9e9eb",
-      "crop": null
+      "crop": [
+        0.081,
+        0.304,
+        0.751,
+        0.642
+      ]
     },
     "glass/glass-sandblasted": {
       "source": "ai_render",
@@ -408,7 +453,12 @@
       "bottom": "#ececec",
       "left": "#e5e4e5",
       "right": "#e4e4e4",
-      "crop": null
+      "crop": [
+        0.086,
+        0.304,
+        0.797,
+        0.642
+      ]
     },
     "glass/glass-ribbed": {
       "source": "ai_render",
@@ -420,7 +470,12 @@
       "bottom": "#dfdfe0",
       "left": "#dadadc",
       "right": "#e0e0e2",
-      "crop": null
+      "crop": [
+        0.086,
+        0.304,
+        0.797,
+        0.642
+      ]
     },
     "glass/glass-hammered": {
       "source": "ai_render",
@@ -432,7 +487,12 @@
       "bottom": "#cccccf",
       "left": "#c9c9cb",
       "right": "#cbcbce",
-      "crop": null
+      "crop": [
+        0.086,
+        0.304,
+        0.797,
+        0.642
+      ]
     },
     "glass/glass-iridescent": {
       "source": "ai_render",
@@ -495,7 +555,12 @@
       "bottom": "#e3c4b6",
       "left": "#f2f1f1",
       "right": "#e4c5b7",
-      "crop": null
+      "crop": [
+        0.408,
+        0.304,
+        0.518,
+        0.642
+      ]
     },
     "glass/glass-bubble-out-of-furnace": {
       "source": "ai_render",
@@ -507,7 +572,12 @@
       "bottom": "#dedee0",
       "left": "#dadadc",
       "right": "#dadadc",
-      "crop": null
+      "crop": [
+        0.086,
+        0.304,
+        0.797,
+        0.642
+      ]
     },
     "glass/glass-ice-cracks": {
       "source": "ai_render",
@@ -519,7 +589,12 @@
       "bottom": "#dedee0",
       "left": "#dadadc",
       "right": "#d8d8da",
-      "crop": null
+      "crop": [
+        0.08,
+        0.304,
+        0.754,
+        0.642
+      ]
     },
     "glass/glass-glass-debris": {
       "source": "ai_render",
@@ -531,7 +606,12 @@
       "bottom": "#d9dadc",
       "left": "#d0d1d2",
       "right": "#d4d5d7",
-      "crop": null
+      "crop": [
+        0.187,
+        0.304,
+        0.709,
+        0.642
+      ]
     },
     "stainless_steel/2-color-diagonal-glossy-ombre": {
       "source": "factory_photo",

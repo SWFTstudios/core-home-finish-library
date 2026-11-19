@@ -1,7 +1,8 @@
 #!/usr/bin/env node
 /**
  * Capture transparent front/back product shells from /render-qa.html?shells=1
- * and write them to public/assets/<material>/{front,back}.png.
+ * and write them to public/assets/<material>/{front,back}.png, plus the lighting passes the 2D
+ * view uses to paint finishes onto them: {front,back}-{uv,light,metal}.png.
  *
  * Requires a local static server (default http://127.0.0.1:8788) and Chrome.
  * Usage: node scripts/export-product-shells.mjs [baseUrl]
@@ -10,6 +11,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { spawn } from "node:child_process";
+import sharp from "sharp";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const BASE = process.argv[2] || "http://127.0.0.1:8788";
@@ -51,6 +53,8 @@ async function captureShells() {
       "--use-angle=swiftshader",
       "--enable-unsafe-swiftshader",
       "--window-size=800,1000",
+      // Chrome refuses to start as root (CI containers) without this.
+      ...(process.getuid?.() === 0 ? ["--no-sandbox"] : []),
       `${BASE}/render-qa.html?shells=1`,
     ],
     { stdio: ["ignore", "pipe", "pipe"] },
@@ -126,9 +130,14 @@ for (const material of MATERIALS) {
   if (!entry?.front || !entry?.back) throw new Error(`Missing shells for ${material}`);
   const dir = path.join(ROOT, "public", "assets", material);
   fs.mkdirSync(dir, { recursive: true });
-  for (const side of ["front", "back"]) {
-    const b64 = entry[side].replace(/^data:image\/png;base64,/, "");
-    fs.writeFileSync(path.join(dir, `${side}.png`), Buffer.from(b64, "base64"));
+  for (const [name, dataUrl] of Object.entries(entry)) {
+    const b64 = dataUrl.replace(/^data:image\/png;base64,/, "");
+    // Lossless recompression (~half the size). Never use sharp's palette / effort options here:
+    // they quantise colours and would corrupt the packed u/v values in the -uv pass.
+    const png = await sharp(Buffer.from(b64, "base64"))
+      .png({ compressionLevel: 9, adaptiveFiltering: true, palette: false })
+      .toBuffer();
+    fs.writeFileSync(path.join(dir, `${name}.png`), png);
   }
-  console.log(`Wrote public/assets/${material}/{front,back}.png`);
+  console.log(`Wrote public/assets/${material}/{front,back}{,-uv,-light,-metal}.png`);
 }

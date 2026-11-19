@@ -73,16 +73,16 @@ export function initPreview3d(container, { onReady, onError } = {}) {
 /**
  * @param {{ materialSlug?: string, finish?: object, logoFinish?: object | null, graphic?: object, theme?: string }} opts
  */
-export function updatePreview3d({ materialSlug, finish, logoFinish = null, theme }) {
+export function updatePreview3d({ materialSlug, finish, logoFinish = null, graphic = null, theme }) {
   if (!stage || disposed) return;
   if (theme) stage.setTheme(theme);
   const slug = materialSlug ?? "stainless_steel";
-  const key = [slug, finish?.id, logoFinish?.id].join("|");
+  const key = [slug, finish?.id, logoFinish?.id, graphic?.id].join("|");
   if (key === appliedKey) return;
   appliedKey = key;
   stage.setProduct(slug);
   containerEl?.setAttribute("aria-label", `3D preview: ${stage.productLabel}${finish ? ` in ${finish.name}` : ""}`);
-  stage.setFinishes({ body: finish, logo: logoFinish }).catch((err) => console.error("3D finish", err));
+  stage.setFinishes({ body: finish, logo: logoFinish, graphic }).catch((err) => console.error("3D finish", err));
 }
 
 export function setPreviewAutoRotate(enabled) {

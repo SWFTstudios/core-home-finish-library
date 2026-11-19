@@ -47,14 +47,14 @@ test("tintFromSpec boosts contrast for metallic finishes", () => {
   assert.ok(tint.contrast >= 1.08);
 });
 
-test("applyFinishOverlay maps photo onto shell mask", () => {
+test("applyFinishOverlay never stretches a photo over the shell", () => {
   const el = fakeTint();
   const finish = { name: "Dull/Textured", hexColor: "#4a7a4a" };
-  applyFinishOverlay(el, "/assets/plastic/front.png", finish, null, "/assets/renders/plastic/x.png");
+  const spec = finishRenderSpec(finish, "plastic");
+  applyFinishOverlay(el, "/assets/plastic/front.png", finish, spec, "/assets/renders/plastic/x.png");
   assert.equal(el._props.get("--mug-src"), 'url("/assets/plastic/front.png")');
-  assert.equal(el._props.get("--finish-photo"), 'url("/assets/renders/plastic/x.png")');
-  assert.ok(el._classes.has("mug-tint--photo"));
-  assert.equal(el.style.opacity, "1");
+  assert.ok(!el._props.has("--finish-photo"));
+  assert.ok(el._props.get("--finish-tint"));
 });
 
 test("applyFinishOverlay uses colour tint when there is no photo", () => {

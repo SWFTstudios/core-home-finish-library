@@ -1,11 +1,14 @@
 /**
  * Turn a finish render spec (finish-render-spec.js) into a THREE.MeshPhysicalMaterial.
  *
- * Colour maps (gradients, speckle, factory-photo patterns) are generated per finish and owned by
- * the material: call disposeFinishMaterial() when replacing it. Surface maps (glitter flakes,
+ * Colour maps come from buildAlbedo() (finish-albedo.js), the same map the 2D shells use, and are
+ * owned by the material: call disposeFinishMaterial() when replacing it. Surface maps (glitter flakes,
  * powder, hammered, …) are procedural and shared across finishes.
  */
 import * as THREE from "three";
+import { buildAlbedo, rng } from "./finish-albedo.js";
+import { badgeMask, maskCanvas } from "./logo-art.js";
+import { BADGE_MARGIN } from "./product-models-3d.js";
 
 const WHITE = new THREE.Color(0xffffff);
 
@@ -14,91 +17,6 @@ function canvas(w, h) {
   c.width = w;
   c.height = h;
   return c;
-}
-
-/** Deterministic noise so procedural maps look the same on every load. */
-function rng(seed) {
-  let s = seed >>> 0;
-  return () => {
-    s = (s * 1664525 + 1013904223) >>> 0;
-    return s / 4294967296;
-  };
-}
-
-function colorTexture(c, { repeatX = 1, mirror = false } = {}) {
-  const t = new THREE.CanvasTexture(c);
-  t.colorSpace = THREE.SRGBColorSpace;
-  t.wrapS = mirror ? THREE.MirroredRepeatWrapping : THREE.RepeatWrapping;
-  t.wrapT = THREE.ClampToEdgeWrapping;
-  t.repeat.set(repeatX, 1);
-  t.anisotropy = 8;
-  return t;
-}
-
-function gradientMap({ type, stops }) {
-  const size = 512;
-  const c = canvas(size, size);
-  const ctx = c.getContext("2d");
-  const clean = stops.filter(Boolean);
-  let g;
-  if (type === "diagonal") g = ctx.createLinearGradient(0, size, size, 0);
-  else g = ctx.createLinearGradient(0, 0, 0, size);
-  if (type === "split") {
-    g.addColorStop(0, clean[0]);
-    g.addColorStop(0.49, clean[0]);
-    g.addColorStop(0.51, clean[1] ?? clean[0]);
-    g.addColorStop(1, clean[1] ?? clean[0]);
-  } else {
-    clean.forEach((stop, i) => g.addColorStop(clean.length === 1 ? 0 : i / (clean.length - 1), stop));
-  }
-  ctx.fillStyle = g;
-  ctx.fillRect(0, 0, size, size);
-  // Mirrored wrap keeps diagonals continuous around the body with no seam.
-  return colorTexture(c, type === "diagonal" ? { repeatX: 2, mirror: true } : {});
-}
-
-function speckleMap(baseColor, { color, density, multicolor }) {
-  const size = 512;
-  const c = canvas(size, size);
-  const ctx = c.getContext("2d");
-  const rand = rng(7);
-  ctx.fillStyle = baseColor;
-  ctx.fillRect(0, 0, size, size);
-  const palette = multicolor ? ["#f4f2ee", "#e25d4a", "#3c8dd9", "#f2c94c", "#4caf7a"] : [color];
-  const count = Math.round(1800 * density);
-  for (let i = 0; i < count; i++) {
-    ctx.fillStyle = palette[Math.floor(rand() * palette.length)];
-    ctx.beginPath();
-    ctx.arc(rand() * size, rand() * size, 0.8 + rand() * 1.8, 0, Math.PI * 2);
-    ctx.fill();
-  }
-  return colorTexture(c, { repeatX: 3 });
-}
-
-/** Centre share of the product crop used as texture; the outer band holds silhouettes and rims. */
-const PHOTO_CORE = 0.6;
-
-/** Draw the centre of the product crop of a factory photo into a tileable canvas. */
-function loadPhotoMap(url, crop, aspect) {
-  return new Promise((resolve, reject) => {
-    const img = new Image();
-    img.crossOrigin = "anonymous";
-    img.onload = () => {
-      const [cx, cy, cw, ch] = crop;
-      const w = cw * PHOTO_CORE;
-      const h = ch * PHOTO_CORE;
-      const x = cx + (cw - w) / 2;
-      const y = cy + (ch - h) / 2;
-      const sw = Math.max(1, Math.round(w * img.naturalWidth));
-      const sh = Math.max(1, Math.round(h * img.naturalHeight));
-      const c = canvas(512, Math.round(512 * (sh / sw)) || 512);
-      c.getContext("2d").drawImage(img, x * img.naturalWidth, y * img.naturalHeight, sw, sh, 0, 0, c.width, c.height);
-      const tiles = Math.max(1, Math.round(aspect * (sh / sw)));
-      resolve(colorTexture(c, { repeatX: tiles, mirror: true }));
-    };
-    img.onerror = () => reject(new Error(`Photo texture failed: ${url}`));
-    img.src = url;
-  });
 }
 
 const surfaceCache = new Map();
@@ -226,16 +144,41 @@ export async function createFinishMaterial(spec, { photoUrl = null, aspect = 1.4
   const owned = [];
   let map = null;
 
-  if (spec.photo && photoUrl) {
-    try {
-      map = await loadPhotoMap(photoUrl, spec.photo.crop, aspect);
-    } catch (err) {
-      console.warn(err.message);
+  let transmissionMap = null;
+  if ((spec.photo && photoUrl) || spec.gradient || spec.speckle || spec.grain > 0) {
+    const albedo = await buildAlbedo(spec, { photoUrl, aspect });
+    let source = albedo.canvas;
+    if (albedo.translucent) {
+      // Glass photo map: colour over the glass tint, and alpha → where the glass stays clear.
+      const { width: w, height: h } = albedo.canvas;
+      const colour = canvas(w, h);
+      const cctx = colour.getContext("2d");
+      cctx.fillStyle = spec.color;
+      cctx.fillRect(0, 0, w, h);
+      cctx.drawImage(albedo.canvas, 0, 0);
+      source = colour;
+      const clear = canvas(w, h);
+      const tctx = clear.getContext("2d");
+      const src = albedo.canvas.getContext("2d").getImageData(0, 0, w, h);
+      const out = tctx.createImageData(w, h);
+      for (let i = 0; i < w * h; i++) {
+        const opaque = Math.min(1, Math.max(0, (src.data[i * 4 + 3] / 255 - 0.2) / 0.6));
+        const v = Math.round((1 - opaque) * 255);
+        out.data.set([v, v, v, 255], i * 4);
+      }
+      tctx.putImageData(out, 0, 0);
+      transmissionMap = new THREE.CanvasTexture(clear);
+      transmissionMap.wrapS = THREE.RepeatWrapping;
+      transmissionMap.wrapT = THREE.ClampToEdgeWrapping;
+      owned.push(transmissionMap);
     }
+    map = new THREE.CanvasTexture(source);
+    map.colorSpace = THREE.SRGBColorSpace;
+    map.wrapS = THREE.RepeatWrapping;
+    map.wrapT = THREE.ClampToEdgeWrapping;
+    map.anisotropy = 8;
+    owned.push(map);
   }
-  if (!map && spec.gradient) map = gradientMap(spec.gradient);
-  if (!map && spec.speckle) map = speckleMap(spec.color, spec.speckle);
-  if (map) owned.push(map);
 
   const material = new THREE.MeshPhysicalMaterial({
     color: map ? WHITE : color,
@@ -265,6 +208,7 @@ export async function createFinishMaterial(spec, { photoUrl = null, aspect = 1.4
     material.attenuationDistance = spec.attenuationDistance;
     material.color = map ? WHITE : color.clone().lerp(WHITE, 0.15);
   }
+  if (transmissionMap) material.transmissionMap = transmissionMap;
   if (spec.flakes) {
     material.normalMap = flakeNormalMap(spec.flakes.density);
     material.normalScale.set(0.35, 0.35);
@@ -276,6 +220,42 @@ export async function createFinishMaterial(spec, { photoUrl = null, aspect = 1.4
   }
   material.userData.ownedTextures = owned;
   material.userData.spec = spec;
+  return material;
+}
+
+/**
+ * Decal material for the graphic application badge (logo). The badge mask is the alpha; relief
+ * comes from the same mask as a bump map (raised > 0, etched / debossed < 0).
+ * @param {object} gspec from graphicRenderSpec()
+ */
+export async function createGraphicMaterial(gspec) {
+  const mask = await badgeMask(gspec.edge);
+  const alphaTex = new THREE.CanvasTexture(maskCanvas(mask, { opacity: gspec.opacity, margin: BADGE_MARGIN }));
+  alphaTex.colorSpace = THREE.SRGBColorSpace;
+  alphaTex.anisotropy = 8;
+  const bumpTex = new THREE.CanvasTexture(maskCanvas(mask, { asGrey: true, margin: BADGE_MARGIN }));
+  bumpTex.anisotropy = 8;
+  const color = new THREE.Color(gspec.color);
+  const material = new THREE.MeshPhysicalMaterial({
+    color,
+    map: alphaTex,
+    transparent: true,
+    depthWrite: false,
+    polygonOffset: true,
+    polygonOffsetFactor: -2,
+    polygonOffsetUnits: -2,
+    roughness: gspec.roughness,
+    metalness: gspec.metalness,
+    clearcoat: gspec.clearcoat,
+    clearcoatRoughness: 0.06,
+    bumpMap: bumpTex,
+    bumpScale: gspec.relief * 6,
+    envMapIntensity: gspec.metalness > 0.8 ? 1.2 : 1,
+  });
+  // Emboss / deboss has no ink: only the pressed edge should show, so the face stays faint.
+  if (gspec.kind === "relief") material.opacity = 0.35;
+  material.userData.ownedTextures = [alphaTex, bumpTex];
+  material.userData.graphic = gspec;
   return material;
 }
 

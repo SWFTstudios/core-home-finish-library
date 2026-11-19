@@ -12,6 +12,7 @@
  *   speckle   { color, density }  dots painted into the colour map
  *   bump      "powder" | "leather" | "hammered" | "ribbed" | "bubbles" | "cracks" | "sand"
  *   photo     { crop: [x, y, w, h] }  use the factory photo itself as the colour map
+ *   grain     0–1 fine colour variation (orange peel, glaze pooling) on flat colour maps
  */
 
 const STEEL = "#c9ccd0";
@@ -35,6 +36,12 @@ const MATERIAL_BASE = {
 /** Finishes whose look is a pattern no single colour can describe; drawn from the photo. */
 const PATTERN =
   /splatter|drip|swirl|marbl|reactive|freeform|transfer|decal|silk screen|3d print|laser engraved|leafed|raindrop|filigree|debris|colou?red spots|colou?red powder|two color clay|sand clay|scented|sheer 3d|geo electroplating/;
+
+/**
+ * Finishes whose surface texture (flake, grit, crackle, mottling) is best shown by the photo
+ * itself. The photo is de-lit before use, so its shading does not fight the product lighting.
+ */
+const TEXTURED_PHOTO = /glitter|sparkle|speckle|sand|clay|crackle|crack|rustic|leather|marbl|terrazzo|stone|granite|confetti|bubble/;
 
 const has = (re, s) => re.test(s);
 
@@ -92,6 +99,7 @@ export function finishRenderSpec(finish, materialSlug, sampled = null, override 
     speckle: null,
     bump: null,
     photo: null,
+    grain: 0.05,
   };
 
   // Surface sheen level. Order matters: "semi-matte" must win over "matte" and "gloss".
@@ -170,7 +178,12 @@ export function finishRenderSpec(finish, materialSlug, sampled = null, override 
     spec.gradient = { type: "split", stops: [sampled.top ?? spec.color, spec.color2] };
   }
 
-  if (has(PATTERN, name) && sampled?.crop) {
+  // Flat colour maps get a little variation; metal and glass stay clean.
+  if (spec.family === "metal" || spec.transmission > 0.5) spec.grain = 0;
+  else if (spec.roughness > 0.6) spec.grain = 0.08;
+  else if (spec.roughness < 0.2) spec.grain = 0.03;
+
+  if ((has(PATTERN, name) || has(TEXTURED_PHOTO, name)) && sampled?.crop) {
     spec.photo = { crop: sampled.crop };
     spec.gradient = null;
     spec.speckle = null;

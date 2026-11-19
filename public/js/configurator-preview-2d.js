@@ -1,11 +1,19 @@
 /**
- * Configurator viewport — 2D preview with finish mapped onto front/back product shells.
+ * Configurator viewport — 2D preview with the finish painted onto front/back product shells.
  * Driven by material tab, finish wheel, and theme (parity with 3D module API).
+ *
+ * The finish is lit with the shell passes from the 3D studio (finish-composite-2d.js), so the 2D
+ * front and back show the real surface: the photo pattern wrapped around the body, gloss and
+ * metal reflections, glitter, see-through glass. If the passes are missing, a flat CSS tint over
+ * the shell is used instead.
  */
 import { getStoredTheme } from "./components/core-home-navbar.js";
 import { resolveFinishPreviewUrl, resolveGraphicComboUrl } from "./finish-asset-resolve.js";
 import { loadRenderData } from "./finish-render-data.js";
 import { finishRenderSpec, renderDataFor } from "./finish-render-spec.js";
+import { loadShellPasses, paintFinish } from "./finish-composite-2d.js";
+import { badgePlacement, surfaceAspect } from "./product-profiles.js";
+import { graphicRenderSpec } from "./graphic-application-spec.js";
 
 const DEFAULT_COLOR = "#c3c6d7";
 const FALLBACK_SRC = "/assets/ss/hero/default-tumbler.svg";
@@ -13,12 +21,12 @@ const MIN_SCALE = 0.65;
 const MAX_SCALE = 1.45;
 const DEFAULT_SCALE = 1;
 
-const MATERIAL_ASSETS = {
-  ceramic: { front: "/assets/ceramic/front.png", back: "/assets/ceramic/back.png" },
-  glass: { front: "/assets/glass/front.png", back: "/assets/glass/back.png" },
-  stainless_steel: { front: "/assets/stainless_steel/front.png", back: "/assets/stainless_steel/back.png" },
-  plastic: { front: "/assets/plastic/front.png", back: "/assets/plastic/back.png" },
-};
+const MATERIAL_ASSETS = Object.fromEntries(
+  ["ceramic", "glass", "stainless_steel", "plastic"].map((m) => [
+    m,
+    { base: `/assets/${m}`, front: `/assets/${m}/front.png`, back: `/assets/${m}/back.png` },
+  ]),
+);
 
 const IMAGE_LABEL = { factory_photo: "Factory photo", ai_render: "AI sample" };
 
@@ -29,6 +37,8 @@ let frontImg = null;
 let backImg = null;
 let frontTint = null;
 let backTint = null;
+let frontCanvas = null;
+let backCanvas = null;
 let scale = DEFAULT_SCALE;
 let disposed = false;
 let currentMaterial = "stainless_steel";
@@ -99,34 +109,23 @@ function imageSourceLabel(finish) {
 }
 
 /**
- * Paint a finish onto a shell silhouette via CSS mask.
- * Photo fills use background-image; colour-only uses solid/gradient + multiply.
+ * Fallback when the shell passes are unavailable: flat colour (or gradient) multiplied over the
+ * shell silhouette via CSS mask. Photos are never stretched over the shell.
  *
  * @param {HTMLElement|null} tintEl
  * @param {string} shellSrc
  * @param {object|null} finish
  * @param {object|null} spec
- * @param {string|null} imageUrl
  */
-export function applyFinishOverlay(tintEl, shellSrc, finish, spec, imageUrl) {
+export function applyFinishOverlay(tintEl, shellSrc, finish, spec) {
   if (!tintEl) return;
 
   tintEl.style.setProperty("--mug-src", `url("${shellSrc}")`);
-  tintEl.classList.toggle("mug-tint--photo", Boolean(imageUrl));
 
   if (!finish) {
     tintEl.style.removeProperty("--finish-tint");
-    tintEl.style.removeProperty("--finish-photo");
     tintEl.style.filter = "";
     tintEl.style.opacity = "0";
-    return;
-  }
-
-  if (imageUrl) {
-    tintEl.style.removeProperty("--finish-tint");
-    tintEl.style.setProperty("--finish-photo", `url("${imageUrl}")`);
-    tintEl.style.filter = "";
-    tintEl.style.opacity = "1";
     return;
   }
 
@@ -141,7 +140,6 @@ export function applyFinishOverlay(tintEl, shellSrc, finish, spec, imageUrl) {
     fill = `linear-gradient(${spec.gradient.type === "diagonal" ? "135deg" : "to bottom"}, ${a}, ${b})`;
   }
 
-  tintEl.style.removeProperty("--finish-photo");
   tintEl.style.setProperty("--finish-tint", fill);
   tintEl.style.filter = `brightness(${brightness}) contrast(${contrast}) saturate(${saturate})`;
   tintEl.style.opacity = String(opacity);
@@ -158,6 +156,7 @@ function buildDom(container) {
       <figure class="preview-2d-figure" data-view="front">
         <div class="mug-stack">
           <img class="mug-base mug-base--front" alt="" decoding="async" />
+          <canvas class="mug-base mug-render mug-render--front" role="img" hidden></canvas>
           <div class="mug-tint mug-tint--front" aria-hidden="true"></div>
         </div>
         <figcaption class="preview-2d-label">front</figcaption>
@@ -165,6 +164,7 @@ function buildDom(container) {
       <figure class="preview-2d-figure" data-view="back">
         <div class="mug-stack">
           <img class="mug-base mug-base--back" alt="" decoding="async" />
+          <canvas class="mug-base mug-render mug-render--back" role="img" hidden></canvas>
           <div class="mug-tint mug-tint--back" aria-hidden="true"></div>
         </div>
         <figcaption class="preview-2d-label">back</figcaption>
@@ -179,6 +179,20 @@ function buildDom(container) {
   backImg = container.querySelector(".mug-base--back");
   frontTint = container.querySelector(".mug-tint--front");
   backTint = container.querySelector(".mug-tint--back");
+  frontCanvas = container.querySelector(".mug-render--front");
+  backCanvas = container.querySelector(".mug-render--back");
+}
+
+/** Swap between the lit canvas render and the shell image + CSS tint fallback. */
+function showRendered(rendered) {
+  for (const [img, canvas, tint] of [
+    [frontImg, frontCanvas, frontTint],
+    [backImg, backCanvas, backTint],
+  ]) {
+    if (canvas) canvas.hidden = !rendered;
+    if (img) img.hidden = rendered;
+    if (tint) tint.hidden = rendered;
+  }
 }
 
 function setImageSrc(img, src, onFail) {
@@ -262,25 +276,66 @@ export function updatePreview2d({ materialSlug, finish, graphic, theme }) {
   if (theme) applySceneTheme(theme);
 
   const token = ++applyToken;
-  loadRenderData().then((data) => {
+  loadRenderData().then(async (data) => {
     if (token !== applyToken || disposed) return;
     const { sampled, override } = renderDataFor(data.renderData, data.overrides, slug, finish?.slug);
     const spec = finish ? finishRenderSpec(finish, slug, sampled, override) : null;
 
-    setImageSrc(frontImg, shellUrls.front);
-    setImageSrc(backImg, shellUrls.back);
     if (frontImg) frontImg.alt = `${materialLabel} ${finishName || "product"} front view`;
     if (backImg) backImg.alt = `${materialLabel} ${finishName || "product"} back view`;
-
-    applyFinishOverlay(frontTint, shellUrls.front, finish, spec, renderUrl);
-    applyFinishOverlay(backTint, shellUrls.back, finish, spec, renderUrl);
+    if (frontCanvas) frontCanvas.setAttribute("aria-label", frontImg?.alt ?? "");
+    if (backCanvas) backCanvas.setAttribute("aria-label", backImg?.alt ?? "");
 
     if (sourceEl) {
-      const label = renderUrl ? imageSourceLabel(finish) : null;
+      // The finish map is taken from this image; say where it came from.
+      const label = spec?.photo && renderUrl ? imageSourceLabel(finish) : null;
       sourceEl.hidden = !label;
-      sourceEl.textContent = label ?? "";
+      sourceEl.textContent = label ? `Texture from ${label.toLowerCase()}` : "";
     }
+
+    if (spec) {
+      try {
+        const [front, back] = await Promise.all([
+          loadShellPasses(shellUrls.base, "front"),
+          loadShellPasses(shellUrls.base, "back"),
+        ]);
+        if (token !== applyToken || disposed) return;
+        // Paint into fresh canvases, then swap, so the old finish stays until the new one is ready.
+        const next = [document.createElement("canvas"), document.createElement("canvas")];
+        await paintFinish({
+          spec,
+          photoUrl: finish.imageUrl ?? null,
+          aspect: surfaceAspect(slug),
+          sides: [
+            { passes: front, canvas: next[0] },
+            // The logo sits on the front; the back shows the other side of the product.
+            { passes: back, canvas: next[1], logo: false },
+          ],
+          graphic: graphic ? { gspec: graphicRenderSpec(graphic, spec), placement: badgePlacement(slug) } : null,
+        });
+        if (token !== applyToken || disposed) return;
+        copyCanvas(next[0], frontCanvas);
+        copyCanvas(next[1], backCanvas);
+        showRendered(true);
+        return;
+      } catch (err) {
+        console.warn(`2D finish render unavailable, using flat tint: ${err.message}`);
+      }
+    }
+
+    showRendered(false);
+    setImageSrc(frontImg, shellUrls.front);
+    setImageSrc(backImg, shellUrls.back);
+    applyFinishOverlay(frontTint, shellUrls.front, finish, spec);
+    applyFinishOverlay(backTint, shellUrls.back, finish, spec);
   });
+}
+
+function copyCanvas(from, to) {
+  if (!to) return;
+  to.width = from.width;
+  to.height = from.height;
+  to.getContext("2d").drawImage(from, 0, 0);
 }
 
 export function setPreviewAutoRotate(_enabled) {
@@ -306,6 +361,8 @@ export function disposePreview2d() {
   backImg = null;
   frontTint = null;
   backTint = null;
+  frontCanvas = null;
+  backCanvas = null;
 }
 
 function applySceneTheme(theme) {
