@@ -17,12 +17,12 @@ The live app is one full-screen page: [https://core-home-finish-library.elombe.w
 | **Top center — Material tabs** | Ceramic, Glass, S. Steel (stainless steel), Plastic. S. Steel has the fullest finish catalog today. |
 | **Center — 3D preview** | A rotating product stand-in (cube for now) updates color and surface as you change finishes. Light/dark mode follows the navbar theme toggle. |
 | **Left — Specs card** | Finish name, durability rating, cost tier, property notes, and **Add to Folder** (folder workflow coming later). |
-| **Right — Finish Selector** | Vertical scroll wheel: swatch + label, up/down arrows beside the active item, fade at top and bottom. |
+| **Right — Finish Selector** | Finish wheel (Figma "SS_Wheel"): swatches ride a large white disc at the right edge of the screen; the focused finish sits at 9 o'clock in a white bump with its name beside it, up/down arrows to its left. |
 | **Right bottom — Search card** | Text search plus Sort (name, color spectrum, light/dark, process) and filters (color group, style, process). |
 | **Bottom center — Graphic Application** | Shelf of treatments (e.g. Water Decal, Laser Etch). Pick one compatible with the selected finish. |
 | **Left of shelf — Zoom controls** | Zoom in, zoom out, and 360° auto-rotate on the 3D preview. |
 
-**How to try it:** Scroll the wheel or use the arrows, type in search, change a filter dropdown — the preview and specs card update immediately.
+**How to try it:** Scroll or drag the wheel, click any swatch (in any order — the wheel rotates to bring it into focus), use the arrows or the keyboard (arrows, Page Up / Down, Home / End), type in search, change a filter dropdown — the preview and specs card update when the wheel settles. In the 3D view, drag the product to orbit it, scroll to zoom, double-click to reset.
 
 ---
 
@@ -69,7 +69,7 @@ sequenceDiagram
 ### Browse and select
 
 - **Material tabs** at the top of the stage
-- **Scroll wheel** with curved layout and fade — focused finish sits near the vertical center of the screen on large monitors
+- **Finish wheel** ([`finish-wheel.js`](../public/js/finish-wheel.js)) — swatches on a real arc, continuous scroll with snap, drag with momentum, click-to-focus, keyboard support
 - **Search** by finish name
 - **Sort:** Name A→Z / Z→A, color spectrum, light-to-dark, dark-to-light, process
 - **Filter:** Color group, style family, process

@@ -2,6 +2,7 @@
  * CoreHomeNavbar — shared top navigation for all Render Portal pages.
  * Mount once via <div id="core-home-navbar-mount" data-active="library" data-variant="hud">
  */
+import { iconSvg } from "../icons.js";
 export const COMPONENT_NAME = "CoreHomeNavbar";
 export const STORAGE_THEME = "luminaTheme";
 export const NAVBAR_HEIGHT_VAR = "--core-home-navbar-height";
@@ -62,20 +63,20 @@ export function renderCoreHomeNavbarHTML(options = {}) {
     <div class="core-home-navbar__actions">
       <div class="core-home-navbar__theme-toggle" role="group" aria-label="Color theme">
         <button type="button" id="core-home-theme-light" aria-pressed="true" title="Light mode">
-          <span class="material-symbols-outlined" aria-hidden="true">light_mode</span>
+          ${iconSvg("light_mode")}
         </button>
         <button type="button" id="core-home-theme-dark" aria-pressed="false" title="Dark mode">
-          <span class="material-symbols-outlined" aria-hidden="true">dark_mode</span>
+          ${iconSvg("dark_mode")}
         </button>
       </div>
       <button type="button" class="core-home-navbar__icon-btn" aria-label="Home">
-        <span class="material-symbols-outlined">home</span>
+        ${iconSvg("home")}
       </button>
       <button type="button" class="core-home-navbar__icon-btn" aria-label="Folders">
-        <span class="material-symbols-outlined">folder</span>
+        ${iconSvg("folder")}
       </button>
       <button type="button" class="core-home-navbar__icon-btn" aria-label="Account">
-        <span class="material-symbols-outlined">account_circle</span>
+        ${iconSvg("account_circle")}
       </button>
     </div>
   </div>

@@ -5,6 +5,7 @@
  */
 import { createProductStage } from "./product-stage-3d.js";
 import { loadRenderData } from "./finish-render-data.js";
+import { iconSvg } from "./icons.js";
 
 let stage = null;
 let containerEl = null;
@@ -21,6 +22,19 @@ function animate() {
   if (disposed) return;
   animationId = requestAnimationFrame(animate);
   stage?.render();
+}
+
+/** "Drag to rotate" hint; fades out after the first orbit / zoom. */
+function addDragHint(container) {
+  const hint = document.createElement("p");
+  hint.className = "preview-3d-hint";
+  hint.setAttribute("aria-hidden", "true");
+  hint.innerHTML = `${iconSvg("3d_rotation")}Drag to rotate · Scroll to zoom · Double-click to reset`;
+  container.appendChild(hint);
+  const off = stage.onInteract(() => {
+    hint.classList.add("is-hidden");
+    off();
+  });
 }
 
 function showErrorMessage(container, message) {
@@ -60,6 +74,8 @@ export function initPreview3d(container, { onReady, onError } = {}) {
     showErrorMessage(containerEl, "3D preview paused — reload the page to restore.");
     onError?.("WebGL context lost.");
   });
+
+  addDragHint(container);
 
   resizeObserver = new ResizeObserver(() => stage?.resize());
   resizeObserver.observe(container);

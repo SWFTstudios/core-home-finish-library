@@ -172,10 +172,3 @@ export function filterFinishes(finishes, query) {
     return hay.includes(q);
   });
 }
-
-export const MATERIAL_ICONS = {
-  ceramic: "breakfast_dining",
-  glass: "window",
-  stainless_steel: "rebase",
-  plastic: "shopping_bag",
-};

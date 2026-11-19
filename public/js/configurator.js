@@ -8,6 +8,8 @@ import {
   getPreviewView,
 } from "./configurator-preview.js";
 import { renderGraphicThumbs } from "./graphic-thumbs.js";
+import { createFinishWheel } from "./finish-wheel.js";
+import { materialThumbHtml } from "./library-icons.js";
 import {
   browseFinishes,
   COLOR_GROUPS,
@@ -19,16 +21,6 @@ import {
 
 const API = "/api";
 
-const MATERIAL_ICONS = {
-  ceramic: "breakfast_dining",
-  glass: "window",
-  stainless_steel: "rebase",
-  plastic: "shopping_bag",
-};
-
-const WHEEL_ITEM_STEP = 68;
-const WHEEL_ARC_X = -16;
-const WHEEL_FADE_SPREAD = 3.25;
 
 const state = {
   luminaTheme: "light",
@@ -381,94 +373,50 @@ function bindFinishSearch() {
   }
 }
 
-function applyWheelItemVisuals(items, focusIndex) {
-  items.forEach((el, i) => {
-    const dist = Math.abs(i - focusIndex);
-    const t = Math.min(dist / WHEEL_FADE_SPREAD, 1);
-    const scale = 1 - t * 0.38;
-    const opacity = Math.max(0.15, 1 - t * 0.85);
-    const arcX = WHEEL_ARC_X * (1 - t ** 0.9);
-    el.style.setProperty("--wheel-scale", String(scale));
-    el.style.setProperty("--wheel-opacity", String(opacity));
-    el.style.setProperty("--wheel-x", `${arcX}px`);
-    el.classList.toggle("is-active", i === focusIndex);
-    el.classList.toggle("is-near", dist === 1);
-    el.setAttribute("aria-selected", i === focusIndex);
-  });
+let finishWheel = null;
+
+/** Round swatch for a finish: its photo / render, else the catalog colour. */
+function renderFinishSwatch(finish) {
+  const swatch = document.createElement("span");
+  swatch.className = "finish-swatch";
+  if (finish.imageUrl) {
+    swatch.classList.add("has-render");
+    if (finish.imageSource === "factory_photo") swatch.classList.add("is-photo");
+    const img = document.createElement("img");
+    img.src = finish.imageUrl;
+    img.alt = "";
+    img.loading = "lazy";
+    img.decoding = "async";
+    swatch.appendChild(img);
+  } else {
+    swatch.style.background = finish.hexColor || "#c3c6d7";
+  }
+  return swatch;
 }
 
-function updateWheelLayout() {
+function ensureFinishWheel() {
+  if (finishWheel) return finishWheel;
   const viewport = wheelViewport();
   const list = wheelList();
-  if (!viewport || !list) return;
+  const root = viewport?.closest(".finish-dial");
+  if (!viewport || !list || !root) return null;
+  finishWheel = createFinishWheel({
+    root,
+    viewport,
+    list,
+    renderSwatch: renderFinishSwatch,
+    onSelect: (index) => selectFinishIndex(index, { fromWheel: true }),
+  });
+  return finishWheel;
+}
 
-  const items = [...list.querySelectorAll(".wheel-item")];
-  const count = items.length;
-  if (!count) return;
-
-  const index = Math.min(state.finishIndex, count - 1);
-  state.finishIndex = index;
-
-  const viewH = viewport.clientHeight || 360;
-  const viewportRect = viewport.getBoundingClientRect();
-  const viewportMidpoint = viewH / 2;
-  const pageMidpoint = window.innerHeight / 2 - viewportRect.top;
-  const focusLine = window.matchMedia("(min-width: 1024px)").matches
-    ? Math.min(Math.max(pageMidpoint, WHEEL_ITEM_STEP * 1.75), viewH - WHEEL_ITEM_STEP * 1.25)
-    : viewportMidpoint;
-  const padTop = focusLine - WHEEL_ITEM_STEP / 2;
-  const padBottom = viewH - focusLine - WHEEL_ITEM_STEP / 2;
-  viewport.closest(".finish-dial")?.style.setProperty("--wheel-focus-line", `${focusLine}px`);
-  list.style.setProperty("--wheel-item-step", `${WHEEL_ITEM_STEP}px`);
-  list.style.paddingTop = `${Math.max(padTop, WHEEL_ITEM_STEP)}px`;
-  list.style.paddingBottom = `${Math.max(padBottom, WHEEL_ITEM_STEP)}px`;
-  list.style.transform = `translateY(${-index * WHEEL_ITEM_STEP}px)`;
-  applyWheelItemVisuals(items, index);
+/** Point the wheel at state.finishIndex (after a change made outside the wheel). */
+function updateWheelLayout() {
+  ensureFinishWheel()?.setIndex(state.finishIndex);
 }
 
 function buildWheelItems() {
-  const list = wheelList();
-  list.innerHTML = "";
-  const finishes = state.filteredFinishes;
-
-  finishes.forEach((finish, index) => {
-    const li = document.createElement("li");
-    li.className = "wheel-item";
-    li.dataset.index = String(index);
-    li.setAttribute("role", "option");
-
-    const inner = document.createElement("div");
-    inner.className = "wheel-item-inner";
-
-    const btn = document.createElement("button");
-    btn.type = "button";
-    btn.className = "finish-swatch-btn";
-    btn.setAttribute("aria-label", finish.name);
-
-    const swatch = document.createElement("span");
-    swatch.className = "finish-swatch";
-    if (finish.imageUrl) {
-      swatch.classList.add("has-render");
-      if (finish.imageSource === "factory_photo") swatch.classList.add("is-photo");
-      const img = document.createElement("img");
-      img.src = finish.imageUrl;
-      img.alt = "";
-      swatch.appendChild(img);
-    } else {
-      swatch.style.background = finish.hexColor || "#c3c6d7";
-    }
-    btn.appendChild(swatch);
-
-    const label = document.createElement("span");
-    label.className = "wheel-item-label";
-    label.textContent = finish.name;
-
-    inner.appendChild(btn);
-    inner.appendChild(label);
-    li.appendChild(inner);
-    btn.addEventListener("click", () => selectFinishIndex(index));
-    list.appendChild(li);
-  });
+  ensureFinishWheel()?.setItems(state.filteredFinishes, state.finishIndex);
 }
 
 function renderWheel() {
@@ -479,7 +427,7 @@ function renderWheel() {
   renderCarousel();
 }
 
-function selectFinishIndex(index) {
+function selectFinishIndex(index, { fromWheel = false } = {}) {
   if (index < 0 || index >= state.filteredFinishes.length) return;
   if (index === state.finishIndex) return;
   state.finishIndex = index;
@@ -487,85 +435,20 @@ function selectFinishIndex(index) {
   state.finishId = finish?.id ?? null;
   const graphics = compatibleGraphics(finish);
   state.graphicId = graphics[0]?.id ?? null;
-  updateWheelLayout();
+  if (!fromWheel) updateWheelLayout();
   updateSpecs();
   syncPreview();
   renderCarousel();
 }
 
 function bindFinishWheel() {
-  const viewport = wheelViewport();
-  const list = wheelList();
-  if (!viewport || !list) return;
-
-  let wheelAccum = 0;
-  const WHEEL_THRESHOLD = 48;
-
-  viewport.addEventListener(
-    "wheel",
-    (e) => {
-      e.preventDefault();
-      wheelAccum += e.deltaY;
-      if (Math.abs(wheelAccum) < WHEEL_THRESHOLD) return;
-      const step = wheelAccum > 0 ? 1 : -1;
-      wheelAccum = 0;
-      selectFinishIndex(state.finishIndex + step);
-    },
-    { passive: false }
-  );
-
-  let dragStartY = 0;
-  let dragStartIndex = 0;
-  let dragging = false;
-
-  const onPointerDown = (e) => {
-    if (e.button !== 0) return;
-    dragging = true;
-    dragStartY = e.clientY;
-    dragStartIndex = state.finishIndex;
-    list.classList.add("is-dragging");
-    viewport.setPointerCapture(e.pointerId);
-  };
-
-  const onPointerMove = (e) => {
-    if (!dragging) return;
-    const delta = e.clientY - dragStartY;
-    const offset = -dragStartIndex * WHEEL_ITEM_STEP + delta;
-    list.style.transform = `translateY(${offset}px)`;
-    const raw = dragStartIndex - Math.round(delta / WHEEL_ITEM_STEP);
-    const preview = Math.max(0, Math.min(state.filteredFinishes.length - 1, raw));
-    applyWheelItemVisuals([...list.querySelectorAll(".wheel-item")], preview);
-  };
-
-  const onPointerUp = (e) => {
-    if (!dragging) return;
-    dragging = false;
-    list.classList.remove("is-dragging");
-    viewport.releasePointerCapture(e.pointerId);
-    const delta = e.clientY - dragStartY;
-    const next = Math.max(
-      0,
-      Math.min(
-        state.filteredFinishes.length - 1,
-        dragStartIndex - Math.round(delta / WHEEL_ITEM_STEP)
-      )
-    );
-    selectFinishIndex(next);
-  };
-
-  viewport.addEventListener("pointerdown", onPointerDown);
-  viewport.addEventListener("pointermove", onPointerMove);
-  viewport.addEventListener("pointerup", onPointerUp);
-  viewport.addEventListener("pointercancel", onPointerUp);
-
+  ensureFinishWheel();
   document.getElementById("wheel-up")?.addEventListener("click", () => {
     selectFinishIndex(state.finishIndex - 1);
   });
   document.getElementById("wheel-down")?.addEventListener("click", () => {
     selectFinishIndex(state.finishIndex + 1);
   });
-
-  window.addEventListener("resize", () => updateWheelLayout());
 }
 
 function catalogForMaterial(data, materialSlug) {
@@ -614,12 +497,11 @@ function renderMaterials() {
     const selected = mat.slug === state.material;
     btn.setAttribute("aria-selected", selected);
 
-    const icon = MATERIAL_ICONS[mat.slug] ?? "category";
     const shortLabel =
       mat.slug === "stainless_steel" ? "S. Steel" : mat.label?.replace("Stainless Steel", "S. Steel") ?? mat.label;
 
     btn.innerHTML = `
-      <span class="material-symbols-outlined" aria-hidden="true">${icon}</span>
+      ${materialThumbHtml(mat.slug, shortLabel)}
       <span>${shortLabel}</span>
     `;
 
@@ -773,16 +655,6 @@ function bindControls() {
     }
   });
 
-  wheelViewport()?.addEventListener("keydown", (e) => {
-    if (e.key === "ArrowUp" || e.key === "ArrowLeft") {
-      e.preventDefault();
-      selectFinishIndex(state.finishIndex - 1);
-    }
-    if (e.key === "ArrowDown" || e.key === "ArrowRight") {
-      e.preventDefault();
-      selectFinishIndex(state.finishIndex + 1);
-    }
-  });
 }
 
 function finishIndexFromSlug(slug) {
