@@ -25,8 +25,8 @@ Rollout branches: `chore/infra-01-api-token` → `…-07-ci` (merge to `main` in
 - [x] GitHub secret `CLOUDFLARE_ACCOUNT_ID` (set via `gh` — May 2026)
 - [x] GitHub secret `CLOUDFLARE_API_TOKEN` (set Nov 2026 — verified present for Pages/Worker Actions)
 - [x] Re-run **Deploy Finish Library (Pages)** workflow (workflow_dispatch Nov 2026 — secrets OK)
-- [ ] Create remote D1: `npm run db:create` → update `database_id` in `wrangler.jsonc`
-- [ ] Apply remote schema: `npm run db:migrate`
+- [x] Remote D1 `render-portal-db` (`database_id` in `wrangler.jsonc`) — live; 160 finishes / 4 materials
+- [x] Remote schema applied (`schema.sql` + auth / request-access migrations)
 - [ ] Create R2 bucket `render-portal-files` in Cloudflare
 - [ ] Configure Cloudflare Access + seed `profiles` for real team emails
 - [ ] **Phase 2 Worker:** Production deploy `npm run deploy` (replace static catalog with live D1 API)
