@@ -105,13 +105,13 @@ npm run import:finishes
 npm run db:seed
 ```
 
-### 4. Create R2 bucket
+### 4. Create R2 bucket — **done**
 
 ```bash
 npx wrangler r2 bucket create render-portal-files
 ```
 
-Then enable the `r2_buckets` binding in [`wrangler.jsonc`](../wrangler.jsonc) (must match `bucket_name`).
+`RENDERS` → `render-portal-files` is enabled in [`wrangler.jsonc`](../wrangler.jsonc).
 
 ### 5. Email sign-in
 
@@ -135,13 +135,16 @@ npx wrangler d1 execute render-portal-db --remote --command "UPDATE profiles SET
 npm run deploy
 ```
 
+CI also deploys on push to `main` (`.github/workflows/deploy-worker.yml`).
+
 ### 8. Verify
 
-- `GET /api/health` → `{ "ok": true }`  
+- `GET /api/health` → `{ "ok": true, "database": true }`  
 - `/configurator/` signed out → redirects to `/login/`
 - `GET /api/me` (signed in) → profile JSON  
 - `GET /api/catalog?material=stainless_steel` → finishes from D1  
-- Load `/configurator/` — same UI, dynamic catalog
+- Load `/configurator/` — same UI, dynamic catalog  
+- `POST /api/renders/upload` — requires `RENDERS` (ID/Admin)
 
 ---
 
