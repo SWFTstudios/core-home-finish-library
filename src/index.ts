@@ -154,8 +154,17 @@ async function handleApi(
   }
   const db = env.DB;
   if (url.pathname.startsWith("/api/auth/")) {
-    return (await handleAuthApi(request, env as Env & { DB: D1Database }, url)) ??
-      Response.json({ error: "Not found" }, { status: 404, headers: JSON_HEADERS });
+    try {
+      return (await handleAuthApi(request, env as Env & { DB: D1Database }, url)) ??
+        Response.json({ error: "Not found" }, { status: 404, headers: JSON_HEADERS });
+    } catch (err) {
+      // Most often: the sign-in tables are missing (run `npm run db:migrate:auth`).
+      console.error("[auth] sign-in failed", err);
+      return Response.json(
+        { error: "Sign-in isn’t available right now. Please try again shortly or contact the Finish Library team." },
+        { status: 503, headers: JSON_HEADERS },
+      );
+    }
   }
   if (!profile) {
     return Response.json({ error: "Sign in required" }, { status: 401, headers: JSON_HEADERS });
