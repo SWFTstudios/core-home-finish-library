@@ -1,18 +1,14 @@
-export interface Env {
+import { currentProfile, handleAuthApi, handleMeApi, type AuthEnv, type SessionProfile } from "./auth";
+import { isPublicPath, safeNextPath } from "./auth-policy";
+
+export interface Env extends AuthEnv {
   /** Optional at runtime: branch preview builds run without the D1 binding. */
   DB?: D1Database;
   RENDERS?: R2Bucket;
   STATIC_ASSETS: Fetcher;
 }
 
-type Team = "PD" | "ID" | "GD" | "Admin";
-
-interface Profile {
-  id: string;
-  email: string;
-  full_name: string | null;
-  team: Team;
-}
+type Profile = SessionProfile;
 
 const JSON_HEADERS = {
   "Content-Type": "application/json",
@@ -42,30 +38,6 @@ async function staticCatalog(request: Request, env: Env, url: URL, reason: strin
   );
 }
 
-async function getProfile(
-  db: D1Database,
-  email: string,
-): Promise<Profile | null> {
-  const row = await db
-    .prepare("SELECT id, email, full_name, team FROM profiles WHERE email = ?")
-    .bind(email)
-    .first<Profile>();
-  return row ?? null;
-}
-
-function resolveUserEmail(request: Request, url: URL): string | null {
-  const accessEmail = request.headers.get(
-    "Cf-Access-Authenticated-User-Email",
-  );
-  if (accessEmail) return accessEmail;
-
-  if (url.hostname === "localhost" || url.hostname === "127.0.0.1") {
-    return url.searchParams.get("dev_email") ?? "pd@corehome.internal";
-  }
-
-  return null;
-}
-
 async function uploadRender(
   env: Env,
   file: File,
@@ -91,25 +63,77 @@ function assetRequestForPath(request: Request, pathname: string): Request {
   return new Request(url.toString(), request);
 }
 
+function redirect(url: URL, path: string): Response {
+  return new Response(null, { status: 302, headers: { Location: `${url.origin}${path}`, "Cache-Control": "no-store" } });
+}
+
+function wantsPage(request: Request, pathname: string): boolean {
+  if (request.method !== "GET" && request.method !== "HEAD") return false;
+  if (pathname.endsWith("/") || pathname.endsWith(".html")) return true;
+  return (request.headers.get("Accept") ?? "").includes("text/html");
+}
+
+function unavailable(message: string): Response {
+  return new Response(
+    `<!doctype html><meta charset="utf-8"><title>Core Home</title><body style="font-family:system-ui;padding:48px;max-width:560px;margin:auto"><h1 style="font-size:22px">Sign-in unavailable</h1><p>${message}</p></body>`,
+    { status: 503, headers: { "Content-Type": "text/html; charset=utf-8", "Cache-Control": "no-store" } },
+  );
+}
+
 export default {
   async fetch(request: Request, env: Env): Promise<Response> {
     const url = new URL(request.url);
+    const path = url.pathname;
 
-    if (url.pathname.startsWith("/api/")) {
-      return handleApi(request, env, url);
+    if (request.method === "GET" && (path === "/login" || path === "/welcome" || path === "/settings")) {
+      return redirect(url, `${path}/${url.search}`);
     }
 
-    if (request.method === "GET") {
-      if (url.pathname === "/" || url.pathname === "") {
-        return Response.redirect(`${url.origin}/configurator/`, 302);
+    // Public: the sign-in page, its scripts and styles, and the auth endpoints.
+    if (isPublicPath(path)) {
+      if (path.startsWith("/api/")) return handleApi(request, env, url, null);
+      if (path.startsWith("/login") && env.DB) {
+        // Already signed in? Skip the form.
+        const me = await currentProfile(request, env.DB);
+        if (me) return redirect(url, safeNextPath(url.searchParams.get("next")));
       }
-
-      if (url.pathname === "/configurator") {
-        return Response.redirect(`${url.origin}/configurator/`, 302);
-      }
+      return env.STATIC_ASSETS.fetch(assetRequestForPath(request, path));
     }
 
-    return env.STATIC_ASSETS.fetch(assetRequestForPath(request, url.pathname));
+    if (!env.DB) {
+      return wantsPage(request, path)
+        ? unavailable("This copy of the Finish Library has no database, so nobody can sign in. Use the production site.")
+        : Response.json({ error: "Sign-in unavailable" }, { status: 503, headers: JSON_HEADERS });
+    }
+
+    const profile = await currentProfile(request, env.DB);
+    if (!profile) {
+      if (path.startsWith("/api/")) {
+        return Response.json({ error: "Sign in required" }, { status: 401, headers: JSON_HEADERS });
+      }
+      if (wantsPage(request, path)) {
+        const next = path === "/" ? "" : `?next=${encodeURIComponent(path + url.search)}`;
+        return redirect(url, `/login/${next}`);
+      }
+      return new Response("Sign in required", { status: 401, headers: { "Cache-Control": "no-store" } });
+    }
+
+    if (path.startsWith("/api/")) return handleApi(request, env, url, profile);
+
+    // First sign-in: set up the profile before anything else.
+    if (!profile.full_name && wantsPage(request, path) && !path.startsWith("/welcome")) {
+      return redirect(url, `/welcome/?next=${encodeURIComponent(path + url.search)}`);
+    }
+
+    if (request.method === "GET" && (path === "/" || path === "" || path === "/configurator")) {
+      return redirect(url, "/configurator/");
+    }
+
+    const res = await env.STATIC_ASSETS.fetch(assetRequestForPath(request, path));
+    // Signed-in pages must not be cached by shared caches.
+    const out = new Response(res.body, res);
+    out.headers.set("Cache-Control", "private, no-store");
+    return out;
   },
 };
 
@@ -117,59 +141,51 @@ async function handleApi(
   request: Request,
   env: Env,
   url: URL,
+  profile: Profile | null,
 ): Promise<Response> {
-  const isCatalog = request.method === "GET" && url.pathname === "/api/catalog";
+  if (url.pathname === "/api/health") {
+    return Response.json({ ok: true, service: "render-portal", database: Boolean(env.DB) }, { headers: JSON_HEADERS });
+  }
   if (!env.DB) {
-    if (isCatalog) return staticCatalog(request, env, url, "no database binding");
-    if (url.pathname === "/api/health") {
-      return Response.json({ ok: true, service: "render-portal", database: false }, { headers: JSON_HEADERS });
-    }
     return Response.json(
       { error: "Database not available in this environment" },
       { status: 503, headers: JSON_HEADERS },
     );
   }
+  const db = env.DB;
+  if (url.pathname.startsWith("/api/auth/")) {
+    return (await handleAuthApi(request, env as Env & { DB: D1Database }, url)) ??
+      Response.json({ error: "Not found" }, { status: 404, headers: JSON_HEADERS });
+  }
+  if (!profile) {
+    return Response.json({ error: "Sign in required" }, { status: 401, headers: JSON_HEADERS });
+  }
+  if (url.pathname === "/api/me" || url.pathname.startsWith("/api/me/")) {
+    return (await handleMeApi(request, db, url, profile)) ??
+      Response.json({ error: "Not found" }, { status: 404, headers: JSON_HEADERS });
+  }
+  const isCatalog = request.method === "GET" && url.pathname === "/api/catalog";
   if (isCatalog) {
     try {
-      return await handleDbApi(request, env as Env & { DB: D1Database }, url);
+      return await handleDbApi(request, env as Env & { DB: D1Database }, url, profile);
     } catch (err) {
       console.error("D1 catalog failed, serving static catalog", err);
       return staticCatalog(request, env, url, "database error");
     }
   }
-  return handleDbApi(request, env as Env & { DB: D1Database }, url);
+  if (url.pathname === "/api/catalog.json") {
+    return env.STATIC_ASSETS.fetch(request);
+  }
+  return handleDbApi(request, env as Env & { DB: D1Database }, url, profile);
 }
 
 async function handleDbApi(
   request: Request,
   env: Env & { DB: D1Database },
   url: URL,
+  profile: Profile,
 ): Promise<Response> {
   await enableForeignKeys(env.DB);
-
-  if (url.pathname === "/api/health") {
-    return Response.json({ ok: true, service: "render-portal" }, { headers: JSON_HEADERS });
-  }
-
-  const isPublicCatalog =
-    request.method === "GET" && url.pathname === "/api/catalog";
-
-  const email = resolveUserEmail(request, url);
-  if (!email && !isPublicCatalog) {
-    return new Response("Unauthorized", { status: 401 });
-  }
-
-  const profile = email ? await getProfile(env.DB, email) : null;
-  if (!profile && !isPublicCatalog && url.pathname !== "/api/health") {
-    return Response.json(
-      { error: "No profile found for authenticated user" },
-      { status: 403, headers: JSON_HEADERS },
-    );
-  }
-
-  if (request.method === "GET" && url.pathname === "/api/me") {
-    return Response.json({ profile }, { headers: JSON_HEADERS });
-  }
 
   if (request.method === "GET" && url.pathname === "/api/catalog") {
     const material = url.searchParams.get("material") ?? "stainless_steel";

@@ -48,3 +48,4 @@ docs/*.xlsx
 
 # Factory sheet text exports (same rule as the xlsx sources above)
 docs/factory/
+.dev.vars

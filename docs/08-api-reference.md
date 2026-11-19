@@ -19,18 +19,14 @@ All API routes are under **`/api/`**. Non-API paths serve static files from `pub
 
 ## Authentication
 
-| Header / param | When |
-|----------------|------|
-| `Cf-Access-Authenticated-User-Email` | Production (Cloudflare Access) |
-| `?dev_email=` | Local dev fallback |
-| (default) `pd@corehome.internal` | Local if no header/param |
+Everyone signs in with their **@corehome.com** email ([`src/auth.ts`](../src/auth.ts), rules in [`src/auth-policy.ts`](../src/auth-policy.ts)):
 
-Responses:
+1. `/login/` posts the address to `POST /api/auth/request-code`. Only addresses ending exactly in `@corehome.com` (`ALLOWED_EMAIL_DOMAIN`) get a code.
+2. A 6-digit code is emailed through the Cloudflare Email Service `EMAIL` binding, sent from `AUTH_EMAIL_FROM`. Codes expire after 10 minutes and allow 5 tries; one address can ask for 5 codes an hour, at least 30 seconds apart. Only a hash of the code is stored.
+3. `POST /api/auth/verify` checks the code, creates the profile on first sign-in, and sets the `ch_session` cookie (`HttpOnly; Secure; SameSite=Lax`, 30 days). Only a hash of the session token is stored (`sessions` table).
+4. New profiles go to `/welcome/` to enter their name and team, then to the Finish Library, where the walkthrough starts automatically once.
 
-- **401** — no email resolved  
-- **403** — email not in `profiles` (except `/api/health`)
-
-Implementation: [`src/index.ts`](../src/index.ts).
+Every page, data file and API route needs a session except `/login/`, `/css/`, `/js/`, `/vendor/`, `/assets/brand/`, `/api/auth/*` and `/api/health`. Signed-out page requests redirect to `/login/?next=…`; API and data requests get **401**.
 
 ---
 
@@ -40,15 +36,37 @@ Implementation: [`src/index.ts`](../src/index.ts).
 
 No auth required.
 
-**Response:** `{ "ok": true, "service": "render-portal" }`
+**Response:** `{ "ok": true, "service": "render-portal", "database": true }`
 
 ---
 
-### `GET /api/me`
+### `POST /api/auth/request-code` · `POST /api/auth/verify` · `POST /api/auth/sign-out`
 
-**Auth:** required profile.
+No session required. Bodies: `{ "email" }`, `{ "email", "code" }`, none.
 
-**Response:** `{ "profile": { "id", "email", "full_name", "team" } }`
+| Status | Meaning |
+|--------|---------|
+| 403 `code: "domain"` | Not an @corehome.com address |
+| 429 | Too many codes or wrong tries (`retryAfter` seconds when waiting helps) |
+| 400 `code: "wrong" \| "expired" \| "locked"` | Code problems |
+
+`verify` returns `{ "profile", "needsProfile" }` and the session cookie.
+
+---
+
+### `GET /api/me` · `PATCH /api/me`
+
+**Response:** `{ "profile": { "id", "email", "full_name", "team", "department", "job_title", "onboarding_completed_at", "created_at" } }`
+
+`PATCH` accepts `full_name`, `department` (one of the listed teams) and `job_title`. Product Development, Industrial Design and Graphic Design also set `team` (PD / ID / GD), which controls who can create requests and upload renders.
+
+### `POST /api/me/onboarding`
+
+`{ "completed": true }` marks the Finish Library walkthrough as seen (`false` resets it).
+
+### `DELETE /api/me/sessions`
+
+Signs the person out on every device.
 
 ---
 

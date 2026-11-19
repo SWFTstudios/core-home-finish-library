@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en" data-lumina-theme="light">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Set up your profile | Core Home Finish Library</title>
+    <link rel="stylesheet" href="/css/lumina-finish.css" />
+    <link rel="stylesheet" href="/css/auth.css" />
+  </head>
+  <body class="auth-body">
+    <div class="auth-shell">
+      <main class="auth-main">
+        <a class="auth-brand" href="/configurator/"><img src="/assets/brand/core-home-logo.svg" alt="Core Home" /></a>
+
+        <div class="auth-card">
+          <section class="auth-step" aria-labelledby="welcome-title">
+            <p class="auth-eyebrow">Step 1 of 2 · Your profile</p>
+            <h1 id="welcome-title" class="auth-title">Welcome to the Finish Library</h1>
+            <p class="auth-lead">Tell the team who you are. You can change this any time in Settings.</p>
+
+            <form id="profile-form" class="auth-form" novalidate>
+              <div class="avatar-row" aria-hidden="true">
+                <span id="avatar" class="avatar">?</span>
+                <div><b id="avatar-name">Your name</b><span id="avatar-email"></span></div>
+              </div>
+              <div class="field">
+                <label class="field-label" for="full_name">Full name</label>
+                <input id="full_name" class="field-input" name="full_name" autocomplete="name" maxlength="80" required aria-describedby="name-error" />
+                <p id="name-error" class="field-error" role="alert"></p>
+              </div>
+              <div class="field">
+                <label class="field-label" for="department">Team</label>
+                <select id="department" class="field-select" name="department" required aria-describedby="dept-error">
+                  <option value="">Choose your team</option>
+                </select>
+                <p id="dept-error" class="field-error" role="alert"></p>
+              </div>
+              <div class="field">
+                <label class="field-label" for="job_title">Job title <span class="field-hint">(optional)</span></label>
+                <input id="job_title" class="field-input" name="job_title" autocomplete="organization-title" maxlength="80" />
+              </div>
+              <p id="form-error" class="field-error" role="alert"></p>
+              <button id="profile-submit" class="btn btn-primary btn-block" type="submit">Continue</button>
+            </form>
+            <p class="auth-note">Next: a one-minute tour of the Finish Library.</p>
+          </section>
+        </div>
+
+        <p class="auth-foot">Core Home · Product Development</p>
+      </main>
+
+      <aside class="auth-aside" aria-hidden="true">
+        <div class="auth-aside-copy">
+          <h2>You’re in. Let’s get you set up.</h2>
+          <p>Your name and team appear on the requests you make and the finishes you share.</p>
+        </div>
+        <div class="auth-products">
+          <figure class="auth-product" style="margin:0"><img src="/assets/brand/login-steel.jpg" alt="" /><span>Laser etch</span></figure>
+          <figure class="auth-product" style="margin:0"><img src="/assets/brand/login-mug.jpg" alt="" /><span>Emboss</span></figure>
+          <figure class="auth-product" style="margin:0"><img src="/assets/brand/login-glass.jpg" alt="" /><span>Glass etch</span></figure>
+        </div>
+        <div class="auth-stats">
+          <div><b>160</b><span>finishes</span></div>
+          <div><b>4</b><span>materials</span></div>
+          <div><b>26</b><span>logo methods</span></div>
+        </div>
+      </aside>
+    </div>
+    <script type="module" src="/js/auth/welcome.js"></script>
+  </body>
+</html>

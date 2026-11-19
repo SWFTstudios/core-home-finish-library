@@ -8,8 +8,34 @@ CREATE TABLE IF NOT EXISTS profiles (
   email      TEXT UNIQUE NOT NULL,
   full_name  TEXT,
   team       TEXT CHECK(team IN ('PD','ID','GD','Admin')),
-  created_at TEXT DEFAULT (datetime('now'))
+  created_at TEXT DEFAULT (datetime('now')),
+  department TEXT,
+  job_title  TEXT,
+  onboarding_completed_at TEXT,
+  last_sign_in_at TEXT,
+  updated_at TEXT
 );
+
+CREATE TABLE IF NOT EXISTS auth_codes (
+  id         TEXT PRIMARY KEY,
+  email      TEXT NOT NULL,
+  code_hash  TEXT NOT NULL,
+  expires_at INTEGER NOT NULL,
+  attempts   INTEGER NOT NULL DEFAULT 0,
+  used_at    INTEGER,
+  created_at INTEGER NOT NULL
+);
+CREATE INDEX IF NOT EXISTS idx_auth_codes_email ON auth_codes (email, created_at);
+
+CREATE TABLE IF NOT EXISTS sessions (
+  id           TEXT PRIMARY KEY,
+  profile_id   TEXT NOT NULL REFERENCES profiles(id) ON DELETE CASCADE,
+  created_at   INTEGER NOT NULL,
+  expires_at   INTEGER NOT NULL,
+  last_seen_at INTEGER NOT NULL,
+  user_agent   TEXT
+);
+CREATE INDEX IF NOT EXISTS idx_sessions_profile ON sessions (profile_id);
 
 CREATE TABLE IF NOT EXISTS material_types (
   id         TEXT PRIMARY KEY,

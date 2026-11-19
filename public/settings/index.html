@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en" data-lumina-theme="light">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Settings | Core Home Finish Library</title>
+    <link rel="stylesheet" href="/css/lumina-finish.css" />
+    <link rel="stylesheet" href="/css/core-home-navbar.css" />
+    <link rel="stylesheet" href="/css/auth.css" />
+  </head>
+  <body class="portal-body">
+    <div id="core-home-navbar-mount" data-active="settings"></div>
+
+    <main class="settings-main">
+      <header class="settings-header">
+        <h1>Settings</h1>
+        <p>Your profile, the Finish Library walkthrough and how the app looks.</p>
+      </header>
+
+      <section class="settings-section" aria-labelledby="profile-heading">
+        <h2 id="profile-heading">Profile</h2>
+        <p>Shown on render requests and anything you share with the team.</p>
+        <form id="profile-form" novalidate>
+          <div class="avatar-row" style="margin-bottom:24px" aria-hidden="true">
+            <span id="avatar" class="avatar">?</span>
+            <div><b id="avatar-name">—</b><span id="avatar-meta"></span></div>
+          </div>
+          <div class="settings-grid">
+            <div class="field">
+              <label class="field-label" for="full_name">Full name</label>
+              <input id="full_name" class="field-input" autocomplete="name" maxlength="80" required aria-describedby="name-error" />
+              <p id="name-error" class="field-error" role="alert"></p>
+            </div>
+            <div class="field">
+              <label class="field-label" for="department">Team</label>
+              <select id="department" class="field-select">
+                <option value="">Choose your team</option>
+              </select>
+            </div>
+            <div class="field">
+              <label class="field-label" for="job_title">Job title</label>
+              <input id="job_title" class="field-input" autocomplete="organization-title" maxlength="80" />
+            </div>
+            <div class="field">
+              <label class="field-label" for="email">Email</label>
+              <input id="email" class="field-input" readonly aria-describedby="email-hint" />
+              <span id="email-hint" class="field-hint">Your sign-in address can’t be changed.</span>
+            </div>
+          </div>
+          <div class="settings-actions">
+            <button id="profile-save" class="btn btn-primary" type="submit">Save changes</button>
+            <span id="profile-status" class="settings-status" role="status" aria-live="polite"></span>
+          </div>
+        </form>
+      </section>
+
+      <section class="settings-section" aria-labelledby="tour-heading">
+        <h2 id="tour-heading">Finish Library walkthrough</h2>
+        <p>A short guided tour of materials, the finish wheel, 2D and 3D views and logo applications.</p>
+        <div class="walkthrough-card">
+          <span class="walkthrough-icon" id="tour-icon"></span>
+          <div class="walkthrough-copy">
+            <b>Take the walkthrough again</b>
+            <span id="tour-status">About one minute, ten steps.</span>
+          </div>
+          <a id="tour-start" class="btn btn-secondary" href="/configurator/?tour=1">Start walkthrough</a>
+        </div>
+      </section>
+
+      <section class="settings-section" aria-labelledby="look-heading">
+        <h2 id="look-heading">Appearance</h2>
+        <p>Applies on this device.</p>
+        <div class="segmented" role="group" aria-label="Color theme">
+          <button type="button" data-theme="light" aria-pressed="false">Light</button>
+          <button type="button" data-theme="dark" aria-pressed="false">Dark</button>
+        </div>
+      </section>
+
+      <section class="settings-section" aria-labelledby="account-heading">
+        <h2 id="account-heading">Account</h2>
+        <p id="account-meta">Signed in.</p>
+        <div class="settings-actions" style="margin-top:0">
+          <button id="sign-out" class="btn btn-secondary" type="button">Sign out</button>
+          <button id="sign-out-all" class="btn btn-danger" type="button">Sign out on all devices</button>
+        </div>
+      </section>
+    </main>
+
+    <script type="module" src="/js/portal.js"></script>
+    <script type="module" src="/js/auth/settings.js"></script>
+  </body>
+</html>
