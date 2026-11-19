@@ -13,10 +13,10 @@
   },
   "vars": {
     "ALLOWED_EMAIL_DOMAIN": "corehome.com",
-    "AUTH_EMAIL_FROM": "Core Home Finish Library <no-reply@swftstudios.com>"
+    "AUTH_EMAIL_FROM": "Core Home Finish Library <no-reply@core-home-finish-library.swftstudios.com>"
   },
   "send_email": [
-    { "name": "EMAIL", "allowed_sender_addresses": ["no-reply@swftstudios.com"] }
+    { "name": "EMAIL", "allowed_sender_addresses": ["no-reply@core-home-finish-library.swftstudios.com"] }
   ],
   "d1_databases": [
     {

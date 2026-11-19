@@ -15,15 +15,24 @@ export const DEPARTMENTS = [
 ];
 
 async function call(path, { method = "GET", body } = {}) {
-  const res = await fetch(path, {
-    method,
-    credentials: "same-origin",
-    headers: { Accept: "application/json", ...(body ? { "Content-Type": "application/json" } : {}) },
-    body: body ? JSON.stringify(body) : undefined,
-  });
+  let res;
+  try {
+    res = await fetch(path, {
+      method,
+      credentials: "same-origin",
+      headers: { Accept: "application/json", ...(body ? { "Content-Type": "application/json" } : {}) },
+      body: body ? JSON.stringify(body) : undefined,
+    });
+  } catch {
+    throw Object.assign(new Error("Can’t reach the server. Check your connection and try again."), { status: 0 });
+  }
   const data = await res.json().catch(() => ({}));
   if (!res.ok) {
-    const err = new Error(data.error || res.statusText || "Request failed");
+    const fallback =
+      res.status >= 500
+        ? "Something went wrong on our side. Please try again in a minute."
+        : res.statusText || "Request failed";
+    const err = new Error(data.error || fallback);
     err.status = res.status;
     err.data = data;
     throw err;

@@ -27,7 +27,7 @@ import {
 export interface AuthEnv {
   DB?: D1Database;
   EMAIL?: SendEmail;
-  /** Sender shown on the code email, e.g. "Core Home Finish Library <no-reply@swftstudios.com>". */
+  /** Sender shown on the code email, e.g. "Core Home Finish Library <no-reply@core-home-finish-library.swftstudios.com>". */
   AUTH_EMAIL_FROM?: string;
   /** Company email domain allowed to sign in (default corehome.com). */
   ALLOWED_EMAIL_DOMAIN?: string;
