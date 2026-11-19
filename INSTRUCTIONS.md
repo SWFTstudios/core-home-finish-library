@@ -52,7 +52,8 @@
 
 Worktree: `../CORE HOME FINISH LIBRARY-3d` (from `feature/3d-product-render`).
 
-- [ ] PD: confirm real height / top and bottom diameter for each hero product → update `PROFILES` in `public/js/product-models-3d.js` (then re-run `npm run shells:export`)
+- [ ] PD: confirm real height / top and bottom diameter for each hero product → update `PROFILES` in `public/js/product-profiles.js` (then re-run `npm run shells:export`)
+- [x] Authentic finishes on the product: 2D paints the finish onto the shells with the 3D studio's lighting passes (no more stretched photos); 3D and 2D share one de-lit, seamless photo colour map (branch `claude/finish-library-improvements-836hk0`)
 - [ ] GD / PD: review `/render-qa.html` per material; record corrections in `public/data/finish-render-overrides.json`
 - [ ] GD / PD: set `reviewStatus` in `data/ai-photos.json` (`approved` / `rejected`) for the 28 AI photos; regenerate rejected ones
 - [ ] Re-run `npm run render:colors` whenever factory photos or AI images change

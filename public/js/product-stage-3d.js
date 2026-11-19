@@ -124,14 +124,20 @@ export function createProductStage(
     }
   }
 
-  /** Front / back camera for shell exports (Y-up, looking at product centre). */
+  /**
+   * Front / back view for shell exports (Y-up, looking at product centre). The back is shown by
+   * turning the product around, not by moving the camera, so both sides get the same studio
+   * lighting and a finish reads as the same colour front and back.
+   */
   function setView(side = "front") {
     if (!product) return;
+    product.group.rotation.y = side === "back" ? Math.PI : 0;
+    product.group.updateMatrixWorld(true);
     const box = new THREE.Box3().setFromObject(product.group);
     const size = box.getSize(new THREE.Vector3());
     const center = box.getCenter(new THREE.Vector3());
     const dist = Math.max(size.y * 1.05, Math.max(size.x, size.z) * 1.4) / (2 * Math.tan(THREE.MathUtils.degToRad(camera.fov / 2)));
-    const dir = side === "back" ? new THREE.Vector3(0, 0.08, -1) : new THREE.Vector3(0, 0.08, 1);
+    const dir = new THREE.Vector3(0, 0.08, 1);
     camera.position.copy(center).addScaledVector(dir.normalize(), dist);
     camera.lookAt(center);
     if (controls) {
@@ -146,6 +152,7 @@ export function createProductStage(
    */
   function frame() {
     if (!product) return;
+    product.group.rotation.y = 0;
     const box = new THREE.Box3().setFromObject(product.group);
     const size = box.getSize(new THREE.Vector3());
     const center = box.getCenter(new THREE.Vector3());
@@ -186,11 +193,7 @@ export function createProductStage(
   async function materialFor(finish, data) {
     const { sampled, override } = renderDataFor(data.renderData, data.overrides, materialSlug, finish?.slug);
     const spec = finishRenderSpec(finish, materialSlug, sampled, override);
-    const outer = product.zones.body[0].geometry;
-    outer.computeBoundingBox();
-    const bb = outer.boundingBox;
-    const radius = (bb.max.x - bb.min.x) / 2;
-    const aspect = (2 * Math.PI * radius) / Math.max(product.height, 1e-3);
+    const aspect = product.circumference / Math.max(product.height, 1e-3);
     return createFinishMaterial(spec, { photoUrl: finish?.imageUrl ?? null, aspect });
   }
 
@@ -221,6 +224,115 @@ export function createProductStage(
     if (bodyMat) assign("body", bodyMat);
     product.zones.logo[0].visible = Boolean(logoMat);
     if (logoMat) assign("logo", logoMat);
+  }
+
+  /**
+   * Render the lighting and surface-coordinate passes the 2D view uses to paint a finish onto a
+   * flat product image (deferred shading). Values are linear floats, one RGBA quad per pixel:
+   *   uv      u, v (surfaceUV), finishable mask, 0
+   *   light   diffuse (white matte), gloss reflection, satin reflection, 0
+   *   metal   mirror metal, brushed metal, facing ratio (N·V), 0
+   * Call after setView(); the passes match the current camera and canvas size.
+   */
+  function capturePasses() {
+    if (!product) return null;
+    const size = renderer.getDrawingBufferSize(new THREE.Vector2());
+    const target = new THREE.WebGLRenderTarget(size.x, size.y, { type: THREE.FloatType });
+    const finishable = new Set([...product.zones.body]);
+    const meshes = [];
+    product.group.traverse((o) => o.isMesh && o.visible && meshes.push(o));
+    const original = new Map(meshes.map((m) => [m, m.material]));
+    const shadows = keyLight.castShadow;
+    keyLight.castShadow = false;
+
+    const uvMaterial = (handle, mask) =>
+      new THREE.ShaderMaterial({
+        uniforms: {
+          uHeight: { value: product.height },
+          uCirc: { value: product.circumference },
+          uHandle: { value: handle ? 1 : 0 },
+          uMask: { value: mask },
+        },
+        vertexShader: `
+          varying vec3 vPos;
+          void main() {
+            vPos = position;
+            gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+          }`,
+        fragmentShader: `
+          uniform float uHeight; uniform float uCirc; uniform float uHandle; uniform float uMask;
+          varying vec3 vPos;
+          void main() {
+            float v = vPos.y / uHeight;
+            float u;
+            if (uHandle > 0.5) u = 0.75 + (vPos.z + vPos.x) / uCirc;
+            else { u = (atan(vPos.x, vPos.z) - 3.14159265) / 6.28318531; u = u - floor(u); }
+            gl_FragColor = vec4(u, v, uMask, 1.0);
+          }`,
+      });
+    const facingMaterial = new THREE.ShaderMaterial({
+      vertexShader: `
+        varying vec3 vN; varying vec3 vV;
+        void main() {
+          vec4 mv = modelViewMatrix * vec4(position, 1.0);
+          vN = normalize(normalMatrix * normal);
+          vV = -mv.xyz;
+          gl_Position = projectionMatrix * mv;
+        }`,
+      fragmentShader: `
+        varying vec3 vN; varying vec3 vV;
+        void main() { gl_FragColor = vec4(abs(dot(normalize(vN), normalize(vV))), 0.0, 0.0, 1.0); }`,
+    });
+    const lit = {
+      diffuse: new THREE.MeshStandardMaterial({ color: 0xffffff, roughness: 1, metalness: 0 }),
+      gloss: new THREE.MeshStandardMaterial({ color: 0x000000, roughness: 0.06, metalness: 0 }),
+      satin: new THREE.MeshStandardMaterial({ color: 0x000000, roughness: 0.42, metalness: 0 }),
+      mirror: new THREE.MeshStandardMaterial({ color: 0xffffff, roughness: 0.06, metalness: 1 }),
+      brushed: new THREE.MeshStandardMaterial({ color: 0xffffff, roughness: 0.34, metalness: 1 }),
+    };
+    const uvBody = uvMaterial(false, 1);
+    const uvHandle = uvMaterial(true, 1);
+    const uvFixed = uvMaterial(false, 0);
+    const prevClear = renderer.getClearColor(new THREE.Color());
+    const prevAlpha = renderer.getClearAlpha();
+    renderer.setClearColor(0x000000, 0);
+
+    const read = (pick) => {
+      for (const m of meshes) m.material = pick(m);
+      renderer.setRenderTarget(target);
+      renderer.clear();
+      renderer.render(scene, camera);
+      const out = new Float32Array(size.x * size.y * 4);
+      renderer.readRenderTargetPixels(target, 0, 0, size.x, size.y, out);
+      return out;
+    };
+    const fixedOr = (mat) => (m) => (finishable.has(m) ? mat : uvFixed);
+    const uv = read((m) => (finishable.has(m) ? (m.name === "handle" ? uvHandle : uvBody) : uvFixed));
+    const passes = {};
+    for (const key of Object.keys(lit)) passes[key] = read(fixedOr(lit[key]));
+    const facing = read(fixedOr(facingMaterial));
+
+    renderer.setRenderTarget(null);
+    renderer.setClearColor(prevClear, prevAlpha);
+    keyLight.castShadow = shadows;
+    for (const [m, mat] of original) m.material = mat;
+    for (const mat of [...Object.values(lit), uvBody, uvHandle, uvFixed, facingMaterial]) mat.dispose();
+    target.dispose();
+
+    // readRenderTargetPixels rows run bottom-up; flip to image order while packing.
+    const n = size.x * size.y;
+    const pack = () => new Float32Array(n * 4);
+    const out = { width: size.x, height: size.y, uv: pack(), light: pack(), metal: pack() };
+    for (let y = 0; y < size.y; y++) {
+      for (let x = 0; x < size.x; x++) {
+        const src = ((size.y - 1 - y) * size.x + x) * 4;
+        const dst = (y * size.x + x) * 4;
+        out.uv.set([uv[src], uv[src + 1], uv[src + 2] * uv[src + 3], uv[src + 3]], dst);
+        out.light.set([passes.diffuse[src], passes.gloss[src], passes.satin[src], 0], dst);
+        out.metal.set([passes.mirror[src], passes.brushed[src], facing[src], 0], dst);
+      }
+    }
+    return out;
   }
 
   function resize() {
@@ -279,6 +391,7 @@ export function createProductStage(
     setFinishes,
     setTheme,
     setView,
+    capturePasses,
     resize,
     render,
     zoom,

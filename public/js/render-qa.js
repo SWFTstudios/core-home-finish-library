@@ -16,6 +16,9 @@ const NEUTRAL = {
   finishProcess: "Paint",
 };
 
+/** Shells are exported at 2× the on-screen size so they stay sharp on retina displays. */
+if (SHELL_MODE) Object.assign(document.getElementById("qa-stage").style, { width: "720px", height: "960px" });
+
 const grid = document.getElementById("qa-grid");
 const status = document.getElementById("qa-status");
 const select = document.getElementById("qa-material");
@@ -110,6 +113,71 @@ async function renderMaterial(materialSlug) {
   status.textContent = `${finishes.length} finishes rendered.`;
 }
 
+/** Linear light value (0–4) → 8 bits, square-root encoded for precision in the shadows. */
+const encLight = (x) => Math.round(Math.sqrt(Math.min(Math.max(x / 4, 0), 1)) * 255);
+
+/**
+ * Grow the finishable area by a couple of pixels into the background, so the anti-aliased edge of
+ * the shell picks up the finish instead of the neutral grey.
+ */
+function dilatePasses(p, iterations = 2) {
+  const { width: w, height: h } = p;
+  for (let it = 0; it < iterations; it++) {
+    const mask = new Uint8Array(w * h);
+    for (let i = 0; i < w * h; i++) mask[i] = p.uv[i * 4 + 2] > 0.5 ? 1 : p.uv[i * 4 + 3] > 0.5 ? 2 : 0;
+    for (let y = 1; y < h - 1; y++) {
+      for (let x = 1; x < w - 1; x++) {
+        const i = y * w + x;
+        if (mask[i]) continue;
+        const nb = [i - 1, i + 1, i - w, i + w].find((j) => mask[j] === 1);
+        if (nb === undefined) continue;
+        for (const key of ["uv", "light", "metal"]) p[key].copyWithin(i * 4, nb * 4, nb * 4 + 4);
+      }
+    }
+  }
+}
+
+/** Pack the float passes into three PNGs (see public/js/finish-composite-2d.js for decoding). */
+function encodePasses(p) {
+  dilatePasses(p);
+  const { width: w, height: h } = p;
+  const images = {};
+  for (const key of ["uv", "light", "metal"]) {
+    const c = document.createElement("canvas");
+    c.width = w;
+    c.height = h;
+    const ctx = c.getContext("2d");
+    const img = ctx.createImageData(w, h);
+    const d = img.data;
+    const src = p[key];
+    for (let i = 0; i < w * h; i++) {
+      const o = i * 4;
+      if (key === "uv") {
+        const finishable = src[o + 2] > 0.5;
+        const u = Math.round(Math.min(Math.max(src[o], 0), 1) * 4095);
+        const v = Math.round(Math.min(Math.max(src[o + 1], 0), 1) * 4095);
+        d[o] = u >> 4;
+        d[o + 1] = v >> 4;
+        d[o + 2] = ((u & 15) << 4) | (v & 15);
+        d[o + 3] = finishable ? 255 : 0;
+      } else if (key === "light") {
+        d[o] = encLight(src[o]);
+        d[o + 1] = encLight(src[o + 1]);
+        d[o + 2] = encLight(src[o + 2]);
+        d[o + 3] = 255;
+      } else {
+        d[o] = encLight(src[o]);
+        d[o + 1] = encLight(src[o + 1]);
+        d[o + 2] = Math.round(Math.min(Math.max(src[o + 2], 0), 1) * 255);
+        d[o + 3] = 255;
+      }
+    }
+    ctx.putImageData(img, 0, 0);
+    images[key] = c.toDataURL("image/png");
+  }
+  return images;
+}
+
 async function exportShells() {
   status.textContent = "Exporting product shells…";
   select.disabled = true;
@@ -120,10 +188,17 @@ async function exportShells() {
     stage.setView("front");
     stage.render();
     const front = stage.renderer.domElement.toDataURL("image/png");
+    const frontPasses = encodePasses(stage.capturePasses());
     stage.setView("back");
     stage.render();
     const back = stage.renderer.domElement.toDataURL("image/png");
-    window.__shells[material] = { front, back };
+    const backPasses = encodePasses(stage.capturePasses());
+    window.__shells[material] = {
+      front,
+      back,
+      ...Object.fromEntries(Object.entries(frontPasses).map(([k, v]) => [`front-${k}`, v])),
+      ...Object.fromEntries(Object.entries(backPasses).map(([k, v]) => [`back-${k}`, v])),
+    };
 
     const fig = document.createElement("figure");
     fig.className = "render-qa-card";

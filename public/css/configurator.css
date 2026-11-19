@@ -1421,19 +1421,28 @@
   transition: opacity 0.25s ease, background 0.25s ease;
 }
 
-/* Factory / AI photo clipped to the product silhouette (not a side panel). */
-.mug-tint--photo {
-  background-color: transparent;
-  background-image: var(--finish-photo);
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  mix-blend-mode: normal;
+.mug-stack [hidden] {
+  display: none;
+}
+
+/* Lit finish render (finish-composite-2d.js); replaces the shell image + tint when available. */
+.mug-stack .mug-render {
+  animation: mug-render-in 0.25s ease;
+}
+
+@keyframes mug-render-in {
+  from {
+    opacity: 0.6;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
   .mug-tint {
     transition: none;
+  }
+
+  .mug-stack .mug-render {
+    animation: none;
   }
 }
 

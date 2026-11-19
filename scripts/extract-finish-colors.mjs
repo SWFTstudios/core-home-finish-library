@@ -136,6 +136,44 @@ function productCrop(mask, w, h) {
   return best;
 }
 
+/**
+ * Body box of a translucent product (glass renders): rows at least half as wide as the widest row
+ * (drops the straw above the lid), between the median left and right edges, inset a little.
+ */
+function bodyBox(px, w, h, minAlpha = 8) {
+  const rows = [];
+  for (let y = 0; y < h; y++) {
+    let l = -1;
+    let r = -1;
+    for (let x = 0; x < w; x++) {
+      if (px[y * w + x].a > minAlpha) {
+        if (l < 0) l = x;
+        r = x;
+      }
+    }
+    if (l >= 0) rows.push({ y, l, r, width: r - l + 1 });
+  }
+  if (!rows.length) return null;
+  const widest = Math.max(...rows.map((row) => row.width));
+  const body = rows.filter((row) => row.width >= widest * 0.5);
+  if (body.length < 4) return null;
+  const median = (vals) => vals.sort((a, b) => a - b)[Math.floor(vals.length / 2)];
+  const l = median(body.map((row) => row.l));
+  const r = median(body.map((row) => row.r));
+  const y0 = body[0].y;
+  const y1 = body[body.length - 1].y;
+  const ix = (r - l) * 0.06;
+  const iy = (y1 - y0) * 0.06;
+  return [(l + ix) / w, (y0 + iy) / h, (r - l - 2 * ix) / w, (y1 - y0 - 2 * iy) / h].map((v) => Number(v.toFixed(3)));
+}
+
+/** Product crop; translucent renders (tiny or no solid crop) fall back to the body box. */
+function cropFor(mask, px, w, h) {
+  const crop = productCrop(mask, w, h);
+  if (crop && crop[2] * crop[3] >= 0.08) return crop;
+  return bodyBox(px, w, h) ?? crop;
+}
+
 async function analyse(finish) {
   const { data, info } = await sharp(await imageBuffer(finish))
     .ensureAlpha()
@@ -149,7 +187,13 @@ async function analyse(finish) {
   }
 
   const bg = borderBackground(px, w, h);
-  const mask = px.map((p) => (p.a > 200 && !(bg && dist(p.c, bg) < 28) ? 1 : 0));
+  const notBg = (p) => !(bg && dist(p.c, bg) < 28);
+  // Glass and clear plastic renders are mostly translucent: colours come from the solid pixels,
+  // but the product area (and so the texture crop) includes the translucent glass too.
+  const solid = px.map((p) => (p.a > 200 && notBg(p) ? 1 : 0));
+  const area = px.map((p) => (p.a > 24 && notBg(p) ? 1 : 0));
+  const solidCount = solid.reduce((a, b) => a + b, 0);
+  const mask = solidCount >= 40 ? solid : area;
   const subject = px.filter((_, i) => mask[i]).map((p) => p.c);
   if (subject.length < 40) return null;
 
@@ -169,21 +213,26 @@ async function analyse(finish) {
     bottom: bandAverage(px, mask, w, h, (_, y) => y > 0.7),
     left: bandAverage(px, mask, w, h, (x) => x < 0.3),
     right: bandAverage(px, mask, w, h, (x) => x > 0.7),
-    crop: productCrop(mask, w, h),
+    crop: cropFor(mask, px, w, h),
   };
 }
 
 const catalog = JSON.parse(fs.readFileSync(CATALOG, "utf8"));
+// Keep the previous sample when a photo cannot be fetched (offline, R2 blocked), instead of
+// silently dropping the finish back to its placeholder colour.
+const previous = fs.existsSync(OUT) ? JSON.parse(fs.readFileSync(OUT, "utf8")).finishes ?? {} : {};
 const finishes = {};
 let failed = 0;
 for (const f of catalog.finishes) {
   if (!f.imageUrl) continue;
+  const key = `${f.materialSlug}/${f.slug}`;
   try {
     const entry = await analyse(f);
-    if (entry) finishes[`${f.materialSlug}/${f.slug}`] = entry;
+    if (entry) finishes[key] = entry;
   } catch (err) {
     failed++;
-    console.warn(`skip ${f.materialSlug}/${f.slug}: ${err.message}`);
+    if (previous[key]) finishes[key] = previous[key];
+    console.warn(`skip ${key}: ${err.message}${previous[key] ? " (kept previous sample)" : ""}`);
   }
 }
 
