@@ -98,19 +98,19 @@ Production Pages uses [`public/_redirects`](../public/_redirects) and [`public/_
 
 ## Local authentication
 
-Production uses Cloudflare Access. Locally, the Worker accepts:
-
-1. `Cf-Access-Authenticated-User-Email` if present, or  
-2. Query param `?dev_email=you@example.com`, or  
-3. Default `pd@corehome.internal` (must exist in `profiles` after seed)
-
-Example:
+Sign-in works locally with the same pages as production. Create `.dev.vars` (git-ignored) with:
 
 ```text
-http://localhost:8787/api/me?dev_email=pd@corehome.internal
+DEV_SHOW_CODES=1
 ```
 
-Seed creates `pd@corehome.internal` and `id@corehome.internal`.
+Then on `http://localhost:8787` (or `127.0.0.1`) the sign-in code is shown on the page and logged in the terminal instead of being emailed. Any `name@corehome.com` address works.
+
+For an existing local database, add the sign-in tables once:
+
+```bash
+npm run db:migrate:auth:local
+```
 
 ---
 
@@ -144,7 +144,7 @@ cp .cursor/mcp.json.example .cursor/mcp.json
 | Issue | Check |
 |-------|--------|
 | Empty finish list | Confirm `public/api/catalog` exists; check Network tab for `/api/catalog` 200 |
-| `403 No profile found` | Run `db:seed:local` or pass `dev_email` matching a seeded profile |
+| Redirected to `/login/` locally | Add `DEV_SHOW_CODES=1` to `.dev.vars` and sign in with any @corehome.com address; the code shows on the page |
 | 3D preview blank | CDN blocked? WebGL disabled? Console errors in `configurator-preview-3d.js` |
 | `wrangler dev` fails on `ASSETS` | Binding must be `STATIC_ASSETS` in `wrangler.jsonc` |
 | API 404 on dashboard routes | Run dev server; paths must start with `/api/` |

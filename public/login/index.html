@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en" data-lumina-theme="light">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sign in | Core Home Finish Library</title>
+    <link rel="stylesheet" href="/css/lumina-finish.css" />
+    <link rel="stylesheet" href="/css/auth.css" />
+  </head>
+  <body class="auth-body">
+    <div class="auth-shell">
+      <main class="auth-main">
+        <a class="auth-brand" href="/login/"><img src="/assets/brand/core-home-logo.svg" alt="Core Home" /></a>
+
+        <div class="auth-card">
+          <section id="step-email" class="auth-step" aria-labelledby="email-title">
+            <p class="auth-eyebrow">Finish Library</p>
+            <h1 id="email-title" class="auth-title">Sign in with your Core Home email</h1>
+            <p class="auth-lead">We’ll email you a 6-digit code. No password needed.</p>
+            <form id="email-form" class="auth-form" novalidate>
+              <div class="field">
+                <label class="field-label" for="email">Work email</label>
+                <input
+                  id="email"
+                  class="field-input"
+                  type="email"
+                  name="email"
+                  autocomplete="email"
+                  inputmode="email"
+                  placeholder="name@corehome.com"
+                  required
+                  aria-describedby="email-hint email-error"
+                />
+                <span id="email-hint" class="field-hint">Only @corehome.com addresses can sign in.</span>
+                <p id="email-error" class="field-error" role="alert"></p>
+              </div>
+              <button id="email-submit" class="btn btn-primary btn-block" type="submit">Email me a code</button>
+            </form>
+          </section>
+
+          <section id="step-code" class="auth-step" aria-labelledby="code-title" hidden>
+            <p class="auth-eyebrow">Check your inbox</p>
+            <h1 id="code-title" class="auth-title">Enter your code</h1>
+            <p class="auth-lead">We sent a 6-digit code to <strong id="code-email"></strong>. It expires in 10 minutes.</p>
+            <form id="code-form" class="auth-form" novalidate>
+              <div class="field">
+                <label class="field-label" for="code">Sign-in code</label>
+                <input
+                  id="code"
+                  class="field-input code-input"
+                  type="text"
+                  name="code"
+                  inputmode="numeric"
+                  autocomplete="one-time-code"
+                  pattern="[0-9]*"
+                  maxlength="7"
+                  placeholder="······"
+                  required
+                  aria-describedby="code-error"
+                />
+                <p id="code-error" class="field-error" role="alert"></p>
+              </div>
+              <p id="dev-code" class="dev-code" hidden></p>
+              <button id="code-submit" class="btn btn-primary btn-block" type="submit">Sign in</button>
+              <div class="auth-row">
+                <button id="change-email" class="btn-link" type="button">Use a different email</button>
+                <button id="resend" class="btn-link" type="button">Send a new code</button>
+              </div>
+            </form>
+            <p class="auth-note">Can’t find it? Check your junk folder for an email from Core Home Finish Library.</p>
+          </section>
+        </div>
+
+        <p class="auth-foot">Core Home · Product Development</p>
+      </main>
+
+      <aside class="auth-aside" aria-hidden="true">
+        <div class="auth-aside-copy">
+          <h2>Every finish, on the real product, before a sample exists.</h2>
+          <p>Choose a finish, see it in 2D or 3D with the logo applied, and share it with the team.</p>
+        </div>
+        <div class="auth-products">
+          <figure class="auth-product" style="margin:0"><img src="/assets/brand/login-steel.jpg" alt="" /><span>Laser etch</span></figure>
+          <figure class="auth-product" style="margin:0"><img src="/assets/brand/login-mug.jpg" alt="" /><span>Emboss</span></figure>
+          <figure class="auth-product" style="margin:0"><img src="/assets/brand/login-glass.jpg" alt="" /><span>Glass etch</span></figure>
+        </div>
+        <div class="auth-stats">
+          <div><b>160</b><span>finishes</span></div>
+          <div><b>4</b><span>materials</span></div>
+          <div><b>26</b><span>logo methods</span></div>
+        </div>
+      </aside>
+    </div>
+    <script type="module" src="/js/auth/login.js"></script>
+  </body>
+</html>

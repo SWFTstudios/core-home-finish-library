@@ -103,17 +103,21 @@ npm run db:seed
 
 In the Cloudflare dashboard, create bucket **`render-portal-files`** (must match `bucket_name` in `wrangler.jsonc`).
 
-### 5. Configure Cloudflare Access
+### 5. Email sign-in
 
-- Add Access application for the Worker hostname  
-- Restrict to Core Home team email domains / groups  
-- Ensure the policy injects `Cf-Access-Authenticated-User-Email`
+Sign-in uses one-time codes emailed through Cloudflare Email Service (see [API reference](08-api-reference.md#authentication)).
 
-### 6. Seed `profiles`
+- The sender domain in `AUTH_EMAIL_FROM` must be onboarded for Email Sending (`npx wrangler email sending list`). Today it is `no-reply@swftstudios.com`; to send from a Core Home address, onboard that domain and update `AUTH_EMAIL_FROM` and `allowed_sender_addresses` in `wrangler.jsonc`.
+- `ALLOWED_EMAIL_DOMAIN` (`corehome.com`) decides who may sign in.
+- Add the sign-in tables to the remote database once: `npm run db:migrate:auth`.
 
-Insert rows for real users (email + `team`). Without a profile, authenticated users receive **403**.
+### 6. Profiles
 
-Example teams: `PD`, `ID`, `GD`, `Admin`.
+Profiles are created on first sign-in; people add their name and team on `/welcome/`. To make someone an Admin:
+
+```bash
+npx wrangler d1 execute render-portal-db --remote --command "UPDATE profiles SET team='Admin' WHERE email='name@corehome.com'"
+```
 
 ### 7. Deploy Worker
 
@@ -124,7 +128,8 @@ npm run deploy
 ### 8. Verify
 
 - `GET /api/health` → `{ "ok": true }`  
-- `GET /api/me` (authenticated) → profile JSON  
+- `/configurator/` signed out → redirects to `/login/`
+- `GET /api/me` (signed in) → profile JSON  
 - `GET /api/catalog?material=stainless_steel` → finishes from D1  
 - Load `/configurator/` — same UI, dynamic catalog
 
