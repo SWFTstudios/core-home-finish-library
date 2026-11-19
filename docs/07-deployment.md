@@ -52,7 +52,9 @@ The workflow [`.github/workflows/deploy-pages.yml`](../.github/workflows/deploy-
 | `CLOUDFLARE_API_TOKEN` | Cloudflare dashboard → **My Profile** → API Tokens → Create token with **Cloudflare Pages — Edit** (and account read) |
 | `CLOUDFLARE_ACCOUNT_ID` | Cloudflare dashboard → **Workers & Pages** → right sidebar **Account ID** |
 
-Add them in GitHub: **Repository → Settings → Secrets and variables → Actions → New repository secret**.
+**Status (Nov 2026):** Both secrets exist on `SWFTstudios/core-home-finish-library` (`CLOUDFLARE_ACCOUNT_ID` May 2026; `CLOUDFLARE_API_TOKEN` Nov 2026). Pages and Worker deploy Actions use them successfully.
+
+Add or rotate them in GitHub: **Repository → Settings → Secrets and variables → Actions → New repository secret**.
 
 Or from a machine with `gh` logged in (account ID only — token must be created in the dashboard first):
 
