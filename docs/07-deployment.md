@@ -80,7 +80,7 @@ Requires Wrangler login or `CLOUDFLARE_API_TOKEN` + `CLOUDFLARE_ACCOUNT_ID` in y
 
 **For: WD, IT** — complete when render requests and auth are required in production.
 
-### 1. Create D1 database
+### 1. Create D1 database — **done**
 
 ```bash
 npm run db:create
@@ -88,13 +88,17 @@ npm run db:create
 
 Copy the returned **database ID** into [`wrangler.jsonc`](../wrangler.jsonc) (`database_id` field).
 
-### 2. Apply schema (remote)
+**Status:** `render-portal-db` UUID `1c016d41-eea8-4208-8585-5f7de2b82235` is bound in `wrangler.jsonc`.
+
+### 2. Apply schema (remote) — **done**
 
 ```bash
 npm run db:migrate
 ```
 
-### 3. Seed catalog
+Also run incremental migrations when needed: `db:migrate:auth`, `db:migrate:access` (and material slug if not already in schema).
+
+### 3. Seed catalog — **done** (re-run after factory import)
 
 ```bash
 npm run import:finishes
@@ -103,7 +107,11 @@ npm run db:seed
 
 ### 4. Create R2 bucket
 
-In the Cloudflare dashboard, create bucket **`render-portal-files`** (must match `bucket_name` in `wrangler.jsonc`).
+```bash
+npx wrangler r2 bucket create render-portal-files
+```
+
+Then enable the `r2_buckets` binding in [`wrangler.jsonc`](../wrangler.jsonc) (must match `bucket_name`).
 
 ### 5. Email sign-in
 

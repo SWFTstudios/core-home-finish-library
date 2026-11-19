@@ -56,8 +56,8 @@ Track day-to-day tasks in [`INSTRUCTIONS.md`](../INSTRUCTIONS.md).
 
 | Item | Owner | Next step |
 |------|--------|-----------|
-| Remote D1 + `database_id` in `wrangler.jsonc` | WD / IT | `npm run db:create`, update config, `db:migrate` |
-| R2 bucket `render-portal-files` | IT | Create in Cloudflare dashboard |
+| Remote D1 + `database_id` in `wrangler.jsonc` | WD / IT | **Done** — `render-portal-db` live |
+| R2 bucket `render-portal-files` | IT | Create + enable `RENDERS` binding |
 | Cloudflare Access + real `profiles` | IT | Policies for Core Home emails |
 | Production Worker deploy | WD | `npm run deploy` after D1/R2/Access |
 | Replace static catalog with live D1 API | WD | Remove or sync `public/api/catalog` after Worker live |
