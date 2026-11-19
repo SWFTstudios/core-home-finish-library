@@ -27,7 +27,7 @@ Rollout branches: `chore/infra-01-api-token` → `…-07-ci` (merge to `main` in
 - [x] Re-run **Deploy Finish Library (Pages)** workflow (workflow_dispatch Nov 2026 — secrets OK)
 - [x] Remote D1 `render-portal-db` (`database_id` in `wrangler.jsonc`) — live; 160 finishes / 4 materials
 - [x] Remote schema applied (`schema.sql` + auth / request-access migrations)
-- [ ] Create R2 bucket `render-portal-files` in Cloudflare
+- [x] R2 bucket `render-portal-files` created; `RENDERS` binding enabled in `wrangler.jsonc`
 - [ ] Configure Cloudflare Access + seed `profiles` for real team emails
 - [ ] **Phase 2 Worker:** Production deploy `npm run deploy` (replace static catalog with live D1 API)
 - [ ] CI (lint / `wrangler check`) when pipeline is needed

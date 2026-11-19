@@ -57,9 +57,9 @@ Track day-to-day tasks in [`INSTRUCTIONS.md`](../INSTRUCTIONS.md).
 | Item | Owner | Next step |
 |------|--------|-----------|
 | Remote D1 + `database_id` in `wrangler.jsonc` | WD / IT | **Done** — `render-portal-db` live |
-| R2 bucket `render-portal-files` | IT | Create + enable `RENDERS` binding |
-| Cloudflare Access + real `profiles` | IT | Policies for Core Home emails |
-| Production Worker deploy | WD | `npm run deploy` after D1/R2/Access |
+| R2 bucket `render-portal-files` | IT | **Done** — bucket + `RENDERS` binding |
+| Email OTP + real `profiles` | IT | `@corehome.com` domain; seed remaining teammates |
+| Production Worker deploy | WD | Live on `*.workers.dev`; CI on `main` |
 | Replace static catalog with live D1 API | WD | Remove or sync `public/api/catalog` after Worker live |
 | CI pipeline (`wrangler check`, lint) | WD | Add workflow when team scales |
 | Figma MCP finish sync | GD + WD | `.cursor/mcp.json`, map components → `finishes` |
