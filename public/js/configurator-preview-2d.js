@@ -1,5 +1,5 @@
 /**
- * Configurator viewport — 2D preview with finish photo or tinted product shell.
+ * Configurator viewport — 2D preview with finish mapped onto front/back product shells.
  * Driven by material tab, finish wheel, and theme (parity with 3D module API).
  */
 import { getStoredTheme } from "./components/core-home-navbar.js";
@@ -12,9 +12,6 @@ const FALLBACK_SRC = "/assets/ss/hero/default-tumbler.svg";
 const MIN_SCALE = 0.65;
 const MAX_SCALE = 1.45;
 const DEFAULT_SCALE = 1;
-const SHELL_ASPECT = 165 / 486;
-const RENDER_FIT_MAX = 2.5;
-const RENDER_FIT_EPSILON = 0.01;
 
 const MATERIAL_ASSETS = {
   ceramic: { front: "/assets/ceramic/front.png", back: "/assets/ceramic/back.png" },
@@ -27,7 +24,6 @@ const IMAGE_LABEL = { factory_photo: "Factory photo", ai_render: "AI sample" };
 
 let containerEl = null;
 let stageEl = null;
-let photoEl = null;
 let sourceEl = null;
 let frontImg = null;
 let backImg = null;
@@ -36,61 +32,7 @@ let backTint = null;
 let scale = DEFAULT_SCALE;
 let disposed = false;
 let currentMaterial = "stainless_steel";
-let resizeFitTimer = null;
 let applyToken = 0;
-
-function containDisplayHeight(boxW, boxH, imgAspect) {
-  const boxAspect = boxW / boxH;
-  if (imgAspect > boxAspect) return boxW / imgAspect;
-  return boxH;
-}
-
-function fitRenderImage(img, stackEl) {
-  if (!img || !stackEl || !img.naturalWidth || !img.naturalHeight) return;
-  const boxW = stackEl.clientWidth;
-  const boxH = stackEl.clientHeight;
-  if (!boxW || !boxH) return;
-  const shellDisplayH = containDisplayHeight(boxW, boxH, SHELL_ASPECT);
-  const renderAspect = img.naturalWidth / img.naturalHeight;
-  const renderDisplayH = containDisplayHeight(boxW, boxH, renderAspect);
-  if (!renderDisplayH) return;
-  const rawScale = shellDisplayH / renderDisplayH;
-  const fitScale = rawScale <= 1 + RENDER_FIT_EPSILON ? 1 : Math.min(RENDER_FIT_MAX, rawScale);
-  stackEl.style.setProperty("--render-fit-scale", String(fitScale));
-}
-
-function clearRenderFit() {
-  for (const img of [frontImg, backImg, photoEl]) {
-    img?.closest(".mug-stack")?.style.removeProperty("--render-fit-scale");
-  }
-}
-
-function syncRenderFit() {
-  if (!containerEl?.classList.contains("preview-2d--has-render")) return;
-  const img =
-    photoEl?.naturalWidth > 0
-      ? photoEl
-      : frontImg?.naturalWidth > 0
-        ? frontImg
-        : backImg?.naturalWidth > 0
-          ? backImg
-          : null;
-  const stack = img?.closest(".mug-stack");
-  if (!img || !stack) return;
-  fitRenderImage(img, stack);
-}
-
-function scheduleRenderFit() {
-  clearTimeout(resizeFitTimer);
-  resizeFitTimer = setTimeout(syncRenderFit, 100);
-}
-
-function bindRenderFit(img) {
-  if (!img) return;
-  const onLoad = () => syncRenderFit();
-  if (img.complete && img.naturalWidth > 0) onLoad();
-  else img.addEventListener("load", onLoad, { once: true });
-}
 
 /** Map finishRenderSpec → CSS filter on the tint layer. */
 export function tintFromSpec(spec) {
@@ -156,24 +98,53 @@ function imageSourceLabel(finish) {
   return IMAGE_LABEL[source] ?? null;
 }
 
-function applyTintLayer(tintEl, src, finish, spec) {
+/**
+ * Paint a finish onto a shell silhouette via CSS mask.
+ * Photo fills use background-image; colour-only uses solid/gradient + multiply.
+ *
+ * @param {HTMLElement|null} tintEl
+ * @param {string} shellSrc
+ * @param {object|null} finish
+ * @param {object|null} spec
+ * @param {string|null} imageUrl
+ */
+export function applyFinishOverlay(tintEl, shellSrc, finish, spec, imageUrl) {
   if (!tintEl) return;
+
+  tintEl.style.setProperty("--mug-src", `url("${shellSrc}")`);
+  tintEl.classList.toggle("mug-tint--photo", Boolean(imageUrl));
+
+  if (!finish) {
+    tintEl.style.removeProperty("--finish-tint");
+    tintEl.style.removeProperty("--finish-photo");
+    tintEl.style.filter = "";
+    tintEl.style.opacity = "0";
+    return;
+  }
+
+  if (imageUrl) {
+    tintEl.style.removeProperty("--finish-tint");
+    tintEl.style.setProperty("--finish-photo", `url("${imageUrl}")`);
+    tintEl.style.filter = "";
+    tintEl.style.opacity = "1";
+    return;
+  }
+
   const color = normalizeHex(spec?.color ?? finish?.hexColor);
   const { brightness, contrast, saturate, opacity } = spec
     ? tintFromSpec(spec)
-    : { brightness: 1, contrast: 1, saturate: 1, opacity: 0 };
+    : { brightness: 1, contrast: 1, saturate: 1, opacity: 0.72 };
 
-  tintEl.style.setProperty("--finish-tint", color);
+  let fill = color;
   if (spec?.gradient?.stops?.length >= 2) {
     const [a, b] = spec.gradient.stops;
-    tintEl.style.setProperty(
-      "--finish-tint",
-      `linear-gradient(${spec.gradient.type === "diagonal" ? "135deg" : "to bottom"}, ${a}, ${b})`,
-    );
+    fill = `linear-gradient(${spec.gradient.type === "diagonal" ? "135deg" : "to bottom"}, ${a}, ${b})`;
   }
-  tintEl.style.setProperty("--mug-src", `url("${src}")`);
+
+  tintEl.style.removeProperty("--finish-photo");
+  tintEl.style.setProperty("--finish-tint", fill);
   tintEl.style.filter = `brightness(${brightness}) contrast(${contrast}) saturate(${saturate})`;
-  tintEl.style.opacity = finish ? String(opacity) : "0";
+  tintEl.style.opacity = String(opacity);
 }
 
 function applyScale() {
@@ -181,19 +152,9 @@ function applyScale() {
   stageEl.style.setProperty("--preview-scale", String(scale));
 }
 
-function showErrorMessage(container, message) {
-  container.classList.add("is-error");
-  container.innerHTML = `<p class="preview-2d-fallback">${message}</p>`;
-}
-
 function buildDom(container) {
   container.innerHTML = `
     <div class="preview-2d-stage">
-      <figure class="preview-2d-figure preview-2d-figure--photo" data-view="photo" hidden>
-        <div class="mug-stack mug-stack--photo">
-          <img class="mug-base mug-base--photo" alt="" decoding="async" />
-        </div>
-      </figure>
       <figure class="preview-2d-figure" data-view="front">
         <div class="mug-stack">
           <img class="mug-base mug-base--front" alt="" decoding="async" />
@@ -213,7 +174,6 @@ function buildDom(container) {
   `;
 
   stageEl = container.querySelector(".preview-2d-stage");
-  photoEl = container.querySelector(".mug-base--photo");
   sourceEl = container.querySelector(".preview-2d-source");
   frontImg = container.querySelector(".mug-base--front");
   backImg = container.querySelector(".mug-base--back");
@@ -231,18 +191,6 @@ function setImageSrc(img, src, onFail) {
   img.src = src;
 }
 
-function setPhotoMode(enabled) {
-  if (!containerEl) return;
-  containerEl.classList.toggle("preview-2d--has-render", enabled);
-  containerEl.classList.toggle("preview-2d--photo", enabled);
-  const photoFigure = containerEl.querySelector('[data-view="photo"]');
-  const frontFigure = containerEl.querySelector('[data-view="front"]');
-  const backFigure = containerEl.querySelector('[data-view="back"]');
-  if (photoFigure) photoFigure.hidden = !enabled;
-  if (frontFigure) frontFigure.hidden = enabled;
-  if (backFigure) backFigure.hidden = enabled;
-}
-
 /**
  * @param {HTMLElement} container
  * @param {{ onReady?: () => void, onError?: (msg: string) => void }} [callbacks]
@@ -255,7 +203,7 @@ export function initPreview2d(container, { onReady, onError } = {}) {
 
   disposed = false;
   containerEl = container;
-  containerEl.classList.remove("is-error");
+  containerEl.classList.remove("is-error", "preview-2d--has-render", "preview-2d--photo");
   scale = DEFAULT_SCALE;
   buildDom(container);
   applyScale();
@@ -284,7 +232,6 @@ export function initPreview2d(container, { onReady, onError } = {}) {
     else img.addEventListener("load", onOneLoad, { once: true });
   }
 
-  window.addEventListener("resize", scheduleRenderFit);
   return true;
 }
 
@@ -320,35 +267,19 @@ export function updatePreview2d({ materialSlug, finish, graphic, theme }) {
     const { sampled, override } = renderDataFor(data.renderData, data.overrides, slug, finish?.slug);
     const spec = finish ? finishRenderSpec(finish, slug, sampled, override) : null;
 
-    if (renderUrl) {
-      setPhotoMode(true);
-      clearRenderFit();
-      setImageSrc(photoEl, renderUrl);
-      bindRenderFit(photoEl);
-      if (photoEl) {
-        photoEl.alt = finishName
-          ? `${materialLabel} ${finishName}`
-          : `${materialLabel} product`;
-      }
-      if (sourceEl) {
-        const label = imageSourceLabel(finish);
-        sourceEl.hidden = !label;
-        sourceEl.textContent = label ?? "";
-      }
-      if (frontTint) frontTint.style.opacity = "0";
-      if (backTint) backTint.style.opacity = "0";
-      return;
-    }
-
-    setPhotoMode(false);
-    clearRenderFit();
-    if (sourceEl) sourceEl.hidden = true;
     setImageSrc(frontImg, shellUrls.front);
     setImageSrc(backImg, shellUrls.back);
     if (frontImg) frontImg.alt = `${materialLabel} ${finishName || "product"} front view`;
     if (backImg) backImg.alt = `${materialLabel} ${finishName || "product"} back view`;
-    applyTintLayer(frontTint, shellUrls.front, finish, spec);
-    applyTintLayer(backTint, shellUrls.back, finish, spec);
+
+    applyFinishOverlay(frontTint, shellUrls.front, finish, spec, renderUrl);
+    applyFinishOverlay(backTint, shellUrls.back, finish, spec, renderUrl);
+
+    if (sourceEl) {
+      const label = renderUrl ? imageSourceLabel(finish) : null;
+      sourceEl.hidden = !label;
+      sourceEl.textContent = label ?? "";
+    }
   });
 }
 
@@ -364,15 +295,12 @@ export function zoomPreview(delta) {
 
 export function disposePreview2d() {
   disposed = true;
-  clearTimeout(resizeFitTimer);
-  window.removeEventListener("resize", scheduleRenderFit);
   if (containerEl) {
     containerEl.innerHTML = "";
     containerEl.classList.remove("is-error", "preview-2d--has-render", "preview-2d--photo");
   }
   containerEl = null;
   stageEl = null;
-  photoEl = null;
   sourceEl = null;
   frontImg = null;
   backImg = null;
