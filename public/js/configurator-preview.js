@@ -78,6 +78,9 @@ async function startView(view) {
   const el = mountTarget(view);
   showOnly(view);
   const init = view === "2d" ? mod.initPreview2d : mod.initPreview3d;
+  // Set before init: the 3D module calls onReady synchronously, and updatePreview() ignores
+  // calls while no view is active (the first finish would otherwise never reach the stage).
+  activeView = view;
   const ok = init(el, {
     onReady: () => {
       ready = true;
@@ -88,9 +91,9 @@ async function startView(view) {
   });
   if (ok === false) {
     ready = false;
+    activeView = null;
     return false;
   }
-  activeView = view;
   rememberView(view);
   return true;
 }

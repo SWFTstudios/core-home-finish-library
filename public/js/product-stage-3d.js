@@ -81,11 +81,38 @@ export function createProductStage(
 
   let grid = null;
   let controls = null;
+  /** True once the viewer has orbited / zoomed; a resize then keeps their angle. */
+  let userMoved = false;
+  let autoRotateWanted = false;
+  let resumeTimer = null;
+  const listeners = { interact: new Set() };
   if (interactive) {
+    // Click-drag (or one-finger drag) orbits, wheel / pinch zooms. Panning is off so the
+    // product always stays centred on the stage.
     controls = new OrbitControls(camera, renderer.domElement);
     controls.enableDamping = true;
-    controls.dampingFactor = 0.06;
+    controls.dampingFactor = 0.08;
+    controls.rotateSpeed = 0.85;
+    controls.zoomSpeed = 0.8;
+    controls.enablePan = false;
+    controls.minPolarAngle = Math.PI * 0.08;
     controls.maxPolarAngle = Math.PI * 0.49;
+    const canvas = renderer.domElement;
+    canvas.style.cursor = "grab";
+    controls.addEventListener("start", () => {
+      userMoved = true;
+      canvas.style.cursor = "grabbing";
+      // Hold auto-rotate while the viewer is driving; resume shortly after they let go.
+      clearTimeout(resumeTimer);
+      controls.autoRotate = false;
+      listeners.interact.forEach((fn) => fn());
+    });
+    controls.addEventListener("end", () => {
+      canvas.style.cursor = "grab";
+      clearTimeout(resumeTimer);
+      if (autoRotateWanted) resumeTimer = setTimeout(() => (controls.autoRotate = true), 2500);
+    });
+    canvas.addEventListener("dblclick", () => resetView());
   }
 
   let product = null;
@@ -188,6 +215,7 @@ export function createProductStage(
     materialSlug = slug;
     product = buildProduct(slug);
     scene.add(product.group);
+    userMoved = false;
     frame();
   }
 
@@ -357,7 +385,19 @@ export function createProductStage(
     camera.aspect = w / h;
     camera.updateProjectionMatrix();
     renderer.setSize(w, h, false);
+    if (!userMoved) frame();
+  }
+
+  /** Back to the default three-quarter view (double-click on the canvas). */
+  function resetView() {
+    userMoved = false;
     frame();
+  }
+
+  /** Called when the viewer starts orbiting or zooming (e.g. to hide the drag hint). */
+  function onInteract(fn) {
+    listeners.interact.add(fn);
+    return () => listeners.interact.delete(fn);
   }
 
   function render() {
@@ -376,11 +416,15 @@ export function createProductStage(
 
   function setAutoRotate(enabled) {
     if (!controls) return;
+    autoRotateWanted = enabled;
+    clearTimeout(resumeTimer);
     controls.autoRotate = enabled;
     controls.autoRotateSpeed = 1.15;
   }
 
   function dispose() {
+    clearTimeout(resumeTimer);
+    listeners.interact.clear();
     disposeProduct();
     controls?.dispose();
     envTexture.dispose();
@@ -410,6 +454,8 @@ export function createProductStage(
     resize,
     render,
     zoom,
+    resetView,
+    onInteract,
     setAutoRotate,
     dispose,
     get productLabel() {

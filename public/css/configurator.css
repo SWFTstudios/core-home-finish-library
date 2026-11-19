@@ -377,6 +377,41 @@
   touch-action: none;
 }
 
+/* The inactive view must not sit on top of the active one and swallow drags. */
+.preview-2d[hidden],
+.preview-3d[hidden] {
+  display: none !important;
+}
+
+.preview-3d-hint {
+  position: absolute;
+  left: 50%;
+  bottom: calc(var(--hud-bottom-h, 200px) + 0.75rem);
+  transform: translateX(-50%);
+  margin: 0;
+  padding: 6px 12px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  border-radius: 999px;
+  font-family: var(--lumina-font-label);
+  font-size: 12px;
+  white-space: nowrap;
+  color: var(--lumina-on-surface-variant);
+  background: color-mix(in srgb, var(--lumina-surface-container-lowest, #fff) 80%, transparent);
+  border: 1px solid var(--lumina-outline-variant);
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+}
+
+.preview-3d-hint .material-symbols-outlined {
+  font-size: 16px;
+}
+
+.preview-3d-hint.is-hidden {
+  opacity: 0;
+}
+
 .preview-3d.is-error {
   display: flex;
   align-items: center;
